@@ -1,0 +1,13 @@
+=flash[:error]
+=form_tag "/stories/#{@story.id}/do_assign_streams",:method=>:put do
+  %div
+    %label 分配所属 Streams
+  %div
+    -streams = @story.streams
+    -@story.streams.first.product.streams.each do |stream|
+      %span
+        =check_box_tag("stream_ids[]",stream.id,streams.include?(stream))
+        %label=stream.title
+        
+  %div
+    =submit_tag "分配"

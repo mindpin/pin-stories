@@ -1,0 +1,10 @@
+%div=link_to "返回 Stream 列表","/products/#{@stream.product.id}"
+%hr
+-@stories.each do |story|
+  %div
+    =story.content
+  %div
+    %span 状态：
+    %span=story.status
+  %div=link_to "查看详情","/stories/#{story.id}"
+		

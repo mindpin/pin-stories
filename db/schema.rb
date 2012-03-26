@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301063747) do
+ActiveRecord::Schema.define(:version => 20120318152204) do
 
   create_table "online_records", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,41 @@ ActiveRecord::Schema.define(:version => 20120301063747) do
 
   add_index "online_records", ["key"], :name => "index_online_records_on_key"
   add_index "online_records", ["user_id"], :name => "index_online_records_on_user_id"
+
+  create_table "products", :force => true do |t|
+    t.string   "title",       :default => "", :null => false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stories", :force => true do |t|
+    t.text     "content",                    :null => false
+    t.string   "status",     :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "story_assigns", :force => true do |t|
+    t.integer  "story_id",   :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stream_story_links", :force => true do |t|
+    t.integer  "stream_id",  :null => false
+    t.integer  "story_id",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "streams", :force => true do |t|
+    t.string   "title",      :default => "", :null => false
+    t.integer  "product_id",                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name",                      :default => "", :null => false

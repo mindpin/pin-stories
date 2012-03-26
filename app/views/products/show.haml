@@ -1,0 +1,11 @@
+%div=link_to "返回产品列表","/products"
+%div=link_to "新建 STREAM","/products/#{@product.id}/streams/new"
+%div=link_to "新建 STORY","/products/#{@product.id}/stories/new"
+%hr
+%div
+  %label Stream 列表
+-@streams.each do |stream|
+  %div
+    =link_to stream.title, "/streams/#{stream.id}"
+  
+		

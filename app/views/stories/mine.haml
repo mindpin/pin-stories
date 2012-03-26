@@ -1,0 +1,5 @@
+=link_to "首页","/"
+%div
+  -@stories.each do |story|
+    =story.content
+    %div=link_to "查看详情","/stories/#{story.id}"

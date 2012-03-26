@@ -12,7 +12,8 @@
     判断当前是否是登录状态
 
 .page-to-votes
-  =link_to '去投票列表','/votes'
+  %div=link_to '去产品列表','/products'
+  %div=link_to '分配给我的Story列表','/stories/mine'
 
 .page-to-logout
   =link_to "退出登录","/logout"

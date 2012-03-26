@@ -1,0 +1,14 @@
+=flash[:error]
+=form_for @product do |f|
+  %div
+    %label 产品名
+  %div
+    =f.text_field :title
+  %div
+    %label 产品描述
+  %div
+    =f.text_area :description
+  %div
+    =f.submit "创建"
+  
+		

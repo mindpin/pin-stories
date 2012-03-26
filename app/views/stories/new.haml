@@ -1,0 +1,16 @@
+=flash[:error]
+=form_for @story,:url=>"/products/#{@product.id}/stories" do |f|
+  %div
+    %label Stroy 内容
+  %div
+    =f.text_area :content
+  %div
+    %label 分配所属 Streams
+  %div
+    -@product.streams.each do |stream|
+      %span
+        =check_box_tag("story[stream_story_links_attributes][][stream_id]",stream.id)
+        %label=stream.title
+  %div
+    =f.submit "创建"
+		

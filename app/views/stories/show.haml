@@ -1,0 +1,35 @@
+%div
+  %label Story 内容
+%div=@story.content
+
+%hr
+
+%div
+  %lable 所属 Streams
+  %span=link_to "重新指定 Stream","/stories/#{@story.id}/assign_streams"
+%div
+  -@story.streams.each do |stream|
+    %div
+      =link_to stream.title,"/streams/#{stream.id}"
+      
+%hr
+  
+%div
+  %lable 指派给的人
+  %span=link_to "重新指派人","/stories/#{@story.id}/assign_users"
+%div
+  -@story.users.each do |user|
+    %div=user.name
+    
+%hr
+%div
+  %lable 当前状态
+  %span=@story.status
+  
+%hr
+%div
+  %lable 切换状态
+  -(Story::STATUSES-[@story.status]).each do |status|
+    %div=link_to status,"/stories/#{@story.id}/change_status?status=#{status}",:method=>:put
+    
+		

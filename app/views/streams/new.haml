@@ -1,0 +1,9 @@
+=flash[:error]
+=form_for @stream,:url=>"/products/#{@product.id}/streams" do |f|
+  %div
+    %label Stream 标题
+  %div
+    =f.text_field :title
+  %div
+    =f.submit "创建"
+		
