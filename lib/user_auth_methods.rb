@@ -33,6 +33,15 @@ module UserAuthMethods
       Digest::SHA1.hexdigest("#{input_password}jerry_sun#{self.salt}")
     end
     
+    def api0_json_hash(logged_in_user = nil)
+      {
+        :id           => self.id,
+        :name         => self.name,
+        :sign         => self.sign || '',
+        :avatar_url   => ""
+      }
+    end
+    
   end
   
   module ClassMethods

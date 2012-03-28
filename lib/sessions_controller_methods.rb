@@ -7,13 +7,8 @@ module SessionsControllerMethods
   
   def create
     self.current_user = User.authenticate(params[:email], params[:password])
-    if logged_in?
-      after_logged_in()
-      redirect_back_or_default("/")
-    else
-      flash[:error]="邮箱/密码不正确"
-      redirect_to '/login'
-    end
+    return _create_android if is_android_client?
+    _create_web
   end
   
   # 登出
@@ -28,6 +23,26 @@ module SessionsControllerMethods
     end
     
     return redirect_to "/login"
+  end
+  
+  private
+  def _create_android
+    if logged_in?
+      after_logged_in()
+      return render :json=>{:user=>current_user.api0_json_hash}
+    else
+      return render :status=>401, :text=>'登录失败，用户名/密码错误'
+    end
+  end
+  
+  def _create_web
+    if logged_in?
+      after_logged_in()
+      redirect_back_or_default("/")
+    else
+      flash[:error]="邮箱/密码不正确"
+      redirect_to '/login'
+    end
   end
   
 end
