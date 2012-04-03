@@ -27,7 +27,7 @@ blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}
 
 a img {border:none;}
-a em {font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti;}
+a em {@include base-font-family;}
 
 /*列表标签*/
 li ul, li ol{margin: 0;}
@@ -40,4 +40,4 @@ dl{margin:0 0 1.5em 0;}
 dl dt{font-weight:bold;}
 dd{margin-left:1.5em;}
 
-textarea{resize: none;font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti;}
+textarea{resize:none;@include base-font-family;}

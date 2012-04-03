@@ -1,14 +1,12 @@
 =flash[:error]
 =form_for @product do |f|
-  %div
+  .field
     %label 产品名
-  %div
     =f.text_field :title
-  %div
+  .field
     %label 产品描述
-  %div
     =f.text_area :description
-  %div
-    =f.submit "创建"
+  .field
+    %a.form-submit-button{:href=>'javascript:;'} 创建
   
 		

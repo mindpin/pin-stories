@@ -2,7 +2,7 @@
 
 :ruby
   tstr = ((yield :title) || '').gsub("\n",'')
-  title = tstr.blank? ? 'MINDPIN - 故事管理' : "#{tstr} - MINDPIN - 故事管理"
+  title = tstr.blank? ? 'MINDPIN - 敏捷开发管理' : "#{tstr} - MINDPIN - 敏捷开发管理"
 
 !!! 5
 %html{:lang=>'zh'}
@@ -18,7 +18,12 @@
     .page-wrap
       .page-container
         .page-header
-          .title=title
+          .h
+            .title=title
+            -if logged_in?
+              .user
+                .current-user 欢迎你，#{current_user.name}
+                .logout=link_to '登出','/logout'
         .page-content
           = yield
 

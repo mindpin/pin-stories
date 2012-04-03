@@ -1,0 +1,15 @@
+@mixin new-button{
+  float:left;
+  height:24px;line-height:24px;
+  @include border-radius(2px);
+  box-shadow:0 0 2px rgba(0, 0, 0, 0.3);
+  border:solid 1px #6EA821;
+  @include gradient(#92D440, #7EBD2E);
+  color:white;
+  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.2);
+  padding:0 8px;
+  &:hover{text-decoration:none;
+    @include gradient(#8AD033, #76B12B);
+    border:solid 1px #5E8F1C;
+  };
+}

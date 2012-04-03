@@ -1,0 +1,53 @@
+.page-products{
+  overflow:hidden;
+  .product{
+    float:left;margin-bottom:20px;
+    width:460px;
+    
+    $w:200px; $h:360px;
+    $pd:6px;
+    .meta-data{
+      float:left;
+      
+      width:$w + $pd*2; 
+      height:$h + $pd*2;
+      background-color:#eee;
+      @include border-radius(9px);
+      padding:4px;
+      position:relative;
+      .box{
+        width:$w;height:$h;
+        border:solid 1px #ddd;
+        @include border-radius(6px);
+        padding:5px;
+        background-color:#fff;
+        
+        .cover{
+          width:200px;height:150px;
+          background-color:#f1f1f1;
+          margin-bottom:10px;
+        }
+        .title{
+          font-size:14px;margin-bottom:5px;
+          font-weight:bold;padding:0 5px;
+        }
+        .desc{
+          font-size:14px;padding:0 5px;
+        }
+      };
+    }
+    .stat-data{
+      float:left;
+      padding-top:30px;margin-left:20px;
+      width:180px;
+      .t{
+        font-size:14px;
+        margin-bottom:10px;padding-bottom:10px;
+        border-bottom:solid 1px #ddd;
+      }
+      .members{
+        .none{color:#aaa;}
+      }
+    }
+  }
+}

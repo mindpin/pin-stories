@@ -3,7 +3,8 @@ html {font-size:100.01%;}
 body {
   font-size:75%;
   background:#fff;color:#222;
-  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti;
+  //font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif;
+  @include base-font-family;
 }
 
 /*各级标题*/

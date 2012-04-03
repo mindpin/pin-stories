@@ -1,0 +1,14 @@
+.page-login{
+  form{
+    .field{
+      a.to-signup{
+        @include new-button;
+        display:inline-block;
+        height:32px;line-height:32px;
+        font-size:14px;
+        float:none;
+        padding:0 10px;
+      }
+    }
+  }
+}
