@@ -288,21 +288,30 @@ body {
       line-height: 50px;
       overflow: visible; }
       body .page-header .h .title {
-        color: white;
+        color: #99c8f7;
         float: left;
         font-weight: bold;
         text-shadow: 0 1px 0 #093E72;
-        font-size: 14px; }
+        font-size: 20px; }
+        body .page-header .h .title a {
+          color: #99c8f7 !important; }
       body .page-header .h .user {
         overflow: hidden;
         float: left;
         margin-left: 40px; }
         body .page-header .h .user .current-user, body .page-header .h .user .logout {
           float: left;
-          margin-left: 20px;
+          margin-right: 20px;
           color: white; }
           body .page-header .h .user .current-user a, body .page-header .h .user .logout a {
             color: white !important; }
+      body .page-header .h .to-login {
+        overflow: hidden;
+        float: left;
+        margin-left: 40px;
+        color: white; }
+        body .page-header .h .to-login a {
+          color: white !important; }
   body .page-content {
     padding: 20px 0 0 0;
     margin: 0 auto;

@@ -15,3 +15,5 @@ group :assets do
 end
 
 gem 'uuidtools', :require => 'uuidtools'
+
+gem 'paperclip', '~> 2.4'

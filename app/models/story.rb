@@ -45,5 +45,10 @@ class Story < ActiveRecord::Base
       base.has_many :story_assigns
       base.has_many :stories, :through => :story_assigns 
     end
+    
+    def is_admin?
+      User.first == self # 第一个用户是管理员，暂时先这样判断
+    end
+    
   end
 end

@@ -22,19 +22,26 @@ body{
       
       $color:#fff;
       .title{
-        color:$color;
+        //color:$color;
+        $c:mix(#55A4F2,white,60%);
+        color:$c;a{color:$c !important;}
         float:left;font-weight:bold;
         text-shadow:0 1px 0 #093E72;
-        font-size:14px;
+        font-size:20px;
       }
       .user{
         overflow:hidden;
         float:left;margin-left:40px;
         .current-user, .logout{
           float:left;
-          margin-left:20px;
+          margin-right:20px;
           color:$color;a{color:$color !important;}
         }
+      }
+      .to-login{
+        overflow:hidden;
+        float:left;margin-left:40px;
+        color:$color;a{color:$color !important;}
       }
     }
   }

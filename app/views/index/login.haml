@@ -1,5 +1,7 @@
 -htitle '用户登录'
 
+.page-title 用户登录。没有账号的话，找ben7th去要…
+
 .page-login
   %span=flash[:error]
   =form_tag('/login',{:class=>'login-form'}) do
@@ -14,4 +16,5 @@
       %span 下次记住我
     .field
       %a.form-submit-button{:href=>'javascript:;'} 登录
-      %a.to-signup{:href=>'/signup'} 注册一个新账号
+      -#%a.to-signup{:href=>'/signup'} 注册一个新账号
+      %a.form-cancel{:href=>'/'} 返回

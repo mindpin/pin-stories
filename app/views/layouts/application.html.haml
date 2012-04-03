@@ -2,7 +2,7 @@
 
 :ruby
   tstr = ((yield :title) || '').gsub("\n",'')
-  title = tstr.blank? ? 'MINDPIN - 敏捷开发管理' : "#{tstr} - MINDPIN - 敏捷开发管理"
+  title = tstr.blank? ? 'MINDPIN TEAM AGILE PLAYGROUND' : "#{tstr} - MINDPIN TEAM AGILE PLAYGROUND"
 
 !!! 5
 %html{:lang=>'zh'}
@@ -19,11 +19,14 @@
       .page-container
         .page-header
           .h
-            .title=title
+            .title
+              %a{:href=>'/'} MINDPIN TEAM AGILE PLAYGROUND
             -if logged_in?
               .user
                 .current-user 欢迎你，#{current_user.name}
                 .logout=link_to '登出','/logout'
+            -else
+              .to-login=link_to '我要登录啊','/login'
         .page-content
           = yield
 

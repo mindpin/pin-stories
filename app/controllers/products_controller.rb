@@ -26,4 +26,17 @@ class ProductsController < ApplicationController
   def show
     @streams = @product.streams
   end
+  
+  def edit
+  end
+
+  def update
+    if @product.update_attributes(params[:product])
+      redirect_to '/', :notice => '产品信息被修改了'
+    else
+      error = @product.errors.first
+      render :text=>"#{error[0]} #{error[1]}"
+    end
+  end
+  
 end

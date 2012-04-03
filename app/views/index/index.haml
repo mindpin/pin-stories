@@ -1,4 +1,4 @@
-.page-title 全部产品
+.page-title 我们的产品
 
 .hide.page-to
   .p=link_to '全部产品','/'
@@ -15,13 +15,18 @@
     :ruby
       title = product.title
       description = product.description
+      cover_url = product.cover.url
       
     .product
       .meta-data
         .box
           .cover
-          .title=link_to title,'/products/#{product.id}'
+            %img{:alt=>title, :src=>cover_url}
+          .title=link_to title,"/products/#{product.id}"
           .desc=description
+          -if admin_logged_in?
+            .ops
+              .edit=link_to '修改',"/products/#{product.id}/edit"
       .stat-data
         .work-member
           .t 参与者
