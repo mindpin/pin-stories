@@ -14,11 +14,10 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(params[:product])
     if @product.save
-      return redirect_to "/products"
+      return redirect_to '/'
     end
-    error = @product.errors.first
-    flash[:error] = "#{error[0]} #{error[1]}"
-    redirect_to "/products/new"
+    flash[:error] = @product.errors.to_json
+    redirect_to '/products/new'
   end
   
   def show
@@ -32,8 +31,7 @@ class ProductsController < ApplicationController
     if @product.update_attributes(params[:product])
       redirect_to '/', :notice => '产品信息被修改了'
     else
-      error = @product.errors.first
-      render :text=>"#{error[0]} #{error[1]}"
+      render :text=>@product.errors.to_json
     end
   end
   

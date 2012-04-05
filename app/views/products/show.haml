@@ -1,11 +1,38 @@
-%div=link_to "返回产品列表","/products"
-%div=link_to "新建 STREAM","/products/#{@product.id}/streams/new"
-%div=link_to "新建 STORY","/products/#{@product.id}/stories/new"
-%hr
-%div
-  %label Stream 列表
--@streams.each do |stream|
-  %div
-    =link_to stream.title, "/streams/#{stream.id}"
+-htitle @product.title
+
+=render 'index/parts/page_nav'
+
+-if admin_logged_in?
+  .hide.second_nav
+    %div=link_to "ADMIN:新建 STREAM","/products/#{@product.id}/streams/new"
+    %div=link_to "ADMIN:新建 STORY","/products/#{@product.id}/stories/new"
+
+:ruby
+  title = @product.title
+  description = @product.description
+  cover_url = @product.cover.url
+  
+  home_url = "/products/#{@product.id}"
+  # issues_url = "/products/#{@product.id}/issues"
+  # wiki_url = "/products/#{@product.id}/wiki"
+  issues_url = "javascript:;"
+  wiki_url = "javascript:;"
+
+.page-product-show
+  .title=title
+  .desc=description
+  .nav
+    %a.item{:href=>home_url}
+      .t 任务白板
+      .c 0
+    %a.item.disabled{:href=>issues_url} BUG和建议
+    %a.item.disabled{:href=>wiki_url} WIKI
+  .hide.cover
+    %img{:alt=>title, :src=>cover_url}
+
+.page-streams
+  -@streams.each do |stream|
+    .stream
+      =link_to stream.title, "/streams/#{stream.id}"
   
 		

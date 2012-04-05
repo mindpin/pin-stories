@@ -24,7 +24,7 @@ module StoryHelper
     
     case name.to_sym
     when :products
-      return "#{name} #{klass}" if path == '/'
+      return "#{name} #{klass}" if path == '/' || path.start_with?('/products')
     when :members
       return "#{name} #{klass}" if path.start_with? '/members'
     when :admin

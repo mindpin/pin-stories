@@ -59,3 +59,62 @@
     }
   }
 }
+
+.page-product-show{
+  background-color:#fafafa;
+  padding:10px 25px 36px 25px;
+  //@include border-radius(8px);
+  overflow:visible;
+  margin:0 -20px;
+  border-bottom:solid 1px #CCCCCC;
+  position:relative;
+  
+  .title{
+    font-size:18px;font-weight:bold;
+    color:#333;line-height:32px;height:32px;
+    margin-bottom:10px;
+  }
+  .desc{
+    color:#666;
+    width:960px * 0.618;
+    margin-bottom:20px;
+  }
+  .nav{
+    overflow:hidden;
+    position:absolute;
+    bottom:-1px;
+    .item{
+      line-height:32px;height:32px;
+      display:inline-block;
+      background-color:#55A4F2;
+      color:white;&:hover{color:white;};
+      padding:0 12px;
+      @include border-radius(3px 3px 0 0);
+      float:left;margin-right:3px;
+      border:solid 1px #55A4F2;
+      border-bottom:none;
+      overflow:hidden;
+      
+      .t{float:left;margin-right:10px;}
+      .c{background-color:#1071D1;
+        @include border-radius(10px);
+        float:left;
+        height:18px;line-height:18px;
+        padding:0 10px;
+        margin-top:7px;
+      }
+      
+      &.disabled{
+        background-color:#ddd;border-color:#ccc;
+        color:#999;
+      }
+    }
+  }
+  
+  .cover{
+    overflow:hidden;
+    width:200px;height:150px;
+    float:left;
+    @include border-radius(3px);
+  }
+}
