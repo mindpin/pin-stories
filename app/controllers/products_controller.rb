@@ -1,12 +1,10 @@
 class ProductsController < ApplicationController
+  
   before_filter :login_required
   before_filter :pre_load
+  
   def pre_load
     @product = Product.find(params[:id]) if params[:id]
-  end
-  
-  def index
-    @products = Product.all
   end
   
   def new

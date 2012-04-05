@@ -1,0 +1,29 @@
+.page-team-members{
+  .member{
+    float:left;
+    //width:290px;
+    //height:190px;
+    width: 96px*2 + 10px;
+    margin-right:10px;
+    margin-bottom:10px;
+    overflow:hidden;
+    background-color:#f7f7f7;
+    padding:5px;
+    @include border-radius(8px);
+    
+    $w:96px;
+    .avatar{
+      float:left;
+      width:$w;height:$w;overflow:hidden;
+      @include border-radius(3px);
+      img{width:$w;height:$w;}
+    }
+    .meta{
+      margin-left:$w + 10px;
+      color:#777;
+      .name{font-size:14px;font-weight:bold;color:#444;margin-bottom:5px;
+        a{color:#444;&:hover{color:#333;}}
+      }
+    }
+  }
+}

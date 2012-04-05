@@ -6,14 +6,30 @@ Voteapp::Application.routes.draw do
   post '/login'  => 'sessions#create'
   get  '/logout' => 'sessions#destroy'
   
-  get  '/signup'        => 'signup#form'
-  post '/signup_submit' => 'signup#form_submit'
+  # get  '/signup'        => 'signup#form'
+  # post '/signup_submit' => 'signup#form_submit'
   
   # -- 以下可以自由添加其他 routes 配置项
+  
+  # -- 管理员界面
+  
+  get '/admin'         => 'admin/admin#members'
+  get '/admin/members' => 'admin/admin#members'
+  
+  get  '/admin/members/new' => 'admin/admin#new_member'
+  post '/admin/members'     => 'admin/admin#create_member'
+  
+  get  '/admin/members/:id/edit' => 'admin/admin#edit_member'
+  put  '/admin/members/:id'      => 'admin/admin#update_member'
+  
+  # --
+  
   resources :products do
     resources :streams
     resources :stories
   end
+  
+  resources :members
   
   resources :streams
   resources :stories do

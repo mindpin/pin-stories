@@ -10,7 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120403082201) do
+ActiveRecord::Schema.define(:version => 20120405075646) do
+
+  create_table "member_infos", :force => true do |t|
+    t.integer "user_id",   :null => false
+    t.string  "real_name"
+  end
 
   create_table "online_records", :force => true do |t|
     t.integer  "user_id"

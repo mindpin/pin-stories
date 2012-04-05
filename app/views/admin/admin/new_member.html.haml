@@ -1,0 +1,20 @@
+.page-title 管理员功能：增加新成员
+
+.page-signup
+  = flash_info
+  = form_for @member, :url=>'/admin/members' do |f|
+    .field
+      %label 电子邮箱
+      = f.text_field :email,:maxlength=>50
+    .field
+      %label 用户名
+      = f.text_field :name,:maxlength=>50
+    .field
+      %label 密码
+      = f.password_field :password,:value=>'',:maxlength=>32
+    .field
+      %label 确认密码
+      = f.password_field :password_confirmation,:value=>'',:maxlength=>32
+    .field
+      %a.form-submit-button{:href=>'javascript:;'} 确认
+      %a.form-cancel{:href=>'/admin/members'} 取消

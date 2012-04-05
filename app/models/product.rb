@@ -6,9 +6,6 @@ class Product < ActiveRecord::Base
   validates_attachment_presence :cover
   
   # --- cover setting
-  IMAGE_PATH = "/:class/:attachment/:id/:style/:basename.:extension"
-  IMAGE_URL  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
-
   has_attached_file :cover,
     :styles => {
       :normal => '200x150#',
@@ -16,8 +13,8 @@ class Product < ActiveRecord::Base
       :s50 => '50x50#'
     },
     :default_style => :normal,
-    :path => IMAGE_PATH,
-    :url  => IMAGE_URL,
+    :path => "/:class/:attachment/:id/:style/:basename.:extension",
+    :url  => "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension",
     :storage => :oss
   
   # ---

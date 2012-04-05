@@ -2,7 +2,7 @@
   overflow:hidden;
   .product{
     float:left;margin-bottom:20px;
-    width:460px;
+    width:460px;position:relative;
     
     $w:200px; $h:360px;
     $pd:6px;
@@ -32,7 +32,8 @@
           font-weight:bold;padding:0 5px;
         }
         .desc{
-          font-size:14px;padding:0 5px;
+          font-size:12px;padding:0 5px;
+          color:#666;
         }
       };
     }
@@ -47,6 +48,13 @@
       }
       .members{
         .none{color:#aaa;}
+      }
+    }
+    .ops{
+      position:absolute;
+      bottom:4px;left:240px;
+      .edit{
+        @include common-mini-button;
       }
     }
   }

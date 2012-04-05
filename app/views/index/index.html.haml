@@ -1,12 +1,7 @@
-.page-title 我们的产品
+-htitle '我们的产品'
 
-.hide.page-to
-  .p=link_to '全部产品','/'
-  .p=link_to '我的工作','/stories/mine'
+=render 'index/parts/page_nav'
 
-.hide.page-ops
-  =link_to "新建产品","/products/new"
-  
 :ruby
   products = Product.all
   
@@ -24,11 +19,11 @@
             %img{:alt=>title, :src=>cover_url}
           .title=link_to title,"/products/#{product.id}"
           .desc=description
-          -if admin_logged_in?
-            .ops
-              .edit=link_to '修改',"/products/#{product.id}/edit"
       .stat-data
         .work-member
           .t 参与者
           .members
             .none 还没有人参与
+      -if admin_logged_in?
+        .ops
+          %a.edit{:href=>"/products/#{product.id}/edit"} ADMIN:修改

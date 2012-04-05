@@ -22,7 +22,7 @@ module SessionsControllerMethods
       destroy_online_record(user)
     end
     
-    return redirect_to "/login"
+    return redirect_to '/'
   end
   
   private

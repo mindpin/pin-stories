@@ -1,0 +1,12 @@
+.page-nav
+  %a.item{:class=>nav_current_klass(:products), :href=>'/'} 我们的产品
+  %a.item{:class=>nav_current_klass(:members), :href=>'/members'} 成员和分享者
+  -if admin_logged_in?
+    %a.item{:class=>nav_current_klass(:admin), :href=>'/admin'} 管理员界面
+  
+.hide.page-to
+  .p=link_to '全部产品','/'
+  .p=link_to '我的工作','/stories/mine'
+
+.hide.page-ops
+  =link_to "新建产品","/products/new"

@@ -1,0 +1,12 @@
+-htitle '成员和分享者'
+
+=render 'index/parts/page_nav'
+
+.page-team-members
+  -@members.each do |member|
+    .member
+      .avatar=avatar member, :medium
+      .meta
+        .name=userlink member
+        .real-name=member.info_real_name
+		

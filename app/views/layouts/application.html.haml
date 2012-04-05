@@ -24,6 +24,7 @@
             -if logged_in?
               .user
                 .current-user 欢迎你，#{current_user.name}
+                .current-user-avatar=avatar current_user,:tiny
                 .logout=link_to '登出','/logout'
             -else
               .to-login=link_to '我要登录啊','/login'

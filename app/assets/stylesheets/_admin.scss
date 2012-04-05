@@ -1,0 +1,25 @@
+.page-admin-members{
+  .member{
+    height:30px;line-height:30px;
+    padding-bottom:5px;margin-bottom:5px;
+    border-bottom:dashed 1px #ddd;
+    
+    .avatar{float:left;height:24px;width:24px;
+      overflow:hidden;@include border-radius(2px);
+      margin-right:20px;margin-top:3px;
+      img{height:24px;width:24px;}
+    }
+    .name{float:left;width:100px;font-weight:bold;}
+    .email{float:left;width:200px;}
+    .real-name{float:left;width:100px;}
+    a.edit{
+      @include common-mini-button;
+      float:right;
+      margin-top:3px;
+    }
+  }
+  a.add-member{
+    @include new-button;
+    margin-top:5px;
+  }
+}

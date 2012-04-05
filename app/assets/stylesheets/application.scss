@@ -20,6 +20,48 @@
   border-bottom:dashed 1px #CCCCCC;
 }
 
+.page-nav{
+  margin:-20px -20px 20px;
+  padding:10px 20px;
+  border-bottom:dashed 1px #CCCCCC;
+  a.item{
+    font-size:16px;//font-weight:bold;
+    text-shadow:1px 1px 0 rgba(#fff, 0.3);
+    color:#404040;&:hover{color:#404040;};
+    margin-right:20px;
+    overflow:visible;
+    position:relative;
+    height:24px;line-height:24px;
+    display:inline-block;
+    &.current{
+      padding:0 10px;
+      background-color:#ffeeee;
+      @include border-radius(4px);
+      text-shadow:1px 1px 0 rgba(#fff, 0.3);
+      &:after{
+        content:"";
+        display:block;position:absolute;
+        width:100%;height:5px;
+        @include border-radius(4px 4px 0 0);
+        background-color:#ff4444;
+        left:0;bottom:-11px;
+      };
+    }
+    
+    &.admin{
+      float:right;margin-right:0;
+    }
+  }
+}
+
+.flash-error{
+  height:32px;line-height:32px;
+  background-color:#DC4A38;color:white;
+  @include border-radius(3px);
+  margin-bottom:10px;
+  padding:0 10px;
+}
+
 // -------- 各种本项目专用的mixin，基本都是迭代时抽取的
 
 @import 'useful/doms';
@@ -29,5 +71,6 @@
 @import 'login';
 
 // --------- 业务组件
-
+@import 'admin';
 @import 'products';
+@import 'members';

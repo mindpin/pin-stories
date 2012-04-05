@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include UserAuthMethods
+  include UserAvatarMethods
   
   has_one :online_record, :dependent => :destroy
   
@@ -24,7 +25,7 @@ class User < ActiveRecord::Base
   validates :password,
     :presence => { :on => :create },
     :confirmation => true,
-    :length => { :in => 4..32 }
+    :length => { :in => 4..32 , :on => :create}
   
   def password
     @password
@@ -39,5 +40,6 @@ class User < ActiveRecord::Base
     self.hashed_password = self.encrypted_password(self.password)
   end
   
+  include MemberInfo::UserMethods
   include Story::UserMethods
 end
