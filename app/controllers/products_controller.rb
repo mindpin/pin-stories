@@ -22,6 +22,7 @@ class ProductsController < ApplicationController
   
   def show
     @streams = @product.streams
+    @stories = Story.all
   end
   
   def edit

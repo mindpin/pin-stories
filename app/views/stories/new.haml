@@ -1,16 +1,29 @@
-=flash[:error]
-=form_for @story,:url=>"/products/#{@product.id}/stories" do |f|
-  %div
-    %label Stroy 内容
-  %div
-    =f.text_area :content
-  %div
-    %label 分配所属 Streams
-  %div
-    -@product.streams.each do |stream|
-      %span
-        =check_box_tag("story[stream_story_links_attributes][][stream_id]",stream.id)
-        %label=stream.title
-  %div
-    =f.submit "创建"
+:ruby
+  product_name = @product.name
+  streams = @product.streams
+  
+  product_show_url = "/products/#{@product.id}"
+
+-htitle "创建故事: #{product_name}"
+
+.page-title="创建故事: #{product_name}"
+
+-if streams.blank?
+  目前该产品下还没有任何故事序列，不可创建故事。
+  =link_to '返回', product_show_url
+-else
+  =flash[:error]
+  =form_for @story,:url=>"/products/#{@product.id}/stories" do |f|
+    .field
+      %label 故事正文
+      =f.text_area :content
+    .field
+      %label 分配故事序列
+      -@product.streams.each do |stream|
+        %span
+          =check_box_tag("story[stream_story_links_attributes][][stream_id]",stream.id)
+          %label=stream.title
+    .field
+      %a.form-submit-button{:href=>'javascript:;'} 确定
+      %a.form-cancel{:href=>product_show_url} 取消
 		

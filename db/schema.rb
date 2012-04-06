@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405075646) do
+ActiveRecord::Schema.define(:version => 20120406065040) do
 
   create_table "member_infos", :force => true do |t|
     t.integer "user_id",   :null => false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20120405075646) do
   add_index "online_records", ["user_id"], :name => "index_online_records_on_user_id"
 
   create_table "products", :force => true do |t|
-    t.string   "title",           :default => "", :null => false
+    t.string   "name",            :default => "", :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20120405075646) do
     t.string   "status",     :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "product_id"
   end
 
   create_table "story_assigns", :force => true do |t|

@@ -1,38 +1,54 @@
--htitle @product.title
-
-=render 'index/parts/page_nav'
-
--if admin_logged_in?
-  .hide.second_nav
-    %div=link_to "ADMIN:新建 STREAM","/products/#{@product.id}/streams/new"
-    %div=link_to "ADMIN:新建 STORY","/products/#{@product.id}/stories/new"
-
 :ruby
-  title = @product.title
-  description = @product.description
-  cover_url = @product.cover.url
+  product = @product
+  name = product.name
+  description = product.description
+  cover_url = product.cover.url
   
   home_url = "/products/#{@product.id}"
   # issues_url = "/products/#{@product.id}/issues"
   # wiki_url = "/products/#{@product.id}/wiki"
   issues_url = "javascript:;"
   wiki_url = "javascript:;"
+  
+  new_story_url = "/products/#{@product.id}/stories/new"
+  new_stream_url = "/products/#{@product.id}/streams/new"
+
+  stories_count = 0
+  streams_count = product.streams.count
+
+-htitle name
+
+=render 'index/parts/page_nav'
 
 .page-product-show
-  .title=title
-  .desc=description
-  .nav
-    %a.item{:href=>home_url}
-      .t 任务白板
-      .c 0
-    %a.item.disabled{:href=>issues_url} BUG和建议
-    %a.item.disabled{:href=>wiki_url} WIKI
-  .hide.cover
-    %img{:alt=>title, :src=>cover_url}
-
-.page-streams
-  -@streams.each do |stream|
-    .stream
-      =link_to stream.title, "/streams/#{stream.id}"
-  
-		
+  .headbar
+    .name=name
+    .desc=description
+    .nav
+      %a.item{:href=>home_url}
+        .t 故事白板
+        .c=stories_count
+      %a.item.disabled{:href=>issues_url} BUG和建议
+      %a.item.disabled{:href=>wiki_url} WIKI
+    
+    -if admin_logged_in?
+      .admin-ops
+        %a.add-story{:href=>new_story_url} ADMIN:创建故事
+        %a.add-stream{:href=>new_stream_url} ADMIN:创建序列
+    
+  .product-streams
+    -product.streams.each do |stream|
+      .stream
+        .box
+          .ct=stream.title
+        
+  .product-stats
+    .stat.stories
+      .t 故事总数
+      %span.c=stories_count
+      %span.d 个
+    .stat.streams
+      .t 序列总数
+      %span.c=streams_count
+      %span.d 个
+      
