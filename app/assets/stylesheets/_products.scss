@@ -107,6 +107,7 @@
       width:960px * 0.618;
       margin-bottom:20px;
       font-size:14px;
+      padding-left:14px;
     }
     .nav{
       overflow:hidden;
@@ -173,12 +174,19 @@
         }
         
         $s:48px + 4px - 2px;
-        .stories-count{
-          float:left;width:$s;height:$s;line-height:$s;
-          text-align:center;font-size:20px;font-weight:bold;
+        .stories-and-hours{
+          float:left;width:$s;height:$s;
+          text-align:center;font-weight:bold;
           background-color:#333;@include border-radius(3px);
           margin-bottom:4px;margin-right:4px;border:dashed 1px #333;
           color:#fafafa;
+          .stories-count{font-size:20px;
+            height:29px;line-height:29px;
+          }
+          .working-hours{font-size:12px;background-color:#888;@include border-radius(5px);
+            height:16px;line-height:16px;width:40px;margin-left:5px;
+            text-align:center;
+          }
         }
         .split{
           float:left;height:$s+2;width:5px;background-color:#eee;

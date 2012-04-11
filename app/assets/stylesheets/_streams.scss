@@ -1,29 +1,45 @@
 .page-stream-show{
   .stories{
+    $w:960px * 0.618;
     .story{
       margin-bottom:20px;
-      width:500px;
+      width:$w;
       //background-color:#f7f7f7;
-      padding:4px;
+      padding-top:30px;
       @include border-radius(5px);
       border:dashed 1px #ccc;
       @include border-radius(3px);
       position:relative; background-color:#fafafa;
       
       .story-id{
-        color:#666;font-size:9px;height:12px;line-height:12px;
-        position:absolute;left:10px;top:-6px;
-        background-color:#f7f7f7;
+        color:#fff;font-size:9px;height:16px;line-height:16px;
+        position:absolute;left:10px;top:-8px;
+        background-color:#444; //border:solid 1px #444;
         padding:0 5px;font-weight:bold;
         @include border-radius(4px);
+        text-shadow:0px 0px 2px #ccc;
       }
       
-      .how, .status, .ops{
-        padding:15px;
+      .estimate{
+        position:absolute;
+        right:5px;top:5px;
+        font-size:14px;font-weight:bold;
+        height:32px;line-height:32px;
+        background-color:lighten(#1071D1, 20%);color:#fff;text-shadow:0px 0px 2px #333;
+        width:48px;
+        @include border-radius(5px);
+        @include number-font-family;
+        text-align:center;
+      }
+      
+      .how, .status, .tips, .ops{
+        padding:0 15px;
+        margin-bottom:20px;
         .t{
           font-size:9px;color:#999;margin-bottom:5px;
           height:10px;line-height:10px;
-          border-bottom:dotted 1px #eee;padding-bottom:5px;margin-bottom:5px;
+          border-bottom:dotted 1px #ccc;padding-bottom:5px;margin-bottom:5px;
+          width:$w * (1 - 0.618);
         }
         .ct{
           font-size:14px;
@@ -31,6 +47,10 @@
         
         .st{
           
+        }
+        .os{
+          overflow:hidden;
+          a.show{@include common-mini-button;}
         }
       }
     }

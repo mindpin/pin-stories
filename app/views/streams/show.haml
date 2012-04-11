@@ -18,15 +18,24 @@
     -@stories.each do |story|
       :ruby
         story_url = "/stories/#{story.id}"
+        tips = story.tips
+        estimate = story.time_estimate
+        
       .story
         .story-id STORY ##{story.id}
+        .estimate="#{estimate}H"
         .how
           .t HOW TO DEMO
           .ct=story.how_to_demo
+        -if !tips.blank?
+          .tips
+            .t TIPS
+            .ct=story.tips
         .status
           .t STATUS
           .st=story.status
         .ops
           .t OPS
-          .os=link_to '查看详情', story_url
+          .os
+            %a.show{:href=>story_url} 查看详情
 		

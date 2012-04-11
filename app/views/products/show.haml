@@ -43,11 +43,14 @@
         stories_count = stream.stories.count
         last_story = stream.stories.last
         stream_url = "/streams/#{stream.id}"
+        working_hours = stream.working_hours
         
       .stream
         .box
           .ct=link_to title, stream_url
-          .stories-count=stories_count
+          .stories-and-hours
+            .stories-count=stories_count
+            .working-hours="#{working_hours}H"
           .split
           .members
             -10.times do

@@ -2,7 +2,7 @@ class Product < ActiveRecord::Base
   has_many :streams
   has_many :stories
   
-  validates :title, :description, :presence => true
+  validates :name, :description, :presence => true
   
   validates_attachment_presence :cover
   

@@ -16,11 +16,14 @@
     =flash_info
     =form_for @story,:url=>"/products/#{@product.id}/stories" do |f|
       .field
-        %label 如何演示？
+        %label 如何演示？(HOW TO DEMO)
         =f.text_area :how_to_demo
       .field
-        %label 补充说明和提示
+        %label 补充说明和提示(TIPS)
         =f.text_area :tips
+      .field
+        %label 时间预估(TIME ESTIMATE)
+        =f.select :time_estimate, [4, 8, 16, 24, 32, 40, 100]
       .field
         %label 分配到故事序列
         .stream-selector

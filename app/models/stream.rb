@@ -4,4 +4,12 @@ class Stream < ActiveRecord::Base
   has_many :stories, :through => :stream_story_links 
   
   validates :title, :product, :presence => true
+  
+  # ---
+  
+  # 目前积累的任务人时
+  def working_hours
+    self.stories.map{|x| x.time_estimate}.sum
+  end
+  
 end

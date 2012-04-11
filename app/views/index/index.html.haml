@@ -25,7 +25,7 @@
             =link_to product_show_url do
               %img{:alt=>name, :src=>cover_url}
           .name=link_to name, product_show_url
-          .desc=description
+          .desc=truncate_u description, 100
       .stat-data
         .base
           .stat{:class=> stories_count == 0 ? 'zero':''}

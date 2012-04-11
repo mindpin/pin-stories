@@ -636,7 +636,7 @@ form .form-cancel {
       border-color: #518cc6 #518cc6 #2a65a0;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
       color: white; }
-.page-admin-members a.add-member {
+.page-admin-members a.add-member, .page-admin-members a.add-product {
   float: left;
   height: 24px;
   line-height: 24px;
@@ -650,8 +650,9 @@ form .form-cancel {
   color: white;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
   padding: 0 8px;
-  margin-top: 5px; }
-  .page-admin-members a.add-member:hover {
+  margin-top: 5px;
+  margin-right: 10px; }
+  .page-admin-members a.add-member:hover, .page-admin-members a.add-product:hover {
     text-decoration: none;
     background: -moz-linear-gradient(-90deg, #8ad033, #76b12b);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#8ad033), to(#76b12b));
@@ -777,7 +778,8 @@ form .form-cancel {
     color: #555;
     width: 593.28px;
     margin-bottom: 20px;
-    font-size: 14px; }
+    font-size: 14px;
+    padding-left: 14px; }
   .page-product-show .headbar .nav {
     overflow: hidden;
     position: absolute;
@@ -898,13 +900,11 @@ form .form-cancel {
           color: #444; }
           .page-product-show .product-streams .stream .box .ct a:hover {
             color: #444; }
-      .page-product-show .product-streams .stream .box .stories-count {
+      .page-product-show .product-streams .stream .box .stories-and-hours {
         float: left;
         width: 50px;
         height: 50px;
-        line-height: 50px;
         text-align: center;
-        font-size: 20px;
         font-weight: bold;
         background-color: #333;
         -moz-border-radius: 3px;
@@ -914,6 +914,21 @@ form .form-cancel {
         margin-right: 4px;
         border: dashed 1px #333;
         color: #fafafa; }
+        .page-product-show .product-streams .stream .box .stories-and-hours .stories-count {
+          font-size: 20px;
+          height: 29px;
+          line-height: 29px; }
+        .page-product-show .product-streams .stream .box .stories-and-hours .working-hours {
+          font-size: 12px;
+          background-color: #888;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          border-radius: 5px;
+          height: 16px;
+          line-height: 16px;
+          width: 40px;
+          margin-left: 5px;
+          text-align: center; }
       .page-product-show .product-streams .stream .box .split {
         float: left;
         height: 52px;
@@ -1056,8 +1071,8 @@ form .form-cancel {
 
 .page-stream-show .stories .story {
   margin-bottom: 20px;
-  width: 500px;
-  padding: 4px;
+  width: 593.28px;
+  padding-top: 30px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -1068,29 +1083,71 @@ form .form-cancel {
   position: relative;
   background-color: #fafafa; }
   .page-stream-show .stories .story .story-id {
-    color: #666;
+    color: #fff;
     font-size: 9px;
-    height: 12px;
-    line-height: 12px;
+    height: 16px;
+    line-height: 16px;
     position: absolute;
     left: 10px;
-    top: -6px;
-    background-color: #f7f7f7;
+    top: -8px;
+    background-color: #444;
     padding: 0 5px;
     font-weight: bold;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-    border-radius: 4px; }
-  .page-stream-show .stories .story .how, .page-stream-show .stories .story .status, .page-stream-show .stories .story .ops {
-    padding: 15px; }
-    .page-stream-show .stories .story .how .t, .page-stream-show .stories .story .status .t, .page-stream-show .stories .story .ops .t {
+    border-radius: 4px;
+    text-shadow: 0px 0px 2px #ccc; }
+  .page-stream-show .stories .story .estimate {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px;
+    line-height: 32px;
+    background-color: #55a4f2;
+    color: #fff;
+    text-shadow: 0px 0px 2px #333;
+    width: 48px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    font-family: helvetica,'Helvetica Neue',arial,"liberation sans",freesans,sans-serif;
+    text-align: center; }
+  .page-stream-show .stories .story .how, .page-stream-show .stories .story .status, .page-stream-show .stories .story .tips, .page-stream-show .stories .story .ops {
+    padding: 0 15px;
+    margin-bottom: 20px; }
+    .page-stream-show .stories .story .how .t, .page-stream-show .stories .story .status .t, .page-stream-show .stories .story .tips .t, .page-stream-show .stories .story .ops .t {
       font-size: 9px;
       color: #999;
       margin-bottom: 5px;
       height: 10px;
       line-height: 10px;
-      border-bottom: dotted 1px #eee;
+      border-bottom: dotted 1px #ccc;
       padding-bottom: 5px;
-      margin-bottom: 5px; }
-    .page-stream-show .stories .story .how .ct, .page-stream-show .stories .story .status .ct, .page-stream-show .stories .story .ops .ct {
+      margin-bottom: 5px;
+      width: 226.633px; }
+    .page-stream-show .stories .story .how .ct, .page-stream-show .stories .story .status .ct, .page-stream-show .stories .story .tips .ct, .page-stream-show .stories .story .ops .ct {
       font-size: 14px; }
+    .page-stream-show .stories .story .how .os, .page-stream-show .stories .story .status .os, .page-stream-show .stories .story .tips .os, .page-stream-show .stories .story .ops .os {
+      overflow: hidden; }
+      .page-stream-show .stories .story .how .os a.show, .page-stream-show .stories .story .status .os a.show, .page-stream-show .stories .story .tips .os a.show, .page-stream-show .stories .story .ops .os a.show {
+        float: left;
+        height: 22px;
+        line-height: 22px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: solid 1px #d4d4d4;
+        background: -moz-linear-gradient(-90deg, #f4f4f4, #ececec);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f4f4f4), to(#ececec));
+        color: #333;
+        text-shadow: 1px 1px 0 #FFFFFF;
+        padding: 0 8px; }
+        .page-stream-show .stories .story .how .os a.show:hover, .page-stream-show .stories .story .status .os a.show:hover, .page-stream-show .stories .story .tips .os a.show:hover, .page-stream-show .stories .story .ops .os a.show:hover {
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #599bdc, #3072b3);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#599bdc), to(#3072b3));
+          border-color: #518cc6 #518cc6 #2a65a0;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+          color: white; }

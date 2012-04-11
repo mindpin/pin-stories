@@ -18,8 +18,8 @@
       margin-top:3px;
     }
   }
-  a.add-member{
+  a.add-member, a.add-product{
     @include new-button;
-    margin-top:5px;
+    margin-top:5px;margin-right:10px;
   }
 }
