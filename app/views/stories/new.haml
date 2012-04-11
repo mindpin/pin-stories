@@ -8,22 +8,27 @@
 
 .page-title="创建故事: #{product_name}"
 
--if streams.blank?
-  目前该产品下还没有任何故事序列，不可创建故事。
-  =link_to '返回', product_show_url
--else
-  =flash[:error]
-  =form_for @story,:url=>"/products/#{@product.id}/stories" do |f|
-    .field
-      %label 故事正文
-      =f.text_area :content
-    .field
-      %label 分配故事序列
-      -@product.streams.each do |stream|
-        %span
-          =check_box_tag("story[stream_story_links_attributes][][stream_id]",stream.id)
-          %label=stream.title
-    .field
-      %a.form-submit-button{:href=>'javascript:;'} 确定
-      %a.form-cancel{:href=>product_show_url} 取消
+.page-new-story
+  -if streams.blank?
+    目前该产品下还没有任何故事序列，不可创建故事。
+    =link_to '返回', product_show_url
+  -else
+    =flash_info
+    =form_for @story,:url=>"/products/#{@product.id}/stories" do |f|
+      .field
+        %label 如何演示？
+        =f.text_area :how_to_demo
+      .field
+        %label 补充说明和提示
+        =f.text_area :tips
+      .field
+        %label 分配到故事序列
+        .stream-selector
+          -@product.streams.each do |stream|
+            .stream
+              .cb=check_box_tag('story[stream_story_links_attributes][][stream_id]', stream.id)
+              .t=stream.title
+      .field
+        %a.form-submit-button{:href=>'javascript:;'} 确定
+        %a.form-cancel{:href=>product_show_url} 取消
 		

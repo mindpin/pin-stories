@@ -1,0 +1,38 @@
+.page-stream-show{
+  .stories{
+    .story{
+      margin-bottom:20px;
+      width:500px;
+      //background-color:#f7f7f7;
+      padding:4px;
+      @include border-radius(5px);
+      border:dashed 1px #ccc;
+      @include border-radius(3px);
+      position:relative; background-color:#fafafa;
+      
+      .story-id{
+        color:#666;font-size:9px;height:12px;line-height:12px;
+        position:absolute;left:10px;top:-6px;
+        background-color:#f7f7f7;
+        padding:0 5px;font-weight:bold;
+        @include border-radius(4px);
+      }
+      
+      .how, .status, .ops{
+        padding:15px;
+        .t{
+          font-size:9px;color:#999;margin-bottom:5px;
+          height:10px;line-height:10px;
+          border-bottom:dotted 1px #eee;padding-bottom:5px;margin-bottom:5px;
+        }
+        .ct{
+          font-size:14px;
+        }
+        
+        .st{
+          
+        }
+      }
+    }
+  }
+}

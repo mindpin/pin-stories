@@ -1,10 +1,32 @@
-%div=link_to "返回 Stream 列表","/products/#{@stream.product.id}"
-%hr
--@stories.each do |story|
-  %div
-    =story.content
-  %div
-    %span 状态：
-    %span=story.status
-  %div=link_to "查看详情","/stories/#{story.id}"
+:ruby
+  stream = @stream
+  product = stream.product
+  
+  title = stream.title
+  page_title = "序列: #{title}"
+
+  product_url = "/products/#{product.id}"
+
+-htitle page_title
+
+.page-title=page_title
+
+.page-go-back=link_to '返回产品页', product_url
+
+.page-stream-show
+  .stories
+    -@stories.each do |story|
+      :ruby
+        story_url = "/stories/#{story.id}"
+      .story
+        .story-id STORY ##{story.id}
+        .how
+          .t HOW TO DEMO
+          .ct=story.how_to_demo
+        .status
+          .t STATUS
+          .st=story.status
+        .ops
+          .t OPS
+          .os=link_to '查看详情', story_url
 		

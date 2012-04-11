@@ -503,6 +503,51 @@ form .form-cancel {
       float: right;
       margin-right: 0; }
 
+.page-go-back {
+  margin-bottom: 20px; }
+  .page-go-back a {
+    background: -moz-linear-gradient(-90deg, #666666, #444444);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#666666), to(#444444));
+    border: 1px solid #555;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+    font-size: 12px;
+    color: white;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    padding-left: 17px; }
+    .page-go-back a:hover {
+      color: white;
+      text-decoration: none; }
+    .page-go-back a:hover {
+      background: -moz-linear-gradient(-90deg, #777777, #555555);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#777777), to(#555555));
+      border-color: #444; }
+    .page-go-back a:before, .page-go-back a:after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      left: -8px;
+      background-color: #FFF;
+      border-right: solid 1px #555; }
+    .page-go-back a:before {
+      top: -8px;
+      -moz-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg); }
+    .page-go-back a:after {
+      bottom: -8px;
+      -moz-transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
+
 .flash-error {
   height: 32px;
   line-height: 32px;
@@ -616,8 +661,8 @@ form .form-cancel {
   overflow: hidden; }
   .page-products .product {
     float: left;
-    margin-bottom: 20px;
-    width: 460px;
+    margin-bottom: 40px;
+    width: 480px;
     position: relative; }
     .page-products .product .meta-data {
       float: left;
@@ -654,15 +699,39 @@ form .form-cancel {
           color: #666; }
     .page-products .product .stat-data {
       float: left;
-      padding-top: 30px;
       margin-left: 20px;
       width: 180px; }
-      .page-products .product .stat-data .t {
+      .page-products .product .stat-data .base {
+        overflow: hidden; }
+        .page-products .product .stat-data .base .stat {
+          float: left;
+          background-color: #333;
+          width: 50px;
+          height: 50px;
+          margin-right: 10px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+          color: #fff;
+          margin-bottom: 20px; }
+          .page-products .product .stat-data .base .stat .n {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px; }
+          .page-products .product .stat-data .base .stat .d {
+            text-align: center;
+            color: #ddd; }
+          .page-products .product .stat-data .base .stat.zero {
+            background-color: #F2F2FF;
+            color: #555; }
+            .page-products .product .stat-data .base .stat.zero .d {
+              color: #888; }
+      .page-products .product .stat-data .work-member .t {
         font-size: 14px;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        border-bottom: solid 1px #ddd; }
-      .page-products .product .stat-data .members .none {
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: dashed 1px #eee; }
+      .page-products .product .stat-data .work-member .members .none {
         color: #aaa; }
     .page-products .product .ops {
       position: absolute;
@@ -694,7 +763,7 @@ form .form-cancel {
   padding: 10px 20px 36px 20px;
   overflow: visible;
   margin: 0 -20px;
-  border-bottom: solid 1px #CCCCCC;
+  border-bottom: solid 1px #ccc;
   position: relative;
   margin-bottom: 20px; }
   .page-product-show .headbar .name {
@@ -705,9 +774,10 @@ form .form-cancel {
     height: 32px;
     margin-bottom: 10px; }
   .page-product-show .headbar .desc {
-    color: #666;
+    color: #555;
     width: 593.28px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    font-size: 14px; }
   .page-product-show .headbar .nav {
     overflow: hidden;
     position: absolute;
@@ -813,7 +883,73 @@ form .form-cancel {
     margin-right: 20px;
     margin-bottom: 20px; }
     .page-product-show .product-streams .stream .box {
-      padding: 10px; }
+      padding: 4px; }
+      .page-product-show .product-streams .stream .box .ct {
+        padding: 6px;
+        background-color: #eee;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        font-weight: bold;
+        line-height: 20px;
+        height: 20px;
+        margin-bottom: 4px; }
+        .page-product-show .product-streams .stream .box .ct a {
+          color: #444; }
+          .page-product-show .product-streams .stream .box .ct a:hover {
+            color: #444; }
+      .page-product-show .product-streams .stream .box .stories-count {
+        float: left;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: #333;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        margin-bottom: 4px;
+        margin-right: 4px;
+        border: dashed 1px #333;
+        color: #fafafa; }
+      .page-product-show .product-streams .stream .box .split {
+        float: left;
+        height: 52px;
+        width: 5px;
+        background-color: #eee;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px; }
+      .page-product-show .product-streams .stream .box .members {
+        overflow: hidden;
+        float: right;
+        width: 140px; }
+        .page-product-show .product-streams .stream .box .members .member {
+          width: 22px;
+          height: 22px;
+          float: left;
+          margin-bottom: 4px;
+          margin-left: 4px;
+          background-color: #fafafa;
+          border: dashed 1px #ddd;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px; }
+      .page-product-show .product-streams .stream .box .last-story {
+        clear: both;
+        padding: 5px;
+        background-color: #fff;
+        border: dashed 1px #ddd;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        height: 88px; }
+        .page-product-show .product-streams .stream .box .last-story .updated_at {
+          font-size: 10px;
+          margin-bottom: 5px;
+          color: #999; }
 .page-product-show .product-stats {
   float: right;
   background-color: #333;
@@ -848,7 +984,7 @@ form .form-cancel {
     .page-product-show .product-stats .stat.stories {
       position: relative;
       margin-right: 20px;
-      width: 140px; }
+      width: 125px; }
       .page-product-show .product-stats .stat.stories:before {
         content: "";
         display: block;
@@ -893,3 +1029,68 @@ form .form-cancel {
         color: #444; }
         .page-team-members .member .meta .name a:hover {
           color: #333; }
+
+.page-new-story form .field .stream-selector {
+  overflow: hidden; }
+  .page-new-story form .field .stream-selector .stream {
+    background-color: #f7f7f7;
+    padding: 5px;
+    width: 200px;
+    margin-right: 10px;
+    margin-right: 10px;
+    float: left;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    overflow: hidden; }
+    .page-new-story form .field .stream-selector .stream .cb {
+      float: left;
+      height: 20px;
+      line-height: 20px;
+      margin-right: 5px; }
+    .page-new-story form .field .stream-selector .stream .t {
+      float: left;
+      height: 20px;
+      line-height: 20px;
+      margin: 0; }
+
+.page-stream-show .stories .story {
+  margin-bottom: 20px;
+  width: 500px;
+  padding: 4px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: dashed 1px #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  background-color: #fafafa; }
+  .page-stream-show .stories .story .story-id {
+    color: #666;
+    font-size: 9px;
+    height: 12px;
+    line-height: 12px;
+    position: absolute;
+    left: 10px;
+    top: -6px;
+    background-color: #f7f7f7;
+    padding: 0 5px;
+    font-weight: bold;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px; }
+  .page-stream-show .stories .story .how, .page-stream-show .stories .story .status, .page-stream-show .stories .story .ops {
+    padding: 15px; }
+    .page-stream-show .stories .story .how .t, .page-stream-show .stories .story .status .t, .page-stream-show .stories .story .ops .t {
+      font-size: 9px;
+      color: #999;
+      margin-bottom: 5px;
+      height: 10px;
+      line-height: 10px;
+      border-bottom: dotted 1px #eee;
+      padding-bottom: 5px;
+      margin-bottom: 5px; }
+    .page-stream-show .stories .story .how .ct, .page-stream-show .stories .story .status .ct, .page-stream-show .stories .story .ops .ct {
+      font-size: 14px; }

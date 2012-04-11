@@ -19,9 +19,11 @@ class Story < ActiveRecord::Base
   has_many :story_assigns
   has_many :users, :through => :story_assigns
   
+  belongs_to :product
   
-  validates :content, :presence => true
-  validates :status, :presence => true, :inclusion => {:in => STATUSES}
+  validates :product,     :presence => true
+  validates :how_to_demo, :presence => true
+  validates :status,      :presence => true, :inclusion => {:in => STATUSES}
   
   validate :validate_stream_story_links_count
   def validate_stream_story_links_count

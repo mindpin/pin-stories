@@ -13,7 +13,7 @@
   new_story_url = "/products/#{@product.id}/stories/new"
   new_stream_url = "/products/#{@product.id}/streams/new"
 
-  stories_count = 0
+  stories_count = product.stories.count
   streams_count = product.streams.count
 
 -htitle name
@@ -38,9 +38,25 @@
     
   .product-streams
     -product.streams.each do |stream|
+      :ruby
+        title = truncate_u stream.title, 15
+        stories_count = stream.stories.count
+        last_story = stream.stories.last
+        stream_url = "/streams/#{stream.id}"
+        
       .stream
         .box
-          .ct=stream.title
+          .ct=link_to title, stream_url
+          .stories-count=stories_count
+          .split
+          .members
+            -10.times do
+              .member
+          -if !last_story.blank?
+            .last-story
+              .updated_at=last_story.updated_at
+              .how=last_story.how_to_demo
+            
         
   .product-stats
     .stat.stories

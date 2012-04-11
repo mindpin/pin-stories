@@ -12,18 +12,31 @@
       description = product.description
       cover_url = product.cover.url
       
+      stories_count = product.stories.count
+      streams_count = product.streams.count
+      members_count = 0
+      
+      product_show_url = "/products/#{product.id}"
+      
     .product
       .meta-data
         .box
           .cover
-            %img{:alt=>name, :src=>cover_url}
-          .name=link_to name,"/products/#{product.id}"
+            =link_to product_show_url do
+              %img{:alt=>name, :src=>cover_url}
+          .name=link_to name, product_show_url
           .desc=description
       .stat-data
-        .work-member
-          .t 参与者
-          .members
-            .none 还没有人参与
+        .base
+          .stat{:class=> stories_count == 0 ? 'zero':''}
+            .n=stories_count
+            .d 故事
+          .stat{:class=> streams_count == 0 ? 'zero':''}
+            .n=streams_count
+            .d 序列
+          .stat{:class=> members_count == 0 ? 'zero':''}
+            .n=members_count
+            .d 参与者
       -if admin_logged_in?
         .ops
           %a.edit{:href=>"/products/#{product.id}/edit"} ADMIN:修改

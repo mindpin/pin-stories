@@ -12,11 +12,13 @@ class StoriesController < ApplicationController
   
   def create
     @story = Story.new(params[:story])
+    @story.product = @product
+    
     if @story.save
       return redirect_to "/stories/#{@story.id}"
     end
-    error = @story.errors.first
-    flash[:error] = "#{error[0]} #{error[1]}"
+
+    flash[:error] = get_flash_error(@story)
     redirect_to "/products/#{@product.id}/stories/new"
   end
   
