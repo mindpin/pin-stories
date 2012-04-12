@@ -463,6 +463,51 @@ form .form-cancel {
   margin: -20px -20px 20px;
   padding: 10px 20px;
   border-bottom: dashed 1px #CCCCCC; }
+  .page-title a.go-back {
+    background: -moz-linear-gradient(-90deg, #666666, #444444);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#666666), to(#444444));
+    border: 1px solid #555;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 6px;
+    font-size: 12px;
+    color: white;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+    position: relative;
+    top: -2px;
+    position: relative;
+    padding-left: 17px; }
+    .page-title a.go-back:hover {
+      color: white;
+      text-decoration: none; }
+    .page-title a.go-back:hover {
+      background: -moz-linear-gradient(-90deg, #777777, #555555);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#777777), to(#555555));
+      border-color: #444; }
+    .page-title a.go-back:before, .page-title a.go-back:after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      left: -8px;
+      background-color: #FFF;
+      border-right: solid 1px #555; }
+    .page-title a.go-back:before {
+      top: -8px;
+      -moz-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg); }
+    .page-title a.go-back:after {
+      bottom: -8px;
+      -moz-transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
 
 .page-nav {
   margin: -20px -20px 20px;
@@ -503,51 +548,6 @@ form .form-cancel {
       float: right;
       margin-right: 0; }
 
-.page-go-back {
-  margin-bottom: 20px; }
-  .page-go-back a {
-    background: -moz-linear-gradient(-90deg, #666666, #444444);
-    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#666666), to(#444444));
-    border: 1px solid #555;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    display: inline-block;
-    height: 20px;
-    line-height: 20px;
-    padding: 0 10px;
-    font-size: 12px;
-    color: white;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
-    position: relative;
-    padding-left: 17px; }
-    .page-go-back a:hover {
-      color: white;
-      text-decoration: none; }
-    .page-go-back a:hover {
-      background: -moz-linear-gradient(-90deg, #777777, #555555);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#777777), to(#555555));
-      border-color: #444; }
-    .page-go-back a:before, .page-go-back a:after {
-      content: "";
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      left: -8px;
-      background-color: #FFF;
-      border-right: solid 1px #555; }
-    .page-go-back a:before {
-      top: -8px;
-      -moz-transform: rotate(45deg);
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg); }
-    .page-go-back a:after {
-      bottom: -8px;
-      -moz-transform: rotate(-45deg);
-      -webkit-transform: rotate(-45deg);
-      transform: rotate(-45deg); }
-
 .flash-error {
   height: 32px;
   line-height: 32px;
@@ -558,6 +558,29 @@ form .form-cancel {
   border-radius: 3px;
   margin-bottom: 10px;
   padding: 0 10px; }
+
+.page-story-status-label {
+  color: white;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 24px;
+  line-height: 24px;
+  font-weight: bold;
+  padding: 0 8px;
+  display: inline-block;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2); }
+  .page-story-status-label.not-assign {
+    background-color: #DF0B01; }
+  .page-story-status-label.doing {
+    background-color: #0075EF; }
+  .page-story-status-label.reviewing {
+    background-color: #4546E7; }
+  .page-story-status-label.done {
+    background-color: #31BD35; }
+  .page-story-status-label.pause {
+    background-color: #EC9737; }
 
 .page-login form .field a.to-signup {
   float: left;
@@ -707,14 +730,14 @@ form .form-cancel {
         .page-products .product .stat-data .base .stat {
           float: left;
           background-color: #333;
-          width: 50px;
-          height: 50px;
-          margin-right: 10px;
+          width: 52px;
+          height: 52px;
+          margin-right: 4px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
           border-radius: 3px;
           color: #fff;
-          margin-bottom: 20px; }
+          margin-bottom: 10px; }
           .page-products .product .stat-data .base .stat .n {
             text-align: center;
             font-weight: bold;
@@ -732,8 +755,20 @@ form .form-cancel {
         margin-bottom: 5px;
         padding-bottom: 5px;
         border-bottom: dashed 1px #eee; }
-      .page-products .product .stat-data .work-member .members .none {
-        color: #aaa; }
+      .page-products .product .stat-data .work-member .members {
+        overflow: hidden; }
+        .page-products .product .stat-data .work-member .members .avatar {
+          float: left;
+          margin-right: 4px;
+          width: 24px;
+          height: 24px;
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          border-radius: 2px;
+          overflow: hidden; }
+          .page-products .product .stat-data .work-member .members .avatar img {
+            width: 24px;
+            height: 24px; }
     .page-products .product .ops {
       position: absolute;
       bottom: 4px;
@@ -942,16 +977,20 @@ form .form-cancel {
         float: right;
         width: 140px; }
         .page-product-show .product-streams .stream .box .members .member {
-          width: 22px;
-          height: 22px;
+          width: 24px;
+          height: 24px;
           float: left;
           margin-bottom: 4px;
           margin-left: 4px;
           background-color: #fafafa;
-          border: dashed 1px #ddd;
-          -moz-border-radius: 3px;
-          -webkit-border-radius: 3px;
-          border-radius: 3px; }
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          border-radius: 2px;
+          overflow: hidden; }
+          .page-product-show .product-streams .stream .box .members .member.blank {
+            width: 22px;
+            height: 22px;
+            border: dashed 1px #ddd; }
       .page-product-show .product-streams .stream .box .last-story {
         clear: both;
         padding: 5px;
@@ -1069,8 +1108,152 @@ form .form-cancel {
       line-height: 20px;
       margin: 0; }
 
+.page-story-show {
+  width: 593.28px;
+  position: relative; }
+  .page-story-show .admin-ops {
+    padding: 5px;
+    border: dashed 1px #eee;
+    background-color: #fafafa;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    position: absolute;
+    top: 0px;
+    right: -300px; }
+    .page-story-show .admin-ops .t {
+      background-color: #660000;
+      text-align: center;
+      color: #fff;
+      font-size: 10px;
+      margin-bottom: 5px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px; }
+    .page-story-show .admin-ops .op {
+      margin-bottom: 5px;
+      overflow: hidden; }
+      .page-story-show .admin-ops .op a {
+        float: left;
+        height: 22px;
+        line-height: 22px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: solid 1px #d4d4d4;
+        background: -moz-linear-gradient(-90deg, #f4f4f4, #ececec);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f4f4f4), to(#ececec));
+        color: #333;
+        text-shadow: 1px 1px 0 #FFFFFF;
+        padding: 0 8px; }
+        .page-story-show .admin-ops .op a:hover {
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #599bdc, #3072b3);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#599bdc), to(#3072b3));
+          border-color: #518cc6 #518cc6 #2a65a0;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+          color: white; }
+      .page-story-show .admin-ops .op:last-child {
+        margin-bottom: 0; }
+  .page-story-show .belongs-to {
+    position: relative;
+    margin-bottom: 30px;
+    margin-top: -10px; }
+    .page-story-show .belongs-to .product {
+      position: relative;
+      margin-bottom: 10px; }
+      .page-story-show .belongs-to .product a {
+        color: #fff;
+        margin-left: 32px;
+        display: inline-block;
+        padding: 0 8px;
+        background-color: #333;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        height: 24px;
+        line-height: 24px; }
+        .page-story-show .belongs-to .product a:hover {
+          color: #fff; }
+    .page-story-show .belongs-to .streams {
+      position: relative;
+      margin-left: 32px;
+      padding-left: 32px; }
+      .page-story-show .belongs-to .streams .stream {
+        margin-bottom: 10px;
+        display: inline-block; }
+        .page-story-show .belongs-to .streams .stream a {
+          color: #fff;
+          display: inline-block;
+          padding: 0 8px;
+          background-color: #555;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+          height: 24px;
+          line-height: 24px; }
+          .page-story-show .belongs-to .streams .stream a:hover {
+            color: #fff; }
+    .page-story-show .belongs-to .product:before, .page-story-show .belongs-to .streams:before {
+      content: "";
+      position: absolute;
+      border: solid 3px #ccc;
+      border-top: none;
+      border-right: none;
+      width: 12px;
+      height: 3px;
+      left: 0;
+      top: 8px;
+      -moz-border-radius: 0 0 0 3px;
+      -webkit-border-radius: 0 0 0 3px;
+      border-radius: 0 0 0 3px; }
+    .page-story-show .belongs-to .product:after, .page-story-show .belongs-to .streams:after {
+      content: "";
+      position: absolute;
+      border: solid 5px #ccc;
+      border-color: transparent transparent transparent #ccc;
+      left: 14px;
+      top: 7px; }
+  .page-story-show .how-to-demo, .page-story-show .tips, .page-story-show .assigned-members, .page-story-show .status {
+    margin-bottom: 30px; }
+    .page-story-show .how-to-demo .t, .page-story-show .tips .t, .page-story-show .assigned-members .t, .page-story-show .status .t {
+      font-weight: bold;
+      color: #222;
+      border-bottom: solid 1px #eee;
+      font-size: 14px;
+      padding-bottom: 5px;
+      margin-bottom: 5px; }
+    .page-story-show .how-to-demo .ct, .page-story-show .tips .ct, .page-story-show .assigned-members .ct, .page-story-show .status .ct {
+      font-size: 14px; }
+  .page-story-show .assigned-members {
+    overflow: hidden; }
+    .page-story-show .assigned-members .no-member {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 5px; }
+    .page-story-show .assigned-members .member {
+      float: left;
+      margin-right: 5px;
+      margin-bottom: 5px; }
+      .page-story-show .assigned-members .member .avatar {
+        width: 48px;
+        height: 48px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        overflow: hidden; }
+        .page-story-show .assigned-members .member .avatar img {
+          width: 48px;
+          height: 48px; }
+  .page-story-show .status .st {
+    margin-bottom: 10px; }
+  .page-story-show .status .other-st .tt {
+    color: #999; }
+  .page-story-show .status .other-st .toggle-st {
+    margin-left: 12px; }
+
 .page-stream-show .stories .story {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   width: 593.28px;
   padding-top: 30px;
   -moz-border-radius: 5px;
@@ -1095,8 +1278,7 @@ form .form-cancel {
     font-weight: bold;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-    border-radius: 4px;
-    text-shadow: 0px 0px 2px #ccc; }
+    border-radius: 4px; }
   .page-stream-show .stories .story .estimate {
     position: absolute;
     right: 5px;

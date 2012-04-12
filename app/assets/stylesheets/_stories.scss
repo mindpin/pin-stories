@@ -17,3 +17,112 @@
     }
   }
 }
+
+.page-story-show{
+  $w:960px * 0.618;
+  width:$w;position:relative;
+  
+  .admin-ops{
+    padding:5px;
+    border:dashed 1px #eee;
+    background-color:#fafafa;@include border-radius(3px);
+    position:absolute;top:0px;right:-300px;
+    .t{
+      background-color:darken(red,30%);
+      text-align:center;
+      color:#fff;font-size:10px;
+      margin-bottom:5px;
+      @include border-radius(3px);
+    }
+    .op{
+      margin-bottom:5px;
+      overflow:hidden;a{@include common-mini-button;}
+      &:last-child{margin-bottom:0;}
+    }
+  }
+  
+  .belongs-to{
+    position:relative;
+    margin-bottom:30px;margin-top:-10px;
+    .product{
+      position:relative;
+      margin-bottom:10px;
+      a{color:#fff;&:hover{color:#fff;}
+        margin-left:32px;
+        display:inline-block;
+        padding:0 8px;
+        background-color:#333;
+        @include border-radius(3px);
+        height:24px;line-height:24px;
+      }
+    }
+    
+    .streams{
+      position:relative;
+      margin-left:32px;
+      padding-left:32px;
+      .stream{
+        margin-bottom:10px;
+        display:inline-block;
+        a{color:#fff;&:hover{color:#fff;}
+          display:inline-block;
+          padding:0 8px;
+          background-color:#555;
+          @include border-radius(3px);
+          height:24px;line-height:24px;
+        }
+      }
+    }
+    
+    .product, .streams{
+      &:before{
+        content:"";
+        position:absolute;
+        border:solid 3px #ccc;
+        border-top:none;
+        border-right:none;
+        width:12px;height:3px;
+        left:0;top:8px;
+        @include border-radius(0 0 0 3px);
+      };
+      &:after{
+        content:"";
+        position:absolute;
+        border:solid 5px #ccc;
+        border-color:transparent transparent transparent #ccc;
+        left:14px;top:7px;
+      }
+    }
+  }
+  
+  .how-to-demo, .tips, .assigned-members, .status{
+    margin-bottom:30px;
+    .t{font-weight:bold;color:#222;
+      border-bottom:solid 1px #eee;
+      font-size:14px;padding-bottom:5px;margin-bottom:5px;
+    }
+    .ct{
+      font-size:14px;
+    }
+  }
+  
+  .assigned-members{
+    overflow:hidden;
+    .no-member{font-size:14px;color:#999;margin-bottom:5px;}
+    .member{
+      float:left;margin-right:5px;margin-bottom:5px;
+      .avatar{width:48px;height:48px;@include border-radius(3px);
+        overflow:hidden;
+        img{width:48px;height:48px;}
+      }
+    }
+  }
+  
+  .status{
+    .st{margin-bottom:10px;}
+    .other-st{
+      .tt{color:#999;}
+      .toggle-st{margin-left:12px;}
+    }
+  }
+}

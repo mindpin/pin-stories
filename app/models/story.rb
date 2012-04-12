@@ -21,6 +21,8 @@ class Story < ActiveRecord::Base
   
   belongs_to :product
   
+  default_scope order('id DESC')
+  
   validates :product,     :presence => true
   validates :how_to_demo, :presence => true
   validates :status,      :presence => true, :inclusion => {:in => STATUSES}

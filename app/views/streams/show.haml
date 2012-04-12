@@ -9,9 +9,9 @@
 
 -htitle page_title
 
-.page-title=page_title
-
-.page-go-back=link_to '返回产品页', product_url
+.page-title
+  %span=page_title
+  %a.go-back{:href=>product_url} 回产品页
 
 .page-stream-show
   .stories
@@ -33,7 +33,7 @@
             .ct=story.tips
         .status
           .t STATUS
-          .st=story.status
+          .st=status_label story
         .ops
           .t OPS
           .os

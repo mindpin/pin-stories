@@ -12,9 +12,11 @@
       description = product.description
       cover_url = product.cover.url
       
+      members = product.members
+      
       stories_count = product.stories.count
       streams_count = product.streams.count
-      members_count = 0
+      members_count = members.count
       
       product_show_url = "/products/#{product.id}"
       
@@ -37,6 +39,13 @@
           .stat{:class=> members_count == 0 ? 'zero':''}
             .n=members_count
             .d 参与者
+        .work-member
+          .members
+            -members.each do |member|
+              .avatar
+                =link_to "/members/#{member.id}", :title=>member.name do
+                  =avatar member, :mini
+            
       -if admin_logged_in?
         .ops
           %a.edit{:href=>"/products/#{product.id}/edit"} ADMIN:修改

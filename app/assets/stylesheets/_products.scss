@@ -46,10 +46,10 @@
         .stat{
           float:left;
           background-color:#333;
-          width:50px;height:50px;
-          margin-right:10px;
+          width:52px;height:52px;
+          margin-right:4px;
           @include border-radius(3px);
-          color:#fff;margin-bottom:20px;
+          color:#fff;margin-bottom:10px;
           .n{
             text-align:center;
             font-weight:bold;font-size:20px;
@@ -72,7 +72,13 @@
           border-bottom:dashed 1px #eee;
         }
         .members{
-          .none{color:#aaa;}
+          overflow:hidden;
+          .avatar{
+            float:left;margin-right:4px;
+            width:24px;height:24px;
+            @include border-radius(2px);overflow:hidden;
+            img{width:24px;height:24px;}
+          }
         }
       }
     }
@@ -194,10 +200,15 @@
         }
         .members{
           overflow:hidden;float:right;width:140px;
-          .member{width:22px;height:22px;float:left;
+          .member{
+            width:24px;height:24px;float:left;
             margin-bottom:4px;margin-left:4px;
-            background-color:#fafafa;border:dashed 1px #ddd;
-            @include border-radius(3px);
+            background-color:#fafafa;
+            @include border-radius(2px);
+            overflow:hidden;
+            &.blank{
+              width:22px;height:22px;border:dashed 1px #ddd;
+            }
           }
         }
         .last-story{

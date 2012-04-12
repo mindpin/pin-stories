@@ -34,4 +34,18 @@ module StoryHelper
     return name
   end
   
+  def status_label(story)
+    status = story.status
+    
+    str = {
+      Story::STATUS_NOT_ASSIGN => :未开始,
+      Story::STATUS_DOING => :正在做,
+      Story::STATUS_REVIEWING => :Review,
+      Story::STATUS_DONE => :已完成,
+      Story::STATUS_PAUSE => :暂缓
+    }[story.status]
+    
+    return content_tag(:div, str, :class=>"page-story-status-label #{status.downcase}")
+  end
+  
 end

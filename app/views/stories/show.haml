@@ -1,35 +1,60 @@
-%div
-  %label Story 内容
-%div=@story.how_to_demo
-
-%hr
-
-%div
-  %lable 所属 Streams
-  %span=link_to "重新指定 Stream","/stories/#{@story.id}/assign_streams"
-%div
-  -@story.streams.each do |stream|
-    %div
-      =link_to stream.title,"/streams/#{stream.id}"
-      
-%hr
+:ruby
+  story = @story
+  page_title = "故事: #{truncate_u story.how_to_demo, 10}"
+  product = story.product
+  product_url = "/products/#{product.id}"
   
-%div
-  %lable 指派给的人
-  %span=link_to "重新指派人","/stories/#{@story.id}/assign_users"
-%div
-  -@story.users.each do |user|
-    %div=user.name
+  streams = story.streams
+  
+  members = story.users
+
+-htitle page_title
+
+.page-title
+  %span=page_title
+  %a.go-back{:href=>product_url} 回产品页
+
+.page-story-show
+  -if admin_logged_in?
+    .admin-ops
+      .t ADMIN OPs
+      .op=link_to 'ADMIN:分配序列',"/stories/#{@story.id}/assign_streams"
+      .op=link_to 'ADMIN:指派成员',"/stories/#{@story.id}/assign_users"
+  
+  .belongs-to
+    .product=link_to product.name, product_url
+    .streams
+      -streams.each do |stream|
+        .stream=link_to stream.title, "/streams/#{stream.id}"
+        
+  .how-to-demo
+    .t HOW TO DEMO - 如何演示
+    .ct=story.how_to_demo
+  
+  -if !story.tips.blank?
+    .tips
+      .t TIPs - 提示和备注
+      .ct=story.tips    
+  
+  .assigned-members
+    .t 指派给
+    .members
+      -members.each do |member|
+        .member
+          .avatar
+            =link_to "/members/#{member.id}", :title=>member.name do
+              =avatar member
+    -if members.blank?
+      .no-member 尚未指派给任何人
     
-%hr
-%div
-  %lable 当前状态
-  %span=@story.status
-  
-%hr
-%div
-  %lable 切换状态
-  -(Story::STATUSES-[@story.status]).each do |status|
-    %div=link_to status,"/stories/#{@story.id}/change_status?status=#{status}",:method=>:put
+  .status
+    .t 故事状态
+    .st=status_label story
+    -if admin_logged_in?
+      .other-st
+        .tt ADMIN:切换到…
+        -(Story::STATUSES - [story.status]).each do |status|
+          .toggle-st=link_to status,"/stories/#{@story.id}/change_status?status=#{status}",:method=>:put
+
     
 		

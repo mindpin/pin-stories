@@ -20,4 +20,10 @@ class Product < ActiveRecord::Base
   
   # ---
   
+  # 参与过的成员
+  def members
+    stories = self.stories.all(:include=>[:users])
+    stories.map{|story| story.users}.flatten.uniq.compact
+  end
+  
 end

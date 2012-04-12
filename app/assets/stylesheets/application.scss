@@ -18,6 +18,36 @@
   margin:-20px -20px 20px;
   padding:10px 20px;
   border-bottom:dashed 1px #CCCCCC;
+  a.go-back{
+    @include gradient(#666, #444);
+    border:1px solid #555;
+    @include border-radius(2px);
+    display:inline-block;
+    height:20px;line-height:20px;
+    padding:0 6px;
+    font-size:12px;
+    color:white;&:hover{color:white;text-decoration:none;};
+    box-shadow:0px 0px 2px rgba(black, 0.1);
+    text-shadow:-1px -1px 0 rgba(black, 0.2);
+    margin-left:10px;position:relative;top:-2px;
+    
+    &:hover{
+      @include gradient(#777, #555);
+      border-color:#444;
+    }
+    position:relative;padding-left:17px;
+    &:before, &:after{
+      content:"";
+      position:absolute;
+      width:15px;height:15px;
+      //@include border-radius(2px);
+      left:-8px;
+      background-color:#FFF;
+      border-right:solid 1px #555;
+    }
+    &:before{top:-8px;@include transform(rotate(45deg));}
+    &:after{bottom:-8px;@include transform(rotate(-45deg));}
+  }
 }
 
 .page-nav{
@@ -51,38 +81,6 @@
     &.admin{
       float:right;margin-right:0;
     }
-  }
-}
-
-.page-go-back{
-  margin-bottom:20px;
-  a{
-    @include gradient(#666, #444);
-    border:1px solid #555;
-    @include border-radius(2px);
-    display:inline-block;
-    height:20px;line-height:20px;
-    padding:0 10px;
-    font-size:12px;
-    color:white;&:hover{color:white;text-decoration:none;};
-    box-shadow:0px 0px 2px rgba(black, 0.1);
-    text-shadow:-1px -1px 0 rgba(black, 0.2);
-    &:hover{
-      @include gradient(#777, #555);
-      border-color:#444;
-    }
-    position:relative;padding-left:17px;
-    &:before, &:after{
-      content:"";
-      position:absolute;
-      width:15px;height:15px;
-      //@include border-radius(2px);
-      left:-8px;
-      background-color:#FFF;
-      border-right:solid 1px #555;
-    }
-    &:before{top:-8px;@include transform(rotate(45deg));}
-    &:after{bottom:-8px;@include transform(rotate(-45deg));}
   }
 }
 
