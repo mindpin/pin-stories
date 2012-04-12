@@ -1,15 +1,16 @@
 .page-stream-show{
   .stories{
-    $w:960px * 0.618;
+    $w:500px;
     .story{
       margin-bottom:30px;
       width:$w;
       //background-color:#f7f7f7;
-      padding-top:30px;
+      padding-top:20px;
       @include border-radius(5px);
       border:dashed 1px #ccc;
       @include border-radius(3px);
       position:relative; background-color:#fafafa;
+      
       
       .story-id{
         color:#fff;font-size:9px;height:16px;line-height:16px;
@@ -20,38 +21,40 @@
         //text-shadow:0px 0px 2px #ccc;
       }
       
-      .estimate{
-        position:absolute;
-        right:5px;top:5px;
-        font-size:14px;font-weight:bold;
-        height:32px;line-height:32px;
-        background-color:lighten(#1071D1, 20%);color:#fff;text-shadow:0px 0px 2px #333;
-        width:48px;
-        @include border-radius(5px);
-        @include number-font-family;
-        text-align:center;
+      .how{
+        float:left;padding:0 15px;margin-right:15px;
+        width:280px;
+      }
+      .status{
+        float:left;width:120px;
+        .st{float:left;}
+        
+        .estimate{
+          float:left;margin-right:10px;
+          font-size:24px;font-weight:bold;
+          height:32px;line-height:32px;
+          background-color:lighten(#1071D1, 20%);color:#fff;text-shadow:0px 0px 2px #333;
+          width:48px;
+          @include border-radius(3px);
+          @include number-font-family;
+          text-align:center;
+        }
       }
       
-      .how, .status, .tips, .ops{
-        padding:0 15px;
-        margin-bottom:20px;
-        .t{
-          font-size:9px;color:#999;margin-bottom:5px;
-          height:10px;line-height:10px;
-          border-bottom:dotted 1px #ccc;padding-bottom:5px;margin-bottom:5px;
-          width:$w * (1 - 0.618);
-        }
-        .ct{
-          font-size:14px;
-        }
-        
-        .st{
-          
-        }
+      .ops{
+        clear:both;padding:15px;
         .os{
           overflow:hidden;
-          a.show{@include common-mini-button;}
+          a.show{@include common-mini-button;margin-right:5px;}
+          a.edit{@include common-mini-button;}
         }
+      }
+      
+      
+      .tips{
+        padding:0 15px;
+        margin-bottom:20px;
+        overflow:hidden;
       }
     }
   }

@@ -18,6 +18,7 @@
   -if admin_logged_in?
     .admin-ops
       .t ADMIN OPs
+      .op=link_to 'ADMIN:修改',"/stories/#{@story.id}/edit"
       .op=link_to 'ADMIN:分配序列',"/stories/#{@story.id}/assign_streams"
       .op=link_to 'ADMIN:指派成员',"/stories/#{@story.id}/assign_users"
   

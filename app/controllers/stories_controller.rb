@@ -22,6 +22,18 @@ class StoriesController < ApplicationController
     redirect_to "/products/#{@product.id}/stories/new"
   end
   
+  def edit
+  end
+
+  def update
+    if @story.update_attributes(params[:story])
+      redirect_to @story, :notice => '故事信息被修改了'
+    else
+      render :text=>@story.errors.to_json
+    end
+  end
+  
+  
   def assign_streams
   end
   

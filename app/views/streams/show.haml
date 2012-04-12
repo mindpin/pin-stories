@@ -18,24 +18,20 @@
     -@stories.each do |story|
       :ruby
         story_url = "/stories/#{story.id}"
+        story_edit_url = "/stories/#{story.id}/edit"
         tips = story.tips
         estimate = story.time_estimate
         
       .story
         .story-id STORY ##{story.id}
-        .estimate="#{estimate}H"
         .how
-          .t HOW TO DEMO
           .ct=story.how_to_demo
-        -if !tips.blank?
-          .tips
-            .t TIPS
-            .ct=story.tips
         .status
-          .t STATUS
+          .estimate="#{estimate}H"
           .st=status_label story
         .ops
-          .t OPS
           .os
             %a.show{:href=>story_url} 查看详情
+            -if admin_logged_in?
+              %a.edit{:href=>story_edit_url} ADMIN:修改
 		
