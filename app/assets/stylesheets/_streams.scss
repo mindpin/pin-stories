@@ -4,50 +4,65 @@
     .story{
       margin-bottom:30px;
       width:$w;
-      //background-color:#f7f7f7;
-      padding-top:20px;
-      @include border-radius(5px);
       border:dashed 1px #ccc;
       @include border-radius(3px);
       position:relative; background-color:#fafafa;
+      padding:10px;
       
-      
-      .story-id{
-        color:#fff;font-size:9px;height:16px;line-height:16px;
-        position:absolute;left:10px;top:-8px;
-        background-color:#444; //border:solid 1px #444;
-        padding:0 5px;font-weight:bold;
-        @include border-radius(4px);
-        //text-shadow:0px 0px 2px #ccc;
+      .meta{
+        overflow:hidden;margin-bottom:10px;
+        .story-id{
+          float:left;margin-right:5px;
+          color:#fff;height:24px;line-height:24px;
+          font-weight:bold;
+          background-color:#444;
+          padding:0 5px;font-weight:bold;
+          @include border-radius(3px);
+        }
+        .status{
+          float:left;width:120px;
+          .st{float:left;}
+          
+          .estimate{
+            float:left;margin-right:5px;
+            font-size:16px;font-weight:bold;
+            height:24px;line-height:24px;
+            background-color:lighten(#0075EF, 20%);
+            //background-color:#0075EF;
+            color:#fff;text-shadow:0px 0px 2px #333;
+            width:48px;
+            @include border-radius(3px);
+            @include number-font-family;
+            text-align:center;
+          }
+        }
+        
+        .members{
+          .avatar{
+            float:left;
+            width:24px;height:24px;overflow:hidden;
+            @include border-radius(3px);
+            img{width:24px;height:24px;}
+            margin-right:5px;
+          }
+        }
+        
+        .ops{
+          float:right;
+          .os{
+            overflow:hidden;
+            a.show{@include common-mini-button;margin-right:5px;}
+            a.edit{@include common-mini-button;}
+          }
+        }
       }
       
       .how{
-        float:left;padding:0 15px;margin-right:15px;
-        width:280px;
-      }
-      .status{
-        float:left;width:120px;
-        .st{float:left;}
-        
-        .estimate{
-          float:left;margin-right:10px;
-          font-size:24px;font-weight:bold;
-          height:32px;line-height:32px;
-          background-color:lighten(#1071D1, 20%);color:#fff;text-shadow:0px 0px 2px #333;
-          width:48px;
-          @include border-radius(3px);
-          @include number-font-family;
-          text-align:center;
-        }
-      }
-      
-      .ops{
-        clear:both;padding:15px;
-        .os{
-          overflow:hidden;
-          a.show{@include common-mini-button;margin-right:5px;}
-          a.edit{@include common-mini-button;}
-        }
+        clear:both;
+        background-color:#fff;
+        border:1px dashed #eee;
+        @include border-radius(3px);
+        padding:5px;
       }
       
       
@@ -59,3 +74,5 @@
     }
   }
 }
+
+.page-mine-stories{@extend .page-stream-show;}

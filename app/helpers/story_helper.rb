@@ -29,6 +29,8 @@ module StoryHelper
       return "#{name} #{klass}" if path.start_with? '/members'
     when :admin
       return "#{name} #{klass}" if path.start_with? '/admin'
+    when :mine
+      return "#{name} #{klass}" if path.start_with? '/mine'
     end
     
     return name

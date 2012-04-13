@@ -1,5 +1,6 @@
-=link_to "首页","/"
-%div
-  -@stories.each do |story|
-    =story.content
-    %div=link_to "查看详情","/stories/#{story.id}"
+-htitle '我的任务'
+
+=render 'index/parts/page_nav'
+
+.page-mine-stories
+  =render 'stories/parts/simple_list', :stories=>@stories

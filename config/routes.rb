@@ -13,8 +13,8 @@ Voteapp::Application.routes.draw do
   
   # -- 管理员界面
   
-  get '/admin'         => 'admin/admin#members'
-  get '/admin/members' => 'admin/admin#members'
+  get  '/admin'         => 'admin/admin#members'
+  get  '/admin/members' => 'admin/admin#members'
   
   get  '/admin/members/new' => 'admin/admin#new_member'
   post '/admin/members'     => 'admin/admin#create_member'
@@ -30,12 +30,9 @@ Voteapp::Application.routes.draw do
   end
   
   resources :members
-  
   resources :streams
+  
   resources :stories do
-    collection do
-      get :mine
-    end
     member do
       get :assign_streams
       put :do_assign_streams
@@ -44,4 +41,6 @@ Voteapp::Application.routes.draw do
       put :change_status
     end
   end
+  get '/mine' => 'stories#mine'
+  
 end

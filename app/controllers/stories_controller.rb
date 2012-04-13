@@ -67,6 +67,6 @@ class StoriesController < ApplicationController
   end
   
   def mine
-    @stories = current_user.stories
+    @stories = current_user.assigned_stories
   end
 end

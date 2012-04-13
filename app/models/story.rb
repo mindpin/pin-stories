@@ -54,5 +54,9 @@ class Story < ActiveRecord::Base
       User.first == self # 第一个用户是管理员，暂时先这样判断
     end
     
+    def assigned_stories
+      self.stories
+    end
+    
   end
 end
