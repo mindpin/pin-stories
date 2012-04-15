@@ -13,8 +13,8 @@
   new_story_url = "/products/#{@product.id}/stories/new"
   new_stream_url = "/products/#{@product.id}/streams/new"
 
-  stories_count = product.stories.count
-  streams_count = product.streams.count
+  product_stories_count = product.stories.count
+  product_streams_count = product.streams.count
 
 -htitle name
 
@@ -27,7 +27,7 @@
     .nav
       %a.item{:href=>home_url}
         .t 故事白板
-        .c=stories_count
+        .c=product_stories_count
       %a.item.disabled{:href=>issues_url} BUG和建议
       %a.item.disabled{:href=>wiki_url} WIKI
     
@@ -40,7 +40,7 @@
     -product.streams.each do |stream|
       :ruby
         title = truncate_u stream.title, 15
-        stories_count = stream.stories.count
+        stream_stories_count = stream.stories.count
         last_story = stream.stories.last
         stream_url = "/streams/#{stream.id}"
         working_hours = stream.working_hours
@@ -51,7 +51,7 @@
         .box
           .ct=link_to title, stream_url
           .stories-and-hours
-            .stories-count=stories_count
+            .stories-count=stream_stories_count
             .working-hours="#{working_hours}H"
           .split
           .members
@@ -71,10 +71,10 @@
   .product-stats
     .stat.stories
       .t 故事总数
-      %span.c=stories_count
+      %span.c=product_stories_count
       %span.d 个
     .stat.streams
       .t 序列总数
-      %span.c=streams_count
+      %span.c=product_streams_count
       %span.d 个
       
