@@ -279,8 +279,8 @@ body {
   color: #404040;
   width: 100%; }
   body .page-header {
-    background: -moz-linear-gradient(-90deg, #3974b4, #3468a2);
-    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3974b4), to(#3468a2)); }
+    background: -moz-linear-gradient(-90deg, #333333, #555555);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#333333), to(#555555)); }
     body .page-header .h {
       width: 960px;
       margin: 0 auto;
@@ -288,13 +288,13 @@ body {
       line-height: 50px;
       overflow: visible; }
       body .page-header .h .title {
-        color: #99c8f7;
+        color: rgba(255, 255, 255, 0.9);
         float: left;
         font-weight: bold;
-        text-shadow: 0 1px 0 #093E72;
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
         font-size: 20px; }
         body .page-header .h .title a {
-          color: #99c8f7 !important; }
+          color: rgba(255, 255, 255, 0.9) !important; }
       body .page-header .h .user {
         overflow: hidden;
         float: left;
@@ -460,7 +460,7 @@ form .form-cancel {
 .page-title {
   font-size: 16px;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
-  margin: -20px -20px 20px;
+  margin: -10px -20px 20px;
   padding: 10px 20px;
   border-bottom: dashed 1px #CCCCCC; }
   .page-title a.go-back {
@@ -510,7 +510,7 @@ form .form-cancel {
       transform: rotate(-45deg); }
 
 .page-nav {
-  margin: -20px -20px 20px;
+  margin: -10px -20px 20px;
   padding: 10px 20px;
   border-bottom: dashed 1px #CCCCCC; }
   .page-nav a.item {
@@ -524,10 +524,11 @@ form .form-cancel {
     line-height: 24px;
     display: inline-block; }
     .page-nav a.item:hover {
-      color: #404040; }
+      color: #404040;
+      text-decoration: none; }
     .page-nav a.item.current {
       padding: 0 10px;
-      background-color: #ffeeee;
+      background-color: #e7eda2;
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
       border-radius: 4px;
@@ -541,7 +542,7 @@ form .form-cancel {
         -moz-border-radius: 4px 4px 0 0;
         -webkit-border-radius: 4px 4px 0 0;
         border-radius: 4px 4px 0 0;
-        background-color: #ff4444;
+        background-color: #717917;
         left: 0;
         bottom: -11px; }
     .page-nav a.item.admin {
@@ -566,23 +567,22 @@ form .form-cancel {
   border-radius: 3px;
   height: 24px;
   line-height: 24px;
-  font-weight: bold;
   font-size: 12px;
   display: inline-block;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   width: 60px;
   text-align: center; }
   .page-story-status-label.not-assign {
-    background-color: #DF0B01; }
+    background-color: #df0b01; }
   .page-story-status-label.doing {
-    background-color: #0075EF; }
+    background-color: #0075ef; }
   .page-story-status-label.reviewing {
-    background-color: #4546E7; }
+    background-color: #4546e7; }
   .page-story-status-label.done {
-    background-color: #31BD35; }
+    background-color: #31bd35; }
   .page-story-status-label.pause {
-    background-color: #EC9737; }
+    background-color: #ec9737; }
 
 .page-login form .field a.to-signup {
   float: left;
@@ -801,7 +801,7 @@ form .form-cancel {
   padding: 10px 20px 36px 20px;
   overflow: visible;
   margin: 0 -20px;
-  border-bottom: solid 1px #ccc;
+  border-bottom: dashed 1px #ccc;
   position: relative;
   margin-bottom: 20px; }
   .page-product-show .headbar .name {
@@ -1026,7 +1026,7 @@ form .form-cancel {
     .page-product-show .product-stats .stat .c {
       font-size: 24px;
       font-weight: bold;
-      font-family: helvetica,'Helvetica Neue',arial,"liberation sans",freesans,sans-serif;
+      font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
       float: left;
       height: 24px;
       line-height: 24px;
@@ -1169,7 +1169,7 @@ form .form-cancel {
         margin-left: 32px;
         display: inline-block;
         padding: 0 8px;
-        background-color: #333;
+        background-color: #555;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
@@ -1255,6 +1255,82 @@ form .form-cancel {
   .page-story-show .status .other-st .toggle-st {
     margin-left: 12px; }
 
+.page-mine-stories-filter-nav {
+  margin-bottom: 30px;
+  height: 32px;
+  position: relative;
+  padding: 20px 20px 0px;
+  margin: -20px -20px 20px;
+  border-bottom: dashed 1px #CCCCCC;
+  background-color: #FAFAFA; }
+  .page-mine-stories-filter-nav .statuses {
+    overflow: hidden;
+    position: absolute;
+    bottom: -1px; }
+    .page-mine-stories-filter-nav .statuses .status {
+      float: left;
+      margin-right: 3px;
+      height: 32px;
+      line-height: 32px;
+      background-color: #ddd;
+      border: solid 1px #ccc;
+      border-bottom: none;
+      -moz-border-radius: 3px 3px 0 0;
+      -webkit-border-radius: 3px 3px 0 0;
+      border-radius: 3px 3px 0 0;
+      padding: 0 12px; }
+      .page-mine-stories-filter-nav .statuses .status.current {
+        background-color: white;
+        border-color: #bbb; }
+        .page-mine-stories-filter-nav .statuses .status.current .label a {
+          color: #444; }
+          .page-mine-stories-filter-nav .statuses .status.current .label a:hover {
+            color: #444; }
+      .page-mine-stories-filter-nav .statuses .status .label, .page-mine-stories-filter-nav .statuses .status .count {
+        float: left; }
+      .page-mine-stories-filter-nav .statuses .status .label {
+        margin-right: 10px; }
+        .page-mine-stories-filter-nav .statuses .status .label a {
+          color: #999999; }
+          .page-mine-stories-filter-nav .statuses .status .label a:hover {
+            color: #666; }
+      .page-mine-stories-filter-nav .statuses .status .count {
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        font-weight: bold;
+        padding: 0 3px 0 4px;
+        height: 18px;
+        line-height: 18px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        padding: 0 10px;
+        background-color: #555;
+        font-size: 10px;
+        color: #fff;
+        margin-top: 7px; }
+      .page-mine-stories-filter-nav .statuses .status.not-assign .count {
+        background-color: #df0b01; }
+      .page-mine-stories-filter-nav .statuses .status.doing .count {
+        background-color: #0075ef; }
+      .page-mine-stories-filter-nav .statuses .status.reviewing .count {
+        background-color: #4546e7; }
+      .page-mine-stories-filter-nav .statuses .status.done .count {
+        background-color: #31bd35; }
+      .page-mine-stories-filter-nav .statuses .status.pause .count {
+        background-color: #ec9737; }
+
+.page-mine-stories-notice {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: white;
+  background-color: #444;
+  padding: 10px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
+
 .page-stream-show .stories .story, .page-mine-stories .stories .story {
   margin-bottom: 30px;
   width: 500px;
@@ -1300,7 +1376,7 @@ form .form-cancel {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
-        font-family: helvetica,'Helvetica Neue',arial,"liberation sans",freesans,sans-serif;
+        font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
         text-align: center; }
     .page-stream-show .stories .story .meta .members .avatar, .page-mine-stories .stories .story .meta .members .avatar {
       float: left;

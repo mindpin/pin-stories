@@ -51,7 +51,7 @@
         margin-left:32px;
         display:inline-block;
         padding:0 8px;
-        background-color:#333;
+        background-color:#555;
         @include border-radius(3px);
         height:24px;line-height:24px;
       }
@@ -126,4 +126,76 @@
       .toggle-st{margin-left:12px;}
     }
   }
+}
+
+.page-mine-stories-filter-nav{
+  margin-bottom:30px;
+  height:32px;position:relative;
+  padding:20px 20px 0px;
+  margin:-20px -20px 20px;
+  border-bottom:dashed 1px #CCCCCC;
+  background-color:#FAFAFA;
+  
+  .statuses{
+    overflow:hidden;
+    position:absolute;bottom:-1px;
+    
+    .status{
+      float:left;
+      margin-right:3px;
+      height:32px;line-height:32px;
+      background-color:#ddd;
+      border:solid 1px #ccc;
+      border-bottom:none;
+      @include border-radius(3px 3px 0 0);
+      padding:0 12px;
+      
+      &.current{
+        background-color:white;
+        border-color:#bbb;
+        .label{
+          a{
+            color:#444;
+            &:hover{color:#444;};
+          }
+        };
+      }
+      
+      .label, .count{float:left;}
+      .label{
+        margin-right:10px;
+        a{
+          color:#999999;
+          &:hover{color:#666;};
+        }
+      }
+      .count{
+        @include border-radius(3px);
+        font-weight:bold;
+        padding:0 3px 0 4px;
+        height:18px;line-height:18px;
+        @include border-radius(10px);
+        padding:0 10px;
+        background-color:#555;
+        font-size:10px;
+        color:#fff;
+        margin-top:7px;
+      }
+      
+      &.not-assign{.count{background-color:$story-status-not-assign-color;}}
+      &.doing{.count{background-color:$story-status-doing-color;}}
+      &.reviewing{.count{background-color:$story-status-reviewing-color;}}
+      &.done{.count{background-color:$story-status-done-color;}}
+      &.pause{.count{background-color:$story-status-pause-color;}}
+    }
+  }
+}
+
+.page-mine-stories-notice{
+  font-size:14px;
+  margin-bottom:20px;
+  color:white;
+  background-color:#444;
+  padding:10px;
+  @include border-radius(3px);
 }

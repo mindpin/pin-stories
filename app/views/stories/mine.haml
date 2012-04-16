@@ -2,5 +2,12 @@
 
 =render 'index/parts/page_nav'
 
+.page-mine-stories-filter-nav
+  =render 'stories/parts/stories_filter_nav', :stories=>@mine_stories
+
+-if @mine_stories.with_status(Story::STATUS_DOING).count > 3
+  .page-mine-stories-notice 你目前正在执行的故事有点多了（>3个），是否调整一下？
+      
+
 .page-mine-stories
-  =render 'stories/parts/simple_list', :stories=>@stories
+  =render 'stories/parts/simple_list', :stories=>@filtered_stories

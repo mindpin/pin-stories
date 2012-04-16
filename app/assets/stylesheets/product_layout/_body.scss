@@ -12,8 +12,9 @@ body{
 
   $page-header-height:50px;
   .page-header{
-    @include gradient(#3974B4, #3468A2);
-    
+    //@include gradient(#3974B4, #3468A2);
+    //background-color:darken(#e7eda2, 61.8%);
+    @include gradient(#333, #555);
     .h{
       width:960px;margin:0 auto;
 
@@ -23,10 +24,12 @@ body{
       $color:#fff;
       .title{
         //color:$color;
-        $c:mix(#55A4F2,white,60%);
+        //$c:mix(#55A4F2,white,60%);
+        $c:rgba(#fff, 0.9);
         color:$c;a{color:$c !important;}
         float:left;font-weight:bold;
-        text-shadow:0 1px 0 #093E72;
+        //text-shadow:0 1px 0 #093E72;
+        text-shadow:0 0 2px rgba(#fff, 0.5);
         font-size:20px;
       }
       .user{

@@ -1,0 +1,17 @@
+:ruby
+  story_statuses = Story::STATUSES
+
+  current_status = params[:story_status]
+  current_status = 'all' if current_status.blank?
+  current_status = 'all' if !story_statuses.include?(current_status)
+
+.statuses
+  .status.all{:class=>'all' == current_status ? 'current':''}
+    .label=link_to '全部故事', '/mine'
+    .count=stories.count
+  -story_statuses.each do |status_name|
+    :ruby
+      klass = [status_name.downcase, status_name == current_status ? 'current':''] * ' '
+    .status{:class=>klass}
+      .label=link_to (status_to_str status_name) , "/mine?story_status=#{status_name}"
+      .count=stories.with_status(status_name).count

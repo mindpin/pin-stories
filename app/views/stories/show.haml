@@ -30,12 +30,12 @@
         
   .how-to-demo
     .t HOW TO DEMO - 如何演示
-    .ct=story.how_to_demo
+    .ct=format_ct story, :how_to_demo
   
   -if !story.tips.blank?
     .tips
       .t TIPs - 提示和备注
-      .ct=story.tips    
+      .ct=format_ct story, :tips
   
   .assigned-members
     .t 指派给

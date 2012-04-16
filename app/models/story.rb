@@ -1,9 +1,9 @@
 class Story < ActiveRecord::Base
-  STATUS_NOT_ASSIGN = "NOT-ASSIGN"
-  STATUS_DOING = "DOING"
-  STATUS_REVIEWING = "REVIEWING"
-  STATUS_DONE = "DONE"
-  STATUS_PAUSE = "PAUSE"
+  STATUS_NOT_ASSIGN = 'NOT-ASSIGN'
+  STATUS_DOING      = 'DOING'
+  STATUS_REVIEWING  = 'REVIEWING'
+  STATUS_DONE       = 'DONE'
+  STATUS_PAUSE      = 'PAUSE'
   
   STATUSES = [
     STATUS_NOT_ASSIGN,
@@ -13,6 +13,8 @@ class Story < ActiveRecord::Base
     STATUS_PAUSE
   ]
   
+  # -------------------------
+  
   has_many :stream_story_links
   has_many :streams, :through => :stream_story_links
   accepts_nested_attributes_for :stream_story_links
@@ -21,7 +23,13 @@ class Story < ActiveRecord::Base
   
   belongs_to :product
   
+  # ------------------
+  
   default_scope order('id DESC')
+  
+  scope :with_status, lambda {|status| where(:status=>status)}
+  
+  # ------------------
   
   validates :product,     :presence => true
   validates :how_to_demo, :presence => true
@@ -30,19 +38,22 @@ class Story < ActiveRecord::Base
   validate :validate_stream_story_links_count
   def validate_stream_story_links_count
    if 0 == self.stream_story_links.length
-      errors.add(:streams,"至少指定一个 Stream")
+      errors.add(:streams, :至少指定一个序列)
    end
-    
   end
   
   before_validation(:on => :create) do
     self.status = STATUS_NOT_ASSIGN
   end
   
+  # ----------------------
+  
   def change_status(status)
     self.status = status
     self.save
   end
+  
+  # ----------------------
   
   module UserMethods
     def self.included(base)

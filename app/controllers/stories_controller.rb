@@ -67,6 +67,10 @@ class StoriesController < ApplicationController
   end
   
   def mine
-    @stories = current_user.assigned_stories
+    @mine_stories = current_user.assigned_stories
+    
+    param_status = params[:story_status]
+    @filtered_stories = param_status.blank? ? @mine_stories : @mine_stories.with_status(param_status)
+    
   end
 end

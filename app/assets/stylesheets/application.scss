@@ -15,7 +15,7 @@
 .page-title{
   font-size:16px;//font-weight:bold;
   text-shadow:1px 1px 0 rgba(#fff, 0.75);
-  margin:-20px -20px 20px;
+  margin:-10px -20px 20px;
   padding:10px 20px;
   border-bottom:dashed 1px #CCCCCC;
   a.go-back{
@@ -51,21 +51,24 @@
 }
 
 .page-nav{
-  margin:-20px -20px 20px;
+  margin:-10px -20px 20px;
   padding:10px 20px;
   border-bottom:dashed 1px #CCCCCC;
   a.item{
     font-size:16px;//font-weight:bold;
     text-shadow:1px 1px 0 rgba(#fff, 0.3);
-    color:#404040;&:hover{color:#404040;};
+    color:#404040;&:hover{color:#404040;text-decoration:none;};
     margin-right:20px;
     overflow:visible;
     position:relative;
     height:24px;line-height:24px;
     display:inline-block;
+    
     &.current{
       padding:0 10px;
-      background-color:#ffeeee;
+      //background-color:#ffeeee;
+      background-color:#e7eda2;
+      //background-color:#eee;
       @include border-radius(4px);
       text-shadow:1px 1px 0 rgba(#fff, 0.3);
       &:after{
@@ -73,7 +76,9 @@
         display:block;position:absolute;
         width:100%;height:5px;
         @include border-radius(4px 4px 0 0);
-        background-color:#ff4444;
+        //background-color:#ff4444;
+        background-color:darken(#e7eda2, 50%);
+        //background-color:darken(#eee, 40%);
         left:0;bottom:-11px;
       };
     }

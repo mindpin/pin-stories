@@ -3,7 +3,8 @@
 }
 
 @mixin number-font-family{
-  font-family:helvetica,'Helvetica Neue',arial,"liberation sans",freesans,sans-serif;
+  //font-family:helvetica,'Helvetica Neue',arial,"liberation sans",freesans,sans-serif;
+  font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;
 }
 
 @mixin numfont{
