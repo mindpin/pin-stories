@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120417020934) do
+ActiveRecord::Schema.define(:version => 20120417063245) do
 
   create_table "member_infos", :force => true do |t|
     t.integer "user_id",          :null => false
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20120417020934) do
     t.string  "phone_number"
     t.string  "bank_card_number"
     t.string  "deposit_bank"
+    t.string  "address"
+    t.string  "post_code"
   end
 
   create_table "online_records", :force => true do |t|

@@ -33,6 +33,14 @@
           = mif.text_field :deposit_bank
         .clearfix
 
+      .area.address
+        .field.address
+          %label 通信/收货地址
+          = mif.text_area :address
+        .field.post_code
+          %label 邮编
+          = mif.text_field :post_code
+
     .field
       %a.form-submit-button{:href=>'javascript:;'} 确认
       %a.form-cancel{:href=>'/admin/members'} 取消
