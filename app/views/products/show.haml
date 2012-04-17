@@ -1,41 +1,14 @@
+-htitle @product.name
+
+=render 'index/parts/page_nav'
+=render 'products/parts/product_headbar', :product=>@product, :current=>:stories_board
+=render 'products/parts/product_stats', :product=>@product
+
 :ruby
   product = @product
   name = product.name
-  description = product.description
-  cover_url = product.cover.url
-  
-  home_url = "/products/#{@product.id}"
-  # issues_url = "/products/#{@product.id}/issues"
-  # wiki_url = "/products/#{@product.id}/wiki"
-  issues_url = "javascript:;"
-  wiki_url = "javascript:;"
-  
-  new_story_url = "/products/#{@product.id}/stories/new"
-  new_stream_url = "/products/#{@product.id}/streams/new"
 
-  product_stories_count = product.stories.count
-  product_streams_count = product.streams.count
-
--htitle name
-
-=render 'index/parts/page_nav'
-
-.page-product-show
-  .headbar
-    .name=name
-    .desc=description
-    .nav
-      %a.item{:href=>home_url}
-        .t 故事白板
-        .c=product_stories_count
-      %a.item.disabled{:href=>issues_url} BUG和建议
-      %a.item.disabled{:href=>wiki_url} WIKI
-    
-    -if admin_logged_in?
-      .admin-ops
-        %a.add-story{:href=>new_story_url} ADMIN:创建故事
-        %a.add-stream{:href=>new_stream_url} ADMIN:创建序列
-    
+.page-product-show    
   .product-streams
     -product.streams.each do |stream|
       :ruby
@@ -66,15 +39,4 @@
             .last-story
               .updated_at=last_story.updated_at
               .how=truncate_u last_story.how_to_demo, 32
-            
-        
-  .product-stats
-    .stat.stories
-      .t 故事总数
-      %span.c=product_stories_count
-      %span.d 个
-    .stat.streams
-      .t 序列总数
-      %span.c=product_streams_count
-      %span.d 个
       

@@ -1,0 +1,40 @@
+-htitle @product.name
+
+=render 'index/parts/page_nav'
+=render 'products/parts/product_headbar', :product=>@product, :current=>:members
+=render 'products/parts/product_stats', :product=>@product
+
+.page-product-members
+  -@product_members.each do |member|
+    :ruby
+      doing_stories     = member.stories.with_status(Story::STATUS_DOING)
+      reviewing_stories = member.stories.with_status(Story::STATUS_REVIEWING)
+      not_start_stories = member.stories.with_status(Story::STATUS_NOT_ASSIGN)
+
+    .member
+      .avatar
+        =avatar_link member, :medium
+      .meta-and-status
+        .name
+          =userlink member
+        .doing
+          -if !doing_stories.blank?
+            -storys = doing_stories[0...3]
+            正在执行
+            -storys.each do |story|
+              =link_to "STORY ##{story.id}", "/stories/#{story.id}"
+            等 #{doing_stories.count} 个任务
+
+        .reviews
+          -if !reviewing_stories.blank?
+            -storys = reviewing_stories[0...3]
+            -storys.each do |story|
+              =link_to "STORY ##{story.id}", "/stories/#{story.id}"
+            等 #{reviewing_stories.count} 个任务需要REVIEW
+
+        .not-start
+          -if !not_start_stories.blank?
+            -storys = not_start_stories[0...3]
+            -storys.each do |story|
+              =link_to "STORY ##{story.id}", "/stories/#{story.id}"
+            等 #{not_start_stories.count} 个任务尚未开始

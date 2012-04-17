@@ -36,4 +36,10 @@ class ProductsController < ApplicationController
     end
   end
   
+  # -----
+
+  def product_members
+    @product_members = @product.members
+  end
+
 end

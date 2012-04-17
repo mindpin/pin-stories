@@ -18,7 +18,7 @@ module AvatarHelper
   end
   
   def avatar_link(user, style = nil)
-    href  = user.blank? ? 'javascript:;' : "/users/#{user.id}"
+    href  = user.blank? ? 'javascript:;' : "/members/#{user.id}"
     title = user.blank? ? '未知用户' : user.name
     
     link_to href, :title=>title do

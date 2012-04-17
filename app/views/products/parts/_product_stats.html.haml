@@ -1,0 +1,13 @@
+:ruby
+  product_stories_count = product.stories.count
+  product_streams_count = product.streams.count
+
+.page-product-stats
+  .stat.stories
+    .t 故事总数
+    %span.c=product_stories_count
+    %span.d 个
+  .stat.streams
+    .t 序列总数
+    %span.c=product_streams_count
+    %span.d 个

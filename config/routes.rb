@@ -28,6 +28,10 @@ Voteapp::Application.routes.draw do
     resources :streams
     resources :stories
   end
+  get 'products/:id/members' => 'products#product_members'
+
+
+  # -----
   
   resources :members
   resources :streams

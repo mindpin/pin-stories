@@ -856,7 +856,7 @@ form .form-cancel {
           text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
           color: white; }
 
-.page-product-show .headbar {
+.page-product-headbar {
   background-color: #fafafa;
   padding: 10px 20px 36px 20px;
   overflow: visible;
@@ -864,24 +864,24 @@ form .form-cancel {
   border-bottom: dashed 1px #ccc;
   position: relative;
   margin-bottom: 20px; }
-  .page-product-show .headbar .name {
+  .page-product-headbar .name {
     font-size: 18px;
     font-weight: bold;
     color: #333;
     line-height: 32px;
     height: 32px;
     margin-bottom: 10px; }
-  .page-product-show .headbar .desc {
+  .page-product-headbar .desc {
     color: #555;
     width: 593.28px;
     margin-bottom: 20px;
     font-size: 14px;
     padding-left: 14px; }
-  .page-product-show .headbar .nav {
+  .page-product-headbar .nav {
     overflow: hidden;
     position: absolute;
     bottom: -1px; }
-    .page-product-show .headbar .nav .item {
+    .page-product-headbar .nav .item {
       line-height: 32px;
       height: 32px;
       display: inline-block;
@@ -896,12 +896,12 @@ form .form-cancel {
       border: solid 1px #55A4F2;
       border-bottom: none;
       overflow: hidden; }
-      .page-product-show .headbar .nav .item:hover {
+      .page-product-headbar .nav .item:hover {
         color: white; }
-      .page-product-show .headbar .nav .item .t {
+      .page-product-headbar .nav .item .t {
         float: left;
         margin-right: 10px; }
-      .page-product-show .headbar .nav .item .c {
+      .page-product-headbar .nav .item .c {
         background-color: #1071D1;
         -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
@@ -913,22 +913,29 @@ form .form-cancel {
         line-height: 18px;
         padding: 0 10px;
         margin-top: 7px; }
-      .page-product-show .headbar .nav .item:hover {
+      .page-product-headbar .nav .item:hover {
         background-color: #1071d1;
         border-color: #1071d1; }
-        .page-product-show .headbar .nav .item:hover .c {
+        .page-product-headbar .nav .item:hover .c {
           background-color: #093e72; }
-      .page-product-show .headbar .nav .item.disabled {
+      .page-product-headbar .nav .item.disabled {
         background-color: #ddd;
         border-color: #ccc;
         color: #999; }
-  .page-product-show .headbar .admin-ops {
+      .page-product-headbar .nav .item.current {
+        background-color: #fff;
+        border-color: #bbb;
+        color: #444; }
+        .page-product-headbar .nav .item.current .c {
+          background-color: #666;
+          color: white; }
+  .page-product-headbar .admin-ops {
     position: absolute;
     right: 0;
     bottom: 4px;
     right: 4px;
     overflow: hidden; }
-    .page-product-show .headbar .admin-ops a.add-story {
+    .page-product-headbar .admin-ops a.add-story {
       float: left;
       height: 24px;
       line-height: 24px;
@@ -943,12 +950,12 @@ form .form-cancel {
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
       padding: 0 8px;
       margin-right: 4px; }
-      .page-product-show .headbar .admin-ops a.add-story:hover {
+      .page-product-headbar .admin-ops a.add-story:hover {
         text-decoration: none;
         background: -moz-linear-gradient(-90deg, #8ad033, #76b12b);
         background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#8ad033), to(#76b12b));
         border: solid 1px #5E8F1C; }
-    .page-product-show .headbar .admin-ops a.add-stream {
+    .page-product-headbar .admin-ops a.add-stream {
       float: left;
       height: 24px;
       line-height: 24px;
@@ -962,11 +969,12 @@ form .form-cancel {
       color: white;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
       padding: 0 8px; }
-      .page-product-show .headbar .admin-ops a.add-stream:hover {
+      .page-product-headbar .admin-ops a.add-stream:hover {
         text-decoration: none;
         background: -moz-linear-gradient(-90deg, #8ad033, #76b12b);
         background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#8ad033), to(#76b12b));
         border: solid 1px #5E8F1C; }
+
 .page-product-show .product-streams {
   float: left;
   width: 690px; }
@@ -1066,7 +1074,8 @@ form .form-cancel {
           font-size: 10px;
           margin-bottom: 5px;
           color: #999; }
-.page-product-show .product-stats {
+
+.page-product-stats {
   float: right;
   background-color: #333;
   -moz-border-radius: 2px;
@@ -1077,13 +1086,13 @@ form .form-cancel {
   color: white;
   font-size: 14px;
   padding: 20px; }
-  .page-product-show .product-stats .stat {
+  .page-product-stats .stat {
     overflow: hidden;
     float: left; }
-    .page-product-show .product-stats .stat .t {
+    .page-product-stats .stat .t {
       font-size: 14px;
       margin-bottom: 5px; }
-    .page-product-show .product-stats .stat .c {
+    .page-product-stats .stat .c {
       font-size: 24px;
       font-weight: bold;
       font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
@@ -1091,17 +1100,17 @@ form .form-cancel {
       height: 24px;
       line-height: 24px;
       margin-right: 5px; }
-    .page-product-show .product-stats .stat .d {
+    .page-product-stats .stat .d {
       float: left;
       font-size: 12px;
       height: 12px;
       line-height: 12px;
       margin-top: 9px; }
-    .page-product-show .product-stats .stat.stories {
+    .page-product-stats .stat.stories {
       position: relative;
       margin-right: 20px;
       width: 125px; }
-      .page-product-show .product-stats .stat.stories:before {
+      .page-product-stats .stat.stories:before {
         content: "";
         display: block;
         position: absolute;
@@ -1110,6 +1119,49 @@ form .form-cancel {
         right: 0;
         border-left: solid 1px #1D1D1D;
         border-right: solid 1px #464646; }
+
+.page-product-members {
+  width: 690px; }
+  .page-product-members .member {
+    padding: 10px;
+    margin-right: 20px;
+    background-color: #fafafa;
+    border: dashed 1px #ddd;
+    margin-bottom: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    overflow: hidden; }
+    .page-product-members .member .avatar {
+      float: left;
+      width: 96px;
+      height: 96px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      overflow: hidden; }
+      .page-product-members .member .avatar img {
+        width: 96px;
+        height: 96px; }
+    .page-product-members .member .meta-and-status {
+      margin-left: 106px; }
+      .page-product-members .member .meta-and-status .name {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 10px; }
+        .page-product-members .member .meta-and-status .name a {
+          color: #333 !important; }
+      .page-product-members .member .meta-and-status .doing, .page-product-members .member .meta-and-status .reviews, .page-product-members .member .meta-and-status .not-start {
+        margin-bottom: 5px; }
+        .page-product-members .member .meta-and-status .doing a, .page-product-members .member .meta-and-status .reviews a, .page-product-members .member .meta-and-status .not-start a {
+          background-color: #444;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+          padding: 0 5px;
+          color: white; }
+          .page-product-members .member .meta-and-status .doing a:hover, .page-product-members .member .meta-and-status .reviews a:hover, .page-product-members .member .meta-and-status .not-start a:hover {
+            color: white; }
 
 .page-team-members .member {
   float: left;

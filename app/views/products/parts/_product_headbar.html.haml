@@ -1,0 +1,38 @@
+:ruby
+  name = product.name
+  description = product.description
+  cover_url = product.cover.url
+  
+  home_url = "/products/#{@product.id}"
+  # issues_url = "/products/#{@product.id}/issues"
+  # wiki_url = "/products/#{@product.id}/wiki"
+  issues_url = "javascript:;"
+  wiki_url = "javascript:;"
+  product_members_url = "/products/#{@product.id}/members"
+
+  
+  new_story_url = "/products/#{@product.id}/stories/new"
+  new_stream_url = "/products/#{@product.id}/streams/new"
+
+  product_stories_count = product.stories.count
+  product_streams_count = product.streams.count
+
+  product_members_count = product.members.count
+
+.page-product-headbar
+  .name=name
+  .desc=description
+  .nav
+    %a.item{:href=>home_url, :class=> current == :stories_board ? 'current':''}
+      .t 故事白板
+      .c=product_stories_count
+    %a.item{:href=>product_members_url, :class=> current == :members ? 'current':''}
+      .t 参与成员
+      .c=product_members_count
+    %a.item.disabled{:href=>issues_url} BUG和建议
+    %a.item.disabled{:href=>wiki_url} WIKI
+  
+  -if admin_logged_in?
+    .admin-ops
+      %a.add-story{:href=>new_story_url} ADMIN:创建故事
+      %a.add-stream{:href=>new_stream_url} ADMIN:创建序列
