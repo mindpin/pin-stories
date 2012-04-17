@@ -10,11 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120411080936) do
+ActiveRecord::Schema.define(:version => 20120417020934) do
 
   create_table "member_infos", :force => true do |t|
-    t.integer "user_id",   :null => false
+    t.integer "user_id",          :null => false
     t.string  "real_name"
+    t.string  "phone_number"
+    t.string  "bank_card_number"
+    t.string  "deposit_bank"
   end
 
   create_table "online_records", :force => true do |t|

@@ -10,6 +10,9 @@
       .name=member.name
       .email=member.email
       .real-name=member.info_real_name
+      .phone-number=member.info_phone_number
+      .bank-card-number=member.info_bank_card_number
+
       %a.edit{:href=>"/admin/members/#{member.id}/edit"} ADMIN:修改
 
   %a.add-member{:href=>'/admin/members/new'} ADMIN:增加成员

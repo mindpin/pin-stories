@@ -267,6 +267,27 @@ caption {
   -moz-binding: url("wordwrap.xml#wordwrap");
   overflow: hidden; }
 
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0; }
+
+.clearfix:after {
+  clear: both;
+  content: ' ';
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0; }
+
+* html .clearfix, *:first-child + html .clearfix {
+  zoom: 1; }
+
 html {
   overflow-y: scroll;
   overflow-x: hidden; }
@@ -639,6 +660,13 @@ form .form-cancel {
   .page-admin-members .member .real-name {
     float: left;
     width: 100px; }
+  .page-admin-members .member .phone-number {
+    float: left;
+    margin-right: 40px;
+    font-weight: bold; }
+  .page-admin-members .member .bank-card-number {
+    float: left;
+    font-weight: bold; }
   .page-admin-members .member a.edit {
     float: left;
     height: 22px;
@@ -682,6 +710,38 @@ form .form-cancel {
     background: -moz-linear-gradient(-90deg, #8ad033, #76b12b);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#8ad033), to(#76b12b));
     border: solid 1px #5E8F1C; }
+
+.page-admin-edit-member-info .area {
+  padding: 20px 10px 10px;
+  background-color: #f7f7f7;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: dashed 1px #ccc;
+  margin-bottom: 20px;
+  position: relative; }
+  .page-admin-edit-member-info .area:before {
+    background-color: #333;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+    position: absolute;
+    height: 16px;
+    line-height: 16px;
+    top: -8px;
+    left: 10px;
+    padding: 0 10px; }
+.page-admin-edit-member-info .area.base::before {
+  content: "base"; }
+.page-admin-edit-member-info .area.bank-info::before {
+  content: "bank-account"; }
+.page-admin-edit-member-info .area.bank-info .field.real-name, .page-admin-edit-member-info .area.bank-info .field.phone-number,
+.page-admin-edit-member-info .area.bank-info .field.bank-card-number, .page-admin-edit-member-info .area.bank-info .field.deposit-bank {
+  float: left;
+  margin-right: 20px; }
 
 .page-products {
   overflow: hidden; }

@@ -6,6 +6,12 @@ class Admin::AdminController < ApplicationController
       return render :text=>'访问此功能需要管理员权限'
     end
   end
+
+  before_filter :pre_load
+  def pre_load
+    @member = User.find(params[:id]) if !params[:id].blank?
+    @member.find_or_create_info if !@member.blank?
+  end
   
   def members
   end
@@ -25,20 +31,10 @@ class Admin::AdminController < ApplicationController
   end
   
   def edit_member
-    @member = User.find(params[:id])
   end
   
   def update_member
-    @member = User.find(params[:id])
-    
-    @member.email = params[:user][:email] if !params[:user][:email].blank?
-    @member.name  = params[:user][:name]  if !params[:user][:name].blank?
-    @member.logo  = params[:user][:logo]  if !params[:user][:logo].blank?
-    
-    info = @member.find_or_create_info
-    info.real_name = params[:real_name] if !params[:real_name].blank?
-    
-    if @member.save && info.save
+    if @member.update_attributes(params[:user])
       return redirect_to '/admin/members'
     end
     

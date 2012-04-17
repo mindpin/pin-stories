@@ -12,6 +12,13 @@
     .name{float:left;width:100px;font-weight:bold;}
     .email{float:left;width:200px;}
     .real-name{float:left;width:100px;}
+    .phone-number{float:left;margin-right:40px;
+      //background-color:#444;color:white;
+      font-weight: bold;
+    }
+    .bank-card-number{float:left;
+      font-weight: bold;
+    }
     a.edit{
       @include common-mini-button;
       float:right;
@@ -21,5 +28,46 @@
   a.add-member, a.add-product{
     @include new-button;
     margin-top:5px;margin-right:10px;
+  }
+}
+
+.page-admin-edit-member-info{
+  .area{
+    padding:20px 10px 10px;
+    background-color: #f7f7f7;
+    @include border-radius(3px);
+    border:dashed 1px #ccc;
+    margin-bottom: 20px;
+    position:relative;
+
+    &:before{
+      background-color:#333;
+      @include border-radius(3px);
+      color:white;
+      font-weight: bold;
+      font-size: 10px;
+      position:absolute;
+      height:16px;line-height:16px;
+      top:-8px;
+      left:10px;
+      padding:0 10px;
+    }
+  }
+
+  .area.base{
+    &::before{
+      content:"base";
+    }
+  }
+
+  .area.bank-info{
+    &::before{
+      content:"bank-account";
+    }
+
+    .field.real-name, .field.phone-number,
+    .field.bank-card-number, .field.deposit-bank{
+      float: left;margin-right:20px;
+    }
   }
 }
