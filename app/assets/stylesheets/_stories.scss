@@ -129,10 +129,9 @@
 }
 
 .page-mine-stories-filter-nav{
-  margin-bottom:30px;
   height:32px;position:relative;
-  padding:20px 20px 0px;
-  margin:-20px -20px 20px;
+  padding:24px 24px 0px;
+  margin:-24px -24px 24px;
   border-bottom:dashed 1px #CCCCCC;
   background-color:#FAFAFA;
   
@@ -145,10 +144,10 @@
       margin-right:3px;
       height:32px;line-height:32px;
       background-color:#ddd;
-      border:solid 1px #ccc;
+      border:solid 1px $tiny-border-color;
       border-bottom:none;
       @include border-radius(3px 3px 0 0);
-      padding:0 12px;
+      padding:0 12px 0 6px;
       
       &.current{
         background-color:white;
@@ -163,30 +162,54 @@
       
       .label, .count{float:left;}
       .label{
-        margin-right:10px;
+        margin-right:6px;
         a{
-          color:#999999;
-          &:hover{color:#666;};
+          padding:0 6px;
+          display:inline-block;
+          color:#999999;&:hover{
+            color:#444;
+            text-decoration:none;
+            background-color:$black-shadow;
+            @include border-radius(3px);
+            @include transition(all ease-in .2s);
+          };
+          height:18px;line-height:18px;
         }
       }
+      
       .count{
-        @include border-radius(3px);
-        font-weight:bold;
-        padding:0 3px 0 4px;
-        height:18px;line-height:18px;
-        @include border-radius(10px);
-        padding:0 10px;
+        border:solid 1px $black-shadow;
         background-color:#555;
+        font-weight:bold;
+        height:16px;line-height:16px;
+        @include border-radius(10px);
+        padding:0 12px;
         font-size:10px;
         color:#fff;
         margin-top:7px;
+        text-shadow:1px 1px $black-shadow;
       }
-      
-      &.not-assign{.count{background-color:$story-status-not-assign-color;}}
-      &.doing{.count{background-color:$story-status-doing-color;}}
-      &.reviewing{.count{background-color:$story-status-reviewing-color;}}
-      &.done{.count{background-color:$story-status-done-color;}}
-      &.pause{.count{background-color:$story-status-pause-color;}}
+
+      &.not-assign{
+        //background-color:mix(#ddd, $story-status-not-assign-color, 90%);
+        .count{background-color:$story-status-not-assign-color;}
+      }
+      &.doing{
+        //background-color:mix(#ddd, $story-status-doing-color, 90%);
+        .count{background-color:$story-status-doing-color;}
+      }
+      &.reviewing{
+        //background-color:mix(#ddd, $story-status-reviewing-color, 90%);
+        .count{background-color:$story-status-reviewing-color;}
+      }
+      &.done{
+        //background-color:mix(#ddd, $story-status-done-color, 90%);
+        .count{background-color:$story-status-done-color;}
+      }
+      &.pause{
+        //background-color:mix(#ddd, $story-status-pause-color, 90%);
+        .count{background-color:$story-status-pause-color;}
+      }
     }
   }
 }

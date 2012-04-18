@@ -134,8 +134,9 @@
       .c{background-color:#1071D1;
         @include border-radius(10px);
         float:left;font-size:10px;font-weight:bold;
-        height:18px;line-height:18px;
-        padding:0 10px;
+        height:16px;line-height:16px;
+        border:solid 1px $black-shadow;
+        padding:0 12px;
         margin-top:7px;
       }
       
@@ -151,7 +152,7 @@
       }
 
       &.current{
-        background-color: #fff;border-color:#bbb;
+        background-color: #fff;border-color:$medium-border-color;
         color:#444;
         .c{background-color:#666;color:white;}
       }
@@ -269,7 +270,7 @@
 .page-product-members{
   width:690px;
   .member{
-    padding:10px;margin-right: 20px;
+    padding:12px;margin-right:20px;
     background-color:#fafafa;
     border:dashed 1px #ddd;
     margin-bottom:10px;
@@ -285,20 +286,25 @@
     }
 
     .meta-and-status{
-      margin-left:106px;
+      margin-left:108px;
       .name{
         font-size:14px;font-weight:bold;
-        margin-bottom:10px;
+        margin-bottom:12px;
         a{color:#333 !important;}
       }
       .doing, .reviews, .not-start{
-        margin-bottom:5px;
+        margin-bottom:6px;
         a{
           background-color:#444;
           @include border-radius(3px);
-          padding:0 5px;
+          padding:0 6px;
           color:white;
-          &:hover{color:white;}
+          &:hover{
+            color:white;
+            @include transition(all ease-in .2s);
+            background-color:#777;
+            text-decoration:none;
+          }
         }
       }
     }

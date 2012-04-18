@@ -1,3 +1,8 @@
+$black-shadow:rgba(black, 0.2);
+$tiny-border-color:rgba(black, 0.1);
+$medium-border-color:rgba(black, 0.3);
+
+
 @mixin new-button{
   float:left;
   height:24px;line-height:24px;
@@ -34,11 +39,11 @@
   };
 }
 
-$story-status-not-assign-color:#DF0B01;
-$story-status-doing-color:#0075EF;
-$story-status-reviewing-color:#4546E7;
-$story-status-done-color:#31BD35;
-$story-status-pause-color:#EC9737;
+$story-status-not-assign-color:#C34000;
+$story-status-doing-color:#95BB52;
+$story-status-reviewing-color:#5552BB;
+$story-status-done-color:#1888EA;
+$story-status-pause-color:#EAC018;
 
 .page-story-status-label{
   color:white;

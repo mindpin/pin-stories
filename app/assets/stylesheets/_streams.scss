@@ -2,38 +2,41 @@
   .stories{
     $w:500px;
     .story{
-      margin-bottom:30px;
+      margin-bottom:24px;
       width:$w;
       border:dashed 1px #ccc;
       @include border-radius(3px);
       position:relative; background-color:#fafafa;
-      padding:10px;
+      padding:12px;
       
       .meta{
         overflow:hidden;margin-bottom:10px;
         .story-id{
-          float:left;margin-right:5px;
-          color:#fff;height:24px;line-height:24px;
+          float:left;margin-right:6px;
+          color:#fff;height:22px;line-height:22px;
           font-weight:bold;
           background-color:#444;
-          padding:0 5px;font-weight:bold;
+          padding:0 12px;font-weight:bold;
           @include border-radius(3px);
+          text-shadow:1px 1px $black-shadow;
+          border:solid 1px $black-shadow;
         }
         .status{
-          float:left;width:120px;
+          float:left;margin-right:12px;
           .st{float:left;}
           
           .estimate{
-            float:left;margin-right:5px;
-            font-size:16px;font-weight:bold;
-            height:24px;line-height:24px;
-            background-color:lighten(#0075EF, 20%);
-            //background-color:#0075EF;
-            color:#fff;text-shadow:0px 0px 2px #333;
-            width:48px;
+            float:left;margin-right:6px;
+            font-size:14px;font-weight:bold;
+            height:22px;line-height:22px;
+            background-color:lighten($story-status-done-color, 20%);
+            color:#fff;
+            padding:0 12px;
             @include border-radius(3px);
             @include number-font-family;
             text-align:center;
+            border:solid 1px $black-shadow;
+            text-shadow:1px 1px $black-shadow;
           }
         }
         
@@ -43,7 +46,7 @@
             width:24px;height:24px;overflow:hidden;
             @include border-radius(3px);
             img{width:24px;height:24px;}
-            margin-right:5px;
+            margin-right:6px;
           }
         }
         
@@ -51,7 +54,7 @@
           float:right;
           .os{
             overflow:hidden;
-            a.show{@include common-mini-button;margin-right:5px;}
+            a.show{@include common-mini-button;margin-right:6px;}
             a.edit{@include common-mini-button;}
           }
         }
@@ -62,7 +65,7 @@
         background-color:#fff;
         border:1px dashed #eee;
         @include border-radius(3px);
-        padding:5px;
+        padding:6px;
       }
       
       
