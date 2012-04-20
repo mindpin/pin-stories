@@ -1,23 +1,21 @@
 :ruby
   name = product.name
   description = product.description
-  cover_url = product.cover.url
-  
-  home_url = "/products/#{@product.id}"
-  # issues_url = "/products/#{@product.id}/issues"
-  # wiki_url = "/products/#{@product.id}/wiki"
-  issues_url = "javascript:;"
-  wiki_url = "javascript:;"
-  product_members_url = "/products/#{@product.id}/members"
-
   
   new_story_url = "/products/#{@product.id}/stories/new"
   new_stream_url = "/products/#{@product.id}/streams/new"
 
+  # ------
+
+  home_url            = "/products/#{@product.id}"
+  product_members_url = "/products/#{@product.id}/members"
+  issues_url          = "/products/#{@product.id}/issues"
+  wiki_url = "javascript:;" # wiki_url = "/products/#{@product.id}/wiki"
+
   product_stories_count = product.stories.count
   product_streams_count = product.streams.count
-
   product_members_count = product.members.count
+  product_issues_count = product.issues.count
 
 .page-product-headbar
   .name=name
@@ -29,10 +27,13 @@
     %a.item{:href=>product_members_url, :class=> current == :members ? 'current':''}
       .t 参与成员
       .c=product_members_count
-    %a.item.disabled{:href=>issues_url} BUG和建议
+    %a.item{:href=>issues_url, :class=> current == :issues ? 'current':''}
+      .t BUG，建议及改进
+      .c=product_issues_count
     %a.item.disabled{:href=>wiki_url} WIKI
   
-  -if admin_logged_in?
-    .admin-ops
+  .ops
+    %a.add-issue{:href=>"/products/#{product.id}/issues/new"} 创建BUG或建议
+    -if admin_logged_in?
       %a.add-story{:href=>new_story_url} ADMIN:创建故事
       %a.add-stream{:href=>new_stream_url} ADMIN:创建序列

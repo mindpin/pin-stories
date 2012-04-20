@@ -1,0 +1,11 @@
+cn:
+  activerecord:
+    attributes:
+      issue:
+        creator: 创建者
+    errors:
+      models:
+        issue:
+          attributes:
+            creator:
+              blank: 未指定问题创建者

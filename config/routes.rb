@@ -1,6 +1,6 @@
 Voteapp::Application.routes.draw do  
   # -- 用户登录认证相关 --
-  root :to=>"index#index"
+  root :to => 'index#index'
   
   get  '/login'  => 'sessions#new'
   post '/login'  => 'sessions#create'
@@ -13,30 +13,35 @@ Voteapp::Application.routes.draw do
   
   # -- 管理员界面
   
-  get  '/admin'         => 'admin/admin#members'
-  get  '/admin/members' => 'admin/admin#members'
-  
-  get  '/admin/members/new' => 'admin/admin#new_member'
-  post '/admin/members'     => 'admin/admin#create_member'
-  
-  get  '/admin/members/:id/edit' => 'admin/admin#edit_member'
-  put  '/admin/members/:id'      => 'admin/admin#update_member'
+  namespace :admin do
+    get  '/'         => 'admin#members'
+    get  '/members'  => 'admin#members'
+    
+    get  '/members/new' => 'admin#new_member'
+    post '/members'     => 'admin#create_member'
+    
+    get  '/members/:id/edit' => 'admin#edit_member'
+    put  '/members/:id'      => 'admin#update_member'
+  end
+
   
   # --
   
   resources :products do
-    resources :streams
-    resources :stories
+    resources :stories, :only => [:new, :create]
+    resources :streams, :only => [:new, :create]
+    resources :issues,  :only => [:new, :create]
   end
   get 'products/:id/members' => 'products#product_members'
-
+  get 'products/:id/issues'  => 'products#product_issues'
 
   # -----
   
   resources :members
-  resources :streams
+
+  resources :streams, :except => [:new, :create]
   
-  resources :stories do
+  resources :stories, :except => [:new, :create] do
     member do
       get :assign_streams
       put :do_assign_streams

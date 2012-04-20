@@ -10,7 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120417063245) do
+ActiveRecord::Schema.define(:version => 20120420075218) do
+
+  create_table "issues", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "creator_id"
+    t.text     "content"
+    t.integer  "importance_level"
+    t.integer  "urgent_level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issues", ["creator_id"], :name => "index_issues_on_creator_id"
+  add_index "issues", ["importance_level"], :name => "index_issues_on_importance_level"
+  add_index "issues", ["product_id"], :name => "index_issues_on_product_id"
+  add_index "issues", ["urgent_level"], :name => "index_issues_on_urgent_level"
 
   create_table "member_infos", :force => true do |t|
     t.integer "user_id",          :null => false

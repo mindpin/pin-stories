@@ -8,7 +8,7 @@
 .page-title="创建序列: #{product_name}"
 
 =flash_info
-=form_for @stream,:url=>"/products/#{@product.id}/streams" do |f|
+=form_for @stream, :url=>"/products/#{@product.id}/streams" do |f|
   .field
     %label 序列标题
     =f.text_field :title

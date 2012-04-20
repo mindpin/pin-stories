@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   has_many :streams
   has_many :stories
+  has_many :issues
   
   validates :name, :description, :presence => true
   

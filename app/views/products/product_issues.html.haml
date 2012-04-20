@@ -1,0 +1,13 @@
+-htitle @product.name
+
+=render 'index/parts/page_nav'
+=render 'products/parts/product_headbar', :product=>@product, :current=>:issues
+=render 'products/parts/product_stats', :product=>@product
+
+.page-product-issues
+  -@product.issues.each do |issue|
+    .issue
+      .creator
+        =avatar_link issue.creator
+      .ct=issue.content
+      .time=issue.created_at
