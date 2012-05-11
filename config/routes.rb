@@ -31,9 +31,11 @@ Voteapp::Application.routes.draw do
     resources :stories, :only => [:new, :create]
     resources :streams, :only => [:new, :create]
     resources :issues,  :only => [:new, :create]
+    resources :lemmas,  :only => [:new, :create]
   end
   get 'products/:id/members' => 'products#product_members'
   get 'products/:id/issues'  => 'products#product_issues'
+  get 'products/:id/lemmas'  => 'products#product_lemmas'
 
   # -----
   

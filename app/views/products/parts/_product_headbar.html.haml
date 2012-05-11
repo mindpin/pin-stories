@@ -10,12 +10,14 @@
   home_url            = "/products/#{@product.id}"
   product_members_url = "/products/#{@product.id}/members"
   issues_url          = "/products/#{@product.id}/issues"
-  wiki_url = "javascript:;" # wiki_url = "/products/#{@product.id}/wiki"
+  lemma_url           = "/products/#{@product.id}/lemmas"
+  wiki_url            = "javascript:;" # wiki_url = "/products/#{@product.id}/wiki"
 
   product_stories_count = product.stories.count
   product_streams_count = product.streams.count
   product_members_count = product.members.count
-  product_issues_count = product.issues.count
+  product_issues_count  = product.issues.count
+  product_lemma_count   = product.lemmas.count
 
 .page-product-headbar
   .name=name
@@ -30,6 +32,9 @@
     %a.item{:href=>issues_url, :class=> current == :issues ? 'current':''}
       .t BUG，建议及改进
       .c=product_issues_count
+    %a.item{:href=>lemma_url, :class=> current == :lemmas ? 'current':''}
+      .t 常用词
+      .c=product_lemma_count
     %a.item.disabled{:href=>wiki_url} WIKI
   
   .ops

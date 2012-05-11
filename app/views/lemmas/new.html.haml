@@ -1,0 +1,22 @@
+:ruby
+  product_name = @product.name
+  product_lemmas_url = "/products/#{@product.id}/lemmas"
+
+-htitle "创建词条: #{product_name}"
+
+.page-title="创建词条: #{product_name}"
+
+=flash_info
+=form_for [@product, @lemma] do |f|
+  .field
+    %label 词条中文名
+    =f.text_field :cn_name
+  .field
+    %label 词条英文名
+    =f.text_field :en_name
+  .field
+    %label 词条释义
+    =f.text_area :description
+  .field
+    %a.form-submit-button{:href=>'javascript:;'} 确定
+    %a.form-cancel{:href=>product_lemmas_url} 取消

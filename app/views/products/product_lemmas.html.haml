@@ -1,0 +1,17 @@
+-htitle @product.name
+
+=render 'index/parts/page_nav'
+=render 'products/parts/product_headbar', :product=>@product, :current=>:lemmas
+=render 'products/parts/product_stats', :product=>@product
+
+.page-product-lemmas
+  .intro
+    .p 常用词汇表是产品讨论和沟通中用到的特定名词或概念词汇的汇总。
+    .p 一些产品中用到的词汇可能在此产品中具有特殊意义或者更狭义的定义。
+    .p 这些定义经常和人们日常生活中，或平时对话习惯中用到的词汇有涵义上的不同。
+    .p 在沟通中需要注意辨析，以达到提高精确性和提高效率的目的。
+  -@product_lemmas.each do |lemma|
+    .lemma
+      .cn=lemma.cn_name
+      .en=lemma.en_name
+      .desc=lemma.description

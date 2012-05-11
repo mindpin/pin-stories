@@ -340,3 +340,41 @@
     }
   }
 }
+
+.page-product-lemmas{
+  width:690px;
+
+  .intro{
+    width:680px;
+    padding-bottom:24px;
+    margin-bottom:24px;
+    border-bottom:dashed 1px #ccc;
+  }
+
+  .lemma{
+    overflow:hidden;
+    height:32px;line-height:32px;
+    border-bottom:solid 1px #eee;
+    width:680px;
+
+    &:nth-child(2n+1){
+      background-color:#FCFCFC;
+    }
+
+    .cn{
+      float: left;
+      width:140px;
+      font-weight: bold;
+    }
+    .en{
+      float: left;
+      width:140px;
+      font-weight: bold;
+    }
+    .desc{
+      float: left;
+      width:400px;
+      word-break:break-all;
+    }
+  }
+}

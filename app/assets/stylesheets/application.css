@@ -1224,6 +1224,34 @@ form .form-cancel {
       font-size: 10px;
       color: #999; }
 
+.page-product-lemmas {
+  width: 690px; }
+  .page-product-lemmas .intro {
+    width: 680px;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: dashed 1px #ccc; }
+  .page-product-lemmas .lemma {
+    overflow: hidden;
+    height: 32px;
+    line-height: 32px;
+    border-bottom: solid 1px #eee;
+    width: 680px; }
+    .page-product-lemmas .lemma:nth-child(2n+1) {
+      background-color: #FCFCFC; }
+    .page-product-lemmas .lemma .cn {
+      float: left;
+      width: 140px;
+      font-weight: bold; }
+    .page-product-lemmas .lemma .en {
+      float: left;
+      width: 140px;
+      font-weight: bold; }
+    .page-product-lemmas .lemma .desc {
+      float: left;
+      width: 400px;
+      word-break: break-all; }
+
 .page-team-members .member {
   float: left;
   width: 202px;

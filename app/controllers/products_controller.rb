@@ -46,4 +46,8 @@ class ProductsController < ApplicationController
     @product_issues = @product.issues
   end
 
+  def product_lemmas
+    @product_lemmas = @product.lemmas
+  end
+
 end
