@@ -1,0 +1,20 @@
+.p
+  = render 'wiki/parts/nav'
+  
+%p
+  = @result
+.new-page
+
+  = flash.now[:error]
+  
+  = form_for @wiki_page, :url => { :action => "create" } do |f|
+    .field
+      %label.need 页面标题
+      = f.text_field :title
+      
+    .field
+      %label.need 内容
+      %textarea{:name=>'wiki_page[content]'}
+      
+      .field
+        %a.form-submit-button{:href=>'javascript:;'} 发送

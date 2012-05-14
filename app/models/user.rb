@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_associated_audits
   include UserAuthMethods
   include UserAvatarMethods
   
@@ -42,4 +43,5 @@ class User < ActiveRecord::Base
   
   include MemberInfo::UserMethods
   include Story::UserMethods
+  include WikiPage::UserMethods
 end

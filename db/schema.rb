@@ -10,7 +10,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511204523) do
+ActiveRecord::Schema.define(:version => 20120514084415) do
+
+  create_table "audits", :force => true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         :default => 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], :name => "associated_index"
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
+  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
+  add_index "audits", ["user_id", "user_type"], :name => "user_index"
 
   create_table "issues", :force => true do |t|
     t.integer  "product_id"
@@ -70,13 +91,13 @@ ActiveRecord::Schema.define(:version => 20120511204523) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",        :default => "", :null => false
+    t.string   "status",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
     t.text     "how_to_demo"
     t.text     "tips"
-    t.integer  "time_estimate", :default => 8,  :null => false
+    t.integer  "time_estimate", :default => 8, :null => false
   end
 
   create_table "story_assigns", :force => true do |t|
@@ -94,8 +115,8 @@ ActiveRecord::Schema.define(:version => 20120511204523) do
   end
 
   create_table "streams", :force => true do |t|
-    t.string   "title",      :default => "", :null => false
-    t.integer  "product_id",                 :null => false
+    t.string   "title",      :null => false
+    t.integer  "product_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -117,6 +138,16 @@ ActiveRecord::Schema.define(:version => 20120511204523) do
     t.datetime "last_login_time"
     t.boolean  "send_invite_email"
     t.integer  "reputation",                :default => 0,  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "wiki_pages", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "creator_id"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "latest_version"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
