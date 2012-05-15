@@ -1,7 +1,13 @@
 class WikiPage < ActiveRecord::Base
   # --- 模型关联
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
+  belongs_to :product, :class_name => 'Product'
   audited
+
+
+  # --- 校验方法
+  validates :product, :title, :content, :presence => true
+
 
   def versions
     audits.map{|audit|WikiPageVersion.new(audit)}
