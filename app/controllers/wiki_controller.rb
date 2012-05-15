@@ -1,40 +1,46 @@
 class WikiController < ApplicationController
 
   def index
-    @wiki_pages = WikiPage.all
+    @product = Product.find(params[:product_id]) if params[:product_id]
+
+    @wiki_pages = WikiPage.find_all_by_product_id(params[:product_id])
   end
   
   def new
+    @product = Product.find(params[:product_id]) if params[:product_id]
     @wiki_page = WikiPage.new
   end
   
   def create
+
     wiki_page = current_user.wiki_pages.build(params[:wiki_page])
     wiki_page.save
 
-    redirect_to '/wiki'
+    redirect_to "/products/#{wiki_page.product_id}/wiki"
   end
   
   def show
     @wiki_page = WikiPage.find(params[:id])
+    @product = Product.find(@wiki_page.product_id)
   end
   
   def edit
     @wiki_page = WikiPage.find(params[:id])
+    @product = Product.find(@wiki_page.product_id)
   end
   
   def update
     @wiki_page = WikiPage.find(params[:id])
     @wiki_page.update_attributes(params[:wiki_page])
 
-    redirect_to '/wiki'
+    redirect_to "/wiki/#{@wiki_page.id}"
   end
   
   def destroy
     @wiki_page = WikiPage.find(params[:id])
     @wiki_page.destroy
 
-    redirect_to '/wiki'
+    redirect_to "/products/#{@wiki_page.product_id}/wiki"
   end
   
   # 所有的版本历史记录列表
@@ -46,6 +52,8 @@ class WikiController < ApplicationController
   def versions
     @wiki_page = WikiPage.find(params[:id])
     @versions = @wiki_page.audits
+
+    @product = Product.find(@wiki_page.product_id)
   end
   
   # 单条记录的版本回滚
@@ -54,7 +62,7 @@ class WikiController < ApplicationController
     audit = Audited::Adapters::ActiveRecord::Audit.find(params[:audit_id])
     wiki_page.rollback(audit)
     
-    redirect_to "/wiki"
+    redirect_to "/wiki/#{wiki_page.id}"
 
   end
   

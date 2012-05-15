@@ -10,6 +10,8 @@
     .field
       %label.need 页面标题
       = f.text_field :title, :value => @wiki_page.title
+      = f.hidden_field :product_id, :value => @wiki_page.product_id
+
       
     .field
       %label.need 内容

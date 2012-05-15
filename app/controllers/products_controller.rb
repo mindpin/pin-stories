@@ -50,4 +50,6 @@ class ProductsController < ApplicationController
     @product_lemmas = @product.lemmas
   end
 
+
+
 end
