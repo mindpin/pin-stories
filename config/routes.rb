@@ -38,6 +38,7 @@ Voteapp::Application.routes.draw do
   get 'products/:id/lemmas'  => 'products#product_lemmas'
   get 'products/:product_id/wiki'  => 'wiki#index'
   get 'products/:product_id/wiki/new'  => 'wiki#new'
+  get '/atme/:name' => 'wiki#atme'
 
 
 

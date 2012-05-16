@@ -4,7 +4,7 @@
 %p
   = @wiki_page.title
   
-- content = @wiki_page.content.gsub(/@([A-Za-z0-9\/_]*)/,'<a href="/atme/\1">@\1</a>')
+- content = @wiki_page.content.gsub(/@([A-Za-z0-9一-龥\/_]+)/,'<a href="/atme/\1">@\1</a>')
 
 
 %p
