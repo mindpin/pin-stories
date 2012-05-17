@@ -6,8 +6,8 @@
 
 
 :ruby
-  product_id = params[:product_id]
-  if product_id.blank?
+  product_id = params[:product_id].blank?? params[:wiki_page][:product_id]: params[:product_id]
+  if product_id.nil?
     product_id = @wiki_page.product_id
   end
 

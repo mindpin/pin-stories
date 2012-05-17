@@ -9,6 +9,12 @@ class WikiPage < ActiveRecord::Base
   validates :product, :title, :content, :presence => true
 
 
+  def self.parse_conent(content)
+    content = Markdown.new(content).to_html
+    content.gsub(/@([A-Za-z0-9一-龥\/_]+)/,'<a href="/atme/\1">@\1</a>')
+  end
+
+
   def versions
     audits.map{|audit|WikiPageVersion.new(audit)}
   end

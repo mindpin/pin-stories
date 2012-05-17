@@ -46,6 +46,7 @@ Voteapp::Application.routes.draw do
   resources :wiki do
     collection do
       get :history
+      post :preview
     end
     
     member do

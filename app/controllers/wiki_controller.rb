@@ -22,10 +22,7 @@ class WikiController < ApplicationController
   def show
     @wiki_page = WikiPage.find(params[:id])
 
-    content = Markdown.new(@wiki_page.content).to_html
-    #content = CodeRay.scan(content, :ruby).div
-
-    @content = content.gsub(/@([A-Za-z0-9一-龥\/_]+)/,'<a href="/atme/\1">@\1</a>')
+    @content = WikiPage.parse_conent(@wiki_page.content)
 
     @product = Product.find(@wiki_page.product_id)
   end
@@ -91,6 +88,15 @@ class WikiController < ApplicationController
     else
       redirect_to "/members/#{user.id}"
     end
+  end
+
+
+  # 处理词条预览 markdown 解析
+  def preview
+    @title = params[:wiki_page][:title]
+    @content = WikiPage.parse_conent(params[:wiki_page][:content])
+
+    @product = Product.find(params[:wiki_page][:product_id])
   end
   
 
