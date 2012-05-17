@@ -21,6 +21,12 @@ class WikiController < ApplicationController
   
   def show
     @wiki_page = WikiPage.find(params[:id])
+
+    content = Markdown.new(@wiki_page.content).to_html
+    #content = CodeRay.scan(content, :ruby).div
+
+    @content = content.gsub(/@([A-Za-z0-9一-龥\/_]+)/,'<a href="/atme/\1">@\1</a>')
+
     @product = Product.find(@wiki_page.product_id)
   end
   

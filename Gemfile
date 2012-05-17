@@ -8,6 +8,8 @@ gem 'json'
 gem 'jquery-rails'
 gem 'haml'
 gem "audited-activerecord"
+gem 'redcarpet'
+gem 'coderay'
 
 
 group :assets do
