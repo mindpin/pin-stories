@@ -1,43 +1,53 @@
 .page-products{
   overflow:hidden;
+
+  $w : 240px;
+  $h : $w;
+
+
   .product{
-    float:left;margin-bottom:40px;
-    width:480px;position:relative;
-    
-    $w:200px; $h:360px;
-    $pd:6px;
+    float:left;margin-bottom:10px;margin-right:10px;
+    position:relative;
+    background-color:#3E3D3F;
+    width:$w;height:$h;
+
     .meta-data{
-      float:left;
-      
-      width:$w + $pd*2; 
-      height:$h + $pd*2;
-      background-color:#eee;
-      @include border-radius(9px);
-      padding:4px;
-      position:relative;
-      .box{
-        width:$w;height:$h;
-        border:solid 1px #ddd;
-        @include border-radius(6px);
-        padding:5px;
-        background-color:#fff;
+      a.box{
+        width:$w;
+        height:$h;
+        display:block;
         
+        @include white-link;
+
+        &:hover{
+          .cover{
+            background-color:$COLOR-LINK;
+          }
+        }
+
         .cover{
-          width:200px;height:150px;
-          background-color:#f1f1f1;
-          margin-bottom:10px;
+          width:$w;height:$w*150/200;
+          padding:10px 0 0 0;
+          @include transition(background-color ease-in .2s);
+          img{width:$w;}
         }
         .name{
-          font-size:14px;margin-bottom:5px;
-          font-weight:bold;padding:0 5px;
+          $name-h : $h - $w*150/200 - 10px;
+
+          font-size:14px;font-weight:bold;
+          height:$name-h;line-height:$name-h;
+          padding-left:15px;
+          @include top-shadow;
         }
         .desc{
+          display:none;
           font-size:12px;padding:0 5px;
-          color:#666;
         }
-      };
+      }
     }
+
     .stat-data{
+      display:none;
       float:left;
       margin-left:20px;
       width:180px;
@@ -84,37 +94,60 @@
     }
     .ops{
       position:absolute;
-      bottom:4px;left:240px;
-      .edit{
-        @include common-mini-button;
+      top:20px;left:10px;
+      a.edit{
+        position:relative;
+        background-color:$COLOR-BTN-DARK-BG;
+        color:#ccc;
+        display:block;
+        @include border-radius(2px);
+        height:24px;line-height:24px;
+        padding:0 4px;
+        @include transition(all ease-in .2s);
+        &:hover{
+          text-decoration:none;
+          background-color:$COLOR-BTN-DARK-BG-HOVER;
+          color:white;
+        }
+        &.admin-btn{
+          padding-left:24px;
+          &:before{
+            content:"A";
+            display:block;
+            height:16px;width:16px;line-height:16px;
+            text-align:center;
+            @include border-radius(1px);
+            position:absolute;
+            top:4px;left:4px;
+            background-color:rgba(red, .6);
+            color:white;
+            font-size:10px;
+            font-weight:bold;
+          }
+        }
       }
     }
   }
 }
 
 .page-product-headbar{
-  background-color:#fafafa;
-  padding:12px 24px 36px 24px;
-  //@include border-radius(8px);
+  background-color:$COLOR-BOX-BG2;
+  padding:$BOX-PADDING;
   overflow:visible;
-  margin:-24px -24px 0;
-  border-bottom:dashed 1px #ccc;
   position:relative;
-  margin-bottom:20px;
+  margin-bottom:10px;
   
   .name{
-    font-size:14px;font-weight:bold;
-    color:#333;line-height:32px;height:32px;
+    font-size:16px;
     margin-bottom:10px;
   }
   .desc{
-    color:#555;
-    width:960px * 0.618;
-    margin-bottom:20px;
-    font-size:14px;
-    padding-left:14px;
+    width:720px;
+    color:$COLOR-QUIET-TEXT;
   }
+
   .nav{
+    display:none;
     overflow:hidden;
     position:absolute;
     bottom:-1px;
@@ -135,7 +168,7 @@
         @include border-radius(10px);
         float:left;font-size:10px;font-weight:bold;
         height:16px;line-height:16px;
-        border:solid 1px $black-shadow;
+        border:solid 1px $COLOR-BLACK-SHADOW;
         padding:0 12px;
         margin-top:7px;
       }
@@ -152,7 +185,7 @@
       }
 
       &.current{
-        background-color: #fff;border-color:$medium-border-color;
+        background-color:#fff;border-color:$COLOR-MEDIUM-BORDER;
         color:#444;
         .c{background-color:#666;color:white;}
       }
@@ -171,67 +204,26 @@
 
 .page-product-show{  
   .product-streams{
-    float:left;width:690px;
     .stream{
-      float:left;width:210px;height:200px;
-      background-color:#F7f7f7;
-      overflow:hidden;@include border-radius(3px);
-      margin-right:20px;margin-bottom:20px;
-      .box{
-        padding:4px;
-        .ct{
-          padding:6px;background-color:#eee;
-          @include border-radius(3px);
-          font-weight:bold;
-          line-height:20px;height:20px;
-          margin-bottom:4px;
-          a{color:#444;&:hover{color:#444;}}
+      float:left;
+      width:240px;
+      overflow:hidden;
+      margin-right:10px;
+
+      background-color:$COLOR-BOX-BG;
+
+      .title{
+        padding:10px 10px 10px 15px;
+        font-size:13px;
+        font-weight:bold;
+        a{
+          @include white-link;
+          font-size:13px;
         }
-        
-        $s:48px + 4px - 2px;
-        .stories-and-hours{
-          float:left;width:$s;height:$s;
-          text-align:center;font-weight:bold;
-          background-color:#333;@include border-radius(3px);
-          margin-bottom:4px;margin-right:4px;border:dashed 1px #333;
-          color:#fafafa;
-          .stories-count{font-size:20px;
-            height:29px;line-height:29px;
-          }
-          .working-hours{font-size:12px;background-color:#888;@include border-radius(5px);
-            height:16px;line-height:16px;width:40px;margin-left:5px;
-            text-align:center;
-          }
-        }
-        .split{
-          float:left;height:$s+2;width:5px;background-color:#eee;
-          @include border-radius(3px);
-        }
-        .members{
-          overflow:hidden;float:right;width:140px;
-          .member{
-            width:24px;height:24px;float:left;
-            margin-bottom:4px;margin-left:4px;
-            background-color:#fafafa;
-            @include border-radius(2px);
-            overflow:hidden;
-            &.blank{
-              width:22px;height:22px;border:dashed 1px #ddd;
-            }
-          }
-        }
-        .last-story{
-          clear:both;
-          padding:6px;
-          background-color:#fff;
-          border:dashed 1px #ddd;
-          @include border-radius(3px);
-          height:86px;
-          .updated_at{
-            font-size:10px;margin-bottom:6px;
-            color:#999;
-          }
-        }
+      }
+
+      .stories{
+        @include story-in-flow;
       }
     }
   }

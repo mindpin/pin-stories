@@ -1,12 +1,13 @@
 -htitle '成员和分享者'
 
-=render 'index/parts/page_nav'
+.page-title 各种多少有点关联和帮过忙的人，都会逐一放在这里。。
 
 .page-team-members
   -@members.each do |member|
     .member
-      .avatar=avatar member, :medium
-      .meta
-        .name=userlink member
-        .real-name=member.info_real_name
+      %a.box{:href=>"/members/#{member.id}"}
+        .avatar=avatar member, :medium
+        .meta
+          .name=member.name
+          .real-name=member.info_real_name
 		

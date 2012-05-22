@@ -19,8 +19,10 @@
 }
 
 .page-story-show{
-  $w:960px * 0.618;
+  $w : 960px * 0.618;
   width:$w;position:relative;
+  background-color:$COLOR-BOX-BG;
+  padding:$BOX-PADDING;
   
   .admin-ops{
     padding:5px;
@@ -43,7 +45,8 @@
   
   .belongs-to{
     position:relative;
-    margin-bottom:30px;margin-top:-10px;
+    margin-bottom:$BOX-PADDING;
+
     .product{
       position:relative;
       margin-bottom:10px;
@@ -97,13 +100,15 @@
   
   .how-to-demo, .tips, .assigned-members, .status{
     margin-bottom:30px;
-    .t{font-weight:bold;color:#222;
-      border-bottom:solid 1px #eee;
+    .t{
+      font-weight:bold;
+      border-bottom:solid 1px $COLOR-BOX-LIGHT-BG;
       font-size:14px;padding-bottom:5px;margin-bottom:5px;
       width:$w * 0.618;
     }
     .ct{
       font-size:14px;
+      //color:$COLOR-QUIET-TEXT;
     }
   }
   
@@ -112,7 +117,7 @@
     .no-member{font-size:14px;color:#999;margin-bottom:5px;}
     .member{
       float:left;margin-right:5px;margin-bottom:5px;
-      .avatar{width:48px;height:48px;@include border-radius(3px);
+      .avatar{width:48px;height:48px;
         overflow:hidden;
         img{width:48px;height:48px;}
       }
@@ -129,11 +134,11 @@
 }
 
 .page-mine-stories-filter-nav{
-  height:32px;position:relative;
-  padding:24px 24px 0px;
-  margin:-24px -24px 24px;
-  border-bottom:dashed 1px #CCCCCC;
-  background-color:#FAFAFA;
+  position:relative;
+  padding:$BOX-PADDING $BOX-PADDING 0;
+  margin:0 0 10px 0;
+  background-color:$COLOR-BOX-BG2;
+  height:33px;
   
   .statuses{
     overflow:hidden;
@@ -144,7 +149,7 @@
       margin-right:3px;
       height:32px;line-height:32px;
       background-color:#ddd;
-      border:solid 1px $tiny-border-color;
+      border:solid 1px $COLOR-TINY-BORDER;
       border-bottom:none;
       @include border-radius(3px 3px 0 0);
       padding:0 12px 0 6px;
@@ -169,7 +174,7 @@
           color:#999999;&:hover{
             color:#444;
             text-decoration:none;
-            background-color:$black-shadow;
+            background-color:$COLOR-BLACK-SHADOW;
             @include border-radius(3px);
             @include transition(all ease-in .2s);
           };
@@ -178,7 +183,7 @@
       }
       
       .count{
-        border:solid 1px $black-shadow;
+        border:solid 1px $COLOR-BLACK-SHADOW;
         background-color:#555;
         font-weight:bold;
         height:16px;line-height:16px;
@@ -187,7 +192,7 @@
         font-size:10px;
         color:#fff;
         margin-top:7px;
-        text-shadow:1px 1px $black-shadow;
+        text-shadow:1px 1px $COLOR-BLACK-SHADOW;
       }
 
       &.not-assign{
@@ -221,4 +226,25 @@
   background-color:#444;
   padding:10px;
   @include border-radius(3px);
+}
+
+.page-mine-stories-grouped{
+  .product{
+    $w : 240px;
+
+    float:left;
+    width:$w;
+    background-color:$COLOR-BOX-BG;
+    margin-right:10px;
+
+    .name{
+      padding:10px 10px 10px 15px;
+      font-size:13px;
+      font-weight:bold;
+    }
+
+    .stories{
+      @include story-in-flow;
+    }
+  }
 }

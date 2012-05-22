@@ -1,99 +1,136 @@
-html{
-  overflow-y:scroll;
-  overflow-x:hidden;
-}
+html{ overflow-y:scroll; overflow-x:hidden; }
 
 body{
   padding:0;margin:0;
-  background-color:#fff;
-  font-size:12px;
-  color:#404040;
+  background-color:$COLOR-BODY-BACKGROUND;
+  font-size:12px;color:#fff;
   width:100%;
 
-  $page-header-height:50px;
-  .page-header{
-    //@include gradient(#3974B4, #3468A2);
-    //background-color:darken(#e7eda2, 61.8%);
-    @include gradient(#333, #555);
-    .h{
-      width:960px;margin:0 auto;
+  a{
+    color:$COLOR-LINK;
+    &:hover{color:$COLOR-LINK;}
+  }
 
-      height:$page-header-height;line-height:$page-header-height;
-      overflow:visible;
-      
-      $color:#fff;
+  .page-container{
+    margin:20px 20px 0;
+  }
+}
+
+
+body .page-container{
+  .page-sider{
+    width:280px;float:left;
+
+    .head{
+      background-color:#3E3D3F;
+      margin-bottom:10px;
+
       .title{
-        //color:$color;
-        //$c:mix(#55A4F2,white,60%);
-        $c:rgba(#fff, 0.9);
-        color:$c;a{color:$c !important;}
-        float:left;font-weight:bold;
-        //text-shadow:0 1px 0 #093E72;
-        text-shadow:0 0 2px rgba(#fff, 0.5);
-        font-size:20px;
+        font-size:18px;
+        font-weight:bold;
+        padding:15px;
+        a{ @include white-link; }
       }
       .user{
+        background-color:$COLOR-BG2;
+        position:relative;
+        padding:15px;
         overflow:hidden;
-        float:left;margin-left:40px;
-        .current-user, .logout{
-          font-size:14px;
+
+        @include top-shadow;
+
+        .login{
+          margin-top:8px;
+          background-color:#2B2A2B;
+          padding:0 15px;
+          height:30px;line-height:30px;
+          @include border-radius(3px);
           float:left;
-          margin-right:20px;
-          color:$color;a{color:$color !important;}
         }
+
         .current-user-avatar{
-          float:left;
-          margin-right:20px;
-          width:32px;height:32px;overflow:hidden;
-          @include border-radius(2px);
-          margin-top:9px;
+          float:left;width:96px;height:96px;
+          img{width:96px;height:96px;}
+        }
+        .current-user, .logout{
+          margin-left:96px + 15px;
+          margin-bottom:5px;
+        }
+        .current-user{
+          color:$COLOR-QUIET-TEXT;
         }
       }
-      .to-login{
+    }
+
+    .page-nav{
+
+      overflow:hidden;
+      margin-left:80px;
+
+      a.item{
+        display:block;float:right;
+        clear: both;
+        &:last-child{margin-bottom:0;}
         font-size:14px;
-        overflow:hidden;
-        float:left;margin-left:40px;
-        color:$color;a{color:$color !important;}
+        height:30px;line-height:30px;
+
+        background-color:#646464;
+        color:white;
+        
+        padding:0 15px;
+        margin-bottom:10px;
+
+        position:relative;
+
+        &.admin{
+          float:right;margin-right:0;
+        }
+
+        &:after{
+          content:"";
+          position:absolute;
+          top:0;bottom:0;right:0;
+          width:5px;
+          background-color:transparent;
+          @include transition(all ease-out .2s);
+        }
+
+        &:before{
+          content:"";
+          position:absolute;
+          left:-5px;top:5px;
+          border-top:solid 10px transparent;
+          border-left:solid 10px $COLOR-LINK;
+          border-right:solid 10px transparent;
+          border-bottom:solid 10px transparent;
+          opacity:0;
+          @include transition(all ease-out .2s);
+        }
+
+        &:hover{
+          text-decoration:none;
+          &:after{
+            background-color:$COLOR-LINK;
+          }
+          &:before{
+            opacity:1;
+          }
+        };
+
+        &.current{
+          &:after{
+            background-color:#FCBA15;
+          }
+          &:before{
+            border-left-color:#FCBA15;
+            opacity:1;
+          }
+        }
       }
     }
   }
-  
+
   .page-content{
-    padding:20px 0 0 0;
-    margin:0 auto;width:960px;
-    
-    table{
-      border-spacing:0;
-      border-collapse:collapse;
-      margin:0 0 20px 0;
-      thead{
-        background-color:#EFEFEF;
-        th{
-          border:solid 1px #ccc;
-          padding:6px;
-          color:#666;
-        }
-      }
-      tbody{
-        background-color:#fff;
-        td{
-          border:solid 1px #ccc;
-          padding:6px 10px;
-          &.running{
-            background-color:#F5FFD6;
-            color:#657F12;
-          }
-          &.closed{
-            background-color:#FFE0D6;
-            color:#C7441C;
-          }
-        }
-      }
-    }
-  }
-  
-  a{
-    color:#55A4F2;
-    &:hover{color:#1071D1;};
+    margin-left:300px;
   }
 }

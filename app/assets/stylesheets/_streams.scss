@@ -18,8 +18,8 @@
           background-color:#444;
           padding:0 12px;font-weight:bold;
           @include border-radius(3px);
-          text-shadow:1px 1px $black-shadow;
-          border:solid 1px $black-shadow;
+          text-shadow:1px 1px $COLOR-BLACK-SHADOW;
+          border:solid 1px $COLOR-BLACK-SHADOW;
         }
         .status{
           float:left;margin-right:12px;
@@ -35,8 +35,8 @@
             @include border-radius(3px);
             @include number-font-family;
             text-align:center;
-            border:solid 1px $black-shadow;
-            text-shadow:1px 1px $black-shadow;
+            border:solid 1px $COLOR-BLACK-SHADOW;
+            text-shadow:1px 1px $COLOR-BLACK-SHADOW;
           }
         }
         

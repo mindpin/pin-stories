@@ -8,20 +8,21 @@
       members = story.users
       
     .story
-      .meta
-        .story-id STORY ##{story.id}
-        .status
-          .estimate="#{estimate}H"
-          .st=status_label story
-        .members
-          -members.each do |member|
-            .avatar
-              =link_to "/members/#{member.id}", :title=>member.name do
-                =avatar member, :mini
-        .ops
-          .os
-            %a.show{:href=>story_url} 查看详情
-            -if admin_logged_in?
-              %a.edit{:href=>story_edit_url} ADMIN:修改
-      .how
+      %a.how{:href=>"/stories/#{story.id}"}
         .ct=story.how_to_demo
+
+      .meta
+        .story-id ##{story.id}
+        .status
+          .st=status_label story
+
+      .members
+        -members.each do |member|
+          .avatar
+            =link_to "/members/#{member.id}", :title=>member.name do
+              =avatar member, :mini
+      .ops
+        .os
+          %a.show{:href=>story_url} 查看详情
+          -if admin_logged_in?
+            %a.edit{:href=>story_edit_url} ADMIN:修改

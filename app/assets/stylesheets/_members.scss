@@ -1,28 +1,50 @@
 .page-team-members{
   .member{
     float:left;
-    //width:290px;
-    //height:190px;
-    width: 96px*2 + 10px;
-    margin-right:10px;
-    margin-bottom:10px;
-    overflow:hidden;
-    background-color:#f7f7f7;
-    padding:5px;
-    @include border-radius(8px);
-    
-    $w:96px;
-    .avatar{
-      float:left;
-      width:$w;height:$w;overflow:hidden;
-      @include border-radius(3px);
-      img{width:$w;height:$w;}
-    }
-    .meta{
-      margin-left:$w + 10px;
-      color:#777;
-      .name{font-size:14px;font-weight:bold;color:#444;margin-bottom:5px;
-        a{color:#444;&:hover{color:#333;}}
+    margin:0 10px 10px 0;
+
+    a.box{
+      $w:96px;
+      $padding : 10px;
+
+      overflow:hidden;
+      width: $w*2 + $padding * 3;
+      background-color:$COLOR-BOX-BG;
+      padding:0;
+      display:block;
+      @include white-link;
+      position:relative;
+
+      &:before{
+        content:"";
+        display:block;
+        position:absolute;
+        top:0;bottom:0;left:$w + $padding;
+        width:5px;
+        @include gradient-ltor(rgba(black, 0.4), rgba(black, 0));
+      }
+
+      &:hover{
+        .avatar{background-color:$COLOR-LINK;}
+        .meta .real-name{color:$COLOR-LINK;}
+      }
+
+      .avatar{
+        float:left;
+        padding-left:$padding;
+        width:$w;height:$w;overflow:hidden;
+        img{width:$w;height:$w;}
+
+        @include transition(background-color ease-in .2s);
+      }
+      .meta{
+        margin-left:$w + $padding * 2;
+        margin-right:$padding;
+        .name{
+          font-size:13px;font-weight:bold;margin-bottom:5px;
+          margin-top:10px;
+        }
+        .real-name{color:$COLOR-QUIET-TEXT;}
       }
     }
   }

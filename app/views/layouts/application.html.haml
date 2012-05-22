@@ -15,21 +15,37 @@
     = yield :head
 
   %body.echo.gray
-    .page-wrap
-      .page-container
-        .page-header
-          .h
-            .title
-              %a{:href=>'/'} MINDPIN TEAM AGILE PLAYGROUND
+    .page-container
+      .page-sider
+
+        .head
+          .title
+            %a{:href=>'/'} MINDPIN TEAM AGILE PLAYGROUND
+          .user
             -if logged_in?
-              .user
-                .current-user 欢迎你，#{current_user.name}
-                .current-user-avatar=avatar current_user,:tiny
-                .logout=link_to '登出','/logout'
+              .current-user-avatar=avatar current_user,:medium
+              .current-user 欢迎你，#{current_user.name}
+              .logout=link_to '登出', '/logout'
             -else
-              .to-login=link_to '我要登录啊','/login'
-        .page-content
-          = yield
+              .login=link_to '我要登录啊', '/login'
+              
+        .page-nav
+          %a.item{:class=>nav_current_klass(:products), :href=>'/'} 我们的产品
+          %a.item{:class=>nav_current_klass(:members), :href=>'/members'} 成员和分享者
+          -if logged_in?
+            %a.item{:class=>nav_current_klass(:mine), :href=>'/mine'} 我的任务
+          -if admin_logged_in?
+            %a.item{:class=>nav_current_klass(:admin), :href=>'/admin'} 管理员界面
+          
+        .hide.page-to
+          .p=link_to '全部产品','/'
+          .p=link_to '我的工作','/stories/mine'
+
+        .hide.page-ops
+          =link_to "新建产品",'/products/new'
+
+      .page-content
+        = yield
 
     = javascript_include_tag 'application'
     = yield :javascript

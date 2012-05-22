@@ -1,8 +1,6 @@
 -htitle @product.name
 
-=render 'index/parts/page_nav'
 =render 'products/parts/product_headbar', :product=>@product, :current=>:stories_board
-=render 'products/parts/product_stats', :product=>@product
 
 :ruby
   product = @product
@@ -21,22 +19,6 @@
         members_limit = stream.members[0..9] # 10个
         
       .stream
-        .box
-          .ct=link_to title, stream_url
-          .stories-and-hours
-            .stories-count=stream_stories_count
-            .working-hours="#{working_hours}H"
-          .split
-          .members
-            -members_limit.each do |member|
-              .member
-                .avatar
-                  =link_to "/members/#{member.id}", :title=>member.name do
-                    =avatar member, :mini
-            -(10-members_limit.count).times do
-              .member.blank
-          -if !last_story.blank?
-            .last-story
-              .updated_at=last_story.updated_at
-              .how=truncate_u last_story.how_to_demo, 32
+        .title=link_to title, stream_url
+        =render 'stories/parts/simple_list', :stories=>stream.stories
       

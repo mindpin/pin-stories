@@ -15,45 +15,37 @@ form{
         };
       }
     }
-    input[type=text], input[type=password]{
-      border:solid #bbb 1px;
-      @include border-radius(2px);
-      box-shadow:0 1px 2px rgba(0, 0, 0, 0.1) inset;
+
+    input[type=text], input[type=password], textarea{
+      border:solid $COLOR-MORE-DARK-BORDER 1px;
+      box-shadow:0 1px 2px $COLOR-BLACK-SHADOW inset;
       font-size:12px;line-height:30px;padding:0 4px;
       width:200px;height:30px;
+      @include numfont;
       &:focus{
         box-shadow:0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(82, 168, 236, 0.6);
         border:solid 1px rgba(82, 168, 236, 0.8);
       }
     }
     textarea{
-      border:solid #bbb 1px;
-      @include border-radius(2px);
-      box-shadow:0 1px 2px rgba(0, 0, 0, 0.1) inset;
-      font-size:12px;line-height:20px;padding:4px;
       width:300px;height:100px;
-      &:focus{
-        box-shadow:0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(82, 168, 236, 0.6);
-        border:solid 1px rgba(82, 168, 236, 0.8);
-      }
     }
   }
   
   .form-submit-button{
-    @include gradient(#DD4B39, #C53727);
-    border:1px solid #B0281A;
-    @include border-radius(2px);
     display:inline-block;
-    height:32px;line-height:32px;
-    padding:0 10px;
+    @include gradient(#DD4B39, #C53727);
+    @include border-radius(3px);
+    box-shadow:1px 1px 2px $COLOR-BLACK-SHADOW;
+    text-shadow:-1px -1px 0 $COLOR-BLACK-SHADOW;
+    border:1px solid $COLOR-MEDIUM-LIGHT-BORDER;
+    height:28px;line-height:28px;
+    padding:0 $BUTTON-PADDING;
     font-size:14px;
     color:white;&:hover{color:white;text-decoration:none;};
-    box-shadow:0px 0px 2px rgba(black, 0.1);
-    text-shadow:-1px -1px 0 rgba(black, 0.2);
-    margin-right:5px;
+    margin-right:10px;
     &:hover{
-      @include gradient(#DB3F2C, #B83324);
-      border-color:#952216;
+      @include lighten-gradient(#DD4B39, #C53727, 10%);
     }
     
     &.disabled{
@@ -66,19 +58,18 @@ form{
   }
   
   .form-cancel{
-    @include gradient(#888, #666);
-    border:1px solid #555;
-    @include border-radius(2px);
     display:inline-block;
-    height:32px;line-height:32px;
-    padding:0 10px;
+    @include gradient(#666, #555);
+    @include border-radius(3px);
+    box-shadow:1px 1px 2px $COLOR-BLACK-SHADOW;
+    text-shadow:-1px -1px 0 $COLOR-BLACK-SHADOW;
+    border:1px solid $COLOR-MEDIUM-LIGHT-BORDER;
+    height:28px;line-height:28px;
+    padding:0 $BUTTON-PADDING;
     font-size:14px;
     color:white;&:hover{color:white;text-decoration:none;};
-    box-shadow:0px 0px 2px rgba(black, 0.1);
-    text-shadow:-1px -1px 0 rgba(black, 0.2);
     &:hover{
-      @include gradient(#777, #555);
-      border-color:#444;
+      @include lighten-gradient(#666, #555, 10%);
     }
   }
 }

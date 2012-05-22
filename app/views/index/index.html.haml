@@ -1,7 +1,5 @@
 -htitle '我们的产品'
 
-=render 'index/parts/page_nav'
-
 :ruby
   products = Product.all
   
@@ -22,12 +20,11 @@
       
     .product
       .meta-data
-        .box
+        =link_to product_show_url, :class=>'box' do
           .cover
-            =link_to product_show_url do
-              %img{:alt=>name, :src=>cover_url}
-          .name=link_to name, product_show_url
-          .desc=truncate_u description, 100
+            %img{:alt=>name, :src=>cover_url}
+          .name=name
+          .desc.hide=truncate_u description, 100
       .stat-data
         .base
           .stat{:class=> stories_count == 0 ? 'zero':''}
@@ -48,4 +45,4 @@
             
       -if admin_logged_in?
         .ops
-          %a.edit{:href=>"/products/#{product.id}/edit"} ADMIN:修改
+          %a.edit.admin-btn{:href=>"/products/#{product.id}/edit"} 修改

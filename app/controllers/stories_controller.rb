@@ -66,11 +66,22 @@ class StoriesController < ApplicationController
     redirect_to "/stories/#{@story.id}"
   end
   
-  def mine
-    @mine_stories = current_user.assigned_stories
+  def mine    
+    # param_status = params[:story_status]
+    # @filtered_stories = param_status.blank? ? @mine_stories : @mine_stories.with_status(param_status)
     
-    param_status = params[:story_status]
-    @filtered_stories = param_status.blank? ? @mine_stories : @mine_stories.with_status(param_status)
-    
+    hash = {}
+
+    current_user.assigned_stories.each do |story|
+      product = story.product
+      if hash.keys.include? product
+        hash[product] << story
+      else
+        hash[product] = [story]
+      end
+    end
+
+    @mine_products_hash = hash
+
   end
 end
