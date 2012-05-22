@@ -5,4 +5,6 @@ class ApplicationController < ActionController::Base
   def is_android_client?
     request.headers["User-Agent"] == "android"
   end
+
+
 end
