@@ -35,7 +35,8 @@
     %a.item{:href=>lemma_url, :class=> current == :lemmas ? 'current':''}
       .t 常用词
       .c=product_lemma_count
-    %a.item.disabled{:href=>wiki_url} WIKI
+    %a.item{:href=>wiki_url, :class=> current == :wiki ? 'current':''}
+      .t wiki
   
   .ops
     %a.add-issue{:href=>"/products/#{product.id}/issues/new"} 创建BUG或建议

@@ -1,9 +1,8 @@
-.p
+.page-wiki-pages
   = render 'wiki/parts/nav'
-
-- @wiki_pages.each do |wiki_page|
-  %p
-    = link_to wiki_page.title, wiki_path(wiki_page)
-    = link_to '查看版本记录', "/wiki/#{wiki_page.id}/versions"
-    = link_to '编辑', edit_wiki_path(wiki_page)
-    = link_to '删除', wiki_path(wiki_page), :method => :delete, :confirm => '是否确定删除'
+  - @wiki_pages.each do |wiki_page|
+    %p
+      = link_to wiki_page.title, wiki_path(wiki_page)
+      = link_to '查看版本记录', "/wiki/#{wiki_page.id}/versions"
+      = link_to '编辑', edit_wiki_path(wiki_page)
+      = link_to '删除', wiki_path(wiki_page), :method => :delete, :confirm => '是否确定删除'
