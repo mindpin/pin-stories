@@ -14,7 +14,7 @@
 
   = flash.now[:error]
   
-  = form_for @wiki_page, :url => { :controller => '/wiki', :action => "preview" } do |f|
+  = form_for @wiki_page, :url => { :controller => '/wiki', :action => "create" } do |f|
     .field
       %label.need 页面标题
       = f.text_field :title

@@ -1,7 +1,11 @@
 :ruby
-  product_id = params[:product_id].blank?? params[:wiki_page][:product_id]: params[:product_id]
-  if product_id.nil?
-    product_id = @wiki_page.product_id
+  unless @wiki_page.nil?
+  	product_id = @wiki_page.product_id
+  else
+  	product_id = params[:product_id].blank?? params[:wiki_page][:product_id]: params[:product_id]
   end
+
+  
+
 
 = link_to '创建新页面', "/products/#{product_id}/wiki/new"

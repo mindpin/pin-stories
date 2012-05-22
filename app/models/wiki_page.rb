@@ -10,6 +10,7 @@ class WikiPage < ActiveRecord::Base
 
 
   def self.parse_conent(content)
+    require 'redcarpet/compat'
     content = Markdown.new(content).to_html
     content.gsub(/@([A-Za-z0-9一-龥\/_]+)/,'<a href="/atme/\1">@\1</a>')
   end
