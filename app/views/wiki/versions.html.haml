@@ -1,0 +1,19 @@
+.p
+  = render 'wiki/parts/nav'
+
+%p
+  = @wiki_page.title
+  
+- @versions.each do |version|
+  %p
+    = version.id
+    
+    
+    = version.action
+    
+    = version.audited_changes
+
+    = version.created_at
+  
+  %p
+    = link_to '回滚到该版本', "/wiki/#{version.auditable_id}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'

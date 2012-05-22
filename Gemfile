@@ -7,6 +7,10 @@ gem 'therubyracer'
 gem 'json'
 gem 'jquery-rails'
 gem 'haml'
+gem "audited-activerecord"
+gem 'redcarpet'
+gem 'coderay'
+
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'

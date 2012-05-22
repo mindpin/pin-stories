@@ -5,15 +5,15 @@ development:
   encoding: utf8
   database: pin-stories
   username: root
-  password: root
+  password: '111111'
   host: localhost
 
 test:
   adapter: mysql2
   encoding: utf8
-  database: pin-stories-test
+  database: pin-stories
   username: root
-  password: root
+  password: '111111'
   host: localhost
   
 production:
@@ -21,5 +21,5 @@ production:
   encoding: utf8
   database: pin-stories-production
   username: root
-  password: root
+  password: '111111'
   host: localhost

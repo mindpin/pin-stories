@@ -1,0 +1,18 @@
+-htitle @product.name
+
+=render 'index/parts/page_nav'
+=render 'products/parts/product_headbar', :product=>@product, :current=>:stories_board
+=render 'products/parts/product_stats', :product=>@product
+
+
+:ruby
+  unless @wiki_page.nil?
+  	product_id = @wiki_page.product_id
+  else
+  	product_id = params[:product_id].blank?? params[:wiki_page][:product_id]: params[:product_id]
+  end
+
+  
+
+
+= link_to '创建新页面', "/products/#{product_id}/wiki/new"
