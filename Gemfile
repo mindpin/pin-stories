@@ -10,7 +10,6 @@ gem 'haml'
 gem "audited-activerecord"
 gem 'redcarpet'
 gem 'coderay'
-gem 'lesstile'
 
 
 group :assets do

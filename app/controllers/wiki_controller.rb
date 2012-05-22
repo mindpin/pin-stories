@@ -22,7 +22,8 @@ class WikiController < ApplicationController
   def show
     @wiki_page = WikiPage.find(params[:id])
 
-    @content = WikiPage.parse_conent(@wiki_page.content)
+    #@content = WikiPage.parse_conent(@wiki_page.content)
+    @content = @wiki_page.content
 
     @product = Product.find(@wiki_page.product_id)
   end
