@@ -1,0 +1,33 @@
+
+:javascript
+  function preview() {
+    var frm = document.getElementById('new_wiki_page') || null;
+    if(frm) {
+      frm.setAttribute("target", "_blank");
+      frm.action = '/wiki/preview';
+    }
+
+  }
+
+.p
+  = render 'wiki/parts/nav'
+  
+%p
+  = @result
+.new-page
+
+  = flash.now[:error]
+  
+  = form_for @wiki_page, :url => { :controller => '/wiki', :action => "preview" } do |f|
+    .field
+      %label.need 页面标题
+      = f.text_field :title
+      = f.hidden_field :product_id, :value => params[:product_id]
+      
+    .field
+      %label.need 内容
+      %textarea{:name=>'wiki_page[content]'}
+      
+      .field
+        %a.form-submit-button{:href=>'javascript:;'} 保存
+        %a.form-submit-button{:href=>'javascript: ;', :onclick => 'preview()'} 预览

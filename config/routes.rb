@@ -36,6 +36,28 @@ Voteapp::Application.routes.draw do
   get 'products/:id/members' => 'products#product_members'
   get 'products/:id/issues'  => 'products#product_issues'
   get 'products/:id/lemmas'  => 'products#product_lemmas'
+  get 'products/:product_id/wiki'  => 'wiki#index'
+  get 'products/:product_id/wiki/new'  => 'wiki#new'
+  get '/atme/:name' => 'wiki#atme'
+
+
+
+
+  resources :wiki do
+    collection do
+      get :history
+      post :preview
+    end
+    
+    member do
+      get :versions
+    end
+  end
+  
+  get 'wiki/rollback/:audit_id' => 'wiki#rollback'
+  get 'wiki/:auditable_id/rollback/:audit_id' => 'wiki#page_rollback'
+  
+  resources :wiki
 
   # -----
   

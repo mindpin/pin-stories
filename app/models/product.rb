@@ -3,6 +3,7 @@ class Product < ActiveRecord::Base
   has_many :stories
   has_many :issues
   has_many :lemmas
+  has_many :wiki_pages
   
   validates :name, :description, :presence => true
   
