@@ -1,6 +1,6 @@
 module WikiHelper
 
-=begin
+
   def coderay(text) 
     text.gsub!(/\<code(?: lang="(.+?)")?\>(.+?)\<\/code\>/m) do 
       code = CodeRay.scan($2, $1).div(:css => :class) 
@@ -10,8 +10,7 @@ module WikiHelper
     return text.html_safe
   end
 
-=end
-
+=begin
 
   def markdown(text)
     options = {   
@@ -31,6 +30,7 @@ module WikiHelper
       CodeRay.scan(code, language).div(:tab_width=>2)
     end
   end
+=end
 
 
 end
