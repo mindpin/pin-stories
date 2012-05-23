@@ -1,8 +1,7 @@
 -htitle @product.name
 
-=render 'index/parts/page_nav'
-=render 'products/parts/product_headbar', :product=>@product, :current=>:members
-=render 'products/parts/product_stats', :product=>@product
+=render 'products/parts/product_headbar', :product=>@product
+=render 'products/parts/product_nav', :product=>@product, :current=>:members
 
 .page-product-members
   -@product_members.each do |member|

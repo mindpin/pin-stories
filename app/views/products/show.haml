@@ -1,12 +1,13 @@
 -htitle @product.name
 
-=render 'products/parts/product_headbar', :product=>@product, :current=>:stories_board
+=render 'products/parts/product_headbar', :product=>@product
+=render 'products/parts/product_nav', :product=>@product, :current=>:stories_board
 
 :ruby
   product = @product
   name = product.name
 
-.page-product-show    
+.page-product-show
   .product-streams
     -product.streams.each do |stream|
       :ruby

@@ -145,52 +145,6 @@
     width:720px;
     color:$COLOR-QUIET-TEXT;
   }
-
-  .nav{
-    display:none;
-    overflow:hidden;
-    position:absolute;
-    bottom:-1px;
-    .item{
-      line-height:32px;height:32px;
-      display:inline-block;
-      background-color:#55A4F2;
-      color:white;&:hover{color:white;};
-      padding:0 12px;
-      @include border-radius(3px 3px 0 0);
-      float:left;margin-right:3px;
-      border:solid 1px #55A4F2;
-      border-bottom:none;
-      overflow:hidden;
-      
-      .t{float:left;margin-right:10px;}
-      .c{background-color:#1071D1;
-        @include border-radius(10px);
-        float:left;font-size:10px;font-weight:bold;
-        height:16px;line-height:16px;
-        border:solid 1px $COLOR-BLACK-SHADOW;
-        padding:0 12px;
-        margin-top:7px;
-      }
-      
-      &:hover{
-        background-color:#1071d1;
-        border-color:#1071d1;
-        .c{background-color:#093e72;}
-      }
-      
-      &.disabled{
-        background-color:#ddd;border-color:#ccc;
-        color:#999;
-      }
-
-      &.current{
-        background-color:#fff;border-color:$COLOR-MEDIUM-BORDER;
-        color:#444;
-        .c{background-color:#666;color:white;}
-      }
-    }
-  }
   
   .ops{
     position:absolute;right:0;
@@ -198,6 +152,54 @@
     a.add-issue{@include new-button;margin-right:4px;}
     a.add-story{@include new-button;margin-right:4px;}
     a.add-stream{@include new-button;}
+  }
+}
+
+.page-product-nav{
+  //display:none;
+  overflow:hidden;
+  position:fixed;
+  top:360px;
+  left:20px;
+  width:280px;
+  border-top:solid 5px $COLOR-BOX-LIGHT-BG;
+  padding-top:10px;
+
+  .item{
+    line-height:30px;height:30px;
+    background-color:#55A4F2;
+    color:white;&:hover{color:white;};
+    padding:0 6px 0 $BOX-PADDING;
+    margin-bottom:$BOX-PADDING-LESS;
+    float:right;
+    clear:both;
+    
+    .t{float:left;margin-right:10px;}
+    .c{
+      background-color:#1071D1;
+      float:left;font-size:10px;font-weight:bold;
+      height:16px;line-height:16px;
+      border:solid 1px $COLOR-BLACK-SHADOW;
+      padding:0 $BOX-PADDING-LESS;
+      margin-top:6px;
+    }
+    
+    &:hover{
+      background-color:#1071d1;
+      border-color:#1071d1;
+      .c{background-color:#093e72;}
+    }
+    
+    &.disabled{
+      background-color:#ddd;border-color:#ccc;
+      color:#999;
+    }
+
+    &.current{
+      background-color:#fff;border-color:$COLOR-MEDIUM-BORDER;
+      color:#444;
+      .c{background-color:#666;color:white;}
+    }
   }
 }
 

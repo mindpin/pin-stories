@@ -1,8 +1,7 @@
 -htitle @product.name
 
-=render 'index/parts/page_nav'
-=render 'products/parts/product_headbar', :product=>@product, :current=>:lemmas
-=render 'products/parts/product_stats', :product=>@product
+=render 'products/parts/product_headbar', :product=>@product
+=render 'products/parts/product_nav', :product=>@product, :current=>:lemmas
 
 .page-product-lemmas
   .intro
