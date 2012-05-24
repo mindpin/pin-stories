@@ -55,9 +55,8 @@ class WikiPage < ActiveRecord::Base
       # return re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
 
       re = re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
-      content = re.gsub(/^\[\[([A-Za-z0-9一-龥\/_]+)\]\]$/, '<a href="/products/#{self.product_id}/wiki_page/\1">\1</a>')
-
-      return content
+      #content = re.gsub(/^\[\[([A-Za-z0-9一-龥\/_]+)\]\]$/, '<a href="/products/#{self.product_id}/wiki_page/\1">\1</a>')
+      return re
     end
 
     # TODO 这里还可以做更多扩展
@@ -83,6 +82,9 @@ class WikiPage < ActiveRecord::Base
     )
 
     re = markdown.render(self.content).html_safe
+
+    re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki_page/\1">\1</a>]]').html_safe
+
   end
 
 
