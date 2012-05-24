@@ -6,7 +6,14 @@ class WikiPage < ActiveRecord::Base
 
 
   # --- 校验方法
-  validates :product, :title, :content, :presence => true
+  validates_uniqueness_of :title, :message => "不能重复"
+  validates_presence_of :title, :message => "不能为空"
+  validates_presence_of :content, :message => "不能为空"
+
+  def is_title_repeat?
+    WikiPage.where(:title => self.title).exists?
+  end
+
 
 
   class HTMLwithCoderay < Redcarpet::Render::HTML

@@ -12,7 +12,7 @@
   = @result
 .new-page
 
-  = flash.now[:error]
+  = flash[:error]
   
   = form_for @wiki_page, :url => { :controller => '/wiki', :action => "create" } do |f|
     .field

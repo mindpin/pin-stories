@@ -8,13 +8,20 @@ class WikiController < ApplicationController
   def new
     @product = Product.find(params[:product_id]) if params[:product_id]
     @wiki_page = WikiPage.new
+
+    @wiki_page.title = params[:title]
   end
   
   def create
     wiki_page = current_user.wiki_pages.build(params[:wiki_page])
-    wiki_page.save
+    return redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki" if wiki_page.save
 
-    redirect_to "/products/#{wiki_page.product_id}/wiki"
+    error = wiki_page.errors.first
+    flash[:error] = "#{error[0]} #{error[1]}"
+    
+    title = wiki_page.is_title_repeat?? params[:wiki_page][:title] + "-repeat": params[:wiki_page][:title]
+
+    redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki/new?title=#{title}"
   end
   
   def show
