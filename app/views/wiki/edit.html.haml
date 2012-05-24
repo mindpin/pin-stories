@@ -15,7 +15,7 @@
       
     .field
       %label.need 内容
-      %textarea{:name=>'wiki_page[content]', :style => 'width: 300px; height: 200px;'} #{@wiki_page.content}
+      %textarea{:name=>'wiki_page[content]'} #{@wiki_page.content}
       
-      .field
-        %a.form-submit-button{:href=>'javascript:;'} 发送
+    .field
+      %a.form-submit-button{:href=>'javascript:;'} 发送

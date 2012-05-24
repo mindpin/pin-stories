@@ -19,16 +19,19 @@ form{
     input[type=text], input[type=password], textarea{
       border:solid $COLOR-MORE-DARK-BORDER 1px;
       box-shadow:0 1px 2px $COLOR-BLACK-SHADOW inset;
-      font-size:12px;line-height:30px;padding:0 4px;
-      width:200px;height:30px;
+      font-size:12px;padding:0 4px;
+      width:200px;
       @include numfont;
       &:focus{
         box-shadow:0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(82, 168, 236, 0.6);
         border:solid 1px rgba(82, 168, 236, 0.8);
       }
     }
+    input[type=text], input[type=password]{
+      height:30px;line-height:30px;
+    }
     textarea{
-      width:300px;height:100px;
+      width:500px;height:300px;
     }
   }
   

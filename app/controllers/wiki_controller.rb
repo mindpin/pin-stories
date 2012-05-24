@@ -2,8 +2,7 @@ class WikiController < ApplicationController
 
   def index
     @product = Product.find(params[:product_id]) if params[:product_id]
-
-    @wiki_pages = WikiPage.find_all_by_product_id(params[:product_id])
+    @wiki_pages = @product.wiki_pages
   end
   
   def new
@@ -12,7 +11,6 @@ class WikiController < ApplicationController
   end
   
   def create
-
     wiki_page = current_user.wiki_pages.build(params[:wiki_page])
     wiki_page.save
 
@@ -21,16 +19,11 @@ class WikiController < ApplicationController
   
   def show
     @wiki_page = WikiPage.find(params[:id])
-
-    @content = WikiPage.parse_conent(@wiki_page.content)
-    # @content = @wiki_page.content
-
-    @product = Product.find(@wiki_page.product_id)
   end
   
   def edit
     @wiki_page = WikiPage.find(params[:id])
-    @product = Product.find(@wiki_page.product_id)
+    @wiki_page.product
   end
   
   def update
