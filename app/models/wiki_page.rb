@@ -4,15 +4,34 @@ class WikiPage < ActiveRecord::Base
   belongs_to :product, :class_name => 'Product'
   audited
 
+=begin
+
+  HUMANIZED_ATTRIBUTES = {
+    :title => ""
+  }
+
+  def self.human_attribute_name(attr)
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
+
+=end
+
 
   # --- 校验方法
+  
+  validates_format_of :title, 
+    :with => /^([^"]+[^']+[^\\]+[^\/]+[A-Za-z0-9一-龥]+)$/,
+    # :with => /^([A-Za-z0-9一-龥]+)$/,
+    :message => "不允许出现 &, ?, ', \", \\, \/ 非法字符"
+
+
   validates_uniqueness_of :title, :message => "不能重复"
-  validates_presence_of :title, :message => "不能为空"
   validates_presence_of :content, :message => "不能为空"
 
   def is_title_repeat?
     WikiPage.where(:title => self.title).exists?
   end
+
 
 
 
@@ -33,7 +52,12 @@ class WikiPage < ActiveRecord::Base
     def normal_text(text)
       re = text
       # 转换 @某某 语法
-      return re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
+      # return re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
+
+      re = re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
+      content = re.gsub(/^\[\[([A-Za-z0-9一-龥\/_]+)\]\]$/, '<a href="/products/#{self.product_id}/wiki_page/\1">\1</a>')
+
+      return content
     end
 
     # TODO 这里还可以做更多扩展

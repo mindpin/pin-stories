@@ -20,12 +20,17 @@ class WikiController < ApplicationController
     flash[:error] = "#{error[0]} #{error[1]}"
     
     title = wiki_page.is_title_repeat?? params[:wiki_page][:title] + "-repeat": params[:wiki_page][:title]
+    title = CGI.escapeHTML(title)
 
     redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki/new?title=#{title}"
   end
   
   def show
-    @wiki_page = WikiPage.find(params[:id])
+    page = WikiPage.where(:title => params[:title].strip, :product_id => params[:product_id])
+    if page.exists?
+      @wiki_page = page.first
+    end
+
   end
   
   def edit
@@ -37,7 +42,7 @@ class WikiController < ApplicationController
     @wiki_page = WikiPage.find(params[:id])
     @wiki_page.update_attributes(params[:wiki_page])
 
-    redirect_to "/wiki/#{@wiki_page.id}"
+    redirect_to "/products/#{@wiki_page.product_id}/wiki_page/#{@wiki_page.title}"
   end
   
   def destroy
