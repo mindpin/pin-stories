@@ -16,11 +16,22 @@ class WikiPage < ActiveRecord::Base
 
       CodeRay.scan(code, language).div(
         :tab_width    => 2,
-        :css          => :style, # 稍后改成 :class 以自定义颜色
+        :css          => :class, # 稍后改成 :class 以自定义颜色
         :line_numbers => :inline,
-        :line_number_anchors => false
+        :line_number_anchors => false,
+        :bold_every => false
       )
     end
+
+    def normal_text(text)
+      re = text
+      # 转换 @某某 语法
+      return re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
+    end
+
+    # TODO 这里还可以做更多扩展
+    # TODO 参考这个： http://dev.af83.com/2012/02/27/howto-extend-the-redcarpet2-markdown-lib.html
+    # "How to extend the Redcarpet 2 Markdown library?"
   end
 
   def formated_content
@@ -41,12 +52,6 @@ class WikiPage < ActiveRecord::Base
     )
 
     re = markdown.render(self.content).html_safe
-
-    # 转换 @某某 语法
-    re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>').html_safe
-    # TODO 这里还可以优化，应该可以写到自定义的render里去
-    # TODO 参考这个： http://dev.af83.com/2012/02/27/howto-extend-the-redcarpet2-markdown-lib.html
-    # "How to extend the Redcarpet 2 Markdown library?"
   end
 
 
