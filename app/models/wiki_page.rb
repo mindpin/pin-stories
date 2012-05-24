@@ -24,13 +24,15 @@ class WikiPage < ActiveRecord::Base
   end
 
   def formated_content
-    rndr = HTMLwithCoderay.new(
+    re = ''
+
+    coderay_render = HTMLwithCoderay.new(
       :filter_html     => true,
       :safe_links_only => true,
       :hard_wrap       => true
     )
 
-    markdown = Redcarpet::Markdown.new(rndr,
+    markdown = Redcarpet::Markdown.new(coderay_render,
       :no_intra_emphasis   => true,
       :fenced_code_blocks  => true,
       :autolink            => true,
@@ -38,13 +40,13 @@ class WikiPage < ActiveRecord::Base
       :space_after_headers => true
     )
 
-    return markdown.render(self.content).html_safe
+    re = markdown.render(self.content).html_safe
 
-    # # 转换 @某某 语法
-    # content.gsub(/@([A-Za-z0-9一-龥\/_]+)/,'<a href="/atme/\1">@\1</a>')
-
-    # # html_safe 声明
-    # content.html_safe
+    # 转换 @某某 语法
+    re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>').html_safe
+    # TODO 这里还可以优化，应该可以写到自定义的render里去
+    # TODO 参考这个： http://dev.af83.com/2012/02/27/howto-extend-the-redcarpet2-markdown-lib.html
+    # "How to extend the Redcarpet 2 Markdown library?"
   end
 
 
