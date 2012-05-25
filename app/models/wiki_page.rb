@@ -20,7 +20,7 @@ class WikiPage < ActiveRecord::Base
   # --- 校验方法
   
   validates_format_of :title, 
-    :with => /^([^"^'^\\^\/]?[A-Za-z0-9一-龥]+)$/,
+    :with => /^([^"^'^\\^\/]?[-A-Za-z0-9一-龥]+)$/,
     # :with => /^([A-Za-z0-9一-龥]+)$/,
     :message => "不允许出现 &, ?, ', \", \\, \/ 非法字符"
 
