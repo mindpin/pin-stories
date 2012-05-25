@@ -20,7 +20,7 @@ class WikiPage < ActiveRecord::Base
   # --- 校验方法
   
   validates_format_of :title, 
-    :with => /^([^"]+[^']+[^\\]+[^\/]+[A-Za-z0-9一-龥]+)$/,
+    :with => /^([^"^'^\\^\/]?[A-Za-z0-9一-龥]+)$/,
     # :with => /^([A-Za-z0-9一-龥]+)$/,
     :message => "不允许出现 &, ?, ', \", \\, \/ 非法字符"
 
@@ -83,11 +83,13 @@ class WikiPage < ActiveRecord::Base
 
     re = markdown.render(self.content).html_safe
 
+    # 把中间的 ？ & 等特殊字符转化成 -
+    re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)([?&]+)([A-Za-z0-9一-龥\/_]+)\]\]/, '[[\1-\3]]').html_safe
+
     # 根据 [[ruby]] 字符串匹配先生成url
     re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki_page/\1">\1</a>]]').html_safe
     
-    # 把中间的 ？ & 等特殊字符转化成 -
-    re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)([?&]+)([A-Za-z0-9一-龥\/_]+)\]\]/, '[[\1-\3]]').html_safe
+    
   end
 
 
