@@ -16,4 +16,4 @@
     = version.created_at
   
   %p
-    = link_to '回滚到该版本', "/products/#{@wiki_page.product_id}/wiki_page/#{@wiki_page.title}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'
+    = link_to '回滚到该版本', "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'
