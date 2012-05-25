@@ -40,7 +40,7 @@ class WikiPage < ActiveRecord::Base
     end
 
     # 如果有存在不合法字符，则替换掉
-    self.title = self.title.gsub(/["'\\\/]+/, '-')
+    self.title = self.title.gsub(/["'\\\/?&]+/, '-')
   end
 
   def is_title_repeat?
