@@ -100,7 +100,7 @@ class WikiController < ApplicationController
   # 处理词条预览 markdown 解析
   def preview
     @title = params[:wiki_page][:title]
-    @content = WikiPage.parse_conent(params[:wiki_page][:content])
+    @content = WikiPage.new.formated_content(params[:wiki_page][:content])
 
     @product = Product.find(params[:wiki_page][:product_id])
   end
