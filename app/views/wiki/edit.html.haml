@@ -6,7 +6,7 @@
 
   = flash.now[:error]
   
-  = form_for @wiki_page, :url => { :action => "update" } do |f|
+  = form_for @wiki_page, :url => "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}", :method => 'put' do |f|
     .field
       %label.need 页面标题
       = f.text_field :title, :value => @wiki_page.title

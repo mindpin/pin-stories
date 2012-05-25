@@ -1,9 +1,11 @@
 .p
   = render 'wiki/parts/nav'
-  
-.p
-  = @wiki_page.title
-
-.p
-  = @wiki_page.formated_content
+ 
+- if @wiki_page.nil?
+  = "#{params[:title]} 为空"
+- else
+  .p
+    = @wiki_page.title
+  .p
+    = @wiki_page.formated_content
 
