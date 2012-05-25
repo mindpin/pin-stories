@@ -34,19 +34,19 @@ class WikiController < ApplicationController
   end
   
   def edit
-    @wiki_page = WikiPage.find(params[:id])
+    @wiki_page = WikiPage.find_by_title(params[:title])
     @wiki_page.product
   end
   
   def update
-    @wiki_page = WikiPage.find(params[:id])
+    @wiki_page = WikiPage.find_by_title(params[:title])
     @wiki_page.update_attributes(params[:wiki_page])
 
-    redirect_to "/products/#{@wiki_page.product_id}/wiki_page/#{@wiki_page.title}"
+    redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
   end
   
   def destroy
-    @wiki_page = WikiPage.find(params[:id])
+    @wiki_page = WikiPage.find_by_title(params[:title])
     @wiki_page.destroy
 
     redirect_to "/products/#{@wiki_page.product_id}/wiki"
@@ -59,7 +59,8 @@ class WikiController < ApplicationController
   
   # 改动的版本列表
   def versions
-    @wiki_page = WikiPage.find(params[:id])
+    # @wiki_page = WikiPage.find(params[:id])
+    @wiki_page = WikiPage.find_by_title(params[:title])
     @versions = @wiki_page.audits
 
     @product = Product.find(@wiki_page.product_id)
@@ -67,11 +68,12 @@ class WikiController < ApplicationController
   
   # 单条记录的版本回滚
   def page_rollback
-    wiki_page = WikiPage.find(params[:auditable_id])
+    # wiki_page = WikiPage.find(params[:auditable_id])
+    wiki_page = WikiPage.find_by_title(params[:title])
     audit = Audited::Adapters::ActiveRecord::Audit.find(params[:audit_id])
     wiki_page.rollback(audit)
     
-    redirect_to "/wiki/#{wiki_page.id}"
+    redirect_to "/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}"
 
   end
   

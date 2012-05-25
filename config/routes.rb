@@ -38,9 +38,16 @@ Voteapp::Application.routes.draw do
   get 'products/:id/lemmas'  => 'products#product_lemmas'
 
 
-  get 'products/:product_id/wiki_page/:title'  => 'wiki#show'
-  get 'products/:product_id/wiki'  => 'wiki#index'
-  get 'products/:product_id/wiki/new'  => 'wiki#new'
+  get '/products/:product_id/wiki/:title'  => 'wiki#show'
+  get '/products/:product_id/wiki'  => 'wiki#index'
+  get '/products/:product_id/wiki_new'  => 'wiki#new'
+  get '/products/:product_id/wiki/:title/edit'  => 'wiki#edit'
+
+  put '/products/:product_id/wiki/:title'  => 'wiki#update'
+  delete '/products/:product_id/wiki/:title'  => 'wiki#destroy'
+
+  get '/products/:product_id/wiki/:title/versions'  => 'wiki#versions'
+  get '/products/:product_id/wiki/:title/rollback/:audit_id' => 'wiki#page_rollback'
   get '/atme/:name' => 'wiki#atme'
 
 
@@ -53,12 +60,11 @@ Voteapp::Application.routes.draw do
     end
     
     member do
-      get :versions
     end
   end
   
-  get 'wiki/rollback/:audit_id' => 'wiki#rollback'
-  get 'wiki/:auditable_id/rollback/:audit_id' => 'wiki#page_rollback'
+  #get 'wiki/rollback/:audit_id' => 'wiki#rollback'
+  
   
   resources :wiki
 
