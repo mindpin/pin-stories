@@ -15,6 +15,7 @@ class WikiPage < ActiveRecord::Base
   end
 
 =end
+  
 
 
   # --- 校验方法
@@ -28,10 +29,23 @@ class WikiPage < ActiveRecord::Base
   validates_uniqueness_of :title, :message => "不能重复"
   validates_presence_of :content, :message => "不能为空"
 
+
+
+  before_validation :fix_title
+
+  def fix_title
+    if WikiPage.where(:title => self.title).exists?
+      self.title = self.title + "-repeat"
+      fix_title
+    end
+
+    # 如果有存在不合法字符，则替换掉
+    self.title = self.title.gsub(/["'\\\/]+/, '-')
+  end
+
   def is_title_repeat?
     WikiPage.where(:title => self.title).exists?
   end
-
 
 
 
