@@ -1,4 +1,5 @@
-.page-title WIKI - #{@wiki_page.title}
+-unless @wiki_page.nil?
+  .page-title WIKI - #{@wiki_page.title}
  
 .page-wiki-page
   - if @wiki_page.blank?

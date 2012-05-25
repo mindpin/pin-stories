@@ -103,7 +103,7 @@ class WikiPage < ActiveRecord::Base
     re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)([?&]+)([A-Za-z0-9一-龥\/_]+)\]\]/, '[[\1-\3]]').html_safe
 
     # 根据 [[ruby]] 字符串匹配先生成url
-    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki_page/\1">\1</a>]]').html_safe
+    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>]]').html_safe
     
     
   end
