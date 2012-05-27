@@ -1,10 +1,22 @@
+.page-title #{@product.name} - WIKI
+
+
 =render 'products/parts/product_nav', :product=>@product, :current=>:wiki
 
 .page-wiki-pages
-  = render 'wiki/parts/nav'
+  .ops
+    %a.new{:href=>"/products/#{@product.id}/wiki/new"} 创建新页面
+
   - @wiki_pages.each do |wiki_page|
-    %p
-      = link_to wiki_page.title, "/products/#{wiki_page.product_id}/wiki_page/#{wiki_page.title}"
-      = link_to '查看版本记录', "/wiki/#{wiki_page.id}/versions"
-      = link_to '编辑', edit_wiki_path(wiki_page)
-      = link_to '删除', wiki_path(wiki_page), :method => :delete, :confirm => '是否确定删除'
+    :ruby
+      link = "/products/#{wiki_page.product_id}/wiki_page/#{wiki_page.title}"
+      title = wiki_page.title
+
+      versions_link = "/wiki/#{wiki_page.id}/versions"
+      edit_link = "/wiki/#{wiki_page.id}/edit"
+
+    .wiki-page
+      %a.page-link{:href=>link}=title
+      %a.versions{:href=>versions_link} 查看版本记录
+      %a.edit{:href=>versions_link} 编辑
+      = link_to '删除', wiki_path(wiki_page), :method => :delete, :confirm => '是否确定删除', :class=>'delete'

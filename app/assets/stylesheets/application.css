@@ -376,7 +376,7 @@ body .page-container .page-sider {
         body .page-container .page-sider .head .user .current-user-avatar img {
           width: 96px;
           height: 96px; }
-      body .page-container .page-sider .head .user .current-user, body .page-container .page-sider .head .user .logout {
+      body .page-container .page-sider .head .user .current-user, body .page-container .page-sider .head .user .logout, body .page-container .page-sider .head .user .to-admin {
         margin-left: 111px;
         margin-bottom: 5px; }
       body .page-container .page-sider .head .user .current-user {
@@ -519,12 +519,35 @@ form .form-cancel {
   height: 28px;
   line-height: 28px;
   padding: 0 10px;
+  margin-right: 10px;
   font-size: 14px;
   color: white; }
   form .form-cancel:hover {
     color: white;
     text-decoration: none; }
   form .form-cancel:hover {
+    background: -moz-linear-gradient(-90deg, gray, #6e6e6e);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(gray), to(#6e6e6e)); }
+form .form-preview {
+  display: inline-block;
+  background: -moz-linear-gradient(-90deg, #666666, #555555);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#555555));
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  margin-right: 10px;
+  font-size: 14px;
+  color: white; }
+  form .form-preview:hover {
+    color: white;
+    text-decoration: none; }
+  form .form-preview:hover {
     background: -moz-linear-gradient(-90deg, gray, #6e6e6e);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(gray), to(#6e6e6e)); }
 
@@ -1864,3 +1887,49 @@ form .form-cancel {
     padding: 0 15px;
     margin-bottom: 20px;
     overflow: hidden; }
+
+.page-new-wiki-page {
+  background-color: #646464;
+  padding: 15px; }
+
+.page-wiki-pages .ops {
+  overflow: hidden;
+  margin-bottom: 10px; }
+  .page-wiki-pages .ops a.new {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    background-color: #646464;
+    padding: 0 15px 0 36px;
+    position: relative;
+    -moz-transition: all ease-in 0.2s;
+    -webkit-transition: all ease-in 0.2s;
+    transition: all ease-in 0.2s; }
+    .page-wiki-pages .ops a.new:before {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 16px;
+      background-color: white;
+      top: 3px;
+      left: 3px;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.7);
+      border-width: 4px 10px; }
+    .page-wiki-pages .ops a.new:after {
+      content: "";
+      width: 16px;
+      height: 4px;
+      position: absolute;
+      top: 13px;
+      left: 7px;
+      background-color: white; }
+    .page-wiki-pages .ops a.new:hover {
+      background-color: rgba(0, 0, 0, 0.9);
+      text-decoration: none; }
+.page-wiki-pages .wiki-page {
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 10px;
+  padding: 0 15px;
+  background-color: #3e3d3f; }

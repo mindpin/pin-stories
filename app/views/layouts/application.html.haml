@@ -28,14 +28,14 @@
               .logout=link_to '登出', '/logout'
             -else
               .login=link_to '我要登录啊', '/login'
+            -if admin_logged_in?
+              .to-admin=link_to '管理员界面', '/admin'
               
         .page-nav
           %a.item{:class=>nav_current_klass(:products), :href=>'/'} 我们的产品
           %a.item{:class=>nav_current_klass(:members), :href=>'/members'} 成员和分享者
           -if logged_in?
             %a.item{:class=>nav_current_klass(:mine), :href=>'/mine'} 我的任务
-          -if admin_logged_in?
-            %a.item{:class=>nav_current_klass(:admin), :href=>'/admin'} 管理员界面
           
         .hide.page-to
           .p=link_to '全部产品','/'

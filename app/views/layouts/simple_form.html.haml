@@ -23,8 +23,8 @@
             %a{:href=>'/'} MINDPIN TEAM AGILE PLAYGROUND
           .user
             -if logged_in?
+              .current-user-avatar=avatar current_user,:medium
               .current-user 欢迎你，#{current_user.name}
-              .current-user-avatar=avatar current_user,:tiny
               .logout=link_to '登出', '/logout'
             -else
               .login=link_to '我要登录啊', '/login'

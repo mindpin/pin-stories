@@ -1,19 +1,16 @@
-.p
-  = render 'wiki/parts/nav'
+.page-title #{@wiki_page.title} 历史版本
 
-%p
-  = @wiki_page.title
-  
-- @versions.each do |version|
-  %p
-    = version.id
-    
-    
-    = version.action
-    
-    = version.audited_changes
+.page-wiki-versions
+  - @versions.each do |version|
+    %p
+      = version.id
+      
+      
+      = version.action
+      
+      = version.audited_changes
 
-    = version.created_at
-  
-  %p
-    = link_to '回滚到该版本', "/wiki/#{version.auditable_id}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'
+      = version.created_at
+    
+    %p
+      = link_to '回滚到该版本', "/wiki/#{version.auditable_id}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'

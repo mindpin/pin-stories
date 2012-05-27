@@ -10,6 +10,7 @@ class WikiController < ApplicationController
     @wiki_page = WikiPage.new
 
     @wiki_page.title = params[:title]
+    render :layout=>'simple_form'
   end
   
   def create
