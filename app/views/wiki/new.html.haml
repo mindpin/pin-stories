@@ -1,20 +1,36 @@
+:javascript
+  function preview() {
+    var form_elm = jQuery('.page-new-wiki-page form');
+
+    form_elm.attr('target', '_blank');
+    form_elm.attr('action', '/wiki/preview');
+    form_elm.submit();
+  }
 
 
-.page-title 创建 WIKI 词条
+  function save() {
+    var form_elm = jQuery('.page-new-wiki-page form');
+
+    form_elm.attr('target', '');
+    form_elm.attr('action', '/wiki');
+    form_elm.submit();
+  }
+
+.page-title #{@product.name} WIKI - 创建新词条
 
 .page-new-wiki-page
   = flash[:error]
-  = form_for @wiki_page, :url => { :controller => '/wiki', :action => "create" } do |f|
+  = form_for @wiki_page, :url => { :controller => 'wiki', :action => 'create' } do |f|
     .field
       %label.need 页面标题
       = f.text_field :title
-      = f.hidden_field :product_id, :value => params[:product_id]
+      = f.hidden_field :product_id, :value => @product.id
       
     .field
       %label.need 内容
       %textarea{:name=>'wiki_page[content]'}
       
     .field
-      %a.form-submit-button{:href=>'javascript:;'} 保存
-      %a.form-preview{:href=>'javascript:;'} 查看预览
-      %a.form-cancel{:href=>'javascript:;'} 取消
+      %a.form-submit-button{:href=>'javascript:;', :onclick => 'save()'} 保存
+      %a.form-preview{:href=>'javascript:;', :onclick => 'preview()'} 预览
+      %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消

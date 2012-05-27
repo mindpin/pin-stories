@@ -27,7 +27,7 @@ class WikiPage < ActiveRecord::Base
 
 
   validates_uniqueness_of :title, :message => "不能重复"
-  validates_presence_of :content, :message => "不能为空"
+  #validates_presence_of :content, :message => "不能为空"
 
 
 
@@ -78,7 +78,9 @@ class WikiPage < ActiveRecord::Base
     # "How to extend the Redcarpet 2 Markdown library?"
   end
 
-  def formated_content
+  def formated_content(content = '')
+    self.content = content if self.content.blank?
+
     re = ''
 
     coderay_render = HTMLwithCoderay.new(

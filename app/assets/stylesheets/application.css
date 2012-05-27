@@ -1888,10 +1888,6 @@ form .form-preview {
     margin-bottom: 20px;
     overflow: hidden; }
 
-.page-new-wiki-page {
-  background-color: #646464;
-  padding: 15px; }
-
 .page-wiki-pages .ops {
   overflow: hidden;
   margin-bottom: 10px; }
@@ -1933,3 +1929,21 @@ form .form-preview {
   margin-bottom: 10px;
   padding: 0 15px;
   background-color: #3e3d3f; }
+
+.page-wiki-page-preview .wiki-page-title, .page-wiki-page .wiki-page-title {
+  background-color: #3e3d3f;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 14px;
+  border-left: solid 5px rgba(255, 255, 255, 0.4);
+  margin-bottom: 10px; }
+.page-wiki-page-preview .wiki-page-content, .page-wiki-page .wiki-page-content {
+  background-color: #363537;
+  padding: 15px; }
+
+.page-wiki-page-versions .version {
+  background-color: #3e3d3f;
+  padding: 15px;
+  margin-bottom: 10px; }

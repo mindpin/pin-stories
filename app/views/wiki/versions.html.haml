@@ -1,16 +1,12 @@
-.page-title #{@wiki_page.title} 历史版本
+.page-title #{@wiki_page.title} 版本记录
 
-.page-wiki-versions
+.page-wiki-page-versions
   - @versions.each do |version|
-    %p
-      = version.id
+    .version
+      %span.id= version.id
+      %span.action= version.action
+      %span.changes= version.audited_changes
+      %span.time= version.created_at
       
-      
-      = version.action
-      
-      = version.audited_changes
-
-      = version.created_at
-    
-    %p
-      = link_to '回滚到该版本', "/wiki/#{version.auditable_id}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'
+      .ops
+        = link_to '回滚到该版本', "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'
