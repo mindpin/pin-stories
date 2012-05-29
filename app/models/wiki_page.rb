@@ -47,7 +47,46 @@ class WikiPage < ActiveRecord::Base
     WikiPage.where(:title => self.title).exists?
   end
 
+  def generate_title_indexes
+    indexes = Array.new
 
+    self.content.each_line do |line| 
+      line = line.chomp
+
+      line.grep(/^[#]+[\s*]/){ |line|
+        row = line.split(/^[#]+[\s*]/)
+        text = '<a href="#' + row[1] + ' ">' + row[1] + '</a>'
+
+        header = line.match(/^[#]+/)[0]
+
+        case header.length
+        when 1
+          # indexes[0] = text
+          indexes.push text
+        when 2
+          #indexes[i][j] =  text
+          indexes.push text
+
+        else
+          indexes.push text
+        end
+          
+      }
+    end
+ 
+    indexes
+
+
+=begin
+    self.content.grep(/^[#]+[\s*]/){ |line|
+      row = line.split(/^[#]+[\s*]/)
+      text = '<a href="#' + row[1] + ' ">' + row[1] + '</a>'
+
+      indexes.push text
+    }
+=end
+
+  end
 
   class HTMLwithCoderay < Redcarpet::Render::HTML
     def block_code(code, language)
@@ -70,6 +109,7 @@ class WikiPage < ActiveRecord::Base
 
       re = re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
       #content = re.gsub(/^\[\[([A-Za-z0-9一-龥\/_]+)\]\]$/, '<a href="/products/#{self.product_id}/wiki_page/\1">\1</a>')
+
       return re
     end
 
@@ -97,15 +137,35 @@ class WikiPage < ActiveRecord::Base
       :space_after_headers => true
     )
 
-    re = markdown.render(self.content).html_safe
+    new_content = ''
+    self.content.each_line do |line| 
+      line = line.chomp
 
+      line.grep(/^[#]+[\s*]/){ |line|
+        row = line.split(/^[#]+[\s*]/)
+        if row.size > 0
+
+          header = line.match(/^[#]+/)[0]
+          text = header + ' <a name="' + row[1] + ' ">' + row[1] + '</a>'
+
+          new_content = new_content + "\n" + text
+        else
+          new_content = new_content + "\n" + line
+        end
+      }
+    end
+    self.content = new_content
+
+    re = markdown.render(self.content)
+
+    
     # 把中间的 ？ & 等特殊字符转化成 -
     re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)([?&]+)([A-Za-z0-9一-龥\/_]+)\]\]/, '[[\1-\3]]').html_safe
 
     # 根据 [[ruby]] 字符串匹配先生成url
     re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>]]').html_safe
     
-    
+
   end
 
 

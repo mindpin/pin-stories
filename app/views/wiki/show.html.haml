@@ -8,5 +8,13 @@
 
   - else
     .wiki-page-title=@wiki_page.title
+    %p
+      - @wiki_page.generate_title_indexes.each do |line|
+        - if line.kind_of?(Array)
+          - line.each do |row|
+            = row.html_safe
+        - else
+          = line.html_safe
+
     .wiki-page-content=@wiki_page.formated_content
 
