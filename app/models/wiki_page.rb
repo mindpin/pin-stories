@@ -62,14 +62,11 @@ class WikiPage < ActiveRecord::Base
         case header.length
         when 1
           indices << text
-          a += 1
         when 2
           #indexes << text
           indices << [text]
-          b += 1
         when 3
           indices << [[text]]
-          c += 1
         when 4
           indices << [[[text]]]
         when 5
