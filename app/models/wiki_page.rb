@@ -47,9 +47,10 @@ class WikiPage < ActiveRecord::Base
     WikiPage.where(:title => self.title).exists?
   end
 
-  def generate_title_indexes
-    indexes = Array.new
-
+  def generate_title_indices
+    indices = Array.new
+    
+    a,b,c,d,e,f = 0,0,0,0,0,0
     self.content.each_line do |line| 
       line = line.chomp
 
@@ -61,20 +62,30 @@ class WikiPage < ActiveRecord::Base
 
         case header.length
         when 1
-          # indexes[0] = text
-          indexes.push text
+          indices << text
+          a += 1
         when 2
-          #indexes[i][j] =  text
-          indexes.push text
-
+          #indexes << text
+          indices << [text]
+          b += 1
+        when 3
+          indices << [[text]]
+          c += 1
+        when 4
+          indices << [[[text]]]
+        when 5
+          indices << [[[[text]]]]
+        when 6
+          indices << [[[[[text]]]]]
         else
-          indexes.push text
+          indices << text
         end
           
       }
     end
- 
-    indexes
+    p 44444444444444444444444444444444444
+    p indices
+    indices
 
 
 =begin
