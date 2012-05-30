@@ -137,6 +137,7 @@ class WikiPage < ActiveRecord::Base
       :space_after_headers => true
     )
 
+=begin
     new_content = ''
     self.content.each_line do |line| 
       line = line.chomp
@@ -155,6 +156,7 @@ class WikiPage < ActiveRecord::Base
       }
     end
     self.content = new_content
+=end
 
     re = markdown.render(self.content)
 
@@ -165,7 +167,8 @@ class WikiPage < ActiveRecord::Base
     # 根据 [[ruby]] 字符串匹配先生成url
     re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>]]').html_safe
     
-
+    # 将标题h1 - h6  增加相应的瞄点
+    re = re.gsub(/\<h([1-6]{1})\>(.*)\<\/h([1-6]{1})\>/, '<h\1><a name="\2">\2</a></h\1>').html_safe
   end
 
 
