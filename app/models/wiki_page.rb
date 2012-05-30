@@ -50,7 +50,6 @@ class WikiPage < ActiveRecord::Base
   def generate_title_indices
     indices = Array.new
     
-    a,b,c,d,e,f = 0,0,0,0,0,0
     self.content.each_line do |line| 
       line = line.chomp
 
@@ -83,8 +82,6 @@ class WikiPage < ActiveRecord::Base
           
       }
     end
-    p 44444444444444444444444444444444444
-    p indices
     indices
 
 
