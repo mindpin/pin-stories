@@ -182,6 +182,22 @@ class WikiPage < ActiveRecord::Base
     
     # 将标题 h1 - h6  增加相应的瞄点
     re = re.gsub(/\<h([1-6]{1})\>(.*)\<\/h([1-6]{1})\>/, '<h\1><a name="\2">\2</a></h\1>').html_safe
+
+    # 增加编辑
+    re_new = ''
+    i = 1
+    re.each_line do |line| 
+      # line = line.chomp
+      if line =~ /\<h1\>(.*)\<\/h1\>/
+        line = line.gsub(/\<h1\>(.*)\<\/h1\>/, '<h1>\1 <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h1>')
+        # line = line + '<div id="section_' + i.to_s + '"></div>'
+        i += 1
+      end
+      re_new = re_new + line
+    end
+
+    re_new.html_safe
+
   end
 
 

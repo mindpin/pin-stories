@@ -109,6 +109,56 @@ class WikiController < ApplicationController
 
     @product = Product.find(params[:wiki_page][:product_id])
   end
+
+  # 编辑内容区块页面
+  def edit_section
+    @wiki_page = WikiPage.find_by_title(params[:title])
+
+    i = 0
+    @content = ''
+    @wiki_page.content.each_line do |line|
+      
+      if line =~ /^[#]{1}[\s*].*/
+        i += 1
+      end
+
+      if params[:section].to_i  == i
+        @content += line
+      end
+    end
+
+  end
+
+  def update_section
+    @wiki_page = WikiPage.find_by_title(params[:title])
+
+    i = 0
+    first_part, middle_part, last_part = '', '', ''
+
+    @wiki_page.content.each_line do |line|
+      
+      if line =~ /^[#]{1}[\s*].*/
+        i += 1
+      end
+
+      if params[:section].to_i  < i
+        first_part += line
+      end
+
+      if params[:section].to_i  == i
+        middle_part += line
+      end
+
+      if params[:section].to_i  > i
+        last_part += line
+      end
+    end
+
+    @wiki_page.content = first_part + params[:content] + last_part
+    @wiki_page.save
+
+    redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+  end
   
 
 end
