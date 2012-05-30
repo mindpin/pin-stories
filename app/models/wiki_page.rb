@@ -31,21 +31,29 @@ class WikiPage < ActiveRecord::Base
 
 
 
-  before_validation :fix_title
+  before_validation :fix_title_on_update, :on => :update
+  before_validation :fix_title_on_create, :on => :create
 
-  def fix_title
-    if WikiPage.where(:title => self.title).exists?
+  def fix_title_on_create
+    if WikiPage.where("title = ?", self.title).exists?
       self.title = self.title + "-repeat"
-      fix_title
+      fix_title_on_create
     end
 
     # 如果有存在不合法字符，则替换掉
     self.title = self.title.gsub(/["'\\\/?&]+/, '-')
   end
 
-  def is_title_repeat?
-    WikiPage.where(:title => self.title).exists?
+  def fix_title_on_update
+    if WikiPage.where("id != ? and title = ?", self.id, self.title).exists?
+      self.title = self.title + "-repeat"
+      fix_title_on_update
+    end
+
+    # 如果有存在不合法字符，则替换掉
+    self.title = self.title.gsub(/["'\\\/?&]+/, '-')
   end
+
 
   def generate_title_indices
     indices = Array.new
