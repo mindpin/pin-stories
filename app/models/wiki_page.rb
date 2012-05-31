@@ -188,8 +188,8 @@ class WikiPage < ActiveRecord::Base
     i = 1
     re.each_line do |line| 
       # line = line.chomp
-      if line =~ /\<h1\>(.*)\<\/h1\>/
-        line = line.gsub(/\<h1\>(.*)\<\/h1\>/, '<h1>\1 <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h1>')
+      if line =~ /\<h([1-6])\>(.*)\<\/h([1-6])\>/
+        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1>\2 <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
         # line = line + '<div id="section_' + i.to_s + '"></div>'
         i += 1
       end

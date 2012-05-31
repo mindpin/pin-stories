@@ -118,7 +118,7 @@ class WikiController < ApplicationController
     @content = ''
     @wiki_page.content.each_line do |line|
       
-      if line =~ /^[#]{1}[\s*].*/
+      if line =~ /^[#]{1,6}[\s*].*/
         i += 1
       end
 
@@ -132,29 +132,29 @@ class WikiController < ApplicationController
   def update_section
     @wiki_page = WikiPage.find_by_title(params[:title])
 
+    first, middle, last = '', '', '', ''
     i = 0
-    first_part, middle_part, last_part = '', '', ''
-
     @wiki_page.content.each_line do |line|
       
-      if line =~ /^[#]{1}[\s*].*/
+      if line =~ /^[#]{1,6}[\s*].*/
         i += 1
       end
 
       if params[:section].to_i  < i
-        first_part += line
+        last += line
       end
 
       if params[:section].to_i  == i
-        middle_part += line
+        middle += line
       end
 
       if params[:section].to_i  > i
-        last_part += line
+        first += line
       end
+
     end
 
-    @wiki_page.content = first_part + params[:content] + last_part
+    @wiki_page.content = first + params[:content] + "\n" + last
     @wiki_page.save
 
     redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
