@@ -9,7 +9,7 @@
   - else
     .wiki-page-title=@wiki_page.title
     %p
-      = WikiPage.echo_title_indices(@wiki_page.generate_title_indices)
+      =raw WikiPage.echo_title_indices(@wiki_page.generate_title_indices)
 
 
     .wiki-page-content=@wiki_page.formated_content
