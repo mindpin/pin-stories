@@ -101,6 +101,20 @@ class WikiPage < ActiveRecord::Base
 
   end
 
+
+
+  def self.echo_title_indices(lines)
+    lines.each do |line|
+      if line.kind_of?(Array)
+        echo_title_indices(line)
+      else
+        line.html_safe
+      end
+    end
+  end
+
+
+
   class HTMLwithCoderay < Redcarpet::Render::HTML
     def block_code(code, language)
       # 代码格式化选项参考

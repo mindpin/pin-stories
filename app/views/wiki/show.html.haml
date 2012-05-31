@@ -9,28 +9,7 @@
   - else
     .wiki-page-title=@wiki_page.title
     %p
-      - @wiki_page.generate_title_indices.each do |line1|
-        - if line1.kind_of?(Array)
-          - line1.each do |line2|
-            - if line2.kind_of?(Array)
-              - line2.each do |line3|
-                - if line3.kind_of?(Array)
-                  - line3.each do |line4|
-                    - if line4.kind_of?(Array)
-                      - line4.each do |line5|
-                        - if line5.kind_of?(Array)
-                          - line5.each do |line6|
-                            = line6.html_safe
-                        - else
-                          = line5.html_safe
-                    - else
-                      = line4.html_safe
-                - else
-                  = line3.html_safe
-            - else
-              = line2.html_safe
-        - else
-          = line1.html_safe
+      = WikiPage.echo_title_indices(@wiki_page.generate_title_indices)
 
 
     .wiki-page-content=@wiki_page.formated_content
