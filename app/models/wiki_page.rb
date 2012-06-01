@@ -113,7 +113,6 @@ class WikiPage < ActiveRecord::Base
           
       }
     end
-    p titles
     indices
 
 
@@ -131,13 +130,22 @@ class WikiPage < ActiveRecord::Base
 
 
   def self.echo_title_indices(lines)
+    ul_start = "<ul>"
+    ul_end = "</ul>"
+
+    li_start = "<li>"
+    li_end = "</li>"
+
+    menu = ''
     lines.each do |line|
       if line.kind_of?(Array)
-        echo_title_indices(line)
+        menu << ul_start + echo_title_indices(line) + ul_end
       else
-        line.html_safe
+        menu << li_start + line + li_end
       end
     end
+
+    menu
   end
 
 
@@ -226,23 +234,30 @@ class WikiPage < ActiveRecord::Base
 
     # 增加编辑
     re_new = ''
+
+    # 用于表示内容区段编辑序号
     i = 1
+
+    # 存储所有的markdown # 标题
     titles = Array.new
-    repeat = ''
+
 
     re.each_line do |line| 
+      # 初始化重复字符串
+      repeat = ''
+
       # line = line.chomp
       if line =~ /\<h([1-6])\>(.*)\<\/h([1-6])\>/
-        title = line.match(/\<h([1-6])\>(.*)\<\/h([1-6])\>/)[0]
+        title = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '\2')
 
         titles << title
         title_number = duplicate_number_in_array(titles, title)
-        if title_number > 0
+        if title_number > 1
           repeat << '_' + title_number.to_s
         end
 
+        # 增加编辑，并且保证标题anchor不重复
         line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1><a name=\2' + repeat + ' >\2</a> <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
-        # line = line + '<div id="section_' + i.to_s + '"></div>'
         i += 1
       end
       re_new = re_new + line
