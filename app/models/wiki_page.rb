@@ -31,20 +31,121 @@ class WikiPage < ActiveRecord::Base
 
 
 
-  before_validation :fix_title
+  before_validation :fix_title_on_update, :on => :update
+  before_validation :fix_title_on_create, :on => :create
 
-  def fix_title
-    if WikiPage.where(:title => self.title).exists?
+  def fix_title_on_create
+    if WikiPage.where("title = ?", self.title).exists?
       self.title = self.title + "-repeat"
-      fix_title
+      fix_title_on_create
     end
 
     # 如果有存在不合法字符，则替换掉
     self.title = self.title.gsub(/["'\\\/?&]+/, '-')
   end
 
-  def is_title_repeat?
-    WikiPage.where(:title => self.title).exists?
+  def fix_title_on_update
+    if WikiPage.where("id != ? and title = ?", self.id, self.title).exists?
+      self.title = self.title + "-repeat"
+      fix_title_on_update
+    end
+
+    # 如果有存在不合法字符，则替换掉
+    self.title = self.title.gsub(/["'\\\/?&]+/, '-')
+  end
+
+
+  def duplicate_number_in_array(rows, value)
+    i = 0
+    if rows.length > 0
+      rows.each do |row|
+        if row == value
+          i += 1
+        end
+      end
+    end
+    i
+  end
+
+
+
+  def generate_title_indices
+    indices = Array.new
+    titles = Array.new
+    
+    self.content.each_line do |line| 
+      line = line.chomp
+
+      line.grep(/^[#]{1,6}[\s*]/){ |line|
+        row = line.split(/^[#]{1,6}[\s*]/)
+
+        if row.length > 0
+          titles << row[1]
+        end
+
+        title_number = duplicate_number_in_array(titles, row[1])
+        if title_number > 1
+          text = '<a href="#' + row[1] + '_' + title_number.to_s + ' ">' + row[1] + '</a>'
+        else
+          text = '<a href="#' + row[1] + ' ">' + row[1] + '</a>'
+        end
+        
+
+        header = line.match(/^[#]{1,6}/)[0]
+     
+        case header.length
+        when 1
+          indices << text
+        when 2
+          #indexes << text
+          indices << [text]
+        when 3
+          indices << [[text]]
+        when 4
+          indices << [[[text]]]
+        when 5
+          indices << [[[[text]]]]
+        when 6
+          indices << [[[[[text]]]]]
+        else
+          indices << text
+        end
+          
+      }
+    end
+    indices
+
+
+=begin
+    self.content.grep(/^[#]+[\s*]/){ |line|
+      row = line.split(/^[#]+[\s*]/)
+      text = '<a href="#' + row[1] + ' ">' + row[1] + '</a>'
+
+      indexes.push text
+    }
+=end
+
+  end
+
+
+
+  def self.echo_title_indices(lines)
+    ul_start = "<ul>"
+    ul_end = "</ul>"
+
+    li_start = "<li>"
+    li_end = "</li>"
+
+    menu = ''
+    lines.each do |line|
+      if line.kind_of?(Array)
+        menu << ul_start + echo_title_indices(line) + ul_end
+      else
+        menu << li_start + line + li_end
+      end
+    end
+
+    menu
   end
 
 
@@ -70,6 +171,7 @@ class WikiPage < ActiveRecord::Base
 
       re = re.gsub(/@([A-Za-z0-9一-龥\/_]+)/, '<a href="/atme/\1">@\1</a>')
       #content = re.gsub(/^\[\[([A-Za-z0-9一-龥\/_]+)\]\]$/, '<a href="/products/#{self.product_id}/wiki_page/\1">\1</a>')
+
       return re
     end
 
@@ -97,15 +199,72 @@ class WikiPage < ActiveRecord::Base
       :space_after_headers => true
     )
 
-    re = markdown.render(self.content).html_safe
+=begin
+    new_content = ''
+    self.content.each_line do |line| 
+      line = line.chomp
 
+      line.grep(/^[#]+[\s*]/){ |line|
+        row = line.split(/^[#]+[\s*]/)
+        if row.size > 0
+
+          header = line.match(/^[#]+/)[0]
+          text = header + ' <a name="' + row[1] + ' ">' + row[1] + '</a>'
+
+          new_content = new_content + "\n" + text
+        else
+          new_content = new_content + "\n" + line
+        end
+      }
+    end
+    self.content = new_content
+=end
+
+    re = markdown.render(self.content)
+
+    
     # 把中间的 ？ & 等特殊字符转化成 -
     re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)([?&]+)([A-Za-z0-9一-龥\/_]+)\]\]/, '[[\1-\3]]').html_safe
 
     # 根据 [[ruby]] 字符串匹配先生成url
-    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki_page/\1">\1</a>]]').html_safe
+    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>]]').html_safe
     
-    
+    # 将标题 h1 - h6  增加相应的瞄点
+    # re = re.gsub(/\<h([1-6]{1})\>(.*)\<\/h([1-6]{1})\>/, '<h\1><a name="\2">\2</a></h\1>').html_safe
+
+    # 增加编辑
+    re_new = ''
+
+    # 用于表示内容区段编辑序号
+    i = 1
+
+    # 存储所有的markdown # 标题
+    titles = Array.new
+
+
+    re.each_line do |line| 
+      # 初始化重复字符串
+      repeat = ''
+
+      # line = line.chomp
+      if line =~ /\<h([1-6])\>(.*)\<\/h([1-6])\>/
+        title = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '\2')
+
+        titles << title
+        title_number = duplicate_number_in_array(titles, title)
+        if title_number > 1
+          repeat << '_' + title_number.to_s
+        end
+
+        # 增加编辑，并且保证标题anchor不重复
+        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1><a name=\2' + repeat + ' >\2</a> <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
+        i += 1
+      end
+      re_new = re_new + line
+    end
+
+    re_new.html_safe
+
   end
 
 

@@ -1,4 +1,5 @@
-.page-title WIKI - #{@wiki_page.title}
+-unless @wiki_page.nil?
+  .page-title WIKI - #{@wiki_page.title}
  
 .page-wiki-page
   - if @wiki_page.blank?
@@ -7,5 +8,9 @@
 
   - else
     .wiki-page-title=@wiki_page.title
+    %ul
+      =raw WikiPage.echo_title_indices(@wiki_page.generate_title_indices)
+
+
     .wiki-page-content=@wiki_page.formated_content
 

@@ -43,6 +43,9 @@ Voteapp::Application.routes.draw do
   get '/products/:product_id/wiki_new'  => 'wiki#new'
   get '/products/:product_id/wiki/:title/edit'  => 'wiki#edit'
 
+  get '/products/:product_id/wiki/:title/edit_section'  => 'wiki#edit_section'
+  put '/products/:product_id/wiki/:title/update_section'  => 'wiki#update_section'
+
   put '/products/:product_id/wiki/:title'  => 'wiki#update'
   delete '/products/:product_id/wiki/:title'  => 'wiki#destroy'
 
