@@ -55,18 +55,44 @@ class WikiPage < ActiveRecord::Base
   end
 
 
+  def duplicate_number_in_array(rows, value)
+    i = 0
+    if rows.length > 0
+      rows.each do |row|
+        if row == value
+          i += 1
+        end
+      end
+    end
+    i
+  end
+
+
+
   def generate_title_indices
     indices = Array.new
+    titles = Array.new
     
     self.content.each_line do |line| 
       line = line.chomp
 
-      line.grep(/^[#]+[\s*]/){ |line|
-        row = line.split(/^[#]+[\s*]/)
-        text = '<a href="#' + row[1] + ' ">' + row[1] + '</a>'
+      line.grep(/^[#]{1,6}[\s*]/){ |line|
+        row = line.split(/^[#]{1,6}[\s*]/)
 
-        header = line.match(/^[#]+/)[0]
+        if row.length > 0
+          titles << row[1]
+        end
 
+        title_number = duplicate_number_in_array(titles, row[1])
+        if title_number > 1
+          text = '<a href="#' + row[1] + '_' + title_number.to_s + ' ">' + row[1] + '</a>'
+        else
+          text = '<a href="#' + row[1] + ' ">' + row[1] + '</a>'
+        end
+        
+
+        header = line.match(/^[#]{1,6}/)[0]
+     
         case header.length
         when 1
           indices << text
@@ -87,6 +113,7 @@ class WikiPage < ActiveRecord::Base
           
       }
     end
+    p titles
     indices
 
 
@@ -195,15 +222,26 @@ class WikiPage < ActiveRecord::Base
     re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>]]').html_safe
     
     # 将标题 h1 - h6  增加相应的瞄点
-    re = re.gsub(/\<h([1-6]{1})\>(.*)\<\/h([1-6]{1})\>/, '<h\1><a name="\2">\2</a></h\1>').html_safe
+    # re = re.gsub(/\<h([1-6]{1})\>(.*)\<\/h([1-6]{1})\>/, '<h\1><a name="\2">\2</a></h\1>').html_safe
 
     # 增加编辑
     re_new = ''
     i = 1
+    titles = Array.new
+    repeat = ''
+
     re.each_line do |line| 
       # line = line.chomp
       if line =~ /\<h([1-6])\>(.*)\<\/h([1-6])\>/
-        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1>\2 <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
+        title = line.match(/\<h([1-6])\>(.*)\<\/h([1-6])\>/)[0]
+
+        titles << title
+        title_number = duplicate_number_in_array(titles, title)
+        if title_number > 0
+          repeat << '_' + title_number.to_s
+        end
+
+        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1><a name=\2' + repeat + ' >\2</a> <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
         # line = line + '<div id="section_' + i.to_s + '"></div>'
         i += 1
       end
