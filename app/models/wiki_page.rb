@@ -137,11 +137,14 @@ class WikiPage < ActiveRecord::Base
     li_end = "</li>"
 
     menu = ''
+
     lines.each do |line|
       if line.kind_of?(Array)
+
         menu << ul_start + echo_title_indices(line) + ul_end
+
       else
-        menu << li_start + line + li_end
+        menu << li_start + line.strip + li_end
       end
     end
 
@@ -227,7 +230,7 @@ class WikiPage < ActiveRecord::Base
     re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)([?&]+)([A-Za-z0-9一-龥\/_]+)\]\]/, '[[\1-\3]]').html_safe
 
     # 根据 [[ruby]] 字符串匹配先生成url
-    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>]]').html_safe
+    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>').html_safe
     
     # 将标题 h1 - h6  增加相应的瞄点
     # re = re.gsub(/\<h([1-6]{1})\>(.*)\<\/h([1-6]{1})\>/, '<h\1><a name="\2">\2</a></h\1>').html_safe
@@ -257,7 +260,7 @@ class WikiPage < ActiveRecord::Base
         end
 
         # 增加编辑，并且保证标题anchor不重复
-        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1><a name=\2' + repeat + ' >\2</a> <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
+        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1 id=\2' + repeat + ' >\2</a> <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
         i += 1
       end
       re_new = re_new + line
