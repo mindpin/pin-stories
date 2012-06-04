@@ -128,8 +128,29 @@ class WikiPage < ActiveRecord::Base
   end
 
 
+=begin
+  def print(prefix, e)
+      puts ' ' * prefix.length + prefix.join('.') + ' ' + e.to_s
+  end
 
-  def self.echo_title_indices(lines)
+  def f(e, prefix)
+    if e.kind_of? Array and not e.empty?
+      # First element as upper level title.
+      print(prefix, e[0])
+      e[1..-1].each_with_index { |x, i| f x, prefix + [i + 1] }
+    else
+      print(prefix, e)
+    end
+  end
+
+
+  def echo_title_indices(lines)
+    lines.each_with_index { |x, i| f x, [i + 1] }
+  end
+
+=end
+
+  def echo_title_indices(lines)
     ul_start = "<ul>"
     ul_end = "</ul>"
 
@@ -138,13 +159,11 @@ class WikiPage < ActiveRecord::Base
 
     menu = ''
 
-    lines.each do |line|
+    lines.each_with_index do |line, i|
       if line.kind_of?(Array)
-
         menu << ul_start + echo_title_indices(line) + ul_end
-
       else
-        menu << li_start + line.strip + li_end
+        menu << li_start  + i.to_s + line.strip + li_end
       end
     end
 
