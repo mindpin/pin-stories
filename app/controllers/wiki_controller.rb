@@ -136,10 +136,10 @@ class WikiController < ApplicationController
 
 
       if i > section_number
-        p header_prefix.strip.length.to_s + ", " + current_prefix.strip.length.to_s
+        # p header_prefix.strip.length.to_s + ", " + current_prefix.strip.length.to_s
 
         if header_prefix.strip.length <= current_prefix.strip.length
-          p @content
+          # p @content
           break
         else
           @content += line
