@@ -23,7 +23,7 @@ class WikiController < ApplicationController
     title = wiki_page.is_title_repeat?? params[:wiki_page][:title] + "-repeat": params[:wiki_page][:title]
     title = CGI.escapeHTML(title)
 
-    redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki/new?title=#{title}"
+    return redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki/new?title=#{title}"
   end
   
   def show
@@ -45,7 +45,7 @@ class WikiController < ApplicationController
     @wiki_page = WikiPage.find_by_title(params[:title])
     @wiki_page.update_attributes(params[:wiki_page])
 
-    redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+    return redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
   end
   
   def destroy
@@ -112,44 +112,84 @@ class WikiController < ApplicationController
 
   # 编辑内容区块页面
   def edit_section
+    section_number = params[:section].to_i
     @wiki_page = WikiPage.find_by_title(params[:title])
 
     i = 0
+    current_prefix, header_prefix = '', ''
     @content = ''
     @wiki_page.content.each_line do |line|
       
       if line =~ /^[#]{1,6}[\s*].*/
+        header_prefix = line.match(/^[#]{1,6}/)[0]
         i += 1
+
+        if i == section_number
+          current_prefix = header_prefix
+        end
+
       end
 
-      if params[:section].to_i  == i
+      if section_number == i
         @content += line
       end
+
+
+      if i > section_number
+        # p header_prefix.strip.length.to_s + ", " + current_prefix.strip.length.to_s
+
+        if header_prefix.strip.length <= current_prefix.strip.length
+          # p @content
+          break
+        else
+          @content += line
+        end
+      end
+
     end
 
   end
 
   def update_section
+    section_number = params[:section].to_i
     @wiki_page = WikiPage.find_by_title(params[:title])
 
     first, middle, last = '', '', '', ''
+    current_prefix, header_prefix = '', ''
     i = 0
     @wiki_page.content.each_line do |line|
       
       if line =~ /^[#]{1,6}[\s*].*/
+        header_prefix = line.match(/^[#]{1,6}/)[0]
         i += 1
+        
+        if i == section_number
+          current_prefix = header_prefix
+        end
+
       end
 
-      if params[:section].to_i  < i
-        last += line
-      end
-
-      if params[:section].to_i  == i
-        middle += line
-      end
-
-      if params[:section].to_i  > i
+      if section_number  > i
         first += line
+        next
+      end
+
+      if section_number  == i
+        middle += line
+        next
+      end
+
+      if i > section_number && last.length > 0
+        last += line
+        next
+      end
+
+      if i > section_number
+        if header_prefix.strip.length == current_prefix.strip.length
+          last += line
+        else
+          middle += line
+        end
       end
 
     end
@@ -158,6 +198,36 @@ class WikiController < ApplicationController
     @wiki_page.save
 
     redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+  end
+
+
+  # 当前页面引用页
+  def ref
+    @wiki_page = WikiPage.find_by_title(params[:title])
+
+    # 当前引用的
+    @refs = WikiPageRef.where(:product_id => params[:product_id], :from_page_title => params[:title])
+
+    # 引用当前的
+    @used_refs = WikiPageRef.where(:product_id => params[:product_id], :to_page_title => params[:title])
+
+  end
+
+
+  # 没有被其他wiki页引用，也没有引用其他wiki页的页面
+  def orphan
+    wiki_pages = WikiPage.all
+
+    @orphan_pages = []
+    wiki_pages.each do |wiki_page|
+      from = WikiPageRef.where(:product_id => wiki_page.product_id, :from_page_title => wiki_page.title).exists?
+      to = WikiPageRef.where(:product_id => wiki_page.product_id, :to_page_title => wiki_page.title).exists?
+
+      unless from || to
+        @orphan_pages << wiki_page
+      end
+
+    end
   end
   
 

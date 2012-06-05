@@ -4,24 +4,11 @@ class WikiPage < ActiveRecord::Base
   belongs_to :product, :class_name => 'Product'
   audited
 
-=begin
-
-  HUMANIZED_ATTRIBUTES = {
-    :title => ""
-  }
-
-  def self.human_attribute_name(attr)
-    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
-  end
-
-=end
-  
-
 
   # --- 校验方法
   
   validates_format_of :title, 
-    :with => /^([^"^'^\\^\/]?[-A-Za-z0-9一-龥]+)$/,
+    :with => /^([^"^'^\\^\/]?[\s*-A-Za-z0-9一-龥]+)$/,
     # :with => /^([A-Za-z0-9一-龥]+)$/,
     :message => "不允许出现 &, ?, ', \", \\, \/ 非法字符"
 
@@ -30,7 +17,7 @@ class WikiPage < ActiveRecord::Base
   #validates_presence_of :content, :message => "不能为空"
 
 
-
+  # 在保存之前先验证并纠正title
   before_validation :fix_title_on_update, :on => :update
   before_validation :fix_title_on_create, :on => :create
 
@@ -54,7 +41,37 @@ class WikiPage < ActiveRecord::Base
     self.title = self.title.gsub(/["'\\\/?&]+/, '-')
   end
 
+  
+  # 保存到数据库后，把引用url存到表里面
+  after_save :save_refs
 
+  def save_refs
+    to_page_titles = []
+    self.content.each_line do |line|
+      if line =~ /\[\[(.*)\]\]/
+        to_page_titles << line.match(/\[\[(.*)\]\]/)[0].gsub(/\[\[(.*)\]\]/, '\1')
+      end
+    end
+    to_page_titles.uniq
+
+    WikiPageRef.destroy_all(:product_id => self.product_id, :from_page_title => self.title)
+
+    to_page_titles.each do |to_page_title|
+      wiki_page_ref = WikiPageRef.new
+      wiki_page_ref.product = self.product 
+      wiki_page_ref.from_page_title = self.title
+      wiki_page_ref.to_page_title = to_page_title
+      wiki_page_ref.save
+    end
+  end
+
+  # 判断标题是否重复
+  def is_title_repeat?
+    WikiPage.where(:title => self.title).exists?
+  end
+
+  
+  # 计算数组里面是否有重复字段
   def duplicate_number_in_array(rows, value)
     i = 0
     if rows.length > 0
@@ -68,7 +85,7 @@ class WikiPage < ActiveRecord::Base
   end
 
 
-
+  # 根据内容里面的标题，生成一个索引数组
   def generate_title_indices
     indices = Array.new
     titles = Array.new
@@ -128,8 +145,32 @@ class WikiPage < ActiveRecord::Base
   end
 
 
+  def print(prefix, e)
+      puts ' ' * prefix.length + prefix.join('.') + ' ' + e.to_s
+  end
 
-  def self.echo_title_indices(lines)
+  def f(e, prefix, menu)
+    if e.kind_of? Array and not e.empty?
+      # print(prefix, e[0])
+      menu << "<ul>" + prefix.length.to_s + prefix.join(".") + ' ' + e[0].to_s + "</ul>"
+      e[1..-1].each_with_index { |x, i| f x, prefix + [i + 1] }
+    else
+      # print(prefix, e)
+      menu << "<li>" + ' ' * prefix.length + prefix.join('.') + ' ' + e.to_s + "</li>"
+    end
+  end
+
+
+  def echo_title_indices(lines)
+    menu = []
+    lines.each_with_index { |x, i| f x, [i + 1], menu }
+    menu
+  end
+
+
+
+=begin
+  def echo_title_indices(lines， prefix)
     ul_start = "<ul>"
     ul_end = "</ul>"
 
@@ -137,16 +178,21 @@ class WikiPage < ActiveRecord::Base
     li_end = "</li>"
 
     menu = ''
-    lines.each do |line|
+
+    lines.each_with_index do |line, i|
+      prefix += [i + 1]
       if line.kind_of?(Array)
         menu << ul_start + echo_title_indices(line) + ul_end
       else
-        menu << li_start + line + li_end
+        menu << li_start  + prefix.length.to_s + prefix.join('.') + line.strip + li_end
       end
     end
 
     menu
   end
+=end
+
+
 
 
 
@@ -227,7 +273,7 @@ class WikiPage < ActiveRecord::Base
     re = re.gsub(/\[\[([A-Za-z0-9一-龥\/_]+)([?&]+)([A-Za-z0-9一-龥\/_]+)\]\]/, '[[\1-\3]]').html_safe
 
     # 根据 [[ruby]] 字符串匹配先生成url
-    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '[[<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>]]').html_safe
+    re = re.gsub(/\[\[([-A-Za-z0-9一-龥\/_]+)\]\]/, '<a href="/products/' + self.product_id.to_s + '/wiki/\1">\1</a>').html_safe
     
     # 将标题 h1 - h6  增加相应的瞄点
     # re = re.gsub(/\<h([1-6]{1})\>(.*)\<\/h([1-6]{1})\>/, '<h\1><a name="\2">\2</a></h\1>').html_safe
@@ -257,7 +303,7 @@ class WikiPage < ActiveRecord::Base
         end
 
         # 增加编辑，并且保证标题anchor不重复
-        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1><a name=\2' + repeat + ' >\2</a> <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
+        line = line.gsub(/\<h([1-6])\>(.*)\<\/h([1-6])\>/, '<h\1 id=\2' + repeat + ' >\2</a> <a href="/products/' + self.product_id.to_s + '/wiki/' +  self.title + '/' + 'edit_section?section=' + i.to_s + ' " target="_blank">编辑</a></h\1>')
         i += 1
       end
       re_new = re_new + line

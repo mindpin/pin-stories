@@ -1,0 +1,4 @@
+%ul
+  - @orphan_pages.each do |wiki_page|
+    %li
+      = link_to wiki_page.title, "/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}"
