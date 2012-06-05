@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514084415) do
+ActiveRecord::Schema.define(:version => 20120605015517) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -91,13 +91,13 @@ ActiveRecord::Schema.define(:version => 20120514084415) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",        :default => "", :null => false
+    t.string   "status",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
     t.text     "how_to_demo"
     t.text     "tips"
-    t.integer  "time_estimate", :default => 8,  :null => false
+    t.integer  "time_estimate", :default => 8, :null => false
   end
 
   create_table "story_assigns", :force => true do |t|
@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(:version => 20120514084415) do
   end
 
   create_table "streams", :force => true do |t|
-    t.string   "title",      :default => "", :null => false
-    t.integer  "product_id",                 :null => false
+    t.string   "title",      :null => false
+    t.integer  "product_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -138,6 +138,14 @@ ActiveRecord::Schema.define(:version => 20120514084415) do
     t.datetime "last_login_time"
     t.boolean  "send_invite_email"
     t.integer  "reputation",                :default => 0,  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "wiki_page_refs", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "from_page_title"
+    t.string   "to_page_title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -23,7 +23,7 @@ class WikiController < ApplicationController
     title = wiki_page.is_title_repeat?? params[:wiki_page][:title] + "-repeat": params[:wiki_page][:title]
     title = CGI.escapeHTML(title)
 
-    redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki/new?title=#{title}"
+    return redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki/new?title=#{title}"
   end
   
   def show
