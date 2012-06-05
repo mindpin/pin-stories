@@ -1,0 +1,21 @@
+%p
+  = @wiki_page.title
+
+%p
+  当前引用的
+%ul
+  - @refs.each do |ref|
+    %li
+      = link_to ref.to_page_title, "/products/#{ref.product_id}/wiki/#{ref.to_page_title}/", :target => "_blank"
+
+
+ 
+%p
+  引用当前页的
+%ul
+  - @used_refs.each do |ref|
+    %li
+      = link_to ref.from_page_title, "/products/#{ref.product_id}/wiki/#{ref.from_page_title}/", :target => "_blank"
+
+
+  

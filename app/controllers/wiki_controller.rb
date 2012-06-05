@@ -45,7 +45,7 @@ class WikiController < ApplicationController
     @wiki_page = WikiPage.find_by_title(params[:title])
     @wiki_page.update_attributes(params[:wiki_page])
 
-    redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+    return redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
   end
   
   def destroy
@@ -198,6 +198,36 @@ class WikiController < ApplicationController
     @wiki_page.save
 
     redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+  end
+
+
+  # 当前页面引用页
+  def ref
+    @wiki_page = WikiPage.find_by_title(params[:title])
+
+    # 当前引用的
+    @refs = WikiPageRef.where(:product_id => params[:product_id], :from_page_title => params[:title])
+
+    # 引用当前的
+    @used_refs = WikiPageRef.where(:product_id => params[:product_id], :to_page_title => params[:title])
+
+  end
+
+
+  # 没有被其他wiki页引用，也没有引用其他wiki页的页面
+  def orphan
+    wiki_pages = WikiPage.all
+
+    @orphan_pages = []
+    wiki_pages.each do |wiki_page|
+      from = WikiPageRef.where(:product_id => wiki_page.product_id, :from_page_title => wiki_page.title).exists?
+      to = WikiPageRef.where(:product_id => wiki_page.product_id, :to_page_title => wiki_page.title).exists?
+
+      unless from || to
+        @orphan_pages << wiki_page
+      end
+
+    end
   end
   
 
