@@ -1939,9 +1939,44 @@ form .form-preview {
   font-size: 14px;
   border-left: solid 5px rgba(255, 255, 255, 0.4);
   margin-bottom: 10px; }
+.page-wiki-page-preview .table-of-contents, .page-wiki-page .table-of-contents {
+  background-color: #3e3d3f;
+  padding: 15px 15px 15px 3px;
+  margin-bottom: 10px; }
+  .page-wiki-page-preview .table-of-contents ul, .page-wiki-page .table-of-contents ul {
+    padding-left: 12px; }
 .page-wiki-page-preview .wiki-page-content, .page-wiki-page .wiki-page-content {
   background-color: #363537;
-  padding: 15px; }
+  padding: 15px;
+  font-size: 14px; }
+  .page-wiki-page-preview .wiki-page-content h1, .page-wiki-page .wiki-page-content h1 {
+    font-size: 28px;
+    line-height: 42px;
+    border-bottom: solid 1px #4F4F4F; }
+  .page-wiki-page-preview .wiki-page-content h2, .page-wiki-page .wiki-page-content h2 {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: bold; }
+  .page-wiki-page-preview .wiki-page-content h4, .page-wiki-page .wiki-page-content h4 {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: bold; }
+  .page-wiki-page-preview .wiki-page-content h5, .page-wiki-page .wiki-page-content h5 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: bold; }
+  .page-wiki-page-preview .wiki-page-content h6, .page-wiki-page .wiki-page-content h6 {
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: bold; }
+  .page-wiki-page-preview .wiki-page-content h1 a:last-child, .page-wiki-page-preview .wiki-page-content h2 a:last-child, .page-wiki-page-preview .wiki-page-content h3 a:last-child, .page-wiki-page-preview .wiki-page-content h4 a:last-child, .page-wiki-page-preview .wiki-page-content h5 a:last-child, .page-wiki-page-preview .wiki-page-content h6 a:last-child, .page-wiki-page .wiki-page-content h1 a:last-child, .page-wiki-page .wiki-page-content h2 a:last-child, .page-wiki-page .wiki-page-content h3 a:last-child, .page-wiki-page .wiki-page-content h4 a:last-child, .page-wiki-page .wiki-page-content h5 a:last-child, .page-wiki-page .wiki-page-content h6 a:last-child {
+    font-size: 12px;
+    float: right;
+    font-weight: normal; }
+    .page-wiki-page-preview .wiki-page-content h1 a:last-child:before, .page-wiki-page-preview .wiki-page-content h2 a:last-child:before, .page-wiki-page-preview .wiki-page-content h3 a:last-child:before, .page-wiki-page-preview .wiki-page-content h4 a:last-child:before, .page-wiki-page-preview .wiki-page-content h5 a:last-child:before, .page-wiki-page-preview .wiki-page-content h6 a:last-child:before, .page-wiki-page .wiki-page-content h1 a:last-child:before, .page-wiki-page .wiki-page-content h2 a:last-child:before, .page-wiki-page .wiki-page-content h3 a:last-child:before, .page-wiki-page .wiki-page-content h4 a:last-child:before, .page-wiki-page .wiki-page-content h5 a:last-child:before, .page-wiki-page .wiki-page-content h6 a:last-child:before {
+      content: "["; }
+    .page-wiki-page-preview .wiki-page-content h1 a:last-child:after, .page-wiki-page-preview .wiki-page-content h2 a:last-child:after, .page-wiki-page-preview .wiki-page-content h3 a:last-child:after, .page-wiki-page-preview .wiki-page-content h4 a:last-child:after, .page-wiki-page-preview .wiki-page-content h5 a:last-child:after, .page-wiki-page-preview .wiki-page-content h6 a:last-child:after, .page-wiki-page .wiki-page-content h1 a:last-child:after, .page-wiki-page .wiki-page-content h2 a:last-child:after, .page-wiki-page .wiki-page-content h3 a:last-child:after, .page-wiki-page .wiki-page-content h4 a:last-child:after, .page-wiki-page .wiki-page-content h5 a:last-child:after, .page-wiki-page .wiki-page-content h6 a:last-child:after {
+      content: "]"; }
 
 .page-wiki-page-versions .version {
   background-color: #3e3d3f;

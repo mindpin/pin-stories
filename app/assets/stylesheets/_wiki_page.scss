@@ -60,9 +60,36 @@
     border-left:solid 5px rgba(white, 0.4);
     margin-bottom:10px;
   }
+
+  .table-of-contents{
+    background-color:$COLOR-BOX-BG;
+    padding:$BOX-PADDING $BOX-PADDING $BOX-PADDING 3px;
+    margin-bottom:10px;
+    ul{
+      padding-left:12px;
+    }
+  }
+
   .wiki-page-content{
     background-color:$COLOR-BOX-BG2;
     padding:$BOX-PADDING;
+    font-size:14px;
+
+    h1{font-size:28px;line-height:42px;border-bottom:solid 1px #4F4F4F;}
+    h2{font-size:24px;line-height:36px;font-weight:bold;}
+    h4{font-size:20px;line-height:30px;font-weight:bold;}
+    h5{font-size:16px;line-height:24px;font-weight:bold;}
+    h6{font-size:14px;line-height:21px;font-weight:bold;}
+
+    h1, h2, h3, h4, h5, h6{
+      a:last-child{
+        font-size:12px;
+        float:right;
+        font-weight:normal;
+        &:before{content:"[";}
+        &:after{content:"]";}
+      }
+    }
   }
 }
 
