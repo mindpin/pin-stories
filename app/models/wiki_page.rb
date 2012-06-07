@@ -97,6 +97,17 @@ class WikiPage < ActiveRecord::Base
     WikiPageFormatter.split_section(self, section_num)
   end
 
+  # 设置全文索引字段
+  define_index do
+    # fields
+    indexes title, :sortable => true
+    indexes content
+    
+    # attributes
+    has created_at, updated_at
+  end
+
+
   # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)

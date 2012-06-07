@@ -2,6 +2,11 @@
 
 .page-title #{@product.name} - WIKI
 
+%p
+  %form{:action => "/products/#{@product.id}/wiki/search", :method => "post", :name => ""}
+    %input{:name => "keyword", :type => "text"}/
+    %input{:name => "submit", :type => "submit", :value => "搜索"}/
+
 .page-wiki-pages
   .ops
     %a.new{:href=>"/products/#{@product.id}/wiki_new"} 创建新词条

@@ -1,0 +1,19 @@
+=render 'products/parts/product_nav', :product=>@product, :current=>:wiki
+
+.page-title #{@product.name} - WIKI
+
+.page-wiki-pages
+  .ops
+    %a.new{:href=>"/products/#{@product.id}/wiki_new"} 创建新词条
+    %a.orphan{:href=>"/products/#{@product.id}/wiki_orphan"} 查看孤立词条
+
+  - @wiki_pages.each do |wiki_page|
+    :ruby
+      product_id = wiki_page.product_id
+      url_prefix = "/products/#{product_id}/wiki/#{wiki_page.title}"
+
+    .wiki-page
+      = link_to wiki_page.title, "#{url_prefix}", :class=>'new'
+      = link_to '查看版本记录', "#{url_prefix}/versions", :class=>'versions'
+      = link_to '编辑', "#{url_prefix}/edit", :class=>'edit'
+      = link_to '删除', "#{url_prefix}", :method => :delete, :confirm => '是否确定删除'

@@ -58,6 +58,9 @@ Voteapp::Application.routes.draw do
 
 
       get '/:title/refs'  => 'wiki#refs'
+
+      # 全文索引
+      post '/search' => 'wiki#search'
     end
 
     get  '/wiki_new' => 'wiki#new'

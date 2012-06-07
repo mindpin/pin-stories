@@ -106,6 +106,11 @@ class WikiController < ApplicationController
       end
 
     end
-  end  
+  end
+
+  # 全文索引，搜索
+  def search
+    @wiki_pages = WikiPage.search params[:keyword]
+  end
 
 end
