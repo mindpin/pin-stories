@@ -14,7 +14,9 @@ class WikiPage < ActiveRecord::Base
 
 
   validates_uniqueness_of :title, :message => "不能重复"
-  #validates_presence_of :content, :message => "不能为空"
+  
+  validates :product, :presence => true
+  validates :creator, :presence => true
 
 
   # 在保存之前先验证并纠正title

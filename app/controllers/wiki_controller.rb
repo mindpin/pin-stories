@@ -20,6 +20,7 @@ class WikiController < ApplicationController
   
   def create
     @wiki_page = current_user.wiki_pages.build(params[:wiki_page])
+    @wiki_page.product = @product
 
     if @wiki_page.save
       redirect_to URI.encode("/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}")
