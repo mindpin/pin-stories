@@ -53,12 +53,18 @@
 .page-wiki-page-preview, .page-wiki-page{
   .wiki-page-title{
     background-color:$COLOR-BOX-BG;
-    height:30px;line-height:30px;
+    font-size:28px;
+    height:50px;line-height:50px;
     padding:0 $BOX-PADDING - 5;
     font-weight: bold;
-    font-size:14px;
     border-left:solid 5px rgba(white, 0.4);
     margin-bottom:10px;
+
+    a.edit{
+      font-size:12px;
+      float:right;
+      font-weight:normal;
+    }
   }
 
   .table-of-contents{
@@ -75,19 +81,19 @@
     padding:$BOX-PADDING;
     font-size:14px;
 
-    h1{font-size:28px;line-height:42px;border-bottom:solid 1px #4F4F4F;}
-    h2{font-size:24px;line-height:36px;font-weight:bold;}
-    h4{font-size:20px;line-height:30px;font-weight:bold;}
-    h5{font-size:16px;line-height:24px;font-weight:bold;}
-    h6{font-size:14px;line-height:21px;font-weight:bold;}
+    h1{font-size:28px;line-height:42px;border-bottom:solid 1px #4F4F4F;margin-bottom:14px;}
+    h2{font-size:24px;line-height:36px;font-weight:bold;margin-bottom:12px;}
+    h3{font-size:20px;line-height:30px;font-weight:bold;margin-bottom:10px;}
+    h4{font-size:18px;line-height:27px;font-weight:bold;margin-bottom:9px;}
+    h5{font-size:16px;line-height:24px;font-weight:bold;margin-bottom:8px;}
+    h6{font-size:14px;line-height:21px;font-weight:bold;margin-bottom:7px;}
 
     h1, h2, h3, h4, h5, h6{
-      a:last-child{
-        font-size:12px;
+      span.edit-section{
+        font-size:14px;
         float:right;
         font-weight:normal;
-        &:before{content:"[";}
-        &:after{content:"]";}
+        color:#999;
       }
     }
   }

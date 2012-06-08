@@ -7,11 +7,13 @@
     .wiki-page-content 还没有内容
 
   - else
-    .wiki-page-title=@wiki_page.title
+    .wiki-page-title
+      %span=@wiki_page.title
+      %a.edit{:href=>"/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/edit"} 编辑
 
-    .table-of-contents
-      %ul=raw @wiki_page.echo_title_indices(@wiki_page.generate_title_indices)
+    -#.table-of-contents
+    -#  %ul=raw @wiki_page.echo_title_indices(@wiki_page.generate_title_indices)
 
 
-    .wiki-page-content=@wiki_page.formated_content
+    .wiki-page-content=@wiki_page.formatted_content
 

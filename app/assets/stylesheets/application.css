@@ -57,7 +57,7 @@ a img {
   border: none; }
 
 a em {
-  font-family: Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
+  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
 
 /*列表标签*/
 li ul, li ol {
@@ -83,7 +83,7 @@ dd {
 
 textarea {
   resize: none;
-  font-family: Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
+  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
 
 /*基础字体设置*/
 html {
@@ -93,7 +93,7 @@ body {
   font-size: 75%;
   background: #fff;
   color: #222;
-  font-family: Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
+  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
 
 /*各级标题*/
 h1, h2, h3, h4, h5, h6 {
@@ -1932,13 +1932,17 @@ form .form-preview {
 
 .page-wiki-page-preview .wiki-page-title, .page-wiki-page .wiki-page-title {
   background-color: #3e3d3f;
-  height: 30px;
-  line-height: 30px;
+  font-size: 28px;
+  height: 50px;
+  line-height: 50px;
   padding: 0 10px;
   font-weight: bold;
-  font-size: 14px;
   border-left: solid 5px rgba(255, 255, 255, 0.4);
   margin-bottom: 10px; }
+  .page-wiki-page-preview .wiki-page-title a.edit, .page-wiki-page .wiki-page-title a.edit {
+    font-size: 12px;
+    float: right;
+    font-weight: normal; }
 .page-wiki-page-preview .table-of-contents, .page-wiki-page .table-of-contents {
   background-color: #3e3d3f;
   padding: 15px 15px 15px 3px;
@@ -1952,31 +1956,38 @@ form .form-preview {
   .page-wiki-page-preview .wiki-page-content h1, .page-wiki-page .wiki-page-content h1 {
     font-size: 28px;
     line-height: 42px;
-    border-bottom: solid 1px #4F4F4F; }
+    border-bottom: solid 1px #4F4F4F;
+    margin-bottom: 14px; }
   .page-wiki-page-preview .wiki-page-content h2, .page-wiki-page .wiki-page-content h2 {
     font-size: 24px;
     line-height: 36px;
-    font-weight: bold; }
-  .page-wiki-page-preview .wiki-page-content h4, .page-wiki-page .wiki-page-content h4 {
+    font-weight: bold;
+    margin-bottom: 12px; }
+  .page-wiki-page-preview .wiki-page-content h3, .page-wiki-page .wiki-page-content h3 {
     font-size: 20px;
     line-height: 30px;
-    font-weight: bold; }
+    font-weight: bold;
+    margin-bottom: 10px; }
+  .page-wiki-page-preview .wiki-page-content h4, .page-wiki-page .wiki-page-content h4 {
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: bold;
+    margin-bottom: 9px; }
   .page-wiki-page-preview .wiki-page-content h5, .page-wiki-page .wiki-page-content h5 {
     font-size: 16px;
     line-height: 24px;
-    font-weight: bold; }
+    font-weight: bold;
+    margin-bottom: 8px; }
   .page-wiki-page-preview .wiki-page-content h6, .page-wiki-page .wiki-page-content h6 {
     font-size: 14px;
     line-height: 21px;
-    font-weight: bold; }
-  .page-wiki-page-preview .wiki-page-content h1 a:last-child, .page-wiki-page-preview .wiki-page-content h2 a:last-child, .page-wiki-page-preview .wiki-page-content h3 a:last-child, .page-wiki-page-preview .wiki-page-content h4 a:last-child, .page-wiki-page-preview .wiki-page-content h5 a:last-child, .page-wiki-page-preview .wiki-page-content h6 a:last-child, .page-wiki-page .wiki-page-content h1 a:last-child, .page-wiki-page .wiki-page-content h2 a:last-child, .page-wiki-page .wiki-page-content h3 a:last-child, .page-wiki-page .wiki-page-content h4 a:last-child, .page-wiki-page .wiki-page-content h5 a:last-child, .page-wiki-page .wiki-page-content h6 a:last-child {
-    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 7px; }
+  .page-wiki-page-preview .wiki-page-content h1 span.edit-section, .page-wiki-page-preview .wiki-page-content h2 span.edit-section, .page-wiki-page-preview .wiki-page-content h3 span.edit-section, .page-wiki-page-preview .wiki-page-content h4 span.edit-section, .page-wiki-page-preview .wiki-page-content h5 span.edit-section, .page-wiki-page-preview .wiki-page-content h6 span.edit-section, .page-wiki-page .wiki-page-content h1 span.edit-section, .page-wiki-page .wiki-page-content h2 span.edit-section, .page-wiki-page .wiki-page-content h3 span.edit-section, .page-wiki-page .wiki-page-content h4 span.edit-section, .page-wiki-page .wiki-page-content h5 span.edit-section, .page-wiki-page .wiki-page-content h6 span.edit-section {
+    font-size: 14px;
     float: right;
-    font-weight: normal; }
-    .page-wiki-page-preview .wiki-page-content h1 a:last-child:before, .page-wiki-page-preview .wiki-page-content h2 a:last-child:before, .page-wiki-page-preview .wiki-page-content h3 a:last-child:before, .page-wiki-page-preview .wiki-page-content h4 a:last-child:before, .page-wiki-page-preview .wiki-page-content h5 a:last-child:before, .page-wiki-page-preview .wiki-page-content h6 a:last-child:before, .page-wiki-page .wiki-page-content h1 a:last-child:before, .page-wiki-page .wiki-page-content h2 a:last-child:before, .page-wiki-page .wiki-page-content h3 a:last-child:before, .page-wiki-page .wiki-page-content h4 a:last-child:before, .page-wiki-page .wiki-page-content h5 a:last-child:before, .page-wiki-page .wiki-page-content h6 a:last-child:before {
-      content: "["; }
-    .page-wiki-page-preview .wiki-page-content h1 a:last-child:after, .page-wiki-page-preview .wiki-page-content h2 a:last-child:after, .page-wiki-page-preview .wiki-page-content h3 a:last-child:after, .page-wiki-page-preview .wiki-page-content h4 a:last-child:after, .page-wiki-page-preview .wiki-page-content h5 a:last-child:after, .page-wiki-page-preview .wiki-page-content h6 a:last-child:after, .page-wiki-page .wiki-page-content h1 a:last-child:after, .page-wiki-page .wiki-page-content h2 a:last-child:after, .page-wiki-page .wiki-page-content h3 a:last-child:after, .page-wiki-page .wiki-page-content h4 a:last-child:after, .page-wiki-page .wiki-page-content h5 a:last-child:after, .page-wiki-page .wiki-page-content h6 a:last-child:after {
-      content: "]"; }
+    font-weight: normal;
+    color: #999; }
 
 .page-wiki-page-versions .version {
   background-color: #3e3d3f;

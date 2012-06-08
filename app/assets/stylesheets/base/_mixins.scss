@@ -1,5 +1,6 @@
 @mixin base-font-family{
-  font-family:Tahoma,Arial,Helvetica,STHeiti,sans-serif;
+  //font-family:Tahoma,Arial,Helvetica,STHeiti,sans-serif;
+  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif;
 }
 
 @mixin number-font-family{
@@ -11,7 +12,7 @@
   @include number-font-family;
 }
 
-// ----------------- ���õĺ���
+// ----------------- ³£ÓÃµÄº¯Êý
 
 @mixin gradient($from, $to){
   background : -moz-linear-gradient(-90deg, $from, $to);
