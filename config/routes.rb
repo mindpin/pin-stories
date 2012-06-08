@@ -58,9 +58,6 @@ Voteapp::Application.routes.draw do
 
 
       get '/:title/refs'  => 'wiki#refs'
-
-      # 全文索引
-      post '/search' => 'wiki#search'
     end
 
     get  '/wiki_new' => 'wiki#new'
@@ -68,6 +65,9 @@ Voteapp::Application.routes.draw do
     post '/wiki/preview' => 'wiki#preview'
 
     get '/wiki_orphan' => 'wiki#orphan'
+
+    # 全文索引
+    get '/wiki_search' => 'wiki#search'
   end
 
   get '/atme/:name' => 'atme#atme'

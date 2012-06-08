@@ -2,6 +2,9 @@
 
 .page-title #{@product.name} - WIKI
 
+=render 'products/parts/wiki_search', :product=>@product, :current=>:wiki
+
+
 .page-wiki-pages
   .ops
     %a.new{:href=>"/products/#{@product.id}/wiki_new"} 创建新词条
@@ -17,3 +20,6 @@
       = link_to '查看版本记录', "#{url_prefix}/versions", :class=>'versions'
       = link_to '编辑', "#{url_prefix}/edit", :class=>'edit'
       = link_to '删除', "#{url_prefix}", :method => :delete, :confirm => '是否确定删除'
+
+  %p
+    = will_paginate @wiki_pages

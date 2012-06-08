@@ -111,7 +111,8 @@ class WikiController < ApplicationController
 
   # 全文索引，搜索
   def search
-    @wiki_pages = WikiPage.search params[:keyword]
+    @wiki_pages = WikiPage.search params[:keyword], :conditions => {:product_id => params[:product_id]}, :page => params[:page], :per_page => 1
+
   end
 
 end

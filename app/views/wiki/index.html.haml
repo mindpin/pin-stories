@@ -2,10 +2,8 @@
 
 .page-title #{@product.name} - WIKI
 
-%p
-  %form{:action => "/products/#{@product.id}/wiki/search", :method => "post", :name => ""}
-    %input{:name => "keyword", :type => "text"}/
-    %input{:name => "submit", :type => "submit", :value => "搜索"}/
+=render 'products/parts/wiki_search', :product=>@product, :current=>:wiki
+
 
 .page-wiki-pages
   .ops

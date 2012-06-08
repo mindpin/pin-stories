@@ -104,9 +104,12 @@ class WikiPage < ActiveRecord::Base
     # fields
     indexes title, :sortable => true
     indexes content
+    indexes product_id
     
     # attributes
     has created_at, updated_at
+
+    set_property :delta => true
   end
 
 
