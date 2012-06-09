@@ -25,7 +25,7 @@ Voteapp::Application.routes.draw do
   end
 
   
-  # --
+  # --------
   
   resources :products do
     resources :stories, :only => [:new, :create]
@@ -38,42 +38,39 @@ Voteapp::Application.routes.draw do
   get 'products/:id/lemmas'  => 'products#product_lemmas'
 
 
-  get '/products/:product_id/wiki/:title'  => 'wiki#show'
-  get '/products/:product_id/wiki'  => 'wiki#index'
-  get '/products/:product_id/wiki_new'  => 'wiki#new'
-  get '/products/:product_id/wiki/:title/edit'  => 'wiki#edit'
-  get '/products/:product_id/wiki/:title/ref'  => 'wiki#ref'
-  get '/products/:product_id/wiki_orphan'  => 'wiki#orphan'
+  # ---------------
+  # WIKI 相关
+  scope '/products/:product_id' do
+    scope '/wiki' do
+      get '/'            => 'wiki#index'
+      get '/:title'      => 'wiki#show'
 
-  get '/products/:product_id/wiki/:title/edit_section'  => 'wiki#edit_section'
-  put '/products/:product_id/wiki/:title/update_section'  => 'wiki#update_section'
+      get '/:title/edit' => 'wiki#edit'
+      put '/:title'      => 'wiki#update'
 
-  put '/products/:product_id/wiki/:title'  => 'wiki#update'
-  delete '/products/:product_id/wiki/:title'  => 'wiki#destroy'
+      get '/:title/versions'          => 'wiki#versions'
+      get '/:title/rollback/:version' => 'wiki#rollback'
 
-  get '/products/:product_id/wiki/:title/versions'  => 'wiki#versions'
-  get '/products/:product_id/wiki/:title/rollback/:audit_id' => 'wiki#page_rollback'
-  get '/atme/:name' => 'wiki#atme'
+      delete '/:title' => 'wiki#destroy'
 
+      get '/:title/edit_section' => 'wiki#edit_section'
 
-
-
-  resources :wiki do
-    collection do
-      get :history
-      post :preview
+      get '/:title/refs'  => 'wiki#refs'
     end
-    
-    member do
-    end
+
+    get  '/wiki_new' => 'wiki#new'
+    post '/wiki'     => 'wiki#create'
+
+    get '/wiki_orphan' => 'wiki#orphan'
   end
-  
-  #get 'wiki/rollback/:audit_id' => 'wiki#rollback'
-  
-  
-  resources :wiki
 
-  # -----
+
+  # put '/products/:product_id/wiki/:title/update_section' => 'wiki#update_section'
+
+
+  # get '/atme/:name' => 'wiki#atme'
+
+  # -------------------
   
   resources :members
 

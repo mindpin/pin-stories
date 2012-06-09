@@ -1,12 +1,27 @@
 .page-title #{@wiki_page.title} 版本记录
 
 .page-wiki-page-versions
-  - @versions.each do |version|
-    .version
-      %span.id= version.id
-      %span.action= version.action
-      %span.changes= version.audited_changes
-      %span.time= version.created_at
-      
-      .ops
-        = link_to '回滚到该版本', "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/rollback/#{version.id}", :confirm => '是否确定回滚所有历史记录'
+  - i = 0
+  - @audits.each do |audit|
+    :ruby
+      action_str = {'create'=>'创建', 'update'=>'编辑修改'}[audit.action]
+      current_content = get_wiki_audit_content(audit)
+      i+=1
+
+    -if 1 == i
+      .version.current
+        .id 版本序号: #{audit.version}
+        .action 操作: #{action_str}
+        .current-content 当前内容: #{current_content}
+        .time 操作时间: #{audit.created_at}
+        .is-current 这是当前版本，你可以选择回滚到以前的版本
+
+    -else
+      .version
+        .id 版本序号: #{audit.version}
+        .action 操作: #{action_str}
+        .current-content 当前内容: #{current_content}
+        .time 操作时间: #{audit.created_at}
+        
+        .ops
+          = link_to '回滚到这个版本', "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/rollback/#{audit.version}", :confirm => '是否确定回滚到这个版本？'

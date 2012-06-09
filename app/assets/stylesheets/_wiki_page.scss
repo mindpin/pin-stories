@@ -60,10 +60,12 @@
     border-left:solid 5px rgba(white, 0.4);
     margin-bottom:10px;
 
-    a.edit{
-      font-size:12px;
+    .ops{
       float:right;
-      font-weight:normal;
+      a{
+        font-size:12px;
+        font-weight:normal;
+      }
     }
   }
 
@@ -105,5 +107,13 @@
     background-color:$COLOR-BOX-BG;
     padding:$BOX-PADDING;
     margin-bottom:10px;
+
+    &.current{
+      background-color:$COLOR-BOX-BG2;
+      box-shadow:0 0 5px #FCBA15 inset, 0 0 5px #FCBA15;
+      .is-current{
+        color:#FCBA15;
+      }
+    }
   }
 }

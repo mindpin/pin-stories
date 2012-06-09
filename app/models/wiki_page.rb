@@ -2,15 +2,15 @@ class WikiPage < ActiveRecord::Base
   # --- 模型关联
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :product, :class_name => 'Product'
+
   audited
 
 
   # --- 校验方法
   
   validates_format_of :title, 
-    :with => /^([^"^'^\\^\/]?[\s*-A-Za-z0-9一-龥]+)$/,
-    # :with => /^([A-Za-z0-9一-龥]+)$/,
-    :message => "不允许出现 &, ?, ', \", \\, \/ 非法字符"
+    :with => /^([A-Za-z0-9一-龥-]+)$/,
+    :message => "标题不允许非法字符"
 
 
   validates_uniqueness_of :title, :message => "不能重复"
@@ -71,43 +71,26 @@ class WikiPage < ActiveRecord::Base
   end
 
   def formatted_content
-    WikipageFormatter.format(self)
-    # WikipageFormatter 代码位于 /lib/wiki
+    # wiki_page_formatter.rb 代码位于 /lib/wiki
+    WikiPageFormatter.format(self)
   end
 
-  # ----- 版本控制相关
 
-  def versions
-    audits.map{|audit| WikiPageVersion.new(audit)}
-  end
-  
-  def rollback(audit)
-    audits = Audited::Adapters::ActiveRecord::Audit.unscoped.where('id > ? and auditable_id = ?', audit.id, self.id).order("id DESC").all
-
-    audits.each do |audit|
-      case audit.action
-        when 'create'
-          wiki_page = WikiPage.find(self.id)
-          wiki_page.destroy
-  
-        when 'update'
-          version = WikiPageVersion.new(audit)
-          self.title = version.prev.title
-          self.content = version.prev.content
-          self.creator = version.prev.creator
-          self.save
-        when 'destroy'
-          version = WikiPageVersion.new(audit)
-
-          wiki_page = WikiPage.new(
-            :id => audit.auditable_id,
-            :title => version.title,
-            :content => version.content,
-            :creator => version.creator
-          )
-          wiki_page.save
-      end
+  # 回滚内容状态到指定的版本  
+  def rollback_to(audit)
+    if audit.auditable != self
+      raise '你不能回滚到一个不属于本词条的版本记录'
     end
+
+    audit_content = case audit.action
+      when 'create'
+        audit.audited_changes['content']
+      when 'update'
+        audit.audited_changes['content'].last
+    end
+
+    self.content = audit_content
+    self.save
   end
   
 

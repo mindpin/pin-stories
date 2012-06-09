@@ -1939,10 +1939,11 @@ form .form-preview {
   font-weight: bold;
   border-left: solid 5px rgba(255, 255, 255, 0.4);
   margin-bottom: 10px; }
-  .page-wiki-page-preview .wiki-page-title a.edit, .page-wiki-page .wiki-page-title a.edit {
-    font-size: 12px;
-    float: right;
-    font-weight: normal; }
+  .page-wiki-page-preview .wiki-page-title .ops, .page-wiki-page .wiki-page-title .ops {
+    float: right; }
+    .page-wiki-page-preview .wiki-page-title .ops a, .page-wiki-page .wiki-page-title .ops a {
+      font-size: 12px;
+      font-weight: normal; }
 .page-wiki-page-preview .table-of-contents, .page-wiki-page .table-of-contents {
   background-color: #3e3d3f;
   padding: 15px 15px 15px 3px;
@@ -1993,3 +1994,8 @@ form .form-preview {
   background-color: #3e3d3f;
   padding: 15px;
   margin-bottom: 10px; }
+  .page-wiki-page-versions .version.current {
+    background-color: #363537;
+    box-shadow: 0 0 5px #FCBA15 inset, 0 0 5px #FCBA15; }
+    .page-wiki-page-versions .version.current .is-current {
+      color: #FCBA15; }

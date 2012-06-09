@@ -1,153 +1,82 @@
 class WikiController < ApplicationController
 
-  def index
+  before_filter :pre_load
+  def pre_load
     @product = Product.find(params[:product_id]) if params[:product_id]
+    @wiki_page = @product.wiki_pages.find_by_title(params[:title]) if params[:title]
+  end
+
+  def index
     @wiki_pages = @product.wiki_pages
   end
   
-  def new
-    @product = Product.find(params[:product_id]) if params[:product_id]
-    @wiki_page = WikiPage.new
+  def show
+  end
 
-    @wiki_page.title = params[:title]
+  def new
+    @wiki_page = WikiPage.new
     render :layout=>'simple_form'
   end
   
   def create
-    wiki_page = current_user.wiki_pages.build(params[:wiki_page])
-    return redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki" if wiki_page.save
+    @wiki_page = current_user.wiki_pages.build(params[:wiki_page])
 
-    error = wiki_page.errors.first
-    flash[:error] = "#{error[0]} #{error[1]}"
-    
-    title = wiki_page.is_title_repeat?? params[:wiki_page][:title] + "-repeat": params[:wiki_page][:title]
-    title = CGI.escapeHTML(title)
-
-    return redirect_to "/products/#{params[:wiki_page][:product_id]}/wiki/new?title=#{title}"
-  end
-  
-  def show
-    page = WikiPage.where(:title => params[:title].strip, :product_id => params[:product_id])
-    if page.exists?
-      @wiki_page = page.first
+    if @wiki_page.save
+      redirect_to URI.encode("/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}")
+      return
     end
 
+    flash[:error] = @wiki_page.errors.first
+    return render :new, :layout=>'simple_form'
   end
   
+  
   def edit
-    @wiki_page = WikiPage.find_by_title(params[:title])
-    @wiki_page.product
-
     render :layout=>'simple_form'
   end
   
   def update
-    @wiki_page = WikiPage.find_by_title(params[:title])
     @wiki_page.update_attributes(params[:wiki_page])
-
-    return redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+    redirect_to URI.encode("/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}")
   end
   
-  def destroy
-    @wiki_page = WikiPage.find_by_title(params[:title])
-    @wiki_page.destroy
-
-    redirect_to "/products/#{@wiki_page.product_id}/wiki"
-  end
-  
-  # 所有的版本历史记录列表
-  def history
-    @history = Audited::Adapters::ActiveRecord::Audit.unscoped.all
-  end
-  
-  # 改动的版本列表
   def versions
-    # @wiki_page = WikiPage.find(params[:id])
-    @wiki_page = WikiPage.find_by_title(params[:title])
-    @versions = @wiki_page.audits
-
-    @product = Product.find(@wiki_page.product_id)
+    @audits = @wiki_page.audits.descending 
+    # 参考audited源代码
+    # https://github.com/collectiveidea/audited/blob/master/lib/audited/adapters/active_record/audit.rb
+    # 23 行，通过这个scope使其按version反序排列
+    # 此处还有一些scope会比较有用
   end
-  
-  # 单条记录的版本回滚
-  def page_rollback
-    # wiki_page = WikiPage.find(params[:auditable_id])
-    wiki_page = WikiPage.find_by_title(params[:title])
-    audit = Audited::Adapters::ActiveRecord::Audit.find(params[:audit_id])
-    wiki_page.rollback(audit)
-    
-    redirect_to "/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}"
-
-  end
-  
   
   # 所有记录的版本回滚
   def rollback
-    audit = Audited::Adapters::ActiveRecord::Audit.find(params[:audit_id])
-    WikiPage.system_rollback(audit)
+    audit = @wiki_page.audits.find_by_version(params[:version])
+    @wiki_page.rollback_to(audit)
     
-    redirect_to "/wiki"
+    redirect_to URI.encode("/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}")
+  end
+
+  def destroy
+    @wiki_page.destroy
+    redirect_to "/products/#{@wiki_page.product_id}/wiki"
   end
   
+  # ------------------------
 
-  # 用于跳转到个人首页
-  def atme
-    user = User.find_by_name(params[:name])
+  # 当前页面引用页
+  def refs
+    # 当前引用的
+    @refs = WikiPageRef.where(:product_id => params[:product_id], :from_page_title => params[:title])
 
-    if user.nil?
-      render :status=>404 
-    else
-      redirect_to "/members/#{user.id}"
-    end
-  end
+    # 引用当前的
+    @used_refs = WikiPageRef.where(:product_id => params[:product_id], :to_page_title => params[:title])
 
-
-  # 处理词条预览 markdown 解析
-  def preview
-    @title = params[:wiki_page][:title]
-    @content = WikiPage.new.formated_content(params[:wiki_page][:content])
-
-    @product = Product.find(params[:wiki_page][:product_id])
   end
 
   # 编辑内容区块页面
   def edit_section
     section_number = params[:section].to_i
-    @wiki_page = WikiPage.find_by_title(params[:title])
-
-    i = 0
-    current_prefix, header_prefix = '', ''
-    @content = ''
-    @wiki_page.content.each_line do |line|
-      
-      if line =~ /^[#]{1,6}[\s*].*/
-        header_prefix = line.match(/^[#]{1,6}/)[0]
-        i += 1
-
-        if i == section_number
-          current_prefix = header_prefix
-        end
-
-      end
-
-      if section_number == i
-        @content += line
-      end
-
-
-      if i > section_number
-        # p header_prefix.strip.length.to_s + ", " + current_prefix.strip.length.to_s
-
-        if header_prefix.strip.length <= current_prefix.strip.length
-          # p @content
-          break
-        else
-          @content += line
-        end
-      end
-
-    end
-
+    @content = WikiPageFormatter.split_section(@wiki_page, section_number)
   end
 
   def update_section
@@ -201,34 +130,41 @@ class WikiController < ApplicationController
   end
 
 
-  # 当前页面引用页
-  def ref
-    @wiki_page = WikiPage.find_by_title(params[:title])
+  # # 用于跳转到个人首页
+  # def atme
+  #   user = User.find_by_name(params[:name])
 
-    # 当前引用的
-    @refs = WikiPageRef.where(:product_id => params[:product_id], :from_page_title => params[:title])
+  #   if user.nil?
+  #     render :status=>404 
+  #   else
+  #     redirect_to "/members/#{user.id}"
+  #   end
+  # end
 
-    # 引用当前的
-    @used_refs = WikiPageRef.where(:product_id => params[:product_id], :to_page_title => params[:title])
 
-  end
+  # # 处理词条预览 markdown 解析
+  # def preview
+  #   @title = params[:wiki_page][:title]
+  #   @content = WikiPage.new.formated_content(params[:wiki_page][:content])
 
+  #   @product = Product.find(params[:wiki_page][:product_id])
+  # end
 
-  # 没有被其他wiki页引用，也没有引用其他wiki页的页面
-  def orphan
-    wiki_pages = WikiPage.all
+  # # 没有被其他wiki页引用，也没有引用其他wiki页的页面
+  # def orphan
+  #   wiki_pages = WikiPage.all
 
-    @orphan_pages = []
-    wiki_pages.each do |wiki_page|
-      from = WikiPageRef.where(:product_id => wiki_page.product_id, :from_page_title => wiki_page.title).exists?
-      to = WikiPageRef.where(:product_id => wiki_page.product_id, :to_page_title => wiki_page.title).exists?
+  #   @orphan_pages = []
+  #   wiki_pages.each do |wiki_page|
+  #     from = WikiPageRef.where(:product_id => wiki_page.product_id, :from_page_title => wiki_page.title).exists?
+  #     to = WikiPageRef.where(:product_id => wiki_page.product_id, :to_page_title => wiki_page.title).exists?
 
-      unless from || to
-        @orphan_pages << wiki_page
-      end
+  #     unless from || to
+  #       @orphan_pages << wiki_page
+  #     end
 
-    end
-  end
+  #   end
+  # end
   
 
 end

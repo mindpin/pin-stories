@@ -1,10 +1,11 @@
-class WikipageFormatter
+class WikiPageFormatter
 
   def self.format(wikipage)
     coderay_render = HTMLwithCoderay.new(
       :filter_html     => true, # 滤掉自定义html
       :safe_links_only => true, # 只允许安全连接
-      :hard_wrap       => true  # 单回车换行
+      :hard_wrap       => true, # 单回车换行
+      :with_toc_data   => true
     )
     coderay_render.wikipage = wikipage
 
@@ -152,11 +153,14 @@ class WikipageFormatter
 
     # 通过定义该方法，能够控制所有 header 的渲染样式
     def header(text, header_level)
-      @header_render.add(text, header_level).to_html
+      t = text.strip
+      if !t.blank?
+        @header_render.add(text.strip, header_level).to_html
+      end
     end
 
     def paragraph(text)
-      re = text.gsub("\n", '<br/>')
+      re = text.gsub("\n", '<br/>').gsub(' ', '&nbsp;')
       
       re = _trans_atme(re)
       re = _trans_ref(re)
@@ -190,6 +194,81 @@ class WikipageFormatter
     # TODO 这里还可以做更多扩展
     # TODO 参考这个： http://dev.af83.com/2012/02/27/howto-extend-the-redcarpet2-markdown-lib.html
     # "How to extend the Redcarpet 2 Markdown library?"
+  end
+
+  # -------------------
+
+  # 分段编辑时，切分出需要的段落文字
+  # TODO 这段比较繁琐，还需要进一步简化
+  def self.split_section(wikipage, section_num)
+    last_line = ContentLine.new('')
+
+    j = 0
+    lines = wikipage.content.lines.map do |line_text|
+      line = ContentLine.new(line_text)
+      last_line.next_line = line
+      last_line = line
+
+      line.line_num = j
+      j += 1
+
+      line
+    end
+
+    i = 1
+    lines.each do |line|
+      if line.header_level > 0
+        line.section_num = i
+        i += 1
+      else
+        line.section_num = -1
+      end
+    end
+
+    start_line = lines.select { |line|
+      line.section_num == section_num
+    }.first
+
+    start_line_num = start_line.line_num
+    end_line_num = lines.length - 1
+    lines[(start_line_num + 1)..-1].each do |line|
+      if line.header_level > 0 && line.header_level <= start_line.header_level
+        end_line_num = line.line_num - 1
+        break
+      end
+    end
+
+    return lines[start_line_num..end_line_num].map{|line| line.text}
+  end
+
+  class ContentLine
+    attr_accessor :text, :next_line, :section_num, :line_num
+
+    def initialize(text)
+      self.text = text
+    end
+
+    def is_header?
+      str = self.text
+      if str =~ /^\#{1,6}\s+.+/
+        @header_level = str.match(/^(\#{1,6})\s+.+/)[1].length
+        return true 
+      end
+
+      if self.next_line && self.next_line.text =~ /^\=+\s*$|^\-+\s*$/
+        str = self.next_line.text
+        @header_level = 1 if str =~ /^\=+\s*$/
+        @header_level = 2 if str =~ /^\-+\s*$/
+        return true
+      end
+
+      return false
+    end
+
+    def header_level
+      return -1 if !self.is_header?
+      return @header_level
+    end
   end
 
 end
