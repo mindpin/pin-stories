@@ -171,7 +171,7 @@ class WikiPageFormatter
     def get_toc
       ul_html = @header_render.to_toc_ul_html
 
-      ul_html == '<ul></ul>' ? '' : "<div class='table-of-contents'>#{}</div>"
+      ul_html == '<ul></ul>' ? '' : "<div class='table-of-contents'>#{ul_html}</div>"
     end
 
 
