@@ -198,67 +198,119 @@ class WikiPageFormatter
 
   # -------------------
 
-  # 分段编辑时，切分出需要的段落文字
-  # TODO 这段比较繁琐，还需要进一步简化
-  def self.split_section(wikipage, section_num)
-    last_line = ContentLine.new('')
+  # 分段编辑时，将指定的新内容替换到指定的section里
+  def self.replace_section(wikipage, section_num, new_content)
+    # 生成 lines 对象链表结构
+    lines = self._build_lines_linked_list(wikipage)
 
-    j = 0
-    lines = wikipage.content.lines.map do |line_text|
-      line = ContentLine.new(line_text)
-      last_line.next_line = line
-      last_line = line
+    # 挑选出所有标题文字所在行
+    header_lines = lines.select{|line| line.is_header?}
 
-      line.line_num = j
-      j += 1
-
-      line
-    end
-
-    i = 1
-    lines.each do |line|
-      if line.header_level > 0
-        line.section_num = i
-        i += 1
-      else
-        line.section_num = -1
-      end
-    end
-
-    start_line = lines.select { |line|
-      line.section_num == section_num
-    }.first
+    # 找到 section_num 对应起始行
+    start_line = header_lines[section_num - 1]
 
     start_line_num = start_line.line_num
-    end_line_num = lines.length - 1
-    lines[(start_line_num + 1)..-1].each do |line|
-      if line.header_level > 0 && line.header_level <= start_line.header_level
-        end_line_num = line.line_num - 1
+    end_line_num   = lines.last.line_num
+
+    # 找 end_line
+    header_lines[section_num..-1].each do |header_line|
+      if header_line.header_level <= start_line.header_level
+        end_line_num = header_line.line_num - 1
         break
       end
     end
 
+    part1 = lines[0 .. (start_line_num - 1)].map{|line| line.text}
+    part2 = [new_content, "\n"]
+    part3 = lines[(end_line_num + 1) .. -1 ].map{|line| line.text}
+
+    return (part1 + part2 + part3)*''
+  end
+
+  # 分段编辑时，切分出需要的段落文字
+  # TODO 这段还是有些繁琐，可能还需要进一步简化
+  def self.split_section(wikipage, section_num)
+    # 生成 lines 对象链表结构
+    lines = self._build_lines_linked_list(wikipage)
+
+    # 挑选出所有标题文字所在行
+    header_lines = lines.select{|line| line.is_header?}
+
+    # 找到 section_num 对应起始行
+    start_line = header_lines[section_num - 1]
+
+    start_line_num = start_line.line_num
+    end_line_num   = lines.last.line_num
+
+    # 找 end_line
+    header_lines[section_num .. -1].each do |header_line|
+      if header_line.header_level <= start_line.header_level
+        end_line_num = header_line.line_num - 1
+        break
+      end
+    end
+
+    # -----------
+
     return lines[start_line_num..end_line_num].map{|line| line.text}
+  end
+
+  def self._build_lines_linked_list(wikipage)
+    re = []
+
+    last_line = ContentLine.new(nil, nil)
+    wikipage.content.lines.each_with_index do |text, index|
+      line = ContentLine.new(text, index)
+
+      last_line.next_line = line
+      last_line = line
+      
+      re << line
+    end
+
+    return re
   end
 
   class ContentLine
     attr_accessor :text, :next_line, :section_num, :line_num
 
-    def initialize(text)
-      self.text = text
+    REGEXP_TYPE_ONE = /^(\#{1,6})\s+(.+)/
+
+    REGEXP_TYPE_TWO_A = /^\=+\s*$/
+    REGEXP_TYPE_TWO_B = /^\-+\s*$/
+
+    def initialize(text, line_num)
+      self.text     = text
+      self.line_num = line_num
     end
 
     def is_header?
-      str = self.text
-      if str =~ /^\#{1,6}\s+.+/
-        @header_level = str.match(/^(\#{1,6})\s+.+/)[1].length
-        return true 
+      return true if self._is_match_header_type_one?
+      return true if self._is_match_header_type_two?
+      return false
+    end
+
+    def _is_match_header_type_one?
+      match_data = self.text.match REGEXP_TYPE_ONE
+      if match_data
+        @header_level = match_data[1].length
+        return true
+      end
+      return false
+    end
+
+    def _is_match_header_type_two?
+      return false if self.next_line.nil?
+
+      str = self.next_line.text
+
+      if str.match REGEXP_TYPE_TWO_A
+        @header_level = 1
+        return true
       end
 
-      if self.next_line && self.next_line.text =~ /^\=+\s*$|^\-+\s*$/
-        str = self.next_line.text
-        @header_level = 1 if str =~ /^\=+\s*$/
-        @header_level = 2 if str =~ /^\-+\s*$/
+      if str.match REGEXP_TYPE_TWO_B
+        @header_level = 2
         return true
       end
 

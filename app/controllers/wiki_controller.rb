@@ -81,52 +81,11 @@ class WikiController < ApplicationController
 
   def update_section
     section_number = params[:section].to_i
-    @wiki_page = WikiPage.find_by_title(params[:title])
 
-    first, middle, last = '', '', '', ''
-    current_prefix, header_prefix = '', ''
-    i = 0
-    @wiki_page.content.each_line do |line|
-      
-      if line =~ /^[#]{1,6}[\s*].*/
-        header_prefix = line.match(/^[#]{1,6}/)[0]
-        i += 1
-        
-        if i == section_number
-          current_prefix = header_prefix
-        end
-
-      end
-
-      if section_number  > i
-        first += line
-        next
-      end
-
-      if section_number  == i
-        middle += line
-        next
-      end
-
-      if i > section_number && last.length > 0
-        last += line
-        next
-      end
-
-      if i > section_number
-        if header_prefix.strip.length == current_prefix.strip.length
-          last += line
-        else
-          middle += line
-        end
-      end
-
-    end
-
-    @wiki_page.content = first + params[:content] + "\n" + last
+    @wiki_page.content = WikiPageFormatter.replace_section(@wiki_page, section_number, params[:content])
     @wiki_page.save
 
-    redirect_to "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+    redirect_to URI.encode("/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}")
   end
 
 

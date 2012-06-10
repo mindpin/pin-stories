@@ -92,7 +92,10 @@ class WikiPage < ActiveRecord::Base
     self.content = audit_content
     self.save
   end
-  
+
+  def split_section(section_num)
+    WikiPageFormatter.split_section(self, section_num)
+  end
 
   # --- 给其他类扩展的方法
   module UserMethods

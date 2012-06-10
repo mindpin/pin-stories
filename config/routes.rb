@@ -53,7 +53,8 @@ Voteapp::Application.routes.draw do
 
       delete '/:title' => 'wiki#destroy'
 
-      get '/:title/edit_section' => 'wiki#edit_section'
+      get '/:title/edit_section'   => 'wiki#edit_section'
+      put '/:title/update_section' => 'wiki#update_section'
 
       get '/:title/refs'  => 'wiki#refs'
     end
@@ -65,7 +66,6 @@ Voteapp::Application.routes.draw do
   end
 
 
-  # put '/products/:product_id/wiki/:title/update_section' => 'wiki#update_section'
 
 
   # get '/atme/:name' => 'wiki#atme'
