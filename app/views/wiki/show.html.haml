@@ -14,9 +14,5 @@
         %a.versions{:href=>"/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/versions"} 历史记录
         %a.refs{:href=>"/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/refs"} 引用关系
 
-    -#.table-of-contents
-    -#  %ul=raw @wiki_page.echo_title_indices(@wiki_page.generate_title_indices)
-
-
     .wiki-page-content=@wiki_page.formatted_content
 

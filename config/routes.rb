@@ -56,19 +56,21 @@ Voteapp::Application.routes.draw do
       get '/:title/edit_section'   => 'wiki#edit_section'
       put '/:title/update_section' => 'wiki#update_section'
 
+
       get '/:title/refs'  => 'wiki#refs'
     end
 
     get  '/wiki_new' => 'wiki#new'
     post '/wiki'     => 'wiki#create'
+    post '/wiki/preview' => 'wiki#preview'
 
     get '/wiki_orphan' => 'wiki#orphan'
   end
 
+  get '/atme/:name' => 'atme#atme'
 
 
 
-  # get '/atme/:name' => 'wiki#atme'
 
   # -------------------
   

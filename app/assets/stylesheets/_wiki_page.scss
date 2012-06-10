@@ -8,6 +8,7 @@
       background-color:$COLOR-BOX-LIGHT-BG;
       padding:0 $BOX-PADDING 0 $BOX-PADDING + 24 - 3;
       position:relative;
+      margin-right:10px;
 
 
       &:before{
@@ -39,6 +40,11 @@
         text-decoration:none;
       }
     }
+
+    a.orphan{
+      float:left;
+      height:30px;line-height:30px;
+    }
   }
 
   .wiki-page{
@@ -63,7 +69,7 @@
     .ops{
       float:right;
       a{
-        font-size:12px;
+        font-size:14px;
         font-weight:normal;
       }
     }
@@ -97,6 +103,10 @@
         font-weight:normal;
         color:#999;
       }
+    }
+
+    p:last-child{
+      margin-bottom:0;
     }
   }
 }

@@ -30,7 +30,11 @@ class WikiController < ApplicationController
     return render :new, :layout=>'simple_form'
   end
   
-  
+  # 预览
+  def preview
+    @wiki_page = current_user.wiki_pages.build(params[:wiki_page])
+  end
+
   def edit
     render :layout=>'simple_form'
   end
@@ -63,16 +67,6 @@ class WikiController < ApplicationController
   
   # ------------------------
 
-  # 当前页面引用页
-  def refs
-    # 当前引用的
-    @refs = WikiPageRef.where(:product_id => params[:product_id], :from_page_title => params[:title])
-
-    # 引用当前的
-    @used_refs = WikiPageRef.where(:product_id => params[:product_id], :to_page_title => params[:title])
-
-  end
-
   # 编辑内容区块页面
   def edit_section
     section_number = params[:section].to_i
@@ -88,42 +82,30 @@ class WikiController < ApplicationController
     redirect_to URI.encode("/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}")
   end
 
+  # 当前页面引用页
+  def refs
+    # 当前引用的
+    @refs = WikiPageRef.where(:product_id => params[:product_id], :from_page_title => params[:title])
 
-  # # 用于跳转到个人首页
-  # def atme
-  #   user = User.find_by_name(params[:name])
+    # 引用当前的
+    @used_refs = WikiPageRef.where(:product_id => params[:product_id], :to_page_title => params[:title])
 
-  #   if user.nil?
-  #     render :status=>404 
-  #   else
-  #     redirect_to "/members/#{user.id}"
-  #   end
-  # end
+  end
 
+  # 没有被其他wiki页引用，也没有引用其他wiki页的页面
+  def orphan
+    wiki_pages = WikiPage.all
 
-  # # 处理词条预览 markdown 解析
-  # def preview
-  #   @title = params[:wiki_page][:title]
-  #   @content = WikiPage.new.formated_content(params[:wiki_page][:content])
+    @orphan_pages = []
+    wiki_pages.each do |wiki_page|
+      from = WikiPageRef.where(:product_id => wiki_page.product_id, :from_page_title => wiki_page.title).exists?
+      to = WikiPageRef.where(:product_id => wiki_page.product_id, :to_page_title => wiki_page.title).exists?
 
-  #   @product = Product.find(params[:wiki_page][:product_id])
-  # end
+      unless from || to
+        @orphan_pages << wiki_page
+      end
 
-  # # 没有被其他wiki页引用，也没有引用其他wiki页的页面
-  # def orphan
-  #   wiki_pages = WikiPage.all
-
-  #   @orphan_pages = []
-  #   wiki_pages.each do |wiki_page|
-  #     from = WikiPageRef.where(:product_id => wiki_page.product_id, :from_page_title => wiki_page.title).exists?
-  #     to = WikiPageRef.where(:product_id => wiki_page.product_id, :to_page_title => wiki_page.title).exists?
-
-  #     unless from || to
-  #       @orphan_pages << wiki_page
-  #     end
-
-  #   end
-  # end
-  
+    end
+  end  
 
 end

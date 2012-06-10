@@ -30,6 +30,12 @@ body .page-container{
         font-weight:bold;
         padding:15px;
         a{ @include white-link; }
+        .version{
+          font-size:12px;
+          font-weight:normal;
+          margin-top:10px;
+          color:#999;
+        }
       }
       .user{
         background-color:$COLOR-BG2;

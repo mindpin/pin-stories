@@ -1,4 +1,6 @@
-%ul
+.page-title #{@product.name} - WIKI - 孤立词条页
+
+.page-wiki-orphan-pages
   - @orphan_pages.each do |wiki_page|
-    %li
+    .wiki-page
       = link_to wiki_page.title, "/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}"

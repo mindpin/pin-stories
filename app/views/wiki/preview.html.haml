@@ -1,5 +1,7 @@
-.page-title WIKI词条预览
+.page-title WIKI - 词条预览 - #{@wiki_page.title}
+ 
+.page-wiki-page
+  .wiki-page-title
+    %span=@wiki_page.title
 
-.page-wiki-page-preview  
-  .wiki-page-title=@title
-  .wiki-page-content=@content
+  .wiki-page-content=@wiki_page.formatted_content

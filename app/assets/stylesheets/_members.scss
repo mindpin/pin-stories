@@ -49,3 +49,16 @@
     }
   }
 }
+
+.page-member-show{
+  .avatar{
+    background-color:$COLOR-BOX-BG;
+
+    $w:200px;
+    padding:$BOX-PADDING;
+    width:$w;height:$w;overflow:hidden;
+    img{width:$w;height:$w;}
+
+    @include transition(background-color ease-in .2s);
+  }
+}

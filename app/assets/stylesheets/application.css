@@ -344,6 +344,11 @@ body .page-container .page-sider {
         body .page-container .page-sider .head .title a:hover {
           color: #9fba6d;
           text-decoration: none; }
+      body .page-container .page-sider .head .title .version {
+        font-size: 12px;
+        font-weight: normal;
+        margin-top: 10px;
+        color: #999; }
     body .page-container .page-sider .head .user {
       background-color: #363537;
       position: relative;
@@ -1050,7 +1055,7 @@ form .form-preview {
 .page-product-nav {
   overflow: hidden;
   position: fixed;
-  top: 360px;
+  top: 388px;
   left: 20px;
   width: 280px;
   border-top: solid 5px #646464;
@@ -1411,6 +1416,19 @@ form .form-preview {
         margin-top: 10px; }
       .page-team-members .member a.box .meta .real-name {
         color: #999999; }
+
+.page-member-show .avatar {
+  background-color: #3e3d3f;
+  padding: 15px;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  -moz-transition: background-color ease-in 0.2s;
+  -webkit-transition: background-color ease-in 0.2s;
+  transition: background-color ease-in 0.2s; }
+  .page-member-show .avatar img {
+    width: 200px;
+    height: 200px; }
 
 .page-new-story form .field .stream-selector {
   overflow: hidden; }
@@ -1898,6 +1916,7 @@ form .form-preview {
     background-color: #646464;
     padding: 0 15px 0 36px;
     position: relative;
+    margin-right: 10px;
     -moz-transition: all ease-in 0.2s;
     -webkit-transition: all ease-in 0.2s;
     transition: all ease-in 0.2s; }
@@ -1923,6 +1942,10 @@ form .form-preview {
     .page-wiki-pages .ops a.new:hover {
       background-color: rgba(0, 0, 0, 0.9);
       text-decoration: none; }
+  .page-wiki-pages .ops a.orphan {
+    float: left;
+    height: 30px;
+    line-height: 30px; }
 .page-wiki-pages .wiki-page {
   height: 30px;
   line-height: 30px;
@@ -1942,7 +1965,7 @@ form .form-preview {
   .page-wiki-page-preview .wiki-page-title .ops, .page-wiki-page .wiki-page-title .ops {
     float: right; }
     .page-wiki-page-preview .wiki-page-title .ops a, .page-wiki-page .wiki-page-title .ops a {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: normal; }
 .page-wiki-page-preview .table-of-contents, .page-wiki-page .table-of-contents {
   background-color: #3e3d3f;
@@ -1989,6 +2012,8 @@ form .form-preview {
     float: right;
     font-weight: normal;
     color: #999; }
+  .page-wiki-page-preview .wiki-page-content p:last-child, .page-wiki-page .wiki-page-content p:last-child {
+    margin-bottom: 0; }
 
 .page-wiki-page-versions .version {
   background-color: #3e3d3f;
