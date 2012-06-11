@@ -27,7 +27,7 @@
       = link_to '删除', "#{url_prefix}", :method => :delete, :confirm => '是否确定删除'
 
     %p
-      = wiki_page.excerpts.content.html_safe
+      = link_to wiki_page.excerpts.content.html_safe, "#{url_prefix}", :class=>'new'
 
   %p
     = will_paginate @wiki_pages
