@@ -10,9 +10,9 @@ gem 'haml'
 gem "audited-activerecord"
 gem 'redcarpet', :require => 'redcarpet/compat'
 gem 'coderay'
+
 gem 'thinking-sphinx', '2.0.10'
 gem 'will_paginate', '~> 3.0'
-
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'

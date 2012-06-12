@@ -2024,3 +2024,72 @@ form .form-preview {
     box-shadow: 0 0 5px #FCBA15 inset, 0 0 5px #FCBA15; }
     .page-wiki-page-versions .version.current .is-current {
       color: #FCBA15; }
+
+.page-wiki-search {
+  background-color: #3e3d3f;
+  padding: 15px;
+  margin-bottom: 10px; }
+  .page-wiki-search form {
+    overflow: hidden; }
+    .page-wiki-search form input {
+      float: left;
+      margin-right: 5px; }
+    .page-wiki-search form .form-submit-button {
+      float: left;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border-radius: 0;
+      background: #363537;
+      border-color: rgba(255, 255, 255, 0.3);
+      height: 30px;
+      width: 30px;
+      padding: 0;
+      margin: 0;
+      font-size: 0;
+      line-height: 20em;
+      overflow: hidden;
+      position: relative; }
+      .page-wiki-search form .form-submit-button:hover {
+        background-color: #3e3d3f; }
+      .page-wiki-search form .form-submit-button:before {
+        content: '';
+        border: solid 3px white;
+        -moz-border-radius: 12px;
+        -webkit-border-radius: 12px;
+        border-radius: 12px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 6px;
+        left: 6px; }
+      .page-wiki-search form .form-submit-button:after {
+        content: '';
+        background-color: white;
+        -moz-border-radius: 12px;
+        -webkit-border-radius: 12px;
+        border-radius: 12px;
+        width: 4px;
+        height: 8px;
+        position: absolute;
+        top: 17px;
+        left: 19px;
+        -moz-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg); }
+
+.page-wiki-search-results .count {
+  background-color: #3e3d3f;
+  padding: 15px;
+  margin-bottom: 10px;
+  color: #999; }
+.page-wiki-search-results .wiki-page {
+  background-color: #3e3d3f;
+  padding: 15px;
+  margin-bottom: 10px; }
+  .page-wiki-search-results .wiki-page .title {
+    margin-bottom: 5px;
+    font-size: 14px; }
+    .page-wiki-search-results .wiki-page .title .match {
+      color: #FCBA15; }
+  .page-wiki-search-results .wiki-page .ct .match {
+    color: #FCBA15; }

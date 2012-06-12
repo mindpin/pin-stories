@@ -222,11 +222,19 @@ class WikiPageFormatter
       end
     end
 
-    part1 = lines[0 .. (start_line_num - 1)].map{|line| line.text}
-    part2 = [new_content, "\n"]
-    part3 = lines[(end_line_num + 1) .. -1 ].map{|line| line.text}
+    if(0 == start_line_num)
+      part2 = [new_content, "\n"]
+      part3 = lines[(end_line_num + 1) .. -1 ].map{|line| line.text}
 
-    return (part1 + part2 + part3)*''
+      return (part2 + part3)*''
+    else
+      part1 = lines[0 .. (start_line_num - 1)].map{|line| line.text}
+      part2 = [new_content, "\n"]
+      part3 = lines[(end_line_num + 1) .. -1 ].map{|line| line.text}
+      
+
+      return (part1 + part2 + part3)*''
+    end
   end
 
   # 分段编辑时，切分出需要的段落文字

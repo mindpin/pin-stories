@@ -28,9 +28,4 @@ Voteapp::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  # 用于全文索引
-  config.gem(
-    'thinking-sphinx', :version => '1.4.10'
-  )
-
 end
