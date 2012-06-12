@@ -33,7 +33,17 @@ class WikiController < ApplicationController
   
   # 预览
   def preview
-    @wiki_page = current_user.wiki_pages.build(params[:wiki_page])
+    wiki_page = current_user.wiki_pages.build({:title => params[:title], :content => params[:content]})
+
+    wiki = {:title => params[:title], :content => wiki_page.formatted_content}
+    # render :data => wiki_page.to_json
+    respond_to do |format|
+      format.html
+      format.json{
+        render :text => wiki.to_json
+      }
+    end
+
   end
 
   def edit

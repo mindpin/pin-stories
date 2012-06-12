@@ -14,7 +14,15 @@
 
     form_elm.attr('target', '_blank');
     form_elm.attr('action', url);
-    form_elm.submit();
+    // form_elm.submit();
+
+    $.post(url, { title: $('#wiki_page_title').val(), content: $('#wiki_page_content').val() },
+      function(data) {
+        $('#preview_title').html(data.title);
+        $('#preview_content').html(data.content);
+      }, 'json'
+    );
+
   }
 
 .page-title #{@product.name} WIKI - 创建新词条
@@ -36,3 +44,7 @@
       %a.form-submit-button{:href=>'javascript:;', :onclick => 'save()'} 保存
       %a.form-preview{:href=>'javascript:;', :onclick => 'preview()'} 预览
       %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消
+
+    .field
+      %p#preview_title
+      %p#preview_content
