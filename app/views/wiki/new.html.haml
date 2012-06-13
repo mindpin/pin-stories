@@ -18,9 +18,16 @@
 
     $.post(url, { title: $('#wiki_page_title').val(), content: $('#wiki_page_content').val() },
       function(data) {
-        $('#preview_title').html(data.title);
-        $('#preview_content').html(data.content);
-      }, 'json'
+        // alert(data.relative_search);
+        //$('#preview_title').html(data.title);
+        //$('#preview_content').html(data.content);
+        //if (data.relative_search.length > 0) {
+
+          //$('#preview_relative_search').html(data.relative_search.title);
+        //}
+        $('#preview_result').html(data);
+        
+      }
     );
 
   }
@@ -46,5 +53,8 @@
       %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消
 
     .field
+      %p#preview_result
+
       %p#preview_title
       %p#preview_content
+      %P#preview_relative_search

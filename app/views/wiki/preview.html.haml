@@ -1,7 +1,19 @@
-.page-title WIKI - 词条预览 - #{@wiki_page.title}
  
 .page-wiki-page
   .wiki-page-title
-    %span=@wiki_page.title
+    %span=@title
 
-  .wiki-page-content=@wiki_page.formatted_content
+  .wiki-page-content=@content
+
+  .wiki-page
+    - @relative_search.each do |wiki_page|
+      :ruby
+        product_id = wiki_page.product_id
+        path = "/products/#{product_id}/wiki/#{wiki_page.title}"
+
+        title = wiki_page.excerpts.title.html_safe
+        ct = wiki_page.excerpts.content.html_safe
+
+      .title=link_to title, path
+      .ct= ct
+
