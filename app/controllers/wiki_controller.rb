@@ -52,6 +52,8 @@ class WikiController < ApplicationController
       
       # 读取分词文件内容
       target_content = IO.read(target_file)
+      target_content = target_content.gsub(/[^A-Za-z0-9一-龥]+\/x/, '')
+      File.open(target_file, 'w') {|f| f.write(target_content) }
 
       # 把分词文件内容转为数组
       target_data = target_content.split(/\/x/).inject(Hash.new(0)) { |h,v| h[v] += 1; h }
