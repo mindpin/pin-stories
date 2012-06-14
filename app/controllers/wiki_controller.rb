@@ -35,44 +35,51 @@ class WikiController < ApplicationController
   def preview
     title = params[:title]
     content = params[:content]
-    wiki_page = current_user.wiki_pages.build({:title => title, :content => content})
 
-    filename = Time.now.to_i
-    source_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "source_#{filename}")
-    target_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "target_#{filename}")
+    if title.blank? || content.blank?
+      render :nothing => true
+    else
+      wiki_page = current_user.wiki_pages.build({:title => title, :content => content})
 
-    File.open(source_file, 'w') {|f| f.write(content) }
+      filename = Time.now.to_i
+      source_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "source_#{filename}")
+      target_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "target_#{filename}")
 
-    # 生成分词文件
-    IO.popen("/usr/local/mmseg3/bin/mmseg -d /usr/local/mmseg3/etc #{source_file} >> #{target_file}"){ |f| puts f.gets }
+      File.open(source_file, 'w') {|f| f.write(content) }
+
+      # 生成分词文件
+      IO.popen("/usr/local/mmseg3/bin/mmseg -d /usr/local/mmseg3/etc #{source_file} >> #{target_file}"){ |f| puts f.gets }
+      
+      # 读取分词文件内容
+      target_content = IO.read(target_file)
+
+      # 把分词文件内容转为数组
+      target_data = target_content.split(/\/x/).inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+
+      # 排序
+      sorted_target_data = target_data.sort{|a,b| b[1] <=> a[1]}
+
+      # 取得最多出现的头三个词
+      top_target_data = sorted_target_data[0..2]
+
+      top1 = top_target_data[0][0].gsub(/(\W|\d)/, "") unless top_target_data[0].nil?
+      top2 = top_target_data[1][0].gsub(/(\W|\d)/, "") unless top_target_data[1].nil?
+      top3 = top_target_data[2][0].gsub(/(\W|\d)/, "") unless top_target_data[2].nil?
+
+
+      # 搜索
+      search_result = WikiPage.search("#{top1} | #{top2} | #{top3}", 
+        :conditions => {:product_id => @product.id}
+      )
+
+      @title = params[:title]
+      @content = wiki_page.formatted_content
+      @relative_search = search_result
+
+      render :layout => false
+    end
+
     
-    # 读取分词文件内容
-    target_content = IO.read(target_file)
-
-    # 把分词文件内容转为数组
-    target_data = target_content.split(/\/x/).inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-
-    # 排序
-    sorted_target_data = target_data.sort{|a,b| b[1] <=> a[1]}
-
-    # 取得最多出现的头三个词
-    top_target_data = sorted_target_data[0..2]
-
-    top1 = top_target_data[0][0].gsub(/(\W|\d)/, "") unless top_target_data[0].nil?
-    top2 = top_target_data[1][0].gsub(/(\W|\d)/, "") unless top_target_data[1].nil?
-    top3 = top_target_data[2][0].gsub(/(\W|\d)/, "") unless top_target_data[2].nil?
-
-
-    # 搜索
-    search_result = WikiPage.search("#{top1} | #{top2} | #{top3}", 
-      :conditions => {:product_id => @product.id}
-    )
-
-    @title = params[:title]
-    @content = wiki_page.formatted_content
-    @relative_search = search_result
-
-    render :layout => false
 
 =begin
     @wiki = {:title => params[:title], :content => wiki_page.formatted_content, 
