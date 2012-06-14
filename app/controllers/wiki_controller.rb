@@ -58,9 +58,9 @@ class WikiController < ApplicationController
     # 取得最多出现的头三个词
     top_target_data = sorted_target_data[0..2]
 
-    top1 = top_target_data[0][0].gsub(/(\W|\d)/, "")
-    top2 = top_target_data[1][0].gsub(/(\W|\d)/, "")
-    top3 = top_target_data[2][0].gsub(/(\W|\d)/, "")
+    top1 = top_target_data[0][0].gsub(/(\W|\d)/, "") unless top_target_data[0].nil?
+    top2 = top_target_data[1][0].gsub(/(\W|\d)/, "") unless top_target_data[1].nil?
+    top3 = top_target_data[2][0].gsub(/(\W|\d)/, "") unless top_target_data[2].nil?
 
 
     # 搜索
