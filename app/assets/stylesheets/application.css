@@ -2089,5 +2089,7 @@ form .form-preview {
   .page-wiki-search-results .wiki-page .title {
     margin-bottom: 5px;
     font-size: 14px; }
+    .page-wiki-search-results .wiki-page .title .match {
+      color: #FCBA15; }
   .page-wiki-search-results .wiki-page .ct .match {
     color: #FCBA15; }

@@ -16,11 +16,12 @@
     :ruby
       product_id = wiki_page.product_id
       path = "/products/#{product_id}/wiki/#{wiki_page.title}"
-      title = wiki_page.title
-      ct = wiki_page.excerpts.content
+
+      title = wiki_page.excerpts.title.html_safe
+      ct = wiki_page.excerpts.content.html_safe
 
     .wiki-page
       .title=link_to title, path
-      .ct=ct.html_safe
+      .ct=ct
 
   .paginate=will_paginate @search_result
