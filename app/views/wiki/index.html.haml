@@ -2,6 +2,9 @@
 
 .page-title #{@product.name} - WIKI
 
+=render 'products/parts/wiki_search', :product=>@product, :current=>:wiki
+
+
 .page-wiki-pages
   .ops
     %a.new{:href=>"/products/#{@product.id}/wiki_new"} 创建新词条
