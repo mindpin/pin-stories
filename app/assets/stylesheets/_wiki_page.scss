@@ -127,3 +127,76 @@
     }
   }
 }
+
+.page-wiki-search{
+  background-color:$COLOR-BOX-BG;
+  padding:$BOX-PADDING;
+  margin-bottom:10px;
+
+  form{
+    overflow:hidden;
+    input{
+      float: left;
+      margin-right:5px;
+    }
+
+    .form-submit-button{
+      float: left;
+      @include border-radius(0);
+      background:$COLOR-BOX-BG2;
+      border-color:$COLOR-MEDIUM-LIGHT-BORDER;
+      &:hover{background-color:$COLOR-BOX-BG;}
+      
+      height:30px;
+      width:30px;
+      padding:0;margin:0;
+      font-size:0;line-height:20em;
+      overflow:hidden;
+      position:relative;
+
+      &:before{
+        content:'';
+        border:solid 3px white;
+        @include border-radius(12px);
+        width:10px;height:10px;
+        position:absolute;
+        top:6px;left:6px;
+      }
+
+      &:after{
+        content:'';
+        background-color: white;
+        @include border-radius(12px);
+        width:4px;height:8px;
+        position:absolute;
+        top:17px;left:19px;
+        @include transform(rotate(-45deg));
+      }
+    }
+  }
+}
+
+.page-wiki-search-results{
+
+  .count{
+    background-color:$COLOR-BOX-BG;
+    padding:$BOX-PADDING;
+    margin-bottom:10px;
+    color:#999;
+  }
+
+  .wiki-page{
+    background-color:$COLOR-BOX-BG;
+    padding:$BOX-PADDING;
+    margin-bottom:10px;
+
+    .title{
+      margin-bottom:5px;
+      font-size:14px;
+    }
+    .ct{
+      .match{color:#FCBA15;}
+    }
+
+  }
+}

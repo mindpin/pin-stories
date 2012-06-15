@@ -111,12 +111,10 @@ class WikiController < ApplicationController
 
   # 全文索引，搜索
   def search
-    @wiki_pages = WikiPage.search(params[:keyword], 
-                    :conditions => {:product_id => params[:product_id]}, 
-                    :page => params[:page], :per_page => 20)
-
-
-
+    @keyword = params[:keyword]
+    @search_result = WikiPage.search(@keyword, 
+      :conditions => {:product_id => @product.id}, 
+      :page => params[:page], :per_page => 20)
   end
 
 end
