@@ -9,6 +9,9 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+# ---- 全局配置 ----
+$SPHINX_SPILT_WORDS_TEMPFILE_PATH = '/web/sphinx_temp'
+
 module Voteapp
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

@@ -37,9 +37,9 @@ class WikiController < ApplicationController
     content = params[:content]
     wiki_page = current_user.wiki_pages.build({:title => title, :content => content})
 
-    filename = Time.now.to_time.to_i
-    source_file = "/Users/xiaorich/sphinx/fengci/source_#{filename}"
-    target_file = "/Users/xiaorich/sphinx/fengci/target_#{filename}"
+    filename = Time.now.to_i
+    source_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "source_#{filename}")
+    target_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "target_#{filename}")
 
     File.open(source_file, 'w') {|f| f.write(content) }
 

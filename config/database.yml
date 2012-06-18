@@ -5,7 +5,7 @@ development:
   encoding: utf8
   database: pin-stories
   username: root
-  password: '111111'
+  password: root
   host: localhost
 
 test:
