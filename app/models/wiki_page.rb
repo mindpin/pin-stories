@@ -99,6 +99,20 @@ class WikiPage < ActiveRecord::Base
     WikiPageFormatter.split_section(self, section_num)
   end
 
+  # --- 给其他类扩展的方法
+  module UserMethods
+    def self.included(base)
+      base.has_many :wiki_pages, :foreign_key => :creator_id
+
+      base.send(:include, InstanceMethods)
+    end
+    
+    module InstanceMethods
+      #Todo
+    end
+  end
+
+  # -------------- 这段需要放在最后，否则因为类加载顺序，会有警告信息
   # 设置全文索引字段
   define_index do
     # fields
@@ -112,17 +126,4 @@ class WikiPage < ActiveRecord::Base
     set_property :delta => true
   end
 
-
-  # --- 给其他类扩展的方法
-  module UserMethods
-    def self.included(base)
-      base.has_many :wiki_pages, :foreign_key => :creator_id
-
-      base.send(:include, InstanceMethods)
-    end
-    
-    module InstanceMethods
-      #Todo
-    end
-  end
 end
