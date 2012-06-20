@@ -244,7 +244,7 @@ class WikiController < ApplicationController
       end
     end
 
-    UserEvernoteAuth.create(:user_id => current_user.id, :access_token => access_token)
+    # UserEvernoteAuth.create(:user_id => current_user.id, :access_token => access_token)
 
   end
 
