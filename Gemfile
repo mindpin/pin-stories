@@ -1,4 +1,6 @@
-source 'http://rubygems.org'
+# source 'http://rubygems.org'
+source 'http://ruby.taobao.org'
+
 
 gem 'rails', '3.1.3'
 gem 'mysql2'
@@ -13,6 +15,9 @@ gem 'coderay'
 
 gem 'thinking-sphinx', '2.0.10'
 gem 'will_paginate', '~> 3.0'
+gem 'evernote', '~> 1.2.1'
+gem "oauth", '0.4.5'
+gem "thrift_client"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'

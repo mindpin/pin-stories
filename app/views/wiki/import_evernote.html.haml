@@ -1,0 +1,21 @@
+.page-title 导入 Evernote 数据
+  
+.page-edit-wiki-page
+  = flash.now[:error]
+  %form{:action => "/products/#{@product.id}/wiki_import_evernote", :method => "post", :name => "import_form"}
+    
+    .field
+      %label.need 用户名
+      %input{:name => "consumer_key", :type => "text"}/
+
+    .field
+      %label.need 密码
+      %input{:name => "consumer_secret", :type => "text"}/
+
+    .field
+      %label.need 笔记本名称
+      %input{:name => "notebook", :type => "text"}/
+      
+    .field
+      %a.form-submit-button{:href=>'javascript:;'} 确定
+      %a.form-cancel{:href=>"/products/#{@product_id}/wiki"} 取消

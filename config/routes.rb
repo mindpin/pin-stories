@@ -61,6 +61,13 @@ Voteapp::Application.routes.draw do
     end
 
     get  '/wiki_new' => 'wiki#new'
+
+    #  开始 evernote 路由
+    get  '/wiki_new_evernote' => 'wiki#new_evernote'
+    post '/wiki_import_evernote' => 'wiki#import_evernote'
+    get  '/wiki_import_evernotecallback' => 'wiki#import_evernote_callback'
+    #  结束 evernote
+
     post '/wiki'     => 'wiki#create'
     post '/wiki/preview' => 'wiki#preview'
 
@@ -68,6 +75,7 @@ Voteapp::Application.routes.draw do
 
     # 全文索引
     get '/wiki_search' => 'wiki#search'
+
   end
 
   get '/atme/:name' => 'atme#atme'

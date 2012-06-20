@@ -135,4 +135,119 @@ class WikiController < ApplicationController
       :page => params[:page], :per_page => 20)
   end
 
+  # 添加 Evernote 页面
+  def new_evernote
+    session[:oauth_verifier] = nil
+    session[:notebook] = nil
+    @product_id = params[:product_id]
+  end
+
+  # 导入 Evernote
+  def import_evernote
+    consumer_key = params[:consumer_key]
+    consumer_secret = params[:consumer_secret]
+    session[:notebook] = params[:notebook]
+
+    callback_url = request.url.chomp("requesttoken").concat("callback")
+
+    consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {
+        :site => 'https://sandbox.evernote.com/',
+        :request_token_path => "/oauth",
+        :access_token_path => "/oauth",
+        :authorize_path => "/OAuth.action"})
+
+
+    session[:request_token] = consumer.get_request_token(:oauth_callback => callback_url)
+    session[:request_token].authorize_url(:oauth_callback => callback_url)
+
+    if current_user.hasEvernoteAuth?
+      access_token = UserEvernoteAuth.find_by_user_id(current_user.id).access_token
+
+      evernoteHost = "sandbox.evernote.com"
+      userStoreUrl = "https://#{evernoteHost}/edam/user"
+      noteStoreUrlBase = "https://#{evernoteHost}/edam/note/"
+
+
+      noteStoreUrl = noteStoreUrlBase + access_token.params[:edam_shard]
+      noteStoreTransport = Thrift::HTTPClientTransport.new(noteStoreUrl)
+      noteStoreProtocol = Thrift::BinaryProtocol.new(noteStoreTransport)
+      noteStore = Evernote::EDAM::NoteStore::NoteStore::Client.new(noteStoreProtocol)
+
+      notebooks = noteStore.listNotebooks(access_token.token)
+
+      notebooks.each do |notebook|
+        filter = Evernote::EDAM::NoteStore::NoteFilter.new
+        filter.notebookGuid = notebook.guid
+        limit = 1000
+        offset  =0
+        note_list = noteStore.findNotes access_token.token, filter, offset, limit 
+
+        note_list.notes.each do |note|
+          p 887788778877887788778877887788778877
+          p note.title
+          p 99999999999999999999999999999999999
+          WikiPage.create(
+            :creator_id => current_user.id, 
+            :product_id => params[:product_id], 
+            :title => note.title,
+            :content => note.content
+          )
+        end
+      end
+    else
+      redirect_to session[:request_token].authorize_url(:oauth_callback => callback_url)
+    end
+    
+  end
+
+
+  def import_evernote_callback
+    session[:oauth_verifier] = params['oauth_verifier']
+
+    access_token = session[:request_token].get_access_token(:oauth_verifier=> params['oauth_verifier'])
+
+    p 111111111111111111111111111111111
+    p access_token.token
+    p 2222222222222222222222222222222222222222
+
+    evernoteHost = "sandbox.evernote.com"
+    userStoreUrl = "https://#{evernoteHost}/edam/user"
+    noteStoreUrlBase = "https://#{evernoteHost}/edam/note/"
+
+    noteStoreUrl = noteStoreUrlBase + access_token.params[:edam_shard]
+    noteStoreTransport = Thrift::HTTPClientTransport.new(noteStoreUrl)
+    noteStoreProtocol = Thrift::BinaryProtocol.new(noteStoreTransport)
+    noteStore = Evernote::EDAM::NoteStore::NoteStore::Client.new(noteStoreProtocol)
+
+    notebooks = noteStore.listNotebooks(access_token.token)
+
+    notebooks.each do |notebook|
+      filter = Evernote::EDAM::NoteStore::NoteFilter.new
+      filter.notebookGuid = notebook.guid
+      limit = 1000
+      offset  =0
+      note_list = noteStore.findNotes access_token.token, filter, offset, limit 
+
+
+
+      note_list.notes.each do |note|
+        p noteStore.getNote access_token.token, note.guid, true, true, true, true
+        p 887788778877887788778877887788778877
+        p note.title
+        p 99999999999999999999999999999999999
+        WikiPage.create(
+          :creator_id => current_user.id, 
+          :product_id => params[:product_id], 
+          :title => note.title,
+          :content => note.content
+        )
+      end
+    end
+
+    UserEvernoteAuth.create(:user_id => current_user.id, :access_token => access_token)
+
+  end
+
+
+
 end
