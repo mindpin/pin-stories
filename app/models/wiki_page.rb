@@ -9,7 +9,7 @@ class WikiPage < ActiveRecord::Base
   # --- 校验方法
   
   validates_format_of :title, 
-    :with => /^([A-Za-z0-9一-龥-]+)$/,
+    :with => /^([A-Za-z0-9一-龥-\s*]+)$/,
     :message => "标题不允许非法字符"
 
 
@@ -49,21 +49,23 @@ class WikiPage < ActiveRecord::Base
 
   def save_refs
     to_page_titles = []
-    self.content.each_line do |line|
-      if line =~ /\[\[(.*)\]\]/
-        to_page_titles << line.match(/\[\[(.*)\]\]/)[0].gsub(/\[\[(.*)\]\]/, '\1')
+    unless self.content.blank?
+      self.content.each_line do |line|
+        if line =~ /\[\[(.*)\]\]/
+          to_page_titles << line.match(/\[\[(.*)\]\]/)[0].gsub(/\[\[(.*)\]\]/, '\1')
+        end
       end
-    end
-    to_page_titles.uniq
+      to_page_titles.uniq
 
-    WikiPageRef.destroy_all(:product_id => self.product_id, :from_page_title => self.title)
+      WikiPageRef.destroy_all(:product_id => self.product_id, :from_page_title => self.title)
 
-    to_page_titles.each do |to_page_title|
-      wiki_page_ref = WikiPageRef.new
-      wiki_page_ref.product = self.product 
-      wiki_page_ref.from_page_title = self.title
-      wiki_page_ref.to_page_title = to_page_title
-      wiki_page_ref.save
+      to_page_titles.each do |to_page_title|
+        wiki_page_ref = WikiPageRef.new
+        wiki_page_ref.product = self.product 
+        wiki_page_ref.from_page_title = self.title
+        wiki_page_ref.to_page_title = to_page_title
+        wiki_page_ref.save
+      end
     end
   end
 
