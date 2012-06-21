@@ -158,7 +158,7 @@ class WikiController < ApplicationController
 
       EvernoteData.import(current_user, product_id, access_token, shard, session[:notebook_name], session[:tag_names])
 
-      # redirect_to "/products/#{product_id}/wiki"
+      redirect_to "/products/#{product_id}/wiki"
 
     else
       consumer_key = params[:consumer_key]
@@ -193,7 +193,7 @@ class WikiController < ApplicationController
       :shard =>  shard
     )
 
-    #redirect_to "/products/#{product_id}/wiki"
+    redirect_to "/products/#{product_id}/wiki"
 
   end
 
