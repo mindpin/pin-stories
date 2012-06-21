@@ -12,7 +12,7 @@ class EvernoteData
   end
 
   def self.import(current_user, product_id, access_token, shard, notebook_name, tag_names)
-  	tag_names = tag_names.split(/,/)
+  	tag_names = tag_names.gsub(/\s+/, " ").split(/, /)
  
 	  evernoteHost = "sandbox.evernote.com"
 	  userStoreUrl = "https://#{evernoteHost}/edam/user"
