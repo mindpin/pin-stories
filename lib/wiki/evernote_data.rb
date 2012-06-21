@@ -11,7 +11,8 @@ class EvernoteData
     consumer.get_request_token(:oauth_callback => callback_url)
   end
 
-  def self.import(current_user, product_id, access_token, shard, notebook_name)
+  def self.import(current_user, product_id, access_token, shard, notebook_name, tag_names)
+  	tag_names = tag_names.split(/,/)
  
 	  evernoteHost = "sandbox.evernote.com"
 	  userStoreUrl = "https://#{evernoteHost}/edam/user"
@@ -27,12 +28,8 @@ class EvernoteData
 	  notebooks = noteStore.listNotebooks(access_token.token)
 
 	  notebooks.each do |notebook|
-	  	p 222222222222222222222222222222222222222222222222
-	  	p notebook
-	  	p notebook.name
-	  	p notebook_name
-	  	p 111111111111111111111111111111111111111111111111
-	  	if notebook.name == notebook_name
+
+	  	if (notebook.name == notebook_name) || notebook_name.blank?
 		    filter = Evernote::EDAM::NoteStore::NoteFilter.new
 		    filter.notebookGuid = notebook.guid
 		    limit = 1000
@@ -42,12 +39,42 @@ class EvernoteData
 		    note_list.notes.each do |note|
 		    	content = noteStore.getNoteContent access_token.token, note.guid
 
-		      WikiPage.create(
-		        :creator_id => current_user.id, 
-		        :product_id => product_id, 
-		        :title => note.title,
-		        :content => content
-		      )
+		    	unless tag_names.length > 0
+		    		p 555555555555555555555555555555555555555555555555555555555555555555555555
+		    		WikiPage.create(
+			        :creator_id => current_user.id, 
+			        :product_id => product_id, 
+			        :title => note.title,
+			        :content => content
+			      )
+		    	else
+		    		p 66666666666666666666666666666666666666666666666666666666
+		    		p tag_names
+
+		    		node_tags = noteStore.getNoteTagNames access_token.token, note.guid
+		    		p node_tags
+		    		p 77777777777777777777777777777777777777777777777777777777777777777
+		    		
+		    		if node_tags.length > 0
+		    			
+			    		node_tags.each do |node_tag|
+			    			p 888888888888888888888888888888888888888888888888
+			    			if tag_names.include?(node_tag)
+			    				p 999999999999999999999999999999999999999999999999999999
+			    				WikiPage.create(
+						        :creator_id => current_user.id, 
+						        :product_id => product_id, 
+						        :title => note.title,
+						        :content => content
+						      )
+			    			end
+			    		end
+
+			    	end
+		    		
+		    	end
+
+		      
 		    end
 		  end
 

@@ -139,12 +139,14 @@ class WikiController < ApplicationController
   def new_evernote
     session[:oauth_verifier] = nil
     session[:notebook_name] = nil
+    session[:tag_names] = nil
     @product_id = params[:product_id]
   end
 
   # 导入 Evernote
   def import_evernote
     session[:notebook_name] = params[:notebook_name]
+    session[:tag_names] = params[:tag_names]
 
     if current_user.hasEvernoteAuth?
       product_id = params[:product_id]
@@ -154,9 +156,9 @@ class WikiController < ApplicationController
       access_token = Marshal.load(dump_access_token)
       shard = user_evernote_auth.shard
 
-      EvernoteData.import(current_user, product_id, access_token, shard, session[:notebook_name])
+      EvernoteData.import(current_user, product_id, access_token, shard, session[:notebook_name], session[:tag_names])
 
-      redirect_to "/products/#{product_id}/wiki"
+      # redirect_to "/products/#{product_id}/wiki"
 
     else
       consumer_key = params[:consumer_key]
@@ -176,12 +178,13 @@ class WikiController < ApplicationController
   def import_evernote_callback
     session[:oauth_verifier] = params['oauth_verifier']
     notebook_name = session[:notebook_name]
+    tag_names = session[:tag_names]
 
     access_token = session[:request_token].get_access_token(:oauth_verifier=> params['oauth_verifier'])
     product_id = params[:product_id]
     shard = access_token.params[:edam_shard]
 
-    EvernoteData.import(current_user, product_id, access_token, shard, notebook_name)
+    EvernoteData.import(current_user, product_id, access_token, shard, notebook_name, tag_names)
 
     dump_access_token = Marshal.dump(access_token)
     UserEvernoteAuth.create(
@@ -190,7 +193,7 @@ class WikiController < ApplicationController
       :shard =>  shard
     )
 
-    redirect_to "/products/#{product_id}/wiki"
+    #redirect_to "/products/#{product_id}/wiki"
 
   end
 
