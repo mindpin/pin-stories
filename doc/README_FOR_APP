@@ -1,6 +1,6 @@
 安装CoreSeek
 
- wget http://www.coreseek.cn/uploads/csft/3.2/coreseek-3.2.14.tar.gz
+wget http://www.coreseek.cn/uploads/csft/3.2/coreseek-3.2.14.tar.gz
 
 系统需要安装依赖：
 http://www.coreseek.cn/product_install/install_on_bsd_linux/#deps
@@ -30,6 +30,16 @@ $ cd csft-3.2.14 或者 cd csft-4.0.1 或者 cd csft-4.1
 $ sh buildconf.sh    #输出的warning信息可以忽略，如果出现error则需要解决
 $ ./configure --prefix=/usr/local/coreseek  --without-unixodbc --with-mmseg --with-mmseg-includes=/usr/local/mmseg3/include/mmseg/ --with-mmseg-libs=/usr/local/mmseg3/lib/ --with-mysql
 
+如果提示 libiconv 问题（redhat上）
+
+编辑：
+./src/MakeFile文件
+将
+LIBS = -lm -lexpat -L/usr/local/lib 
+改成
+LIBS = -lm -lexpat -liconv -L/usr/local/lib 
+
+
 ##如果提示mysql问题，可以查看MySQL数据源安装说明
 $ make && make install
 $ cd ..
@@ -41,5 +51,28 @@ $ /usr/local/mmseg3/bin/mmseg -d /usr/local/mmseg3/etc var/test/test.xml
 $ /usr/local/coreseek/bin/indexer -c etc/csft.conf --all
 $ /usr/local/coreseek/bin/search -c etc/csft.conf 网络搜索
 
+如果不行，可能需要：
+/aliyun/webserver/mysql-5.1.58/lib/mysql/libmysqlclient.so.16
+
 export PATH=/usr/local/coreseek/bin:$PATH
 export PATH=/usr/local/mmseg3/bin:$PATH
+
+
+
+-------------
+sphinx执行indexer 时报 libmysqlclient.so.16 错误，解决方法!
+2010-06-10
+今天安装sphinx后执行? bin/indexer 报：
+error while loading shared libraries: libmysqlclient.so.16: cannot open shared object file
+错误
+首先确定 libmysqlclient.so.16确实存在，出现这种错误可能是没有装载上。通过下列方法解决。
+执行ldd可以查看加载情况
+ldd /usr/local/sphinx/bin/indexer
+发现 libmysqlclient.so.16? not found 没有找到文件
+cat /etc/ld.so.conf
+vi? /etc/ld.so.conf
+添加
+/usr/local/mysql/bin/mysql
+到
+/etc/ld.so.conf 后面,保存。
+-------------
