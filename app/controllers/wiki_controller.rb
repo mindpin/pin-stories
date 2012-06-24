@@ -1,5 +1,6 @@
 class WikiController < ApplicationController
 
+  before_filter :login_required
   before_filter :pre_load
   def pre_load
     @product = Product.find(params[:product_id]) if params[:product_id]
@@ -42,9 +43,12 @@ class WikiController < ApplicationController
     if title.blank? || content.blank?
       render :text=>'尝试预览时未填写标题或内容'
     else
-      wiki_page = current_user.wiki_pages.build({:title => title, :content => content})
-
-
+      wiki_page = WikiPage.new({
+        :title   => title, 
+        :content => content, 
+        :product => @product,
+        :creator => current_user
+      })
 
       @title = params[:title]
       @content = wiki_page.formatted_content
@@ -52,6 +56,8 @@ class WikiController < ApplicationController
 
       render :layout => false
     end
+  rescue Exception => e
+    render :text=>"发生异常 #{e.class} : #{e}"
   end
 
   def edit

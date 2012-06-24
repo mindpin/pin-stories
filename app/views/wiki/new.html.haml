@@ -14,7 +14,8 @@
 
     form_elm.attr('target', '_blank');
     form_elm.attr('action', url);
-    // form_elm.submit();
+    
+    $('.page-new-wiki-page .preview_result').html('正在生成预览...');
 
     $.post(url, { title: $('#wiki_page_title').val(), content: $('#wiki_page_content').val() },
       function(data) {
@@ -25,7 +26,7 @@
 
           //$('#preview_relative_search').html(data.relative_search.title);
         //}
-        $('#preview_result').html(data);
+        $('.page-new-wiki-page .preview_result').html(data);
         
       }
     );
@@ -39,11 +40,11 @@
   = form_for @wiki_page, :url=>"/" do |f|
     .form-url-submit{:'data-url'=>"/products/#{@product.id}/wiki"}
     .form-url-preview{:'data-url'=>"/products/#{@product.id}/wiki/preview"}
-    .field
+    .field.title
       %label.need 页面标题
       = f.text_field :title
       
-    .field
+    .field.content
       %label.need 内容
       = f.text_area :content
       
@@ -52,5 +53,4 @@
       %a.form-preview{:href=>'javascript:;', :onclick => 'preview()'} 预览
       %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消
 
-    .field
-      %p#preview_result
+  .preview_result

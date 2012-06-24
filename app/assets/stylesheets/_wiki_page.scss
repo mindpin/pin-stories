@@ -1,3 +1,33 @@
+.page-new-wiki-page{
+  form{
+    .field.title{
+      padding-left:10px;
+      label{
+        margin-left:-10px;
+      }
+      input{
+        width:100%;
+        margin-left:-10px;
+        font-size:14px;
+      }
+    }
+    .field.content{
+      padding-left:10px;
+      label{
+        margin-left:-10px;
+      }
+      textarea{
+        width:100%;
+        margin-left:-10px;
+        padding:4px;
+        font-size:14px;
+      }
+    }
+
+    margin-bottom:20px;
+  }
+}
+
 .page-wiki-pages{
   .ops{
     overflow:hidden;
