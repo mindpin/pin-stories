@@ -1906,21 +1906,21 @@ form .form-preview {
     margin-bottom: 20px;
     overflow: hidden; }
 
-.page-new-wiki-page form {
+.page-new-wiki-page form, .page-edit-wiki-page form {
   margin-bottom: 20px; }
-  .page-new-wiki-page form .field.title {
+  .page-new-wiki-page form .field.title, .page-edit-wiki-page form .field.title {
     padding-left: 10px; }
-    .page-new-wiki-page form .field.title label {
+    .page-new-wiki-page form .field.title label, .page-edit-wiki-page form .field.title label {
       margin-left: -10px; }
-    .page-new-wiki-page form .field.title input {
+    .page-new-wiki-page form .field.title input, .page-edit-wiki-page form .field.title input {
       width: 100%;
       margin-left: -10px;
       font-size: 14px; }
-  .page-new-wiki-page form .field.content {
+  .page-new-wiki-page form .field.content, .page-edit-wiki-page form .field.content {
     padding-left: 10px; }
-    .page-new-wiki-page form .field.content label {
+    .page-new-wiki-page form .field.content label, .page-edit-wiki-page form .field.content label {
       margin-left: -10px; }
-    .page-new-wiki-page form .field.content textarea {
+    .page-new-wiki-page form .field.content textarea, .page-edit-wiki-page form .field.content textarea {
       width: 100%;
       margin-left: -10px;
       padding: 4px;

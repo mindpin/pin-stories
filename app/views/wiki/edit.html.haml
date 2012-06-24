@@ -23,7 +23,7 @@
       = f.hidden_field :product_id, :value=>@wiki_page.product_id
       = f.hidden_field :title, :value=>@wiki_page.title
       
-    .field
+    .field.content
       %label.need 内容
       %textarea{:name=>'wiki_page[content]', :id => 'wiki_page_content'} #{@wiki_page.content}
       

@@ -40,6 +40,7 @@
   = form_for @wiki_page, :url=>"/" do |f|
     .form-url-submit{:'data-url'=>"/products/#{@product.id}/wiki"}
     .form-url-preview{:'data-url'=>"/products/#{@product.id}/wiki/preview"}
+    
     .field.title
       %label.need 页面标题
       = f.text_field :title
