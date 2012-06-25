@@ -63,7 +63,7 @@ class EvernoteData
         note_list.notes.each do |note|
           content = noteStore.getNoteContent access_token.token, note.guid
 
-          unless tag_names.length > 0
+          if tag_names.nil?
             p 555555555555555555555555555555555555555555555555555555555555555555555555
             WikiPage.create(
               :creator => user, 

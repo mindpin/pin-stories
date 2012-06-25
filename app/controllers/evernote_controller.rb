@@ -40,7 +40,7 @@ class EvernoteController < ApplicationController
         notebook_names << notebook.name
       end
     else
-      
+      notebook_names = params[:notebook_names]
     end
 
     if has_all_tags == 'true'
@@ -49,6 +49,7 @@ class EvernoteController < ApplicationController
         tag_names << tag.name
       end
     else
+      tag_names = params[:tag_names]
     end
 
     EvernoteData.import(current_user, @product, notebook_names, tag_names)
