@@ -1951,6 +1951,7 @@ form .form-preview {
     padding: 0 15px 0 36px;
     position: relative;
     margin-right: 10px;
+    color: white;
     -moz-transition: all ease-in 0.2s;
     -webkit-transition: all ease-in 0.2s;
     transition: all ease-in 0.2s; }
@@ -1976,10 +1977,29 @@ form .form-preview {
     .page-wiki-pages .ops a.new:hover {
       background-color: rgba(0, 0, 0, 0.9);
       text-decoration: none; }
-  .page-wiki-pages .ops a.orphan {
+  .page-wiki-pages .ops a.orphan, .page-wiki-pages .ops a.connect-evernote, .page-wiki-pages .ops .import-evernote {
     float: left;
     height: 30px;
-    line-height: 30px; }
+    line-height: 30px;
+    background-color: #646464;
+    padding: 0 15px;
+    position: relative;
+    margin-right: 10px;
+    color: white;
+    -moz-transition: all ease-in 0.2s;
+    -webkit-transition: all ease-in 0.2s;
+    transition: all ease-in 0.2s; }
+    .page-wiki-pages .ops a.orphan:hover, .page-wiki-pages .ops a.connect-evernote:hover, .page-wiki-pages .ops .import-evernote:hover {
+      background-color: rgba(0, 0, 0, 0.9);
+      text-decoration: none; }
+  .page-wiki-pages .ops .evernote-connected {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 0 0 15px;
+    position: relative;
+    margin-right: 10px;
+    color: white; }
 .page-wiki-pages .wiki-page {
   height: 30px;
   line-height: 30px;
@@ -2067,14 +2087,13 @@ form .form-preview {
     overflow: hidden; }
     .page-wiki-search form input {
       float: left;
-      margin-right: 5px; }
+      margin-right: 1px; }
     .page-wiki-search form .form-submit-button {
       float: left;
       -moz-border-radius: 0;
       -webkit-border-radius: 0;
       border-radius: 0;
-      background: #363537;
-      border-color: rgba(255, 255, 255, 0.3);
+      border-color: rgba(0, 0, 0, 0.3);
       height: 30px;
       width: 30px;
       padding: 0;
@@ -2136,3 +2155,49 @@ form .form-preview {
     .page-new-issue .field.content label, .page-new-issue .field.content textarea {
       width: 100%;
       margin-left: -10px; }
+
+.page-evernote-notebook-list {
+  padding: 15px;
+  background-color: #3e3d3f; }
+  .page-evernote-notebook-list .desc {
+    margin-bottom: 10px; }
+  .page-evernote-notebook-list .notebooks {
+    margin-bottom: 10px; }
+    .page-evernote-notebook-list .notebooks .notebook {
+      padding: 0;
+      height: 30px;
+      line-height: 30px;
+      background-color: #363537;
+      margin-bottom: 10px;
+      overflow: hidden;
+      font-size: 14px; }
+      .page-evernote-notebook-list .notebooks .notebook .checkbox {
+        float: left;
+        height: 30px;
+        line-height: 30px;
+        background-color: #222;
+        margin-right: 15px;
+        width: 30px;
+        text-align: center; }
+      .page-evernote-notebook-list .notebooks .notebook:last-child {
+        margin-bottom: 0; }
+  .page-evernote-notebook-list .tags {
+    margin-bottom: 10px; }
+    .page-evernote-notebook-list .tags .tag {
+      padding: 0;
+      height: 30px;
+      line-height: 30px;
+      background-color: #363537;
+      margin-bottom: 10px;
+      overflow: hidden;
+      font-size: 14px; }
+      .page-evernote-notebook-list .tags .tag .checkbox {
+        float: left;
+        height: 30px;
+        line-height: 30px;
+        background-color: #222;
+        margin-right: 15px;
+        width: 30px;
+        text-align: center; }
+      .page-evernote-notebook-list .tags .tag:last-child {
+        margin-bottom: 0; }

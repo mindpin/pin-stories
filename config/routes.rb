@@ -63,9 +63,9 @@ Voteapp::Application.routes.draw do
     get  '/wiki_new' => 'wiki#new'
 
     #  开始 evernote 路由
-    get  '/wiki_new_evernote' => 'wiki#new_evernote'
-    post '/wiki_import_evernote' => 'wiki#import_evernote'
-    get  '/wiki_import_evernotecallback' => 'wiki#import_evernote_callback'
+    get '/wiki_evernote_connect'  => 'evernote#connect'
+    get '/wiki_evernote_callback' => 'evernote#callback'
+    get '/wiki_evernote_import'   => 'evernote#import'
     #  结束 evernote
 
     post '/wiki'     => 'wiki#create'

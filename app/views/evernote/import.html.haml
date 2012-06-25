@@ -1,0 +1,27 @@
+.page-title #{@product.name} - WIKI - 从 Evernote 导入数据
+
+.page-evernote-notebook-list
+  %form
+    .desc 目前你在 evernote 的笔记本列表:
+    .notebooks
+      - notebooks = EvernoteData.get_notebooks_of(current_user)
+      - notebooks.each do |notebook|
+        .notebook
+          .checkbox
+            %input{:type=>'checkbox', :checked=>true}
+          %span.name=notebook.name
+          %span.uuid guid: #{notebook.guid}
+
+    .desc 目前你在 evernote 的 TAG 列表:
+    .tags
+      - tags = EvernoteData.get_tags_of(current_user)
+      - tags.each do |tag|
+        .tag
+          .checkbox
+            %input{:type=>'checkbox', :checked=>true}
+          %span.name=tag.name
+          %span.uuid guid: #{tag.guid}
+
+    .field.submit
+      %a.form-submit-button{:href=>'javascript:;'} 确定导入
+      %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消

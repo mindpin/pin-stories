@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608024235) do
+ActiveRecord::Schema.define(:version => 20120625021958) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -117,6 +117,13 @@ ActiveRecord::Schema.define(:version => 20120608024235) do
   create_table "streams", :force => true do |t|
     t.string   "title",      :default => "", :null => false
     t.integer  "product_id",                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_evernote_auths", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "access_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

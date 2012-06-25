@@ -39,6 +39,7 @@
       padding:0 $BOX-PADDING 0 $BOX-PADDING + 24 - 3;
       position:relative;
       margin-right:10px;
+      color:white;
 
 
       &:before{
@@ -71,9 +72,29 @@
       }
     }
 
-    a.orphan{
+    a.orphan, a.connect-evernote, .import-evernote{
       float:left;
       height:30px;line-height:30px;
+      background-color:$COLOR-BOX-LIGHT-BG;
+      padding:0 $BOX-PADDING;
+      position:relative;
+      margin-right:10px;
+      color:white;
+
+      @include transition(all ease-in .2s);
+      &:hover{
+        background-color:$COLOR-BTN-DARK-BG-HOVER;
+        text-decoration:none;
+      }
+    }
+
+    .evernote-connected{
+      float:left;
+      height:30px;line-height:30px;
+      padding:0 0 0 $BOX-PADDING;
+      position:relative;
+      margin-right:10px;
+      color:white;
     }
   }
 
@@ -167,14 +188,14 @@
     overflow:hidden;
     input{
       float: left;
-      margin-right:5px;
+      margin-right:1px;
     }
 
     .form-submit-button{
       float: left;
       @include border-radius(0);
-      background:$COLOR-BOX-BG2;
-      border-color:$COLOR-MEDIUM-LIGHT-BORDER;
+      //background:$COLOR-BOX-BG2;
+      border-color:$COLOR-MEDIUM-BORDER;
       &:hover{background-color:$COLOR-BOX-BG;}
       
       height:30px;

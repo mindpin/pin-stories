@@ -1,0 +1,58 @@
+.page-evernote-notebook-list{
+  padding:$BOX-PADDING;
+  background-color:$COLOR-BG1;
+
+  .desc{
+    margin-bottom:10px;
+  }
+
+  .notebooks{
+    margin-bottom:10px;
+    .notebook{
+      padding:0;
+      height:30px;line-height:30px;
+      background-color:$COLOR-BG2;
+      margin-bottom:10px;
+      overflow:hidden;
+      font-size:14px;
+
+      .checkbox{
+        float:left;
+        height:30px;line-height:30px;
+        background-color:#222;
+        margin-right:$BOX-PADDING;
+        width:30px;
+        text-align:center;
+      }
+
+      &:last-child{
+        margin-bottom:0;
+      }
+    }
+  }
+
+  .tags{
+    margin-bottom:10px;
+    .tag{
+      padding:0;
+      height:30px;line-height:30px;
+      background-color:$COLOR-BG2;
+      margin-bottom:10px;
+      overflow:hidden;
+      font-size:14px;
+
+      .checkbox{
+        float:left;
+        height:30px;line-height:30px;
+        background-color:#222;
+        margin-right:$BOX-PADDING;
+        width:30px;
+        text-align:center;
+      }
+
+      &:last-child{
+        margin-bottom:0;
+      }
+    }
+  }
+}

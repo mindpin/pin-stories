@@ -12,6 +12,9 @@ end
 # ---- 全局配置 ----
 $SPHINX_SPILT_WORDS_TEMPFILE_PATH = '/web/sphinx_temp'
 
+$EVERNOTE_CONSUMER_KEY    = ''
+$EVERNOTE_CONSUMER_SECRET = ''
+
 module Voteapp
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

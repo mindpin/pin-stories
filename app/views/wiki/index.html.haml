@@ -6,9 +6,14 @@
 
 .page-wiki-pages
   .ops
-    %a.new{:href=>"/products/#{@product.id}/wiki_new_evernote"} 导入Evernote
     %a.new{:href=>"/products/#{@product.id}/wiki_new"} 创建新词条
     %a.orphan{:href=>"/products/#{@product.id}/wiki_orphan"} 查看孤立词条
+
+    -if current_user.has_evernote_auth?
+      .evernote-connected 已经连接到evernote
+      %a.import-evernote{:href=>"/products/#{@product.id}/wiki_evernote_import"} 从evernote导入数据
+    -else
+      %a.connect-evernote{:href=>"/products/#{@product.id}/wiki_evernote_connect"} 连接Evernote
 
   - @wiki_pages.each do |wiki_page|
     :ruby
