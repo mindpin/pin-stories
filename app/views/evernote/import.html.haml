@@ -1,32 +1,32 @@
 .page-title #{@product.name} - WIKI - 从 Evernote 导入数据
 
 .page-evernote-notebook-list
-  %form
+  %form{:action => "/products/#{@product.id}/wiki_evernote_doimport", :method => "post", :name => "saveform"}
     .desc 目前你在 evernote 的笔记本列表:
     .all-notebook
       .checkbox
-        %input{:type=>'checkbox', :checked=>true}
+        %input{:type=>'checkbox', :name=>'has_all_notebooks', :checked=>true, :value=>'true'}
       %span.name 导入全部笔记本
     .notebooks
       - notebooks = EvernoteData.get_notebooks_of(current_user)
       - notebooks.each do |notebook|
         .notebook
           .checkbox
-            %input{:type=>'checkbox', :checked=>true}
+            %input{:type=>'checkbox', :name=>'notebook_names[]', :checked=>true, :value=>"#{notebook.name}"}
           %span.name=notebook.name
           %span.uuid guid: #{notebook.guid}
 
     .desc 目前你在 evernote 的 TAG 列表:
     .all-tag
       .checkbox
-        %input{:type=>'checkbox', :checked=>true}
+        %input{:type=>'checkbox', :name=>'has_all_tags', :checked=>true,  :value=>'true'}
       %span.name 导入全部TAG
     .tags
       - tags = EvernoteData.get_tags_of(current_user)
       - tags.each do |tag|
         .tag
           .checkbox
-            %input{:type=>'checkbox', :checked=>true}
+            %input{:type=>'checkbox', :name=>'tag_names[]', :checked=>true, :value=>"#{tag.name}"}
           %span.name=tag.name
           %span.uuid guid: #{tag.guid}
 

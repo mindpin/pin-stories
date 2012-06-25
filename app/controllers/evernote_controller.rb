@@ -26,8 +26,33 @@ class EvernoteController < ApplicationController
   end
 
   def import
-    # EvernoteData.import(current_user, product_id, access_token, shard, notebook_name, tag_names)
+  end
 
+  def do_import
+    has_all_notebooks = params[:has_all_notebooks]
+    has_all_tags = params[:has_all_tags]
+
+    notebook_names = []
+    tag_names =[]
+    if has_all_notebooks == 'true'
+      notebooks = EvernoteData.get_notebooks_of(current_user)
+      notebooks.each do |notebook|
+        notebook_names << notebook.name
+      end
+    else
+      
+    end
+
+    if has_all_tags == 'true'
+      tags = EvernoteData.get_tags_of(current_user)
+      tags.each do |tag|
+        tag_names << tag.name
+      end
+    else
+    end
+
+    EvernoteData.import(current_user, @product, notebook_names, tag_names)
+    redirect_to "/products/#{@product.id}/wiki"
   end
 
 end

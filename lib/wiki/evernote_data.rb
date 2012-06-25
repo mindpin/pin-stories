@@ -46,13 +46,14 @@ class EvernoteData
 
   # 这里我改了一些变量名，逻辑是不是还对，我没有进一步测试
   # songliang 2012-06-25
-  def self.import(user, product, notebook_name, tag_names)
-    tag_names = tag_names.gsub(/\s+/, " ").split(/, /)
+  def self.import(user, product, notebook_names, tag_names)
+    access_token = user.get_evernote_access_token
+    noteStore = get_note_store(access_token)
 
     notebooks = self.get_notebooks_of(user)
 
     notebooks.each do |notebook|
-      if (notebook.name == notebook_name) || notebook_name.blank?
+      if notebook_names.include?(notebook.name)
         filter = Evernote::EDAM::NoteStore::NoteFilter.new
         filter.notebookGuid = notebook.guid
         limit  = 1000
