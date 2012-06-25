@@ -3,6 +3,10 @@
 .page-evernote-notebook-list
   %form
     .desc 目前你在 evernote 的笔记本列表:
+    .all-notebook
+      .checkbox
+        %input{:type=>'checkbox', :checked=>true}
+      %span.name 导入全部笔记本
     .notebooks
       - notebooks = EvernoteData.get_notebooks_of(current_user)
       - notebooks.each do |notebook|
@@ -13,6 +17,10 @@
           %span.uuid guid: #{notebook.guid}
 
     .desc 目前你在 evernote 的 TAG 列表:
+    .all-tag
+      .checkbox
+        %input{:type=>'checkbox', :checked=>true}
+      %span.name 导入全部TAG
     .tags
       - tags = EvernoteData.get_tags_of(current_user)
       - tags.each do |tag|

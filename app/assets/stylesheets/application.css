@@ -2161,6 +2161,22 @@ form .form-preview {
   background-color: #3e3d3f; }
   .page-evernote-notebook-list .desc {
     margin-bottom: 10px; }
+  .page-evernote-notebook-list .all-notebook, .page-evernote-notebook-list .all-tag {
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    background-color: #363537;
+    margin-bottom: 10px;
+    overflow: hidden;
+    font-size: 14px; }
+    .page-evernote-notebook-list .all-notebook .checkbox, .page-evernote-notebook-list .all-tag .checkbox {
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      background-color: #222;
+      margin-right: 15px;
+      width: 30px;
+      text-align: center; }
   .page-evernote-notebook-list .notebooks {
     margin-bottom: 10px; }
     .page-evernote-notebook-list .notebooks .notebook {

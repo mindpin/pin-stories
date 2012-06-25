@@ -6,6 +6,24 @@
     margin-bottom:10px;
   }
 
+  .all-notebook, .all-tag{
+    padding:0;
+    height:30px;line-height:30px;
+    background-color:$COLOR-BG2;
+    margin-bottom:10px;
+    overflow:hidden;
+    font-size:14px;
+
+    .checkbox{
+      float:left;
+      height:30px;line-height:30px;
+      background-color:#222;
+      margin-right:$BOX-PADDING;
+      width:30px;
+      text-align:center;
+    }
+  }
+
   .notebooks{
     margin-bottom:10px;
     .notebook{
