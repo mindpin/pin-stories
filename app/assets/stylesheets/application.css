@@ -2195,6 +2195,8 @@ form .form-preview {
         margin-right: 15px;
         width: 30px;
         text-align: center; }
+        .page-evernote-notebook-list .notebooks .notebook .checkbox input {
+          opacity: 0.2; }
       .page-evernote-notebook-list .notebooks .notebook:last-child {
         margin-bottom: 0; }
   .page-evernote-notebook-list .tags {
@@ -2215,5 +2217,7 @@ form .form-preview {
         margin-right: 15px;
         width: 30px;
         text-align: center; }
+        .page-evernote-notebook-list .tags .tag .checkbox input {
+          opacity: 0.2; }
       .page-evernote-notebook-list .tags .tag:last-child {
         margin-bottom: 0; }
