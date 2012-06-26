@@ -6,12 +6,19 @@ form{
     
     label{
       display:block;line-height:20px;height:20px;margin-bottom:5px;
+      font-size:14px;
+      padding-left:5px;
       &.need{
         &::after{
-          content:"";
-          display:inline-block;width:5px;height:5px;@include border-radius(5px);
-          background-color:lighten(red, 20%);
-          margin-left:5px;position:relative;top:-2px;
+          content:"(必填)";
+          display:inline-block;
+          // width:5px;height:5px;
+          // @include border-radius(5px);
+          // background-color:lighten(red, 20%);
+          // margin-left:5px;position:relative;top:-2px;
+          font-size:12px;
+          color:#FFBD00;
+          margin-left:5px;
         };
       }
     }
@@ -19,7 +26,7 @@ form{
     input[type=text], input[type=password], textarea{
       border:solid $COLOR-MORE-DARK-BORDER 1px;
       box-shadow:0 1px 2px $COLOR-BLACK-SHADOW inset;
-      font-size:12px;padding:0 4px;
+      font-size:14px;padding:0 4px;
       width:200px;
       @include numfont;
       &:focus{
@@ -31,22 +38,27 @@ form{
       height:30px;line-height:30px;
     }
     textarea{
-      width:500px;height:300px;
+      width:500px;height:300px;padding:4px;
     }
   }
+
+  .field.submit{overflow:hidden;}
   
+  $form-btn-height:38px;
+  $form-btn-padding:24px;
+
   .form-submit-button{
-    display:inline-block;
+    display:inline-block;float:left;
     @include gradient(#DD4B39, #C53727);
     @include border-radius(3px);
     box-shadow:1px 1px 2px $COLOR-BLACK-SHADOW;
     text-shadow:-1px -1px 0 $COLOR-BLACK-SHADOW;
     border:1px solid $COLOR-MEDIUM-LIGHT-BORDER;
-    height:28px;line-height:28px;
-    padding:0 $BUTTON-PADDING;
+    height:$form-btn-height;line-height:$form-btn-height;
+    padding:0 $form-btn-padding;
     font-size:14px;
     color:white;&:hover{color:white;text-decoration:none;};
-    margin-right:10px;
+    margin-right:10px;margin-top:10px;
     &:hover{
       @include lighten-gradient(#DD4B39, #C53727, 10%);
     }
@@ -61,15 +73,15 @@ form{
   }
   
   .form-cancel{
-    display:inline-block;
+    display:inline-block;float:left;
     @include gradient(#666, #555);
     @include border-radius(3px);
     box-shadow:1px 1px 2px $COLOR-BLACK-SHADOW;
     text-shadow:-1px -1px 0 $COLOR-BLACK-SHADOW;
     border:1px solid $COLOR-MEDIUM-LIGHT-BORDER;
-    height:28px;line-height:28px;
-    padding:0 $BUTTON-PADDING;
-    margin-right:10px;
+    height:$form-btn-height;line-height:$form-btn-height;
+    padding:0 $form-btn-padding;
+    margin-right:10px;margin-top:10px;
     font-size:14px;
     color:white;&:hover{color:white;text-decoration:none;};
     &:hover{

@@ -1,0 +1,10 @@
+.page-new-issue{
+  padding:$BOX-PADDING;
+  background-color:$COLOR-FORM-BG;
+
+  .field.content{
+    padding-left:10px;
+
+    label, textarea{width:100%;margin-left:-10px;}
+  }
+}

@@ -1,11 +1,12 @@
 @mixin base-font-family{
   //font-family:Tahoma,Arial,Helvetica,STHeiti,sans-serif;
-  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif;
+  font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, STHeiti, sans-serif;
 }
 
 @mixin number-font-family{
   //font-family:helvetica,'Helvetica Neue',arial,"liberation sans",freesans,sans-serif;
-  font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;
+  //font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;
+  font-family: "Microsoft Yahei", "微软雅黑", Arial, Liberation Sans, DejaVu Sans, sans-serif;
 }
 
 @mixin numfont{

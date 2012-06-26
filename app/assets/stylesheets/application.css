@@ -57,7 +57,7 @@ a img {
   border: none; }
 
 a em {
-  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
+  font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, STHeiti, sans-serif; }
 
 /*列表标签*/
 li ul, li ol {
@@ -83,7 +83,7 @@ dd {
 
 textarea {
   resize: none;
-  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
+  font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, STHeiti, sans-serif; }
 
 /*基础字体设置*/
 html {
@@ -93,7 +93,7 @@ body {
   font-size: 75%;
   background: #fff;
   color: #222;
-  font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif; }
+  font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, STHeiti, sans-serif; }
 
 /*各级标题*/
 h1, h2, h3, h4, h5, h6 {
@@ -453,26 +453,22 @@ form .field {
     display: block;
     line-height: 20px;
     height: 20px;
-    margin-bottom: 5px; }
+    margin-bottom: 5px;
+    font-size: 14px;
+    padding-left: 5px; }
     form .field label.need::after {
-      content: "";
+      content: "(必填)";
       display: inline-block;
-      width: 5px;
-      height: 5px;
-      -moz-border-radius: 5px;
-      -webkit-border-radius: 5px;
-      border-radius: 5px;
-      background-color: #ff6666;
-      margin-left: 5px;
-      position: relative;
-      top: -2px; }
+      font-size: 12px;
+      color: #FFBD00;
+      margin-left: 5px; }
   form .field input[type=text], form .field input[type=password], form .field textarea {
     border: solid rgba(0, 0, 0, 0.6) 1px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
-    font-size: 12px;
+    font-size: 14px;
     padding: 0 4px;
     width: 200px;
-    font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; }
+    font-family: "Microsoft Yahei", "微软雅黑", Arial, Liberation Sans, DejaVu Sans, sans-serif; }
     form .field input[type=text]:focus, form .field input[type=password]:focus, form .field textarea:focus {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(82, 168, 236, 0.6);
       border: solid 1px rgba(82, 168, 236, 0.8); }
@@ -481,9 +477,13 @@ form .field {
     line-height: 30px; }
   form .field textarea {
     width: 500px;
-    height: 300px; }
+    height: 300px;
+    padding: 4px; }
+form .field.submit {
+  overflow: hidden; }
 form .form-submit-button {
   display: inline-block;
+  float: left;
   background: -moz-linear-gradient(-90deg, #dd4b39, #c53727);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dd4b39), to(#c53727));
   -moz-border-radius: 3px;
@@ -492,12 +492,13 @@ form .form-submit-button {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  height: 28px;
-  line-height: 28px;
-  padding: 0 10px;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 24px;
   font-size: 14px;
   color: white;
-  margin-right: 10px; }
+  margin-right: 10px;
+  margin-top: 10px; }
   form .form-submit-button:hover {
     color: white;
     text-decoration: none; }
@@ -513,6 +514,7 @@ form .form-submit-button {
     color: #cacaca; }
 form .form-cancel {
   display: inline-block;
+  float: left;
   background: -moz-linear-gradient(-90deg, #666666, #555555);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#555555));
   -moz-border-radius: 3px;
@@ -521,10 +523,11 @@ form .form-cancel {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  height: 28px;
-  line-height: 28px;
-  padding: 0 10px;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 24px;
   margin-right: 10px;
+  margin-top: 10px;
   font-size: 14px;
   color: white; }
   form .form-cancel:hover {
@@ -632,17 +635,17 @@ form .form-preview {
   height: 24px;
   background-color: #363537;
   padding: 15px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  overflow: hidden; }
   .page-title a.go-back {
     background-color: #646464;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     display: inline-block;
-    height: 20px;
-    line-height: 20px;
-    padding: 0 6px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: -2px;
     font-size: 12px;
     color: white;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
@@ -650,11 +653,10 @@ form .form-preview {
     margin-left: 10px;
     position: relative;
     top: -2px;
+    padding: 0 10px 0 23px;
     -moz-transition: all ease-in 0.2s;
     -webkit-transition: all ease-in 0.2s;
-    transition: all ease-in 0.2s;
-    position: relative;
-    padding-left: 17px; }
+    transition: all ease-in 0.2s; }
     .page-title a.go-back:hover {
       color: white;
       text-decoration: none; }
@@ -663,18 +665,17 @@ form .form-preview {
     .page-title a.go-back:before, .page-title a.go-back:after {
       content: "";
       position: absolute;
-      width: 15px;
-      height: 15px;
-      left: -8px;
-      background-color: #363537;
-      border-right: solid 1px #555; }
+      width: 21px;
+      height: 21px;
+      left: -10px;
+      background-color: #363537; }
     .page-title a.go-back:before {
-      top: -8px;
+      top: -10px;
       -moz-transform: rotate(45deg);
       -webkit-transform: rotate(45deg);
       transform: rotate(45deg); }
     .page-title a.go-back:after {
-      bottom: -8px;
+      bottom: -11px;
       -moz-transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
@@ -1237,7 +1238,7 @@ form .form-preview {
     .page-product-stats .stat .c {
       font-size: 24px;
       font-weight: bold;
-      font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
+      font-family: "Microsoft Yahei", "微软雅黑", Arial, Liberation Sans, DejaVu Sans, sans-serif;
       float: left;
       height: 24px;
       line-height: 24px;
@@ -1430,32 +1431,41 @@ form .form-preview {
     width: 200px;
     height: 200px; }
 
-.page-new-story form .field .stream-selector {
-  overflow: hidden; }
-  .page-new-story form .field .stream-selector .stream {
-    background-color: #f7f7f7;
-    padding: 5px;
-    width: 200px;
-    margin-right: 10px;
-    margin-right: 10px;
-    float: left;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    overflow: hidden; }
-    .page-new-story form .field .stream-selector .stream .cb {
+.page-new-story, .page-edit-story {
+  padding: 15px;
+  background-color: #646464; }
+  .page-new-story form .field.how-to-demo, .page-new-story form .field.tips, .page-edit-story form .field.how-to-demo, .page-edit-story form .field.tips {
+    padding-left: 10px; }
+    .page-new-story form .field.how-to-demo label, .page-new-story form .field.how-to-demo textarea, .page-new-story form .field.how-to-demo input, .page-new-story form .field.tips label, .page-new-story form .field.tips textarea, .page-new-story form .field.tips input, .page-edit-story form .field.how-to-demo label, .page-edit-story form .field.how-to-demo textarea, .page-edit-story form .field.how-to-demo input, .page-edit-story form .field.tips label, .page-edit-story form .field.tips textarea, .page-edit-story form .field.tips input {
+      width: 100%;
+      margin-left: -10px; }
+  .page-new-story form .field.time-estimate select, .page-edit-story form .field.time-estimate select {
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: bold; }
+  .page-new-story form .field .stream-selector, .page-edit-story form .field .stream-selector {
+    overflow: hidden;
+    margin-left: 5px; }
+    .page-new-story form .field .stream-selector .stream, .page-edit-story form .field .stream-selector .stream {
+      background-color: #3e3d3f;
+      padding: 5px;
+      width: 200px;
+      margin-right: 10px;
+      margin-bottom: 10px;
       float: left;
-      height: 20px;
-      line-height: 20px;
-      margin-right: 5px; }
-    .page-new-story form .field .stream-selector .stream .t {
-      float: left;
-      height: 20px;
-      line-height: 20px;
-      margin: 0; }
+      overflow: hidden; }
+      .page-new-story form .field .stream-selector .stream .cb, .page-edit-story form .field .stream-selector .stream .cb {
+        float: left;
+        height: 20px;
+        line-height: 20px;
+        margin-right: 5px; }
+      .page-new-story form .field .stream-selector .stream .t, .page-edit-story form .field .stream-selector .stream .t {
+        float: left;
+        height: 20px;
+        line-height: 20px;
+        margin: 0; }
 
 .page-story-show {
-  width: 593.28px;
   position: relative;
   background-color: #3e3d3f;
   padding: 15px; }
@@ -1467,8 +1477,9 @@ form .form-preview {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     position: absolute;
-    top: 0px;
-    right: -300px; }
+    top: -20px;
+    right: 10px;
+    z-index: 2; }
     .page-story-show .admin-ops .t {
       background-color: #660000;
       text-align: center;
@@ -1568,8 +1579,7 @@ form .form-preview {
       border-bottom: solid 1px #646464;
       font-size: 14px;
       padding-bottom: 5px;
-      margin-bottom: 5px;
-      width: 366.647px; }
+      margin-bottom: 5px; }
     .page-story-show .how-to-demo .ct, .page-story-show .tips .ct, .page-story-show .assigned-members .ct, .page-story-show .status .ct {
       font-size: 14px; }
   .page-story-show .assigned-members {
@@ -1786,6 +1796,10 @@ form .form-preview {
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
             color: white; }
 
+.page-new-stream {
+  padding: 15px;
+  background-color: #646464; }
+
 .page-stream-show .stories .story, .page-mine-stories .stories .story {
   margin-bottom: 24px;
   width: 500px;
@@ -1832,7 +1846,7 @@ form .form-preview {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
-        font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
+        font-family: "Microsoft Yahei", "微软雅黑", Arial, Liberation Sans, DejaVu Sans, sans-serif;
         text-align: center;
         border: solid 1px rgba(0, 0, 0, 0.2);
         text-shadow: 1px 1px rgba(0, 0, 0, 0.2); }
@@ -2113,3 +2127,12 @@ form .form-preview {
       color: #FCBA15; }
   .page-wiki-search-results .wiki-page .ct .match {
     color: #FCBA15; }
+
+.page-new-issue {
+  padding: 15px;
+  background-color: #646464; }
+  .page-new-issue .field.content {
+    padding-left: 10px; }
+    .page-new-issue .field.content label, .page-new-issue .field.content textarea {
+      width: 100%;
+      margin-left: -10px; }

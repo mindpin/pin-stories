@@ -15,22 +15,22 @@
   -else
     =flash_info
     =form_for @story,:url=>"/products/#{@product.id}/stories" do |f|
-      .field
+      .field.how-to-demo
         %label 如何演示？(HOW TO DEMO)
         =f.text_area :how_to_demo
-      .field
+      .field.tips
         %label 补充说明和提示(TIPS)
         =f.text_area :tips
-      .field
+      .field.time-estimate
         %label 时间预估(TIME ESTIMATE)
         =f.select :time_estimate, [4, 8, 16, 24, 32, 40, 100]
-      .field
+      .field.stream
         %label 分配到故事序列
         .stream-selector
           -@product.streams.each do |stream|
             .stream
               .cb=check_box_tag('story[stream_story_links_attributes][][stream_id]', stream.id)
               .t=stream.title
-      .field
+      .field.submit
         %a.form-submit-button{:href=>'javascript:;'} 确定
         %a.form-cancel{:href=>product_show_url} 取消

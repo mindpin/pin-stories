@@ -1,7 +1,7 @@
 module AvatarHelper
   # 用户头像helper
   
-  def avatar(user, style = nil)
+  def avatar(user, style = :normal)
     klass = ['avatar-img', style]*' '
 
     if user.blank?
@@ -17,7 +17,7 @@ module AvatarHelper
     image_tag(src, :alt=>alt, :class=>klass, :'data-meta'=>meta)
   end
   
-  def avatar_link(user, style = nil)
+  def avatar_link(user, style = :normal)
     href  = user.blank? ? 'javascript:;' : "/members/#{user.id}"
     title = user.blank? ? '未知用户' : user.name
     

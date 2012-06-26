@@ -1,26 +1,37 @@
-.page-new-story{
+.page-new-story, .page-edit-story{
+  padding:$BOX-PADDING;
+  background-color:$COLOR-FORM-BG;
+
   form{
-    .field{
-      .stream-selector{
+    .field.how-to-demo, .field.tips{
+      padding-left:10px;
+
+      label, textarea, input{width:100%;margin-left:-10px;}
+    }
+
+    .field.time-estimate{
+      select{margin-left:5px;font-size:14px;font-weight:bold;}
+    }
+
+    .field .stream-selector{
+      overflow:hidden;
+      margin-left:5px;
+      .stream{
+        background-color:$COLOR-BG1;
+        padding:5px;width:200px;
+        margin-right:10px;margin-bottom:10px;
+        float:left;
         overflow:hidden;
-        .stream{
-          background-color:#f7f7f7;
-          padding:5px;width:200px;
-          margin-right:10px;margin-right:10px;
-          float:left;
-          @include border-radius(3px);
-          overflow:hidden;
-          .cb{float:left;height:20px;line-height:20px;margin-right:5px;}
-          .t{float:left;height:20px;line-height:20px;margin:0;}
-        }
+        .cb{float:left;height:20px;line-height:20px;margin-right:5px;}
+        .t{float:left;height:20px;line-height:20px;margin:0;}
       }
     }
   }
+
 }
 
 .page-story-show{
-  $w : 960px * 0.618;
-  width:$w;position:relative;
+  position:relative;
   background-color:$COLOR-BOX-BG;
   padding:$BOX-PADDING;
   
@@ -28,7 +39,8 @@
     padding:5px;
     border:dashed 1px #eee;
     background-color:#fafafa;@include border-radius(3px);
-    position:absolute;top:0px;right:-300px;
+    position:absolute;top:-20px;right:10px;
+    z-index:2;
     .t{
       background-color:darken(red,30%);
       text-align:center;
@@ -104,7 +116,6 @@
       font-weight:bold;
       border-bottom:solid 1px $COLOR-BOX-LIGHT-BG;
       font-size:14px;padding-bottom:5px;margin-bottom:5px;
-      width:$w * 0.618;
     }
     .ct{
       font-size:14px;

@@ -6,11 +6,12 @@
 
 .page-title="创建问题或建议: #{product_name}"
 
-=flash_info
-=form_for [@product, @issue] do |f|
-  .field
-    %label 问题或建议描述
-    =f.text_area :content
-  .field
-    %a.form-submit-button{:href=>'javascript:;'} 确定
-    %a.form-cancel{:href=>product_issues_url} 取消
+.page-new-issue
+  =flash_info
+  =form_for [@product, @issue] do |f|
+    .field.content
+      %label.need 问题或建议描述
+      =f.text_area :content
+    .field.submit
+      %a.form-submit-button{:href=>'javascript:;'} 确定
+      %a.form-cancel{:href=>product_issues_url} 取消

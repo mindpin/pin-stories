@@ -7,12 +7,13 @@
 
 .page-title="创建序列: #{product_name}"
 
-=flash_info
-=form_for @stream, :url=>"/products/#{@product.id}/streams" do |f|
-  .field
-    %label 序列标题
-    =f.text_field :title
-  .field
-    %a.form-submit-button{:href=>'javascript:;'} 确定
-    %a.form-cancel{:href=>product_show_url} 取消
+.page-new-stream
+  =flash_info
+  =form_for @stream, :url=>"/products/#{@product.id}/streams" do |f|
+    .field
+      %label.need 序列标题
+      =f.text_field :title
+    .field.submit
+      %a.form-submit-button{:href=>'javascript:;'} 确定
+      %a.form-cancel{:href=>product_show_url} 取消
 		
