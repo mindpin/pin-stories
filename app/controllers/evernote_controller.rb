@@ -57,7 +57,7 @@ class EvernoteController < ApplicationController
 
   def do_import
     override_list = params[:override_list]
-    override_dump_notebooks = params[:override_dump_notebooks]
+    override_notebooks = params[:override_notebooks]
     not_repeat_notebooks = params[:not_repeat_notebooks]
 
     # 处理需要覆盖的
@@ -65,7 +65,7 @@ class EvernoteController < ApplicationController
       override_list.each do |title, request_action|
         if request_action == 'true'
           wiki_page = WikiPage.where(:title => title).first
-          wiki_page.content = override_dump_notebooks[title]
+          wiki_page.content = override_notebooks[title]
           wiki_page.save
         end
       end

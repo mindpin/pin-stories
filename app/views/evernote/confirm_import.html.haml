@@ -16,7 +16,7 @@
               %input{:name => "override_list[#{notebook[:title]}]", :type => "radio", :value => "true"}/
               =notebook[:title]
               
-              %textarea{:name => "override_dump_notebooks[#{notebook[:title]}]", :style => "display:none;"} #{notebook[:content]}
+              %textarea{:name => "override_notebooks[#{notebook[:title]}]", :style => "display:none;"} #{notebook[:content]}
         - else
           %input{:type=>'hidden', :name=>"not_repeat_notebooks[#{notebook[:title]}]", :value=>"#{notebook[:content]}"}
 
