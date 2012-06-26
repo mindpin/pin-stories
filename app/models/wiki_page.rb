@@ -69,7 +69,7 @@ class WikiPage < ActiveRecord::Base
     end
   end
 
-  # 判断词条标题是否重复
+  # 判断词条标题是否重复·
   def is_title_repeat?
     WikiPage.where(:title => self.title).exists?
   end
@@ -101,6 +101,7 @@ class WikiPage < ActiveRecord::Base
     WikiPageFormatter.split_section(self, section_num)
   end
 
+  
   # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)

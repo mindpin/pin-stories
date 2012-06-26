@@ -43,9 +43,76 @@ class EvernoteData
     return self.get_note_store(access_token).listTags(access_token.token)
   end
 
+  def self.has_title_existed?(product_id, title)
+    WikiPage.where(:product_id => product_id, :title => title).exists?
+  end
 
-  # 这里我改了一些变量名，逻辑是不是还对，我没有进一步测试
-  # songliang 2012-06-25
+  def self.get_confirmed_notebooks(user, product, notebook_names, tag_names)
+    access_token = user.get_evernote_access_token
+    note_store = get_note_store(access_token)
+
+    notebooks = self.get_notebooks_of(user)
+    
+    confirmed_notebooks = []
+    
+    notebooks.each do |notebook|
+      if notebook_names.include?(notebook.name)
+        filter = Evernote::EDAM::NoteStore::NoteFilter.new
+        filter.notebookGuid = notebook.guid
+        limit  = 1000
+        offset = 0
+        note_list = note_store.findNotes access_token.token, filter, offset, limit 
+
+        note_list.notes.each do |note|
+          content = note_store.getNoteContent access_token.token, note.guid
+
+          if tag_names.nil?
+            confirmed_notebook_row = Hash.new
+            confirmed_notebook_row[:creator] = user
+            confirmed_notebook_row[:product] = product
+            confirmed_notebook_row[:title] = note.title
+            confirmed_notebook_row[:content] = content
+
+            confirmed_notebooks << confirmed_notebook_row
+          else
+            node_tags = note_store.getNoteTagNames access_token.token, note.guid
+            
+            if node_tags.length > 0
+              
+              node_tags.each do |node_tag|
+                if tag_names.include?(node_tag)
+                  confirmed_notebook_row = Hash.new
+                  confirmed_notebook_row[:creator] = user
+                  confirmed_notebook_row[:product] = product
+                  confirmed_notebook_row[:title] = note.title
+                  confirmed_notebook_row[:content] = content
+
+                  confirmed_notebooks << confirmed_notebook_row
+                end
+              end
+
+            # end of tag_names.nil
+            end
+          
+          # end of note_list.notes.each
+          end
+
+        # end of notebook_names.include?
+        end
+
+      # end of notebooks each
+      end
+
+    end
+
+    confirmed_notebooks
+
+  end
+
+  
+
+
+
   def self.import(user, product, notebook_names, tag_names)
     access_token = user.get_evernote_access_token
     note_store = get_note_store(access_token)

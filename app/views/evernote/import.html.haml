@@ -1,7 +1,7 @@
 .page-title #{@product.name} - WIKI - 从 Evernote 导入数据
 
 .page-evernote-notebook-list
-  %form{:action => "/products/#{@product.id}/wiki_evernote_doimport", :method => "post", :name => "saveform"}
+  %form{:action => "/products/#{@product.id}/wiki_evernote_confirmimport", :method => "post", :name => "saveform"}
     .desc 目前你在 evernote 的笔记本列表:
     .all-notebook
       .checkbox
@@ -31,5 +31,5 @@
           %span.uuid guid: #{tag.guid}
 
     .field.submit
-      %a.form-submit-button{:href=>'javascript:;'} 确定导入
+      %a.form-submit-button{:href=>'javascript:;'} 下一步
       %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消

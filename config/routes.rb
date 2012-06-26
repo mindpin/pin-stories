@@ -66,6 +66,7 @@ Voteapp::Application.routes.draw do
     get '/wiki_evernote_connect'  => 'evernote#connect'
     get '/wiki_evernote_callback' => 'evernote#callback'
     get '/wiki_evernote_import'   => 'evernote#import'
+    post '/wiki_evernote_confirmimport'   => 'evernote#confirm_import'
     post '/wiki_evernote_doimport'   => 'evernote#do_import'
     #  结束 evernote
 

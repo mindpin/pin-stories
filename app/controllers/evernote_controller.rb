@@ -28,7 +28,7 @@ class EvernoteController < ApplicationController
   def import
   end
 
-  def do_import
+  def confirm_import
     has_all_notebooks = params[:has_all_notebooks]
     has_all_tags = params[:has_all_tags]
 
@@ -52,7 +52,38 @@ class EvernoteController < ApplicationController
       tag_names = params[:tag_names]
     end
 
-    EvernoteData.import(current_user, @product, notebook_names, tag_names)
+    @confirmed_notebooks = EvernoteData.get_confirmed_notebooks(current_user, @product, notebook_names, tag_names)
+  end
+
+  def do_import
+    override_list = params[:override_list]
+    override_notebooks = params[:override_notebooks]
+    not_repeat_notebooks = params[:not_repeat_notebooks]
+
+    # 处理需要覆盖的
+    unless override_list.nil?
+      override_list.each do |title, request_action|
+        if request_action == 'true'
+          wiki_page = WikiPage.where(:title => title).first
+          wiki_page.content = override_notebooks[title]
+          wiki_page.save
+        end
+      end
+    end
+
+    # 处理不重复的
+    unless not_repeat_notebooks.nil?
+      not_repeat_notebooks.each do |title, content|
+        WikiPage.create(
+          :creator => current_user, 
+          :product => @product, 
+          :title => title,
+          :content => content
+        )
+      end
+    end
+
+    # render :action => 'test'
     redirect_to "/products/#{@product.id}/wiki"
   end
 
