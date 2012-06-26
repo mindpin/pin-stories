@@ -48,7 +48,7 @@ class EvernoteData
   # songliang 2012-06-25
   def self.import(user, product, notebook_names, tag_names)
     access_token = user.get_evernote_access_token
-    noteStore = get_note_store(access_token)
+    note_store = get_note_store(access_token)
 
     notebooks = self.get_notebooks_of(user)
 
@@ -58,10 +58,10 @@ class EvernoteData
         filter.notebookGuid = notebook.guid
         limit  = 1000
         offset = 0
-        note_list = noteStore.findNotes access_token.token, filter, offset, limit 
+        note_list = note_store.findNotes access_token.token, filter, offset, limit 
 
         note_list.notes.each do |note|
-          content = noteStore.getNoteContent access_token.token, note.guid
+          content = note_store.getNoteContent access_token.token, note.guid
 
           if tag_names.nil?
             p 555555555555555555555555555555555555555555555555555555555555555555555555
@@ -75,7 +75,7 @@ class EvernoteData
             p 66666666666666666666666666666666666666666666666666666666
             p tag_names
 
-            node_tags = noteStore.getNoteTagNames access_token.token, note.guid
+            node_tags = note_store.getNoteTagNames access_token.token, note.guid
             p node_tags
             p 77777777777777777777777777777777777777777777777777777777777777777
             
