@@ -1,8 +1,8 @@
 class EvernoteData
 
   EVERNOTE_HOST       = "www.evernote.com"
-  USER_STORE_URL      = "https://#{EVERNOTE_HOST}/edam/user/"
-  NOTE_STORE_URL_BASE = "https://#{EVERNOTE_HOST}/edam/note/"
+  USER_STORE_URL      = "http://#{EVERNOTE_HOST}/edam/user/"
+  NOTE_STORE_URL_BASE = "http://#{EVERNOTE_HOST}/edam/note/"
 
   def self.get_request_token(callback_url)
 
@@ -14,7 +14,7 @@ class EvernoteData
     raise '你需要在代码里声明 CONSUMER_KEY 和 CONSUMER_SECRET' if consumer_key.blank? || consumer_key.blank?
 
     consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {
-      :site               => 'https://www.evernote.com',
+      :site               => 'http://www.evernote.com',
       :request_token_path => '/oauth',
       :access_token_path  => '/oauth',
       :authorize_path     => '/OAuth.action'
@@ -43,137 +43,98 @@ class EvernoteData
     return self.get_note_store(access_token).listTags(access_token.token)
   end
 
+  # 判断是否已经在指定product下有相同title的wiki_page
   def self.has_title_existed?(product_id, title)
     WikiPage.where(:product_id => product_id, :title => title).exists?
   end
 
-  def self.get_confirmed_notebooks(user, product, notebook_names, tag_names)
+  # 根据传入的条件查找指定的笔记条目
+  # 如果 notebook_guids, tag_guids 传入值为 'all' 则不去做对应的过滤
+  # 否则，按数组内guid过滤
+  def self.get_selected_notes(user, notebook_guids, tag_guids)
     access_token = user.get_evernote_access_token
-    note_store = get_note_store(access_token)
+    note_store = self.get_note_store(access_token)
 
-    notebooks = self.get_notebooks_of(user)
-    
-    confirmed_notebooks = []
-    
-    notebooks.each do |notebook|
-      if notebook_names.include?(notebook.name)
+    if 'all' == notebook_guids
+      filter = Evernote::EDAM::NoteStore::NoteFilter.new
+      filter.tagGuids = tag_guids if 'all' != tag_guids
+
+      note_list = note_store.findNotes access_token.token, filter, 0, 1000
+
+      return note_list.notes
+    else
+      notes = []
+
+      notebook_guids.each do |notebook_guid|
         filter = Evernote::EDAM::NoteStore::NoteFilter.new
-        filter.notebookGuid = notebook.guid
-        limit  = 1000
-        offset = 0
-        note_list = note_store.findNotes access_token.token, filter, offset, limit 
+        filter.tagGuids = tag_guids if 'all' != tag_guids
+        filter.notebookGuid = notebook_guid
 
-        note_list.notes.each do |note|
-          content = note_store.getNoteContent access_token.token, note.guid
+        note_list = note_store.findNotes access_token.token, filter, 0, 1000
 
-          if tag_names.nil?
-            confirmed_notebook_row = Hash.new
-            confirmed_notebook_row[:creator] = user
-            confirmed_notebook_row[:product] = product
-            confirmed_notebook_row[:title] = note.title
-            confirmed_notebook_row[:content] = content
-
-            confirmed_notebooks << confirmed_notebook_row
-          else
-            node_tags = note_store.getNoteTagNames access_token.token, note.guid
-            
-            if node_tags.length > 0
-              
-              node_tags.each do |node_tag|
-                if tag_names.include?(node_tag)
-                  confirmed_notebook_row = Hash.new
-                  confirmed_notebook_row[:creator] = user
-                  confirmed_notebook_row[:product] = product
-                  confirmed_notebook_row[:title] = note.title
-                  confirmed_notebook_row[:content] = content
-
-                  confirmed_notebooks << confirmed_notebook_row
-                end
-              end
-
-            # end of tag_names.nil
-            end
-          
-          # end of note_list.notes.each
-          end
-
-        # end of notebook_names.include?
-        end
-
-      # end of notebooks each
+        notes = notes + note_list.notes
       end
 
+      return notes
     end
-
-    confirmed_notebooks
-
   end
 
-  
-
-
-=begin
-  def self.import(user, product, notebook_names, tag_names)
+  def self.get_note_content_by_guid(user, guid)
     access_token = user.get_evernote_access_token
-    note_store = get_note_store(access_token)
-
-    notebooks = self.get_notebooks_of(user)
-
-    notebooks.each do |notebook|
-      if notebook_names.include?(notebook.name)
-        filter = Evernote::EDAM::NoteStore::NoteFilter.new
-        filter.notebookGuid = notebook.guid
-        limit  = 1000
-        offset = 0
-        note_list = note_store.findNotes access_token.token, filter, offset, limit 
-
-        note_list.notes.each do |note|
-          content = note_store.getNoteContent access_token.token, note.guid
-
-          if tag_names.nil?
-            p 555555555555555555555555555555555555555555555555555555555555555555555555
-            WikiPage.create(
-              :creator => user, 
-              :product => product, 
-              :title => note.title,
-              :content => content
-            )
-          else
-            p 66666666666666666666666666666666666666666666666666666666
-            p tag_names
-
-            node_tags = note_store.getNoteTagNames access_token.token, note.guid
-            p node_tags
-            p 77777777777777777777777777777777777777777777777777777777777777777
-            
-            if node_tags.length > 0
-              
-              node_tags.each do |node_tag|
-                p 888888888888888888888888888888888888888888888888
-                if tag_names.include?(node_tag)
-                  p 999999999999999999999999999999999999999999999999999999
-                  WikiPage.create(
-                    :creator => user, 
-                    :product => product, 
-                    :title => note.title,
-                    :content => content
-                  )
-                end
-              end
-
-            end
-            
-          end
-
-          
-        end
-      end
-
-    end
-
+    return self.get_note_store(access_token).getNoteContent access_token.token, guid
   end
 
-=end
+  # def self.get_confirmed_notebooks(user, product, notebook_guids, tag_guids)
 
+    
+  #   confirmed_notebooks = []
+    
+  #   notebooks.each do |notebook|
+  #     if notebook_names.include?(notebook.name)
+  #       filter = Evernote::EDAM::NoteStore::NoteFilter.new
+  #       filter.notebookGuid = notebook.guid
+  #       limit  = 1000
+  #       offset = 0
+  #       note_list = note_store.findNotes access_token.token, filter, offset, limit 
+
+  #       note_list.notes.each do |note|
+  #         content = note_store.getNoteContent access_token.token, note.guid
+
+  #         if tag_names.nil?
+  #           confirmed_notebook_row = Hash.new
+  #           confirmed_notebook_row[:creator] = user
+  #           confirmed_notebook_row[:product] = product
+  #           confirmed_notebook_row[:title] = note.title
+  #           confirmed_notebook_row[:content] = content
+
+  #           confirmed_notebooks << confirmed_notebook_row
+  #         else
+  #           node_tags = note_store.getNoteTagNames access_token.token, note.guid
+            
+  #           if node_tags.length > 0
+              
+  #             node_tags.each do |node_tag|
+  #               if tag_names.include?(node_tag)
+  #                 confirmed_notebook_row = Hash.new
+  #                 confirmed_notebook_row[:creator] = user
+  #                 confirmed_notebook_row[:product] = product
+  #                 confirmed_notebook_row[:title] = note.title
+  #                 confirmed_notebook_row[:content] = content
+
+  #                 confirmed_notebooks << confirmed_notebook_row
+  #               end
+  #             end
+
+  #           # end of tag_names.nil
+  #           end
+  #         # end of note_list.notes.each
+  #         end
+  #       # end of notebook_names.include?
+  #       end
+  #     # end of notebooks each
+  #     end
+  #   end
+  #   confirmed_notebooks
+  # end
 
 end

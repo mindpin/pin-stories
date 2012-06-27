@@ -481,7 +481,7 @@ form .field {
     padding: 4px; }
 form .field.submit {
   overflow: hidden; }
-form .form-submit-button {
+form .form-submit-button, form .form-submit-button-no-default-event {
   display: inline-block;
   float: left;
   background: -moz-linear-gradient(-90deg, #dd4b39, #c53727);
@@ -499,13 +499,13 @@ form .form-submit-button {
   color: white;
   margin-right: 10px;
   margin-top: 10px; }
-  form .form-submit-button:hover {
+  form .form-submit-button:hover, form .form-submit-button-no-default-event:hover {
     color: white;
     text-decoration: none; }
-  form .form-submit-button:hover {
+  form .form-submit-button:hover, form .form-submit-button-no-default-event:hover {
     background: -moz-linear-gradient(-90deg, #e47365, #da5445);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e47365), to(#da5445)); }
-  form .form-submit-button.disabled {
+  form .form-submit-button.disabled, form .form-submit-button-no-default-event.disabled {
     background: -moz-linear-gradient(-90deg, #fbfbfb, #f4f4f4);
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fbfbfb), to(#f4f4f4));
     border: solid 1px #ccc;
@@ -2187,6 +2187,9 @@ form .form-preview {
       margin-bottom: 10px;
       overflow: hidden;
       font-size: 14px; }
+      .page-evernote-notebook-list .notebooks .notebook span.guid {
+        font-size: 11px;
+        color: #666; }
       .page-evernote-notebook-list .notebooks .notebook .checkbox {
         float: left;
         height: 30px;
@@ -2200,7 +2203,7 @@ form .form-preview {
       .page-evernote-notebook-list .notebooks .notebook:last-child {
         margin-bottom: 0; }
   .page-evernote-notebook-list .tags {
-    margin-bottom: 10px; }
+    margin-bottom: 11px; }
     .page-evernote-notebook-list .tags .tag {
       padding: 0;
       height: 30px;
@@ -2209,6 +2212,9 @@ form .form-preview {
       margin-bottom: 10px;
       overflow: hidden;
       font-size: 14px; }
+      .page-evernote-notebook-list .tags .tag span.guid {
+        font-size: 10px;
+        color: #666; }
       .page-evernote-notebook-list .tags .tag .checkbox {
         float: left;
         height: 30px;
@@ -2221,3 +2227,45 @@ form .form-preview {
           opacity: 0.2; }
       .page-evernote-notebook-list .tags .tag:last-child {
         margin-bottom: 0; }
+
+.page-evernote-import-confirm {
+  padding: 15px;
+  background-color: #3e3d3f; }
+  .page-evernote-import-confirm .desc {
+    margin-bottom: 10px; }
+  .page-evernote-import-confirm .notes {
+    margin-bottom: 10px; }
+    .page-evernote-import-confirm .notes .note {
+      padding: 0 15px;
+      height: 30px;
+      line-height: 30px;
+      background-color: #363537;
+      margin-bottom: 10px;
+      overflow: hidden;
+      font-size: 12px; }
+      .page-evernote-import-confirm .notes .note span.guid {
+        font-size: 11px;
+        color: #666; }
+      .page-evernote-import-confirm .notes .note .checkbox {
+        float: left;
+        height: 30px;
+        line-height: 30px;
+        background-color: #222;
+        margin-right: 15px;
+        width: 30px;
+        text-align: center; }
+        .page-evernote-import-confirm .notes .note .checkbox input {
+          opacity: 0.2; }
+      .page-evernote-import-confirm .notes .note:last-child {
+        margin-bottom: 0; }
+  .page-evernote-import-confirm .title-repeat-deal-method {
+    margin-bottom: 10px;
+    padding: 0 15px;
+    line-height: 30px;
+    background-color: #363537; }
+  .page-evernote-import-confirm span.status {
+    height: 40px;
+    line-height: 40px;
+    margin: 10px 10px 0 0;
+    float: left;
+    color: #FCBA15; }

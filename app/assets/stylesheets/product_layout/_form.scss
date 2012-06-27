@@ -47,7 +47,7 @@ form{
   $form-btn-height:38px;
   $form-btn-padding:24px;
 
-  .form-submit-button{
+  .form-submit-button, .form-submit-button-no-default-event{
     display:inline-block;float:left;
     @include gradient(#DD4B39, #C53727);
     @include border-radius(3px);

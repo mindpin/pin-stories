@@ -9,12 +9,13 @@ class WikiPage < ActiveRecord::Base
   # --- 校验方法
   
   validates_format_of :title, 
-    :with => /^([A-Za-z0-9一-龥-\s*]+)$/,
+    :with => /^([A-Za-z0-9一-龥\-\s*]+)$/,
     :message => "标题不允许非法字符"
 
 
   validates_uniqueness_of :title, :message => "不能重复"
   
+  validates :title,   :presence => true
   validates :product, :presence => true
   validates :creator, :presence => true
 

@@ -26,70 +26,44 @@ class EvernoteController < ApplicationController
   end
 
   def import
+    @notebooks = EvernoteData.get_notebooks_of(current_user)
+    @tags = EvernoteData.get_tags_of(current_user)
   end
 
   def confirm_import
-    has_all_notebooks = params[:has_all_notebooks]
-    has_all_tags = params[:has_all_tags]
+    notebook_guids = params[:import_all_notebooks] || params[:notebook_guids]
+    tag_guids      = params[:import_all_tags] || params[:tag_guids]
 
-    @notebook_names = []
-    @tag_names =[]
-    if has_all_notebooks == 'true'
-      notebooks = EvernoteData.get_notebooks_of(current_user)
-      notebooks.each do |notebook|
-        @notebook_names << notebook.name
-      end
-    else
-      @notebook_names = params[:notebook_names]
-    end
-
-    if has_all_tags == 'true'
-      tags = EvernoteData.get_tags_of(current_user)
-      tags.each do |tag|
-        @tag_names << tag.name
-      end
-    else
-      @tag_names = params[:tag_names]
-    end
-
-    @confirmed_notebooks = EvernoteData.get_confirmed_notebooks(current_user, @product, @notebook_names, @tag_names)
+    @found_notes = EvernoteData.get_selected_notes(current_user, notebook_guids, tag_guids)
   end
 
+  # 尝试导入一条笔记
   def do_import
-    override_list = params[:override_list]
-    not_repeat_notebooks = params[:not_repeat_notebooks]
-    tag_names = params[:tag_names]
-    notebook_names = params[:notebook_names]
+    repeat_deal = params[:repeat_deal]
+    note_guid = params[:guid]
+    note_title = params[:title]
 
-    confirmed_notebooks = EvernoteData.get_confirmed_notebooks(current_user, @product, notebook_names, tag_names)
-
-    # 处理需要覆盖的
-    unless override_list.nil?
-      confirmed_notebooks.each do |notebook|
-        if override_list.include?(notebook[:title])
-          wiki_page = WikiPage.find_by_title(notebook[:title])
-          wiki_page.content = notebook[:content]
-          wiki_page.save
-        end
+    if('drop' == repeat_deal)
+      if WikiPage.find_by_title(note_title).blank?
+        wiki_page = WikiPage.new
+        wiki_page.title = note_title
+        wiki_page.content = EvernoteData.get_note_content_by_guid(current_user, note_guid)
+        wiki_page.creator = current_user
+        wiki_page.product = @product
+        wiki_page.save!
       end
     end
 
-    # 处理不重复的
-    unless not_repeat_notebooks.nil?
-      confirmed_notebooks.each do |notebook|
-        if not_repeat_notebooks.include?(notebook[:title])
-          WikiPage.create(
-            :creator => current_user, 
-            :product => @product, 
-            :title => notebook[:title],
-            :content => notebook[:content]
-          )
-        end
-      end
+    if('replace' == repeat_deal)
+      wiki_page = WikiPage.find_by_title(note_title) || WikiPage.new
+      wiki_page.content = EvernoteData.get_note_content_by_guid(current_user, note_guid)
+      wiki_page.save!
     end
 
-    # render :action => 'test'
-    redirect_to "/products/#{@product.id}/wiki"
+    render :text=>'ok'
+  rescue Exception=>ex
+    p ex
+    render :status=>500, :text=>ex
   end
 
 end

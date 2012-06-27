@@ -1,39 +1,23 @@
 .page-title #{@product.name} - WIKI - 从 Evernote 导入数据
 
-.page-evernote-notebook-list
-  %form{:action => "/products/#{@product.id}/wiki_evernote_doimport", :method => "post", :name => "saveform"}
-    - unless @notebook_names.nil?
-      - @notebook_names.each do |notebook_name|
-        %input{:type=>'hidden', :name=>"notebook_names[]", :value=>"#{notebook_name}"}
+.page-evernote-import-confirm
+  %form{:action => "/products/#{@product.id}/wiki_evernote_doimport", :method=>'post'}
+    .desc 准备导入 #{@found_notes.length} 条笔记
+    .notes
+      -@found_notes.each do |note|
+        .note{:'data-guid'=>note.guid, :'data-title'=>note.title}
+          .title=truncate_u note.title, 32
 
-    - unless @tag_names.nil?
-      - @tag_names.each do |tag_name|
-        %input{:type=>'hidden', :name=>"tag_names[]", :value=>"#{tag_name}"}
-
-    .desc 目前你在 evernote 的笔记本列表:
-    .notebooks
-      - repeat_count, not_repeat_count = 0, 0
-      - @confirmed_notebooks.each do |notebook|
-       
-        - if EvernoteData.has_title_existed?(params[:product_id], notebook[:title])
-          :ruby
-            repeat_count += 1
-          .notebook
-            %span.name
-              忽略 
-              %input{:name => "override_list[#{notebook[:title]}]", :type => "radio", :value => ""}/
-              覆盖 
-              %input{:name => "override_list[#{notebook[:title]}]", :type => "radio", :value => "#{notebook[:title]}"}/
-              =notebook[:title]
-        - else
-          :ruby
-            not_repeat_count += 1
-          %input{:type=>'hidden', :name=>"not_repeat_notebooks[]", :value=>"#{notebook[:title]}"}
-
-      %p
-        = "将会导入 #{@confirmed_notebooks.length} 记录, 其中重复条数为 #{repeat_count}"
-
+    .desc 如果出现重复标题，按以下方式处理：
+    .title-repeat-deal-method
+      .sel
+        %span 忽略evernote笔记
+        %input{:name => 'repeat_deal', :type=>"radio", :value=>'drop', :checked=>true}
+      .sel
+        %span 以evernote笔记覆盖原词条 
+        %input{:name => 'repeat_deal', :type=>"radio", :value=>'replace'}
 
     .field.submit
-      %a.form-submit-button{:href=>'javascript:;'} 确认导入
+      %a.form-submit-button-no-default-event{:href=>'javascript:;'} 确认导入
       %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消
+      %span.status
