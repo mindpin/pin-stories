@@ -40,22 +40,22 @@ class WikiController < ApplicationController
     title = params[:title]
     content = params[:content]
 
-    if title.blank? || content.blank?
-      render :text=>'尝试预览时未填写标题或内容'
-    else
-      wiki_page = WikiPage.new({
-        :title   => title, 
-        :content => content, 
-        :product => @product,
-        :creator => current_user
-      })
+    wiki_page = WikiPage.new({
+      :title   => title, 
+      :content => content, 
+      :product => @product,
+      :creator => current_user,
+      :preview => true
+    })
 
-      @title = params[:title]
-      @content = wiki_page.formatted_content
-      @relative_search = WikiPageRecommander.recommand_by_content(@product, content)
+    wiki_page.fix_title
 
-      render :layout => false
-    end
+    @title = wiki_page.title
+    @content = wiki_page.formatted_content_for_preview
+
+    @recommander_wiki_pages = WikiPageRecommander.recommand_by_content(@product, content)
+
+    render :layout => false
   rescue Exception => e
     render :text=>"发生异常 #{e.class} : #{e}"
   end

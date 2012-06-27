@@ -1,19 +1,18 @@
- 
-.page-wiki-page
-  .wiki-page-title
-    %span=@title
+.wiki-page-title
+  %span=@title
 
-  .wiki-page-content=@content
+.wiki-page-content=@content
 
-  .wiki-page
-    - @relative_search.each do |wiki_page|
-      :ruby
-        product_id = wiki_page.product_id
-        path = "/products/#{product_id}/wiki/#{wiki_page.title}"
+.recommander-wiki-pages
+  - @recommander_wiki_pages.each do |wiki_page|
+    :ruby
+      product_id = wiki_page.product_id
+      path = "/products/#{product_id}/wiki/#{wiki_page.title}"
 
-        title = wiki_page.excerpts.title.html_safe
-        ct = wiki_page.excerpts.content.html_safe
+      title = wiki_page.excerpts.title.html_safe
+      ct = wiki_page.excerpts.content.html_safe
 
+    .wiki-page
       .title=link_to title, path
       .ct= ct
 

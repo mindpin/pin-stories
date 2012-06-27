@@ -107,7 +107,7 @@
 }
 
 
-.page-wiki-page-preview, .page-wiki-page{
+.page-wiki-page{
   .wiki-page-title{
     background-color:$COLOR-BOX-BG;
     font-size:28px;
@@ -158,6 +158,34 @@
 
     p:last-child{
       margin-bottom:0;
+    }
+  }
+}
+
+.page-new-wiki-page .preview_result, .page-edit-wiki-page .preview_result{
+  @extend .page-wiki-page;
+
+  .recommander-wiki-pages{
+    margin-top:10px;
+
+    &:before{
+      content:'相关词条推荐:';
+      display:block;
+      margin-bottom:10px;
+    }
+
+    .wiki-page{
+      background-color:$COLOR-BOX-BG;
+      margin-bottom:10px;
+
+      .title{height:30px;line-height:30px;
+        background-color:$COLOR-BOX-BG2;
+        padding:0 $BOX-PADDING;
+      }
+
+      .ct{
+        padding:$BOX-PADDING;
+      }
     }
   }
 }
@@ -228,7 +256,6 @@
 }
 
 .page-wiki-search-results{
-
   .count{
     background-color:$COLOR-BOX-BG;
     padding:$BOX-PADDING;
@@ -249,6 +276,5 @@
     .ct{
       .match{color:#FCBA15;}
     }
-
   }
 }

@@ -1,44 +1,8 @@
-:javascript
-  function save() {
-    var form_elm = jQuery('.page-new-wiki-page form');
-    var url = form_elm.find('.form-url-submit').data('url');
-
-    form_elm.attr('target', '');
-    form_elm.attr('action', url);
-    form_elm.submit();
-  }
-
-  function preview() {
-    var form_elm = jQuery('.page-new-wiki-page form');
-    var url = form_elm.find('.form-url-preview').data('url');
-
-    form_elm.attr('target', '_blank');
-    form_elm.attr('action', url);
-    
-    $('.page-new-wiki-page .preview_result').html('正在生成预览...');
-
-    $.post(url, { title: $('#wiki_page_title').val(), content: $('#wiki_page_content').val() },
-      function(data) {
-        // alert(data.relative_search);
-        //$('#preview_title').html(data.title);
-        //$('#preview_content').html(data.content);
-        //if (data.relative_search.length > 0) {
-
-          //$('#preview_relative_search').html(data.relative_search.title);
-        //}
-        $('.page-new-wiki-page .preview_result').html(data);
-        
-      }
-    );
-
-  }
-
 .page-title #{@product.name} WIKI - 创建新词条
 
-.page-new-wiki-page{:'data-product-id'=>@product.id}
-  = flash[:error]
-  = form_for @wiki_page, :url=>"/" do |f|
-    .form-url-submit{:'data-url'=>"/products/#{@product.id}/wiki"}
+.page-new-wiki-page
+  = flash_info
+  = form_for @wiki_page, :url=>"/products/#{@product.id}/wiki" do |f|
     .form-url-preview{:'data-url'=>"/products/#{@product.id}/wiki/preview"}
     
     .field.title
@@ -49,9 +13,9 @@
       %label.need 内容
       = f.text_area :content
       
-    .field
-      %a.form-submit-button{:href=>'javascript:;', :onclick => 'save()'} 保存
-      %a.form-preview{:href=>'javascript:;', :onclick => 'preview()'} 预览
+    .field.submit
+      %a.form-submit-button{:href=>'javascript:;'} 保存
+      %a.form-preview.form-button{:href=>'javascript:;'} 预览
       %a.form-cancel{:href=>"/products/#{@product.id}/wiki"} 取消
 
-  .preview_result
+    .preview_result

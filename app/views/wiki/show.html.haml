@@ -7,12 +7,17 @@
     .wiki-page-content 还没有内容
 
   - else
+    :ruby
+      content = @wiki_page.formatted_content_for_show
+
+      url_prefix = "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}"
+
     .wiki-page-title
       %span=@wiki_page.title
       .ops
-        %a.edit{:href=>"/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/edit"} 编辑
-        %a.versions{:href=>"/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/versions"} 历史记录
-        %a.refs{:href=>"/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/refs"} 引用关系
+        %a.edit{:href=>"#{url_prefix}/edit"} 编辑
+        %a.versions{:href=>"#{url_prefix}/versions"} 查看修改历史
+        %a.refs{:href=>"#{url_prefix}/refs"} 查看引用关系
 
-    .wiki-page-content=@wiki_page.formatted_content
+    .wiki-page-content=content
 

@@ -1,24 +1,10 @@
-:javascript
-
-  function preview() {
-    var form_elm = jQuery('.page-edit-wiki-page form');
-    var url = form_elm.find('.form-url-preview').data('url');
-
-    $.post(url, { title: $('#wiki_page_title').val(), content: $('#wiki_page_content').val() },
-      function(data) {
-        $('#preview_result').html(data);
-      }
-    );
-
-  }
-
-
-.page-title 修改词条 - #{@wiki_page.title}
+.page-title #{@product.name} WIKI - 修改词条 - #{@wiki_page.title}
   
 .page-edit-wiki-page
-  = flash.now[:error]
-  = form_for @wiki_page, :url => "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}", :method => 'put' do |f|
+  = flash_info
+  = form_for @wiki_page, :url => "/products/#{@product.id}/wiki/#{@wiki_page.title}", :method => 'put' do |f|
     .form-url-preview{:'data-url'=>"/products/#{@product.id}/wiki/preview"}
+
     .field
       = f.hidden_field :product_id, :value=>@wiki_page.product_id
       = f.hidden_field :title, :value=>@wiki_page.title
@@ -27,10 +13,9 @@
       %label.need 内容
       %textarea{:name=>'wiki_page[content]', :id => 'wiki_page_content'} #{@wiki_page.content}
       
-    .field
+    .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 确定
-      %a.form-preview{:href=>'javascript:;', :onclick => 'preview()'} 预览
+      %a.form-preview.form-button{:href=>'javascript:;'} 预览
       %a.form-cancel{:href=>"/products/#{@wiki_page.product_id}/wiki"} 取消
 
-    .field
-      %p#preview_result
+    .preview_result

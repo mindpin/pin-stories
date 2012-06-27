@@ -1,5 +1,12 @@
 class WikiPageFormatter
 
+  TITLE_REGEXP              = /^[A-Za-z0-9一-龥\-\s\!\?]+$/
+  TITLE_INVALID_CHAR_REGEXP = /[^A-Za-z0-9一-龥\-\s\!\?]+/
+
+  TITLE_REF_REGEXP          = /\[\[([A-Za-z0-9一-龥\-\s\!\?]+)\]\]/
+
+  ATME_REGEXP = /@([A-Za-z0-9一-龥]+)/
+
   def self.format(wikipage)
     coderay_render = HTMLwithCoderay.new(
       :filter_html     => true, # 滤掉自定义html
@@ -61,6 +68,7 @@ class WikiPageFormatter
           span_text = "<span id='#{self.html_id}'>#{text}</span>"
           span_edit = "<span class='edit-section'>[<a href='#{self.edit_link}'>编辑</a>]</span>"
 
+          return "<#{tag}>#{span_text}</#{tag}>" if @wikipage.preview
           return "<#{tag}>#{span_text} #{span_edit}</#{tag}>"
         end
 
@@ -179,12 +187,12 @@ class WikiPageFormatter
 
       # 转换 @某某 语法
       def _trans_atme(text)
-        text.gsub(/@([A-Za-z0-9一-龥]+)/, '<a href="/atme/\1">@\1</a>')
+        text.gsub(ATME_REGEXP, '<a href="/atme/\1">@\1</a>')
       end
 
       #  转换 [[]] 语法
       def _trans_ref(text)
-        text.gsub /\[\[([A-Za-z0-9一-龥]+)\]\]/ do
+        text.gsub TITLE_REF_REGEXP do
           # 滤去 & ? _ 三个特殊字符，转换成 -
           #title = $1.gsub /[?&_]+/, '-'
           title = $1
