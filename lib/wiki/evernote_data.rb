@@ -1,8 +1,8 @@
 class EvernoteData
 
   EVERNOTE_HOST       = "www.evernote.com"
-  USER_STORE_URL      = "http://#{EVERNOTE_HOST}/edam/user/"
-  NOTE_STORE_URL_BASE = "http://#{EVERNOTE_HOST}/edam/note/"
+  USER_STORE_URL      = "https://#{EVERNOTE_HOST}/edam/user/"
+  NOTE_STORE_URL_BASE = "https://#{EVERNOTE_HOST}/edam/note/"
 
   def self.get_request_token(callback_url)
 
@@ -14,7 +14,7 @@ class EvernoteData
     raise '你需要在代码里声明 CONSUMER_KEY 和 CONSUMER_SECRET' if consumer_key.blank? || consumer_key.blank?
 
     consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {
-      :site               => 'http://www.evernote.com',
+      :site               => 'https://www.evernote.com',
       :request_token_path => '/oauth',
       :access_token_path  => '/oauth',
       :authorize_path     => '/OAuth.action'
