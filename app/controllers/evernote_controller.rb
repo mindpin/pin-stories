@@ -32,40 +32,43 @@ class EvernoteController < ApplicationController
     has_all_notebooks = params[:has_all_notebooks]
     has_all_tags = params[:has_all_tags]
 
-    notebook_names = []
-    tag_names =[]
+    @notebook_names = []
+    @tag_names =[]
     if has_all_notebooks == 'true'
       notebooks = EvernoteData.get_notebooks_of(current_user)
       notebooks.each do |notebook|
-        notebook_names << notebook.name
+        @notebook_names << notebook.name
       end
     else
-      notebook_names = params[:notebook_names]
+      @notebook_names = params[:notebook_names]
     end
 
     if has_all_tags == 'true'
       tags = EvernoteData.get_tags_of(current_user)
       tags.each do |tag|
-        tag_names << tag.name
+        @tag_names << tag.name
       end
     else
-      tag_names = params[:tag_names]
+      @tag_names = params[:tag_names]
     end
 
-    @confirmed_notebooks = EvernoteData.get_confirmed_notebooks(current_user, @product, notebook_names, tag_names)
+    @confirmed_notebooks = EvernoteData.get_confirmed_notebooks(current_user, @product, @notebook_names, @tag_names)
   end
 
   def do_import
     override_list = params[:override_list]
-    override_notebooks = params[:override_notebooks]
     not_repeat_notebooks = params[:not_repeat_notebooks]
+    tag_names = params[:tag_names]
+    notebook_names = params[:notebook_names]
+
+    confirmed_notebooks = EvernoteData.get_confirmed_notebooks(current_user, @product, notebook_names, tag_names)
 
     # 处理需要覆盖的
     unless override_list.nil?
-      override_list.each do |title, request_action|
-        if request_action == 'true'
-          wiki_page = WikiPage.where(:title => title).first
-          wiki_page.content = override_notebooks[title]
+      confirmed_notebooks.each do |notebook|
+        if override_list.include?(notebook[:title])
+          wiki_page = WikiPage.find_by_title(notebook[:title])
+          wiki_page.content = notebook[:content]
           wiki_page.save
         end
       end
@@ -73,13 +76,15 @@ class EvernoteController < ApplicationController
 
     # 处理不重复的
     unless not_repeat_notebooks.nil?
-      not_repeat_notebooks.each do |title, content|
-        WikiPage.create(
-          :creator => current_user, 
-          :product => @product, 
-          :title => title,
-          :content => content
-        )
+      confirmed_notebooks.each do |notebook|
+        if not_repeat_notebooks.include?(notebook[:title])
+          WikiPage.create(
+            :creator => current_user, 
+            :product => @product, 
+            :title => notebook[:title],
+            :content => notebook[:content]
+          )
+        end
       end
     end
 
