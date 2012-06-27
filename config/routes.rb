@@ -92,6 +92,10 @@ Voteapp::Application.routes.draw do
   resources :streams, :except => [:new, :create]
   
   resources :stories, :except => [:new, :create] do
+
+    resources :comments
+
+
     member do
       get :assign_streams
       put :do_assign_streams
@@ -101,5 +105,12 @@ Voteapp::Application.routes.draw do
     end
   end
   get '/mine' => 'stories#mine'
+
+  resources :comments do
+    member do
+      get :reply
+      post :do_reply
+    end
+  end
   
 end

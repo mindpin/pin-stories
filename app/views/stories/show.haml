@@ -58,4 +58,25 @@
           .toggle-st=link_to status,"/stories/#{@story.id}/change_status?status=#{status}",:method=>:put
 
     
+-@comments.each do |comment|
+  -if comment.reply_comment_id.blank?
+    %div
+      %span=comment.creator.name
+      %span ：
+      %span=comment.content
+      %span=link_to "回复","/comments/#{comment.id}/reply"
+  -else
+    %div  
+      %span  #{comment.creator.name} 回复 #{comment.reply_user.name} : #{comment.content}
+      %span=link_to "回复","/comments/#{comment.id}/reply"
+    
+  
+=flash[:error]
+=form_for @story.comments.build, :url=>"/stories/#{@story.id}/comments" do |f|
+  %label 内容
+  %div
+    =f.text_area :content
+  %div
+    =f.submit "评论"
+
 		

@@ -9,6 +9,11 @@ class StoriesController < ApplicationController
   def new
     @story = Story.new
   end
+
+  def show
+    @comments = @story.comments
+  end
+
   
   def create
     @story = Story.new(params[:story])

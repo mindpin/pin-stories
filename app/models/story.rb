@@ -52,6 +52,10 @@ class Story < ActiveRecord::Base
     self.status = status
     self.save
   end
+
+
+  # 引用其它类
+  include Comment::CommentableMethods
   
   # ----------------------
   
