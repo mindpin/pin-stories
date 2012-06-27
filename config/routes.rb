@@ -75,8 +75,11 @@ Voteapp::Application.routes.draw do
 
     get '/wiki_orphan' => 'wiki#orphan'
 
-    # 全文索引
+    # wiki 全文索引
     get '/wiki_search' => 'wiki#search'
+
+    # story 全文索引
+    get '/stories_search' => 'stories#search'
 
   end
 

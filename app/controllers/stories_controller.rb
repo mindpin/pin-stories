@@ -89,4 +89,21 @@ class StoriesController < ApplicationController
     @mine_products_hash = hash
 
   end
+
+
+  # 全文索引，搜索当前产品下所有story
+  def search
+    @keyword = params[:keyword]
+    @search_result = Story.search(@keyword, 
+      :conditions => {:product_id => @product.id}, 
+      :page => params[:page], :per_page => 20)
+  end
+
+  # 全文索引，搜索属于我的story
+  def search_mine
+    @keyword = params[:keyword]
+    @search_result = Story.search(@keyword, 
+      :conditions => {:product_id => @product.id}, 
+      :page => params[:page], :per_page => 20)
+  end
 end
