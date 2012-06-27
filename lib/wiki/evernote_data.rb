@@ -112,7 +112,7 @@ class EvernoteData
   
 
 
-
+=begin
   def self.import(user, product, notebook_names, tag_names)
     access_token = user.get_evernote_access_token
     note_store = get_note_store(access_token)
@@ -172,6 +172,8 @@ class EvernoteData
     end
 
   end
+
+=end
 
 
 end

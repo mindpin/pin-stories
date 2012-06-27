@@ -2,23 +2,36 @@
 
 .page-evernote-notebook-list
   %form{:action => "/products/#{@product.id}/wiki_evernote_doimport", :method => "post", :name => "saveform"}
+    - unless @notebook_names.nil?
+      - @notebook_names.each do |notebook_name|
+        %input{:type=>'hidden', :name=>"notebook_names[]", :value=>"#{notebook_name}"}
+
+    - unless @tag_names.nil?
+      - @tag_names.each do |tag_name|
+        %input{:type=>'hidden', :name=>"tag_names[]", :value=>"#{tag_name}"}
+
     .desc 目前你在 evernote 的笔记本列表:
     .notebooks
+      - repeat_count, not_repeat_count = 0, 0
       - @confirmed_notebooks.each do |notebook|
-        :ruby
-          dump_notebook = Marshal.dump(notebook)
+       
         - if EvernoteData.has_title_existed?(params[:product_id], notebook[:title])
+          :ruby
+            repeat_count += 1
           .notebook
             %span.name
               忽略 
-              %input{:name => "override_list[#{notebook[:title]}]", :type => "radio", :value => "false"}/
+              %input{:name => "override_list[#{notebook[:title]}]", :type => "radio", :value => ""}/
               覆盖 
-              %input{:name => "override_list[#{notebook[:title]}]", :type => "radio", :value => "true"}/
+              %input{:name => "override_list[#{notebook[:title]}]", :type => "radio", :value => "#{notebook[:title]}"}/
               =notebook[:title]
-              
-              %textarea{:name => "override_notebooks[#{notebook[:title]}]", :style => "display:none;"} #{notebook[:content]}
         - else
-          %input{:type=>'hidden', :name=>"not_repeat_notebooks[#{notebook[:title]}]", :value=>"#{notebook[:content]}"}
+          :ruby
+            not_repeat_count += 1
+          %input{:type=>'hidden', :name=>"not_repeat_notebooks[]", :value=>"#{notebook[:title]}"}
+
+      %p
+        = "将会导入 #{@confirmed_notebooks.length} 记录, 其中重复条数为 #{repeat_count}"
 
 
     .field.submit
