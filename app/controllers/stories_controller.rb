@@ -106,12 +106,29 @@ class StoriesController < ApplicationController
     
     @search_result = []
     current_user.assigned_stories.each do |my_story|
+
       stories.each_with_index do |item, index|
         if my_story.id == item.id
           @search_result << item
         end
       end
+
     end
 
   end
+
+
+  def versions
+    @audits = @story.audits.descending
+  end
+  
+  # 所有记录的版本回滚
+  def rollback
+    audit = @story.audits.find_by_version(params[:version])
+    @story.rollback_to(audit)
+    
+    redirect_to "/stories/#{@story.id}"
+  end
+
+
 end

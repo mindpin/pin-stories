@@ -1,5 +1,4 @@
 module StoryHelper
-  
   # 回显校验信息
   # TODO rails3 下，需要重写
   def flash_info
@@ -63,5 +62,28 @@ module StoryHelper
   def format_ct(story, field)
     html_escape(story[field]).gsub(/\n/, '<br />').html_safe
   end
-  
+
+
+  # 获取一个 story 版本记录的 how_to_demo
+  def get_story_audit_how_to_demo(audit)
+    case audit.action
+    when 'create'
+      return audit.audited_changes['how_to_demo']
+    when 'update'
+      return audit.audited_changes['how_to_demo'].last
+    end
+  end
+
+
+  # 获取一个 story 版本记录的 tips
+  def get_story_audit_tips(audit)
+    case audit.action
+    when 'create'
+      return audit.audited_changes['tips']
+    when 'update'
+      return audit.audited_changes['tips'].last
+    end
+  end
+
+
 end

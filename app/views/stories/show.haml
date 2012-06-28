@@ -21,6 +21,7 @@
       .op=link_to 'ADMIN:修改',"/stories/#{@story.id}/edit"
       .op=link_to 'ADMIN:分配序列',"/stories/#{@story.id}/assign_streams"
       .op=link_to 'ADMIN:指派成员',"/stories/#{@story.id}/assign_users"
+      .op=link_to '历史记录', "/stories/#{@story.id}/versions"
   
   .belongs-to
     .product=link_to product.name, product_url

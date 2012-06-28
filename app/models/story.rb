@@ -22,6 +22,9 @@ class Story < ActiveRecord::Base
   has_many :users, :through => :story_assigns
   
   belongs_to :product
+
+  # 调用历史回滚
+  audited
   
   # ------------------
   
@@ -50,6 +53,32 @@ class Story < ActiveRecord::Base
   
   def change_status(status)
     self.status = status
+    self.save
+  end
+
+
+  # 回滚内容状态到指定的版本  
+  def rollback_to(audit)
+    if audit.auditable != self
+      raise '你不能回滚到一个不属于本故事的版本记录'
+    end
+
+    how_to_demo = case audit.action
+      when 'create'
+        audit.audited_changes['how_to_demo']
+      when 'update'
+        audit.audited_changes['how_to_demo'].last
+    end
+
+    tips = case audit.action
+      when 'create'
+        audit.audited_changes['tips']
+      when 'update'
+        audit.audited_changes['tips'].last
+    end
+
+    self.how_to_demo = how_to_demo
+    self.tips = tips
     self.save
   end
 

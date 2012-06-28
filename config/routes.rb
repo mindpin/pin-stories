@@ -83,8 +83,6 @@ Voteapp::Application.routes.draw do
 
   end
 
-  get '/my_stories_search' => 'stories#search_mine'
-
   get '/atme/:name' => 'atme#atme'
 
 
@@ -96,6 +94,9 @@ Voteapp::Application.routes.draw do
 
   resources :streams, :except => [:new, :create]
   
+  # 全文索引，搜索我的故事
+  get '/my_stories_search' => 'stories#search_mine'
+
   resources :stories, :except => [:new, :create] do
 
     resources :comments
@@ -110,6 +111,10 @@ Voteapp::Application.routes.draw do
     end
   end
   get '/mine' => 'stories#mine'
+
+  # 历史回滚
+  get '/stories/:id/versions'          => 'stories#versions'
+  get '/stories/:id/rollback/:version' => 'stories#rollback'
 
   resources :comments do
     member do
