@@ -102,8 +102,16 @@ class StoriesController < ApplicationController
   # 全文索引，搜索属于我的story
   def search_mine
     @keyword = params[:keyword]
-    @search_result = Story.search(@keyword, 
-      :conditions => {:product_id => @product.id}, 
-      :page => params[:page], :per_page => 20)
+    stories = Story.search(@keyword)
+    
+    @search_result = []
+    current_user.assigned_stories.each do |my_story|
+      stories.each_with_index do |item, index|
+        if my_story.id == item.id
+          @search_result << item
+        end
+      end
+    end
+
   end
 end

@@ -83,6 +83,8 @@ Voteapp::Application.routes.draw do
 
   end
 
+  get '/my_stories_search' => 'stories#search_mine'
+
   get '/atme/:name' => 'atme#atme'
 
 

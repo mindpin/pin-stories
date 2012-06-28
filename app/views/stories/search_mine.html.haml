@@ -1,0 +1,27 @@
+.page-title Stories
+
+=render 'stories/parts/search_mine'
+
+.page-wiki-search-results
+  - if @search_result.blank?
+    .count
+      找到
+      %span.n 0 
+      条结果
+  - else
+    .count 
+      找到 
+      %span.n #{@search_result.length} 
+      条结果
+
+
+    - @search_result.each do |story|
+      :ruby
+        path = "/stories/#{story.id}"
+
+        htd = story.excerpts.how_to_demo.html_safe
+        tips = story.excerpts.tips.html_safe
+
+      .wiki-page
+        .ct=link_to htd, path
+        .ct=tips
