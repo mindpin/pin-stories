@@ -46,23 +46,31 @@ class EvernoteController < ApplicationController
     if('drop' == repeat_deal)
       if WikiPage.find_by_title(note_title).blank?
         wiki_page = WikiPage.new
-        wiki_page.title = note_title
+
+        wiki_page.title   = note_title
         wiki_page.content = EvernoteData.get_note_content_by_guid(current_user, note_guid)
         wiki_page.creator = current_user
         wiki_page.product = @product
+
         wiki_page.save!
       end
     end
 
     if('replace' == repeat_deal)
       wiki_page = WikiPage.find_by_title(note_title) || WikiPage.new
+
+      wiki_page.title   = note_title
       wiki_page.content = EvernoteData.get_note_content_by_guid(current_user, note_guid)
+      wiki_page.creator = current_user
+      wiki_page.product = @product
+
       wiki_page.save!
     end
 
     render :text=>'ok'
   rescue Exception=>ex
-    p ex
+    p wiki_page.valid?
+    p wiki_page.errors.to_json
     render :status=>500, :text=>ex
   end
 

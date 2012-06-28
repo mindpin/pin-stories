@@ -1988,7 +1988,6 @@ form .form-cancel, form .form-button {
 .page-wiki-page .wiki-page-title, .page-new-wiki-page .preview_result .wiki-page-title, .page-edit-wiki-page .preview_result .wiki-page-title {
   background-color: #3e3d3f;
   font-size: 28px;
-  height: 50px;
   line-height: 50px;
   padding: 0 10px;
   font-weight: bold;
