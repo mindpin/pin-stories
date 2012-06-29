@@ -22,6 +22,9 @@ class Story < ActiveRecord::Base
   has_many :users, :through => :story_assigns
   
   belongs_to :product
+
+  # 调用历史回滚
+  audited :only=>[:how_to_demo, :tips]
   
   # ------------------
   
@@ -52,6 +55,22 @@ class Story < ActiveRecord::Base
     self.status = status
     self.save
   end
+
+
+  # 回滚内容状态到指定的版本  
+  def rollback_to(audit)
+    if audit.auditable != self
+      raise '你不能回滚到一个不属于本故事的版本记录'
+    end
+
+    self.how_to_demo = audit.revision.how_to_demo
+    self.tips = audit.revision.tips
+    self.save
+  end
+
+
+  # 引用其它类
+  include Comment::CommentableMethods
   
   # ----------------------
   
@@ -69,5 +88,19 @@ class Story < ActiveRecord::Base
       self.stories
     end
     
+  end
+
+
+  # 设置全文索引字段
+  define_index do
+    # fields
+    indexes how_to_demo, :sortable => true
+    indexes tips
+    indexes product_id
+    
+    # attributes
+    has created_at, updated_at
+
+    set_property :delta => true
   end
 end

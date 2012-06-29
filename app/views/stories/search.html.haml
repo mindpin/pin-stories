@@ -1,0 +1,25 @@
+.page-title #{@product.name} - Stories
+
+=render 'stories/parts/search', :product=>@product
+
+.page-wiki-search-results
+  .count 
+    找到 
+    %span.n #{@search_result.total_count} 
+    条结果，耗时
+    %span.t #{@search_result.query_time}
+    秒
+
+  - @search_result.each do |story|
+    :ruby
+      product_id = story.product_id
+      path = "/stories/#{story.id}"
+
+      htd = story.excerpts.how_to_demo.html_safe
+      tips = story.excerpts.tips.html_safe
+
+    .wiki-page
+      .ct=link_to htd, path
+      .ct=tips
+
+  .paginate=will_paginate @search_result

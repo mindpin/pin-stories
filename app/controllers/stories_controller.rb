@@ -9,6 +9,11 @@ class StoriesController < ApplicationController
   def new
     @story = Story.new
   end
+
+  def show
+    @comments = @story.comments
+  end
+
   
   def create
     @story = Story.new(params[:story])
@@ -84,4 +89,46 @@ class StoriesController < ApplicationController
     @mine_products_hash = hash
 
   end
+
+
+  # 全文索引，搜索当前产品下所有story
+  def search
+    @keyword = params[:keyword]
+    @search_result = Story.search(@keyword, 
+      :conditions => {:product_id => @product.id}, 
+      :page => params[:page], :per_page => 20)
+  end
+
+  # 全文索引，搜索属于我的story
+  def search_mine
+    @keyword = params[:keyword]
+    stories = Story.search(@keyword)
+    
+    @search_result = []
+    current_user.assigned_stories.each do |my_story|
+
+      stories.each_with_index do |item, index|
+        if my_story.id == item.id
+          @search_result << item
+        end
+      end
+
+    end
+
+  end
+
+
+  def versions
+    @audits = @story.audits.descending
+  end
+  
+  # 所有记录的版本回滚
+  def rollback
+    audit = @story.audits.find_by_version(params[:version])
+    @story.rollback_to(audit)
+    
+    redirect_to "/stories/#{@story.id}"
+  end
+
+
 end

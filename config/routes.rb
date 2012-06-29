@@ -75,8 +75,11 @@ Voteapp::Application.routes.draw do
 
     get '/wiki_orphan' => 'wiki#orphan'
 
-    # 全文索引
+    # wiki 全文索引
     get '/wiki_search' => 'wiki#search'
+
+    # story 全文索引
+    get '/stories_search' => 'stories#search'
 
   end
 
@@ -91,7 +94,14 @@ Voteapp::Application.routes.draw do
 
   resources :streams, :except => [:new, :create]
   
+  # 全文索引，搜索我的故事
+  get '/my_stories_search' => 'stories#search_mine'
+
   resources :stories, :except => [:new, :create] do
+
+    resources :comments
+
+
     member do
       get :assign_streams
       put :do_assign_streams
@@ -101,5 +111,16 @@ Voteapp::Application.routes.draw do
     end
   end
   get '/mine' => 'stories#mine'
+
+  # 历史回滚
+  get '/stories/:id/versions'          => 'stories#versions'
+  get '/stories/:id/rollback/:version' => 'stories#rollback'
+
+  resources :comments do
+    member do
+      get :reply
+      post :do_reply
+    end
+  end
   
 end

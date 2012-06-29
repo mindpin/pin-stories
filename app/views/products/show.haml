@@ -7,6 +7,10 @@
   product = @product
   name = product.name
 
+
+=render 'stories/parts/search', :product=>@product
+
+
 .page-product-show
   .product-streams
     -product.streams.each do |stream|

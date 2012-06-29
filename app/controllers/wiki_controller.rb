@@ -77,7 +77,7 @@ class WikiController < ApplicationController
     # 此处还有一些scope会比较有用
   end
   
-  # 所有记录的版本回滚
+  # 单条记录的版本回滚
   def rollback
     audit = @wiki_page.audits.find_by_version(params[:version])
     @wiki_page.rollback_to(audit)

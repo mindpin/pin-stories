@@ -1,5 +1,4 @@
 module StoryHelper
-  
   # 是否管理员登录？
   def admin_logged_in?
     logged_in? && current_user.is_admin?
@@ -52,5 +51,18 @@ module StoryHelper
   def format_ct(story, field)
     html_escape(story[field]).gsub(/\n/, '<br />').html_safe
   end
-  
+
+
+  # 获取一个 story 版本记录的 how_to_demo
+  def get_story_audit_how_to_demo(audit)
+    audit.revision.how_to_demo
+  end
+
+
+  # 获取一个 story 版本记录的 tips
+  def get_story_audit_tips(audit)
+    audit.revision.tips
+  end
+
+
 end

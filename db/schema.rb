@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625021958) do
+ActiveRecord::Schema.define(:version => 20120627085051) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(:version => 20120625021958) do
   add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "model_id"
+    t.string   "model_type"
+    t.integer  "creator_id"
+    t.text     "content"
+    t.integer  "reply_comment_id"
+    t.integer  "reply_comment_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "issues", :force => true do |t|
     t.integer  "product_id"
@@ -91,13 +102,14 @@ ActiveRecord::Schema.define(:version => 20120625021958) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",        :default => "", :null => false
+    t.string   "status",        :default => "",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
     t.text     "how_to_demo"
     t.text     "tips"
-    t.integer  "time_estimate", :default => 8,  :null => false
+    t.integer  "time_estimate", :default => 8,    :null => false
+    t.boolean  "delta",         :default => true, :null => false
   end
 
   create_table "story_assigns", :force => true do |t|

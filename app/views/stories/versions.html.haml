@@ -1,0 +1,44 @@
+:ruby
+  story = @story
+  page_title = "故事: #{truncate_u story.how_to_demo, 10}"
+  product = story.product
+  product_url = "/products/#{product.id}"
+  
+  streams = story.streams
+  
+  members = story.users
+
+-htitle page_title
+
+.page-title
+  %span=page_title
+  %a.go-back{:href=>product_url} 回产品页
+
+.page-wiki-page-versions
+  - i = 0
+  - @audits.each do |audit|
+    :ruby
+      action_str = {'create'=>'创建', 'update'=>'编辑修改'}[audit.action]
+      current_how_to_demo = get_story_audit_how_to_demo(audit)
+      current_tips = get_story_audit_tips(audit)
+      i+=1
+
+    -if 1 == i
+      .version.current
+        .id 版本序号: #{audit.version}
+        .action 操作: #{action_str}
+        .current-content 当前 how_to_demo: #{current_how_to_demo}
+        .current-content 当前 tips: #{current_tips}
+        .time 操作时间: #{audit.created_at}
+        .is-current 这是当前版本，你可以选择回滚到以前的版本
+
+    -else
+      .version
+        .id 版本序号: #{audit.version}
+        .action 操作: #{action_str}
+        .current-content 当前 how_to_demo: #{current_how_to_demo}
+        .current-content 当前 tips: #{current_tips}
+        .time 操作时间: #{audit.created_at}
+        
+        .ops
+          = link_to '回滚到这个版本', "/stories/#{@story.id}/rollback/#{audit.version}", :confirm => '是否确定回滚到这个版本？'
