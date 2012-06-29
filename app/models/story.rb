@@ -14,7 +14,7 @@ class Story < ActiveRecord::Base
   ]
   
   # -------------------------
-  
+  belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   has_many :stream_story_links
   has_many :streams, :through => :stream_story_links
   accepts_nested_attributes_for :stream_story_links
@@ -48,6 +48,29 @@ class Story < ActiveRecord::Base
   before_validation(:on => :create) do
     self.status = STATUS_NOT_ASSIGN
   end
+
+
+  # 生成 story 动态
+  after_create :generate_create_activity
+  after_update :generate_update_activity
+
+  def generate_create_activity
+    Activity.create(
+      :product => self.product,
+      :actor => self.creator,
+      :act_model => self, 
+      :action => 'CREATE_STORY'
+    )
+  end
+
+  def generate_update_activity
+    Activity.create(
+      :product => self.product,
+      :actor => self.creator,
+      :act_model => self, 
+      :action => 'UPDATE_STORY'
+    )
+  end
   
   # ----------------------
   
@@ -71,6 +94,7 @@ class Story < ActiveRecord::Base
 
   # 引用其它类
   include Comment::CommentableMethods
+  include Activity::ActivityableMethods
   
   # ----------------------
   
@@ -78,6 +102,7 @@ class Story < ActiveRecord::Base
     def self.included(base)
       base.has_many :story_assigns
       base.has_many :stories, :through => :story_assigns 
+      base.has_many :created_stories, :class_name => 'Story', :foreign_key => :creator_id
     end
     
     def is_admin?

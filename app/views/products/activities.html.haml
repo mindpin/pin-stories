@@ -1,0 +1,27 @@
+-htitle @product.name
+
+=render 'products/parts/product_headbar', :product=>@product
+=render 'products/parts/product_nav', :product=>@product, :current=>:stories_board
+
+:ruby
+  product = @product
+  name = product.name
+
+
+=render 'stories/parts/search', :product=>@product
+
+- @activities.each do |activity|
+  - case activity.action
+    - when "CREATE_STORY"
+      %p #{activity.actor.name} 创建了一个新的 story #{activity.act_model.how_to_demo}
+    - when "UPDATE_STORY"
+      %p #{activity.actor.name} 更新了 story #{activity.act_model.how_to_demo}
+    - when "CREATE_ISSUE"
+      %p #{activity.actor.name} 创建了一条新的 issue #{activity.act_model.content}
+    - when "CREATE_WIKIPAGE"
+      %p #{activity.actor.name} 创建了一条新的维斯条目 #{activity.act_model.title}
+    - when "UPDATE_WIKIPAGE"
+      %p #{activity.actor.name} 更新了维基条目  #{activity.act_model.title}
+
+%p
+  = will_paginate @activities

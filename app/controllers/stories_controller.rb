@@ -16,7 +16,8 @@ class StoriesController < ApplicationController
 
   
   def create
-    @story = Story.new(params[:story])
+    @story = current_user.created_stories.build(params[:story])
+    # @story = Story.new(params[:story])
     @story.product = @product
     
     if @story.save

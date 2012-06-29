@@ -68,6 +68,32 @@ class WikiPage < ActiveRecord::Base
     end
   end
 
+
+
+  # 生成 wiki page 动态
+  after_create :generate_create_activity
+  after_update :generate_update_activity
+
+  def generate_create_activity
+    Activity.create(
+      :product => self.product,
+      :actor => self.creator,
+      :act_model => self, 
+      :action => 'CREATE_WIKIPAGE'
+    )
+  end
+
+  def generate_update_activity
+    Activity.create(
+      :product => self.product,
+      :actor => self.creator,
+      :act_model => self, 
+      :action => 'UPDATE_WIKIPAGE'
+    )
+  end
+
+
+
   # 判断词条标题是否重复·
   def is_title_repeat?
     x = WikiPage.find_by_title(self.title)
@@ -112,6 +138,10 @@ class WikiPage < ActiveRecord::Base
   def split_section(section_num)
     WikiPageFormatter.split_section(self, section_num)
   end
+
+
+  # 引用其它类
+  include Activity::ActivityableMethods
 
   
   # --- 给其他类扩展的方法

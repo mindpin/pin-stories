@@ -4,6 +4,7 @@
   
   new_story_url = "/products/#{product.id}/stories/new"
   new_stream_url = "/products/#{product.id}/streams/new"
+  activities = "/products/#{product.id}/activities"
 
 .page-product-headbar
   .name=name
@@ -14,3 +15,4 @@
     -if admin_logged_in?
       %a.add-story{:href=>new_story_url} ADMIN:创建故事
       %a.add-stream{:href=>new_stream_url} ADMIN:创建序列
+      %a.add-stream{:href=>activities} 最近活动

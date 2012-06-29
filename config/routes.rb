@@ -38,6 +38,10 @@ Voteapp::Application.routes.draw do
   get 'products/:id/lemmas'  => 'products#product_lemmas'
 
 
+  # activities
+  get 'products/:id/activities'  => 'products#activities'
+
+
   # ---------------
   # WIKI 相关
   scope '/products/:product_id' do

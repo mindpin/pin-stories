@@ -45,4 +45,5 @@ class User < ActiveRecord::Base
   include Story::UserMethods
   include WikiPage::UserMethods
   include UserEvernoteAuth::UserMethods
+  include Activity::UserMethods
 end

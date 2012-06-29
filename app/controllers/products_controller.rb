@@ -51,5 +51,9 @@ class ProductsController < ApplicationController
   end
 
 
+  def activities
+    @activities = Activity.paginate(:page => params[:page], :per_page => 20)
+  end
+
 
 end
