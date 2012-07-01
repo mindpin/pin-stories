@@ -1,15 +1,15 @@
-.page-title 修改词条 - #{@wiki_page.title}
+.page-title #{@product.name} WIKI - 修改词条 - #{@wiki_page.title}
   
 .page-edit-wiki-page
-  = flash.now[:error]
+  = flash_info
   = form_for @wiki_page, :url => "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/update_section?section=#{params[:section]}", :method => 'put' do |f|
     .field
       = f.hidden_field :product_id, :value => @wiki_page.product_id
       
-    .field
+    .field.content
       %label.need 内容
       %textarea{:name=>'content'} #{@content}
       
-    .field
+    .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 确定
       %a.form-cancel{:href=>"/products/#{@wiki_page.product_id}/wiki"} 取消

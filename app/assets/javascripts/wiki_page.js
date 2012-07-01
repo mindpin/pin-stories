@@ -26,3 +26,49 @@ jQuery(document).ready(function(){
   bind_preview(jQuery('.page-edit-wiki-page form'));
 
 });
+
+// 输入表单体验改进
+jQuery(document).ready(function(){
+
+  var FOCUS = false;
+
+  jQuery(document).live('keydown', function(evt){
+    var key_code = evt.keyCode;
+    console.log(key_code);
+
+    if(FOCUS){
+      var elm = jQuery('.page-new-wiki-page form textarea, .page-edit-wiki-page form textarea');
+      var dom = elm[0];
+
+      var start_pos = dom.selectionStart;
+      var end_pos = dom.selectionEnd;
+      var cursor_pos = start_pos;
+      var str = dom.value;
+      var scroll_top = elm.scrollTop();
+
+      if(9 == key_code){  // press tab
+        evt.preventDefault();
+        dom.value = str.substring(0, start_pos) + '  ' + str.substring(end_pos, str.length);
+        dom.selectionStart = dom.selectionEnd = (cursor_pos + 2);
+        elm.scrollTop(scroll_top);
+      }
+
+      if(8 == key_code){  //press backspace
+        if(start_pos == end_pos && str.substring(start_pos - 2, start_pos) == '  '){
+          evt.preventDefault();
+          dom.value = str.substring(0, start_pos - 2) + str.substring(start_pos, str.length);
+          dom.selectionStart = dom.selectionEnd = (cursor_pos - 2);
+          elm.scrollTop(scroll_top);
+        }
+      }
+    }
+  })
+
+  jQuery('.page-new-wiki-page form textarea, .page-edit-wiki-page form textarea')
+    .live('focus', function(){
+      FOCUS = true;
+    })
+    .live('blur', function(){
+      FOCUS = false;
+    });
+})
