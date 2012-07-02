@@ -1,0 +1,43 @@
+-htitle @product.name
+
+=render 'products/parts/product_headbar', :product=>@product
+=render 'products/parts/product_nav', :product=>@product, :current=>:issues
+
+
+- content_for :javascript do
+  :javascript
+    $(document).ready(function(){
+      $('.edit-issue').live('click', function(){
+        var issue_elm = jQuery(this).closest('.issue');
+        var id = issue_elm.data('id');
+        $('#content-' + id).hide();
+        $('#edit-box-' + id).show();
+      });
+
+      $('.cancel').live('click', function(){
+        var cancel_elm = jQuery(this).closest('.cancel');
+        var id = cancel_elm.data('id');
+
+        $('#content-' + id).show();
+        $('#edit-box-' + id).hide();
+      });
+    });		  
+
+.page-product-issues
+  -@product.issues.each do |issue|
+    .issue
+      .creator
+        =avatar_link issue.creator
+      .ct{:id => "content-#{issue.id}"}=issue.content
+
+      .ct{:id => "edit-box-#{issue.id}", :style => "display: none;"}
+        %textarea{:name => "content", :id => "edit-content-#{issue.id}", :style => "width: 500px; height: 120px; "} #{issue.content}
+        .field
+          %a.form-submit-button{:href=>'javascript:;'} 更新
+          %a.form-submit-button{:href=>'javascript:;', :class => "cancel", "data-id" => issue.id} 取消
+
+
+      .time
+        =issue.created_at
+      %div
+        .issue{:class => "edit-issue", "data-id" => issue.id}="编辑"
