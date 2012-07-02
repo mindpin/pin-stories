@@ -107,6 +107,7 @@ class Story < ActiveRecord::Base
       :from_model => self
     )
 
+    wiki_page
   end
 
 
