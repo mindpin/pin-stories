@@ -135,7 +135,7 @@ class StoriesController < ApplicationController
   def save_to_wiki
     wiki_page = @story.save_to_wiki
 
-    redirect_to "/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}"
+    redirect_to URI.encode("/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}")
 
   end
 
