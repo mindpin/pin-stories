@@ -19,5 +19,9 @@
         %a.versions{:href=>"#{url_prefix}/versions"} 查看修改历史
         %a.refs{:href=>"#{url_prefix}/refs"} 查看引用关系
 
+    - if has_referenced_from_story?(@wiki_page)
+      .wiki-page-title
+        = link_to "#{@wiki_page.title}", "/stories/#{@wiki_page.from_model_id}"
+
     .wiki-page-content=content
 

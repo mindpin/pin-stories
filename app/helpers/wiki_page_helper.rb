@@ -10,4 +10,8 @@ module WikiPageHelper
     end
   end
 
+  def has_referenced_from_story?(wiki_page)
+  	WikiPage.where(:from_model_id => wiki_page.from_model_id, :from_model_type => wiki_page.from_model_type).exists?
+  end
+
 end

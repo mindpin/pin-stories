@@ -120,6 +120,9 @@ Voteapp::Application.routes.draw do
   get '/stories/:id/versions'          => 'stories#versions'
   get '/stories/:id/rollback/:version' => 'stories#rollback'
 
+  # story 保存到 wiki
+  get '/stories/:id/save_to_wiki'      => 'stories#save_to_wiki'
+
   resources :comments do
     member do
       get :reply

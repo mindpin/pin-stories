@@ -3,6 +3,9 @@ class WikiPage < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :product, :class_name => 'Product'
 
+  # 多态
+  belongs_to :from_model, :polymorphic => true
+
   # --- 版本控制
   audited
 
@@ -140,11 +143,20 @@ class WikiPage < ActiveRecord::Base
   end
 
 
+
   # 引用其它类
   include Activity::ActivityableMethods
 
+
   
   # --- 给其他类扩展的方法
+  module WikiPageableMethods
+    def self.included(base)
+      base.has_many :wiki_pages, :as => :from_model
+    end
+  end
+
+
   module UserMethods
     def self.included(base)
       base.has_many :wiki_pages, :foreign_key => :creator_id

@@ -92,10 +92,30 @@ class Story < ActiveRecord::Base
   end
 
 
+  # 保存到 wiki
+  def save_to_wiki
+    split_lines = ''
+    30.times do
+      split_lines += '-'
+    end 
+
+    wiki_page = WikiPage.create(
+      :creator => self.creator, 
+      :title => "story - #{self.id}", 
+      :content => self.how_to_demo + "\r\n" + split_lines + "\r\n" + self.tips, 
+      :product => self.product,
+      :from_model => self
+    )
+
+  end
+
+
   # 引用其它类
   include Comment::CommentableMethods
   include Activity::ActivityableMethods
-  
+  include WikiPage::WikiPageableMethods
+
+
   # ----------------------
   
   module UserMethods

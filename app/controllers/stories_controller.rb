@@ -131,5 +131,13 @@ class StoriesController < ApplicationController
     redirect_to "/stories/#{@story.id}"
   end
 
+  # 保存到 wiki
+  def save_to_wiki
+    wiki_page = @story.save_to_wiki
+
+    redirect_to "/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}"
+
+  end
+
 
 end
