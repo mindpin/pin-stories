@@ -18,6 +18,7 @@ class Issue < ActiveRecord::Base
   end
 
   # 引用其它类
+  include Comment::CommentableMethods
   include Activity::ActivityableMethods
 
   module UserMethods

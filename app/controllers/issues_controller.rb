@@ -8,7 +8,7 @@ class IssuesController < ApplicationController
   end
 
   def index
-    @product_issues = @product.issues
+    @issues = @product.issues
   end
 
   def new

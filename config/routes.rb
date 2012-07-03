@@ -30,9 +30,18 @@ Voteapp::Application.routes.draw do
   resources :products do
     resources :stories, :only => [:new, :create]
     resources :streams, :only => [:new, :create]
+
     resources :issues
+
     resources :lemmas,  :only => [:new, :create]
   end
+
+  resources :issue_comments do
+    collection do
+      post :reply
+    end
+  end
+
   get 'products/:id/members' => 'products#product_members'
   get 'products/:id/lemmas'  => 'products#product_lemmas'
 
