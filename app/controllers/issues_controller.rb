@@ -28,4 +28,27 @@ class IssuesController < ApplicationController
     redirect_to [:new, @product, :issue]
   end
 
+  def update
+    id = params[:id]
+    content = params[:content]
+
+    unless id.nil?
+      issue = Issue.find(id) 
+      issue.content = content
+      issue.save
+    end
+
+    render :text => issue.content
+  end
+
+  def destroy
+    id = params[:id]
+    unless id.nil?
+      issue = Issue.find(id) 
+      issue.destroy
+    end
+
+    render :nothing => true
+  end
+
 end

@@ -21,11 +21,49 @@
         $('#content-' + id).show();
         $('#edit-box-' + id).hide();
       });
+
+      $('.update').live('click', function(){
+        var update_elm = jQuery(this).closest('.update');
+        var id = update_elm.data('id');
+        var content = $('#edit-content-' + id).val();
+
+        $.ajax({
+          type: 'PUT',
+          url: "/products/#{@product.id}/issues/" + id,
+          data: {content: content},
+          dataType: "html"
+        }).done(function ( data ) {
+          if (data != '') {
+            $('#content-' + id).html(data);
+            $('#edit-content-' + id).html(data);
+          }
+          
+        });
+
+        $('#content-' + id).show();
+        $('#edit-box-' + id).hide();
+      });
+
+
+      $('.del-issue').live('click', function(){
+        var del_elm = jQuery(this).closest('.del-issue');
+        var id = del_elm.data('id');
+
+        $.ajax({
+          type: 'DELETE',
+          url: "/products/#{@product.id}/issues/" + id,
+          dataType: "html"
+        }).done(function ( data ) {
+        
+        });
+
+        $('#issue-' + id).remove();
+      });
     });		  
 
 .page-product-issues
   -@product.issues.each do |issue|
-    .issue
+    %div{:class => "issue", :id => "issue-#{issue.id}"}
       .creator
         =avatar_link issue.creator
       .ct{:id => "content-#{issue.id}"}=issue.content
@@ -33,7 +71,7 @@
       .ct{:id => "edit-box-#{issue.id}", :style => "display: none;"}
         %textarea{:name => "content", :id => "edit-content-#{issue.id}", :style => "width: 500px; height: 120px; "} #{issue.content}
         .field
-          %a.form-submit-button{:href=>'javascript:;'} 更新
+          %a.form-submit-button{:href=>'javascript:;', :class => "update", "data-id" => issue.id} 更新
           %a.form-submit-button{:href=>'javascript:;', :class => "cancel", "data-id" => issue.id} 取消
 
 
@@ -41,3 +79,4 @@
         =issue.created_at
       %div
         .issue{:class => "edit-issue", "data-id" => issue.id}="编辑"
+        .issue{:class => "del-issue", "data-id" => issue.id}="删除"
