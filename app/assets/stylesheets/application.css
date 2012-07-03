@@ -782,11 +782,7 @@ form .form-cancel, form .form-button {
 
 .page-admin-edit-member-info .area {
   padding: 20px 10px 10px;
-  background-color: #f7f7f7;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  border: dashed 1px #ccc;
+  background-color: #363537;
   margin-bottom: 20px;
   position: relative; }
   .page-admin-edit-member-info .area:before {

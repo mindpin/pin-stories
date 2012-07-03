@@ -34,9 +34,7 @@
 .page-admin-edit-member-info{
   .area{
     padding:20px 10px 10px;
-    background-color: #f7f7f7;
-    @include border-radius(3px);
-    border:dashed 1px #ccc;
+    background-color: $COLOR-BG2;
     margin-bottom: 20px;
     position:relative;
 
