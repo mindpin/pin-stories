@@ -8,8 +8,9 @@
   :javascript
     $(document).ready(function(){
       $('.edit-issue').live('click', function(){
-        var issue_elm = jQuery(this).closest('.issue');
-        var id = issue_elm.data('id');
+        var elm = jQuery(this).closest('.edit-issue');
+        var id = elm.data('id');
+
         $('#content-' + id).hide();
         $('#edit-box-' + id).show();
       });
