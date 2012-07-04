@@ -171,20 +171,16 @@ class StoriesController < ApplicationController
 
   end
 
-  def show_draft
-    temp_id = params[:temp_id] 
-    @draft = Draft.find_by_temp_id(temp_id)
-  end
 
-  def publish_draft
+  def get_draft
     temp_id = params[:temp_id] 
-    draft = Draft.find_by_temp_id(temp_id)
+    draft = Draft.find_by_temp_id(temp_id) unless temp_id.nil?
     unless draft.nil?
-      story = draft.publish!
-      # draft.destroy
+      drafted_hash = Marshal.load(draft.drafted_hash)
+      story = {:how_to_demo => drafted_hash[:how_to_demo], :tips => drafted_hash[:tips]}
     end
 
-    render :text => story.id
+    render :text => story.to_json
 
   end
 

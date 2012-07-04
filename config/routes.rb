@@ -118,8 +118,7 @@ Voteapp::Application.routes.draw do
       put  :update_new_draft
       put  :update_draft
       get  :my_drafts
-      get  :show_draft
-      get  :publish_draft
+      get  :get_draft
     end
 
     member do

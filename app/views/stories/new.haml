@@ -2,11 +2,37 @@
   :javascript
     var auto_save = self.setInterval("save_as_draft()", 30000);
 
+    jQuery(document).ready(function() {
+      get_draft();
+    });
+
+
+    function get_draft() {
+      var temp_id = jQuery('#temp_id').val();
+
+      if (temp_id != '') {
+        jQuery.ajax({
+          type: 'GET',
+          url: "/stories/get_draft",
+          data: {temp_id: temp_id},
+          dataType: "json"
+        }).done(function ( data ) {
+        
+          if (data != "") {
+            jQuery('#story_how_to_demo').val(data.how_to_demo);
+            jQuery('#story_tips').val(data.tips);
+          }
+          
+        });
+      }
+      
+    }
+
     function save_as_draft() {
-      var temp_id = $('#temp_id').val();
-      var how_to_demo = $('#story_how_to_demo').val();
-      var tips = $('#story_tips').val();
-      var product_id = $('#product_id').val();
+      var temp_id = jQuery('#temp_id').val();
+      var how_to_demo = jQuery('#story_how_to_demo').val();
+      var tips = jQuery('#story_tips').val();
+      var product_id = jQuery('#product_id').val();
 
       if (temp_id != '') {
 
@@ -17,7 +43,7 @@
           dataType: "html"
         }).done(function ( data ) {
           var now = new Date();
-          $('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+          jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
         });
 
       } else {
@@ -28,10 +54,10 @@
           data: {how_to_demo: how_to_demo, tips: tips, product_id: product_id},
           dataType: "html"
         }).done(function ( data ) {
-          $('#temp_id').val(data);
+          jQuery('#temp_id').val(data);
 
           var now = new Date();
-          $('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+          jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
         });
 
       }
@@ -50,7 +76,7 @@
 
 .page-title="创建故事 in #{product_name}"
 
-%input#temp_id{:name => "temp_id", :type => "hidden"}/
+%input#temp_id{:name => "temp_id", :type => "hidden", :value => "#{params[:temp_id]}"}/
 %input#product_id{:name => "product_id", :type => "hidden", :value => "#{@product.id}"}/
 
 %input{:name => "save_draft_btn", :value => "保存草稿", :type => "button", :onclick => "save_as_draft();"}/

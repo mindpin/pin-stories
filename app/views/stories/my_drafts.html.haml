@@ -10,7 +10,11 @@
  
 
     .wiki-page
-      .ct=link_to drafted_hash[:how_to_demo], "/stories/show_draft?temp_id=#{draft.temp_id}"
-      .ct=link_to drafted_hash[:tips], "/stories/show_draft?temp_id=#{draft.temp_id}"
+      - if draft.model_id.blank?
+        .ct=link_to drafted_hash[:how_to_demo], "/products/#{drafted_hash[:product_id]}/stories/new?temp_id=#{draft.temp_id}"
+        .ct=link_to drafted_hash[:tips], "/products/#{drafted_hash[:product_id]}/stories/new?temp_id=#{draft.temp_id}"
+      - else
+        .ct=link_to drafted_hash[:how_to_demo], "/products/#{drafted_hash[:product_id]}/stories/#{draft.model_id}/edit?temp_id=#{draft.temp_id}"
+        .ct=link_to drafted_hash[:tips], "/products/#{drafted_hash[:product_id]}/stories/#{draft.model_id}/edit?temp_id=#{draft.temp_id}"
 
   .paginate=will_paginate @my_drafts
