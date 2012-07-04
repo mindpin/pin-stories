@@ -36,18 +36,7 @@ class Story < ActiveRecord::Base
   
   validates :product,     :presence => true
   validates :how_to_demo, :presence => true
-  validates :status,      :presence => true, :inclusion => {:in => STATUSES}
   
-  validate :validate_stream_story_links_count
-  def validate_stream_story_links_count
-   if 0 == self.stream_story_links.length
-      errors.add(:streams, :至少指定一个序列)
-   end
-  end
-  
-  before_validation(:on => :create) do
-    self.status = STATUS_NOT_ASSIGN
-  end
 
 
   # 生成 story 动态

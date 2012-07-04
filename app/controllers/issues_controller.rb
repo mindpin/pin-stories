@@ -8,7 +8,7 @@ class IssuesController < ApplicationController
   end
 
   def index
-    @issues = @product.issues
+    @issues = Issue.where(:product_id => @product.id).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   end
 
   def new

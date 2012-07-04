@@ -1,3 +1,45 @@
+- content_for :javascript do
+  :javascript
+    var auto_save = self.setInterval("save_as_draft()", 30000);
+
+    function save_as_draft() {
+      var temp_id = $('#temp_id').val();
+      var how_to_demo = $('#story_how_to_demo').val();
+      var tips = $('#story_tips').val();
+      var product_id = $('#product_id').val();
+
+      if (temp_id != '') {
+
+        $.ajax({
+          type: 'PUT',
+          url: "/stories/update_new_draft",
+          data: {how_to_demo: how_to_demo, tips: tips, temp_id: temp_id, product_id: product_id},
+          dataType: "html"
+        }).done(function ( data ) {
+          var now = new Date();
+          $('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+        });
+
+      } else {
+
+        $.ajax({
+          type: 'POST',
+          url: "/stories/create_new_draft",
+          data: {how_to_demo: how_to_demo, tips: tips, product_id: product_id},
+          dataType: "html"
+        }).done(function ( data ) {
+          $('#temp_id').val(data);
+
+          var now = new Date();
+          $('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+        });
+
+      }
+      
+    }
+
+
+
 :ruby
   product_name = @product.name
   streams = @product.streams
@@ -7,6 +49,13 @@
 -htitle "创建故事 in #{product_name}"
 
 .page-title="创建故事 in #{product_name}"
+
+%input#temp_id{:name => "temp_id", :type => "hidden"}/
+%input#product_id{:name => "product_id", :type => "hidden", :value => "#{@product.id}"}/
+
+%input{:name => "save_draft_btn", :value => "保存草稿", :type => "button", :onclick => "save_as_draft();"}/
+
+%div{:id => "save_notice"}
 
 .page-new-story
   -if streams.blank?

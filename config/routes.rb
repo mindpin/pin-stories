@@ -113,6 +113,14 @@ Voteapp::Application.routes.draw do
 
     resources :comments
 
+    collection do
+      post :create_new_draft
+      put  :update_new_draft
+      put  :update_draft
+      get  :my_drafts
+      get  :show_draft
+      get  :publish_draft
+    end
 
     member do
       get :assign_streams

@@ -46,4 +46,5 @@ class User < ActiveRecord::Base
   include WikiPage::UserMethods
   include UserEvernoteAuth::UserMethods
   include Activity::UserMethods
+  include Draft::UserMethods
 end

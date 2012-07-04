@@ -183,3 +183,5 @@
             %a.form-submit-button{:href=>'javascript:;', :class => "add-comment", "data-id" => issue.id} 回复
             %a.form-submit-button{:href=>'javascript:;', :class => "cancel-comment", "data-id" => issue.id} 取消
 
+  .paginate=will_paginate @issues
+

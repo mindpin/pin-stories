@@ -37,6 +37,7 @@
           %a.item{:class=>nav_current_klass(:members), :href=>'/members'} 成员和分享者
           -if logged_in?
             %a.item{:class=>nav_current_klass(:mine), :href=>'/mine'} 我的任务
+            %a.item{:class=>nav_current_klass(:mine), :href=>'/stories/my_drafts'} 我的草稿
           
         .hide.page-to
           .p=link_to '全部产品','/'
