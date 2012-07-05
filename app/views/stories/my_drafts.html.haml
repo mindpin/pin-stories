@@ -12,9 +12,9 @@
     .wiki-page
       - if draft.model_id.blank?
         .ct=link_to drafted_hash[:how_to_demo], "/products/#{drafted_hash[:product_id]}/stories/new?temp_id=#{draft.temp_id}"
-        .ct=link_to drafted_hash[:tips], "/products/#{drafted_hash[:product_id]}/stories/new?temp_id=#{draft.temp_id}"
+        .ct=drafted_hash[:tips]
       - else
-        .ct=link_to drafted_hash[:how_to_demo], "/products/#{drafted_hash[:product_id]}/stories/#{draft.model_id}/edit?temp_id=#{draft.temp_id}"
-        .ct=link_to drafted_hash[:tips], "/products/#{drafted_hash[:product_id]}/stories/#{draft.model_id}/edit?temp_id=#{draft.temp_id}"
+        .ct=link_to drafted_hash[:how_to_demo], "/stories/#{draft.model_id}/edit?story_id=#{draft.model_id}"
+        .ct=drafted_hash[:tips]
 
   .paginate=will_paginate @my_drafts

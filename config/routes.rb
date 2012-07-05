@@ -114,9 +114,8 @@ Voteapp::Application.routes.draw do
     resources :comments
 
     collection do
-      post :create_new_draft
-      put  :update_new_draft
-      put  :update_draft
+      post :save_new_draft
+      post :save_draft
       get  :my_drafts
       get  :get_draft
     end

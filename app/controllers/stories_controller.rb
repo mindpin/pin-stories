@@ -140,31 +140,33 @@ class StoriesController < ApplicationController
   end
 
 
-  def update_new_draft
-    temp_id = params[:temp_id]
-    drafted_hash = {:how_to_demo => params[:how_to_demo], :tips => params[:tips], :product_id => params[:product_id]}
-    drafted_hash = Marshal.dump(drafted_hash)
 
-    draft = Draft.find_by_temp_id(temp_id)
-    draft.drafted_hash = drafted_hash
-    draft.save
+  def save_new_draft
+    drafted_hash = {:how_to_demo => params[:how_to_demo], :tips => params[:tips], :product_id => params[:product_id]}
+    temp_id = params[:temp_id] unless params[:temp_id].nil?
+
+    Story.save_new_draft(current_user, drafted_hash, temp_id)
+
+    render :text => temp_id
+  end
+
+
+  def save_draft
+    story_id = params[:story_id]
+    @story = Story.find(story_id)
+
+    drafted_hash = {
+      :how_to_demo => params[:how_to_demo], 
+      :tips => params[:tips], 
+      :product_id => @story.product_id
+    }
+
+    @story.save_draft(current_user, drafted_hash)
 
     render :nothing => true
   end
 
-  def create_new_draft
-    drafted_hash = {:how_to_demo => params[:how_to_demo], :tips => params[:tips], :product_id => params[:product_id]}
-    drafted_hash = Marshal.dump(drafted_hash)
-    temp_id = randstr()
 
-    Draft.create(
-      :creator => current_user,
-      :temp_id => temp_id,
-      :drafted_hash => drafted_hash
-    )
-
-    render :text => temp_id
-  end
 
   def my_drafts
     @my_drafts = Draft.where(:creator_id => current_user.id).paginate(:page => params[:page], :per_page => 20).order('id DESC')
@@ -175,13 +177,16 @@ class StoriesController < ApplicationController
   def get_draft
     temp_id = params[:temp_id] 
     draft = Draft.find_by_temp_id(temp_id) unless temp_id.nil?
+
+    story_id = params[:story_id]
+    draft = Draft.where(:model_id => story_id, :model_type => "Story").first unless story_id.nil?
+
     unless draft.nil?
       drafted_hash = Marshal.load(draft.drafted_hash)
       story = {:how_to_demo => drafted_hash[:how_to_demo], :tips => drafted_hash[:tips]}
     end
 
     render :text => story.to_json
-
   end
 
 end

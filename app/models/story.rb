@@ -36,7 +36,18 @@ class Story < ActiveRecord::Base
   
   validates :product,     :presence => true
   validates :how_to_demo, :presence => true
+  validates :status,      :presence => true, :inclusion => {:in => STATUSES}
   
+  validate :validate_stream_story_links_count
+  def validate_stream_story_links_count
+   if 0 == self.stream_story_links.length
+      errors.add(:streams, :至少指定一个序列)
+   end
+  end
+  
+  before_validation(:on => :create) do
+    self.status = STATUS_NOT_ASSIGN
+  end
 
 
   # 生成 story 动态
@@ -97,6 +108,51 @@ class Story < ActiveRecord::Base
     )
 
     wiki_page
+  end
+
+  def self.save_new_draft(current_user, drafted_hash, temp_id = nil)
+    if temp_id.nil?
+      temp_id = randstr()
+      drafted_hash[:temp_id] = temp_id
+      drafted_hash = Marshal.dump(drafted_hash)
+
+      Draft.create(
+        :creator => current_user,
+        :temp_id => temp_id,
+        :model_type => "Story",
+        :drafted_hash => drafted_hash
+      )
+
+    else
+      drafted_hash[:temp_id] = temp_id
+      drafted_hash = Marshal.dump(drafted_hash)
+
+      draft = Draft.find_by_temp_id(temp_id)
+      draft.drafted_hash = drafted_hash
+      draft.save
+    end
+
+    temp_id
+  end
+
+
+  def save_draft(current_user, drafted_hash)
+    drafted_hash = Marshal.dump(drafted_hash)
+
+    saved_draft = Draft.where(:model_id => self.id, :model_type => self.class.name).exists?
+
+    unless saved_draft
+      Draft.create(
+        :creator => current_user,
+        :model => self,
+        :drafted_hash => drafted_hash
+      )
+    else
+      draft = Draft.where(:model_id => self.id, :model_type => self.class.name).first
+      draft.drafted_hash = drafted_hash
+      draft.save
+    end
+
   end
 
 

@@ -17,8 +17,7 @@
           data: {temp_id: temp_id},
           dataType: "json"
         }).done(function ( data ) {
-        
-          if (data != "") {
+          if (data != "" || data != null) {
             jQuery('#story_how_to_demo').val(data.how_to_demo);
             jQuery('#story_tips').val(data.tips);
           }
@@ -35,33 +34,23 @@
       var product_id = jQuery('#product_id').val();
 
       if (temp_id != '') {
-
-        $.ajax({
-          type: 'PUT',
-          url: "/stories/update_new_draft",
-          data: {how_to_demo: how_to_demo, tips: tips, temp_id: temp_id, product_id: product_id},
-          dataType: "html"
-        }).done(function ( data ) {
-          var now = new Date();
-          jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
-        });
-
+        params_data = {how_to_demo: how_to_demo, tips: tips, temp_id: temp_id, product_id: product_id};
       } else {
-
-        $.ajax({
-          type: 'POST',
-          url: "/stories/create_new_draft",
-          data: {how_to_demo: how_to_demo, tips: tips, product_id: product_id},
-          dataType: "html"
-        }).done(function ( data ) {
-          jQuery('#temp_id').val(data);
-
-          var now = new Date();
-          jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
-        });
-
+        params_data = {how_to_demo: how_to_demo, tips: tips, product_id: product_id};
       }
-      
+
+      $.ajax({
+        type: 'POST',
+        url: "/stories/save_new_draft",
+        data: params_data,
+        dataType: "html"
+      }).done(function ( data ) {
+        jQuery('#temp_id').val(data);
+
+        var now = new Date();
+        jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+      });
+
     }
 
 
