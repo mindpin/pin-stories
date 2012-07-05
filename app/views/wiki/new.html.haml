@@ -1,5 +1,68 @@
 .page-title #{@product.name} WIKI - 创建新词条
 
+
+- content_for :javascript do
+  :javascript
+    var auto_save = self.setInterval("save_as_draft()", 30000);
+
+    jQuery(document).ready(function() {
+      get_draft();
+    });
+
+
+    function get_draft() {
+      var temp_id = jQuery('#temp_id').val();
+
+      if (temp_id != '') {
+        jQuery.ajax({
+          type: 'GET',
+          url: "/wiki_get_draft",
+          data: {temp_id: temp_id},
+          dataType: "json"
+        }).done(function ( data ) {
+          if (data != "" || data != null) {
+            jQuery('#wiki_page_title').val(data.title);
+            jQuery('#wiki_page_content').val(data.content);
+          }
+          
+        });
+      }
+      
+    }
+
+    function save_as_draft() {
+      var temp_id = jQuery('#temp_id').val();
+      var title = jQuery('#wiki_page_title').val();
+      var content = jQuery('#wiki_page_content').val();
+      var product_id = jQuery('#product_id').val();
+
+      if (temp_id != '') {
+        params_data = {title: title, content: content, temp_id: temp_id, product_id: product_id};
+      } else {
+        params_data = {title: title, content: content, product_id: product_id};
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: "/wiki_save_new_draft",
+        data: params_data,
+        dataType: "html"
+      }).done(function ( data ) {
+        jQuery('#temp_id').val(data);
+
+        var now = new Date();
+        jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+      });
+
+    }
+
+%input#temp_id{:name => "temp_id", :type => "hidden", :value => "#{params[:temp_id]}"}/
+%input#product_id{:name => "product_id", :type => "hidden", :value => "#{@product.id}"}/
+
+%input{:name => "save_draft_btn", :value => "保存草稿", :type => "button", :onclick => "save_as_draft();"}/
+
+%div{:id => "save_notice"}
+
 .page-new-wiki-page
   = flash_info
   = form_for @wiki_page, :url=>"/products/#{@product.id}/wiki" do |f|

@@ -145,7 +145,7 @@ class StoriesController < ApplicationController
     drafted_hash = {:how_to_demo => params[:how_to_demo], :tips => params[:tips], :product_id => params[:product_id]}
     temp_id = params[:temp_id] unless params[:temp_id].nil?
 
-    Story.save_new_draft(current_user, drafted_hash, temp_id)
+    temp_id = Story.save_new_draft(current_user, drafted_hash, temp_id)
 
     render :text => temp_id
   end
@@ -166,12 +166,6 @@ class StoriesController < ApplicationController
     render :nothing => true
   end
 
-
-
-  def my_drafts
-    @my_drafts = Draft.where(:creator_id => current_user.id).paginate(:page => params[:page], :per_page => 20).order('id DESC')
-
-  end
 
 
   def get_draft

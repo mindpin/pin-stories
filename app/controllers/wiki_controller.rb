@@ -141,4 +141,48 @@ class WikiController < ApplicationController
       :page => params[:page], :per_page => 20)
   end
 
+
+
+  def save_new_draft
+    drafted_hash = {:title => params[:title], :content => params[:content], :product_id => params[:product_id]}
+    temp_id = params[:temp_id] unless params[:temp_id].nil?
+
+    temp_id = WikiPage.save_new_draft(current_user, drafted_hash, temp_id)
+
+    render :text => temp_id
+  end
+
+
+  def save_draft
+    wiki_id = params[:wiki_id]
+    @wiki_page = WikiPage.find(wiki_id)
+
+    drafted_hash = {
+      :title => params[:title],
+      :content => params[:content], 
+      :product_id => @wiki_page.product_id
+    }
+
+    @wiki_page.save_draft(current_user, drafted_hash)
+
+    render :nothing => true
+  end
+
+
+
+  def get_draft
+    temp_id = params[:temp_id] 
+    draft = Draft.find_by_temp_id(temp_id) unless temp_id.nil?
+
+    wiki_id = params[:wiki_id]
+    draft = Draft.where(:model_id => wiki_id, :model_type => "WikiPage").first unless wiki_id.nil?
+
+    unless draft.nil?
+      drafted_hash = Marshal.load(draft.drafted_hash)
+      wiki = {:title => drafted_hash[:title], :content => drafted_hash[:content]}
+    end
+
+    render :text => wiki.to_json
+  end
+
 end

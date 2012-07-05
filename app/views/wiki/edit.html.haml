@@ -1,5 +1,55 @@
 .page-title #{@product.name} WIKI - 修改词条 - #{@wiki_page.title}
-  
+
+
+- content_for :javascript do
+  :javascript
+    var auto_save = self.setInterval("save_as_draft()", 30000);
+
+    jQuery(document).ready(function() {
+      get_draft();
+    });
+
+
+    function get_draft() {
+
+      jQuery.ajax({
+        type: 'GET',
+        url: "/wiki_get_draft",
+        data: {wiki_id: #{@wiki_page.id}},
+        dataType: "json"
+      }).done(function ( data ) {
+      
+        if (data != "") {
+          jQuery('#wiki_page_content').val(data.content);
+        }
+        
+      });
+      
+    }
+
+    function save_as_draft() {
+      var title = jQuery('#wiki_page_title').val();
+      var content = jQuery('#wiki_page_content').val();
+
+      $.ajax({
+        type: 'POST',
+        url: "/wiki_save_draft",
+        data: {title: title, content: content, wiki_id: #{@wiki_page.id}},
+        dataType: "html"
+      }).done(function ( data ) {
+        var now = new Date();
+        jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+      });
+      
+    }
+
+
+
+%input{:name => "save_draft_btn", :value => "保存草稿", :type => "button", :onclick => "save_as_draft();"}/
+
+%div{:id => "save_notice"}
+
+
 .page-edit-wiki-page
   = flash_info
   = form_for @wiki_page, :url => "/products/#{@product.id}/wiki/#{@wiki_page.title}", :method => 'put' do |f|

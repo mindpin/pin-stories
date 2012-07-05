@@ -95,9 +95,14 @@ Voteapp::Application.routes.draw do
 
   end
 
+  # wiki  draft
+  post '/wiki_save_new_draft' => 'wiki#save_new_draft'
+  post '/wiki_save_draft' => 'wiki#save_draft'
+  get '/wiki_get_draft' => 'wiki#get_draft'
+
   get '/atme/:name' => 'atme#atme'
 
-
+  resources :drafts
 
 
   # -------------------
@@ -116,7 +121,6 @@ Voteapp::Application.routes.draw do
     collection do
       post :save_new_draft
       post :save_draft
-      get  :my_drafts
       get  :get_draft
     end
 

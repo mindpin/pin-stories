@@ -34,9 +34,9 @@
       var product_id = jQuery('#product_id').val();
 
       if (temp_id != '') {
-        params_data = {how_to_demo: how_to_demo, tips: tips, temp_id: temp_id, product_id: product_id};
+        var params_data = {how_to_demo: how_to_demo, tips: tips, temp_id: temp_id, product_id: product_id};
       } else {
-        params_data = {how_to_demo: how_to_demo, tips: tips, product_id: product_id};
+        var params_data = {how_to_demo: how_to_demo, tips: tips, product_id: product_id};
       }
 
       $.ajax({

@@ -150,6 +150,52 @@ class WikiPage < ActiveRecord::Base
   end
 
 
+  def self.save_new_draft(current_user, drafted_hash, temp_id = nil)
+    if temp_id.nil?
+      temp_id = randstr()
+      drafted_hash[:temp_id] = temp_id
+      drafted_hash = Marshal.dump(drafted_hash)
+
+      Draft.create(
+        :creator => current_user,
+        :temp_id => temp_id,
+        :model_type => "WikiPage",
+        :drafted_hash => drafted_hash
+      )
+
+    else
+      drafted_hash[:temp_id] = temp_id
+      drafted_hash = Marshal.dump(drafted_hash)
+
+      draft = Draft.find_by_temp_id(temp_id)
+      draft.drafted_hash = drafted_hash
+      draft.save
+    end
+
+    temp_id
+  end
+
+
+  def save_draft(current_user, drafted_hash)
+    drafted_hash = Marshal.dump(drafted_hash)
+
+    saved_draft = Draft.where(:model_id => self.id, :model_type => self.class.name).exists?
+
+    unless saved_draft
+      Draft.create(
+        :creator => current_user,
+        :model => self,
+        :drafted_hash => drafted_hash
+      )
+    else
+      draft = Draft.where(:model_id => self.id, :model_type => self.class.name).first
+      draft.drafted_hash = drafted_hash
+      draft.save
+    end
+
+  end
+
+
 
   # 引用其它类
   include Activity::ActivityableMethods
