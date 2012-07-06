@@ -16,12 +16,13 @@ class WikiPage < ActiveRecord::Base
 
   validates_uniqueness_of :title, :message => '词条标题不能重复'
 
-  before_validation :validate_unique_of_from_model
+  before_validation :validate_unique_of_from_model, :unless => Proc.new { self.from_model.blank? }
   def validate_unique_of_from_model
     if WikiPage.where(:from_model_id => self.from_model_id, :from_model_type => self.from_model_type).exists?
       return false
     end
   end
+
 
   validates :title,   :presence => true
   validates :product, :presence => true
