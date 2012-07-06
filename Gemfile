@@ -18,6 +18,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'evernote', '~> 1.2.1'
 gem "oauth", '0.4.5'
 gem "thrift_client"
+gem 'rmmseg-cpp'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'

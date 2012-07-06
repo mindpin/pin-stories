@@ -1,12 +1,26 @@
 class WikiPageRecommander
 
+  def self._split(text)
+    algor = RMMSeg::Algorithm.new(text)
+    
+    words = []
+    loop do
+      tok = algor.next_token
+      break if tok.nil?
+      words << tok.text
+    end
+    words
+  end
+
   def self.recommand_by_content(product, content)
+=begin
     filename = Time.now.to_i
 
     source_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "source_#{filename}")
     target_file = File.join($SPHINX_SPILT_WORDS_TEMPFILE_PATH, "target_#{filename}")
 
     File.open(source_file, 'w') {|f| f.write(content) }
+
 
     # 生成磁盘文件，调用shell命令进行分词
     IO.popen("/usr/local/mmseg3/bin/mmseg -d /usr/local/mmseg3/etc #{source_file} >> #{target_file}"){ |f| puts f.gets }
@@ -29,6 +43,12 @@ class WikiPageRecommander
 
     # 取得最多出现的头三个词，组成搜索关键词
     search_str = sorted_target_data[0..2].map{|data| data[0]}.join(' | ')
+=end
+    # RMMSeg::Dictionary.load_dictionaries
+
+    words = _split(content)
+    words = words.sort{|a, b| b[1] <=> a[1]}
+    search_str = words[0..2].map{|data| data}.join(' | ')
 
     p "以 '#{search_str}' 发起搜索"
 

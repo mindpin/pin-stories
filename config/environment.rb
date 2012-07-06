@@ -20,6 +20,10 @@ $LOAD_PATH.push(Rails.root.to_s + "/lib/Evernote/EDAM")
 # require "Evernote/EDAM/note_store"
 # require "Evernote/EDAM/limits_constants.rb"
 
+# 中文分词
+require "rmmseg"
+RMMSeg::Dictionary.load_dictionaries
+
 
 # Initialize the rails application
 Voteapp::Application.initialize!
