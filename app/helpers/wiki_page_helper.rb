@@ -2,12 +2,7 @@ module WikiPageHelper
 
   # 获取一个wiki_page版本记录的正文内容
   def get_wiki_audit_content(audit)
-    case audit.action
-    when 'create'
-      return audit.audited_changes['content']
-    when 'update'
-      return audit.audited_changes['content'].last
-    end
+    audit.revision.content
   end
 
   def has_referenced_from_story?(wiki_page)
