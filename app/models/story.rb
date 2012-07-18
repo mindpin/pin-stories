@@ -31,6 +31,15 @@ class Story < ActiveRecord::Base
   default_scope order('id DESC')
   
   scope :with_status, lambda {|status| where(:status=>status)}
+
+
+  scope :not_assign, where(:status => STATUS_NOT_ASSIGN)
+  scope :doing, where(:status => STATUS_DOING)
+  scope :reviewing, where(:status => STATUS_REVIEWING)
+  scope :done, where(:status => STATUS_DONE)
+  scope :pause, where(:status => STATUS_PAUSE)
+  scope :for_product, lambda {|product| where(:product_id => product.id)}
+
   
   # ------------------
   
