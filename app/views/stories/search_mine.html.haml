@@ -19,8 +19,8 @@
       :ruby
         path = "/stories/#{assign.story.id}"
 
-        htd = assign.story.how_to_demo.gsub(@keyword, "<span style='color: red;'>#{@keyword}</span>").html_safe
-        tips = assign.story.tips.gsub(@keyword, "<span style='color: red;'>#{@keyword}</span>").html_safe
+        htd = assign.story.how_to_demo.gsub(@keyword, "<span class='match'>#{@keyword}</span>").html_safe
+        tips = assign.story.tips.gsub(@keyword, "<span class='match'>#{@keyword}</span>").html_safe
 
       .wiki-page
         .ct=link_to htd, path
