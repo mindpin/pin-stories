@@ -1,4 +1,4 @@
-Voteapp::Application.routes.draw do  
+MindpinAgile::Application.routes.draw do  
   # -- 用户登录认证相关 --
   root :to => 'index#index'
   

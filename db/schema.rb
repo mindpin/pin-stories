@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627085051) do
+ActiveRecord::Schema.define(:version => 20120718072515) do
+
+  create_table "activities", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "actor_id"
+    t.integer  "act_model_id"
+    t.string   "act_model_type"
+    t.string   "action"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -40,6 +50,16 @@ ActiveRecord::Schema.define(:version => 20120627085051) do
     t.text     "content"
     t.integer  "reply_comment_id"
     t.integer  "reply_comment_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "drafts", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "model_id"
+    t.string   "model_type"
+    t.string   "temp_id"
+    t.text     "drafted_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -110,13 +130,15 @@ ActiveRecord::Schema.define(:version => 20120627085051) do
     t.text     "tips"
     t.integer  "time_estimate", :default => 8,    :null => false
     t.boolean  "delta",         :default => true, :null => false
+    t.integer  "creator_id"
   end
 
   create_table "story_assigns", :force => true do |t|
-    t.integer  "story_id",   :null => false
-    t.integer  "user_id",    :null => false
+    t.integer  "story_id",                     :null => false
+    t.integer  "user_id",                      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",      :default => true, :null => false
   end
 
   create_table "stream_story_links", :force => true do |t|
@@ -177,7 +199,9 @@ ActiveRecord::Schema.define(:version => 20120627085051) do
     t.integer  "latest_version"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "delta",          :default => true, :null => false
+    t.boolean  "delta",           :default => true, :null => false
+    t.integer  "from_model_id"
+    t.string   "from_model_type"
   end
 
 end

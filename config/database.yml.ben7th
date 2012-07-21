@@ -1,5 +1,3 @@
-# 实际开发的时候，database配置务必修改一下
-
 development:
   adapter: mysql2
   encoding: utf8
@@ -7,14 +5,19 @@ development:
   username: root
   password: root
   host: localhost
+  pool: 5
+  timeout: 5000
+  reconnect: true
 
 test:
   adapter: mysql2
   encoding: utf8
-  database: pin-stories
+  database: pin-stories-test
   username: root
   password: root
   host: localhost
+  pool: 5
+  timeout: 5000
   
 production:
   adapter: mysql2
@@ -23,3 +26,6 @@ production:
   username: root
   password: root
   host: localhost
+  pool: 5
+  timeout: 5000
+  reconnect: true

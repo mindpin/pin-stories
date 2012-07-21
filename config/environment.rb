@@ -26,4 +26,4 @@ RMMSeg::Dictionary.load_dictionaries
 
 
 # Initialize the rails application
-Voteapp::Application.initialize!
+MindpinAgile::Application.initialize!
