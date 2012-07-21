@@ -36,8 +36,8 @@
     a.new{
       float:left;
       height:30px;line-height:30px;
-      background-color:$COLOR-BOX-LIGHT-BG;
-      padding:0 $BOX-PADDING 0 $BOX-PADDING + 24 - 3;
+      background-color:#646464;
+      padding:0 15px 0 15px + 24 - 3;
       position:relative;
       margin-right:10px;
       color:white;
@@ -68,7 +68,7 @@
 
       @include transition(all ease-in .2s);
       &:hover{
-        background-color:$COLOR-BTN-DARK-BG-HOVER;
+        background-color:rgba(black, 0.6)-HOVER;
         text-decoration:none;
       }
     }
@@ -76,15 +76,15 @@
     a.orphan, a.connect-evernote, .import-evernote{
       float:left;
       height:30px;line-height:30px;
-      background-color:$COLOR-BOX-LIGHT-BG;
-      padding:0 $BOX-PADDING;
+      background-color:#646464;
+      padding:0 15px;
       position:relative;
       margin-right:10px;
       color:white;
 
       @include transition(all ease-in .2s);
       &:hover{
-        background-color:$COLOR-BTN-DARK-BG-HOVER;
+        background-color:rgba(black, 0.6)-HOVER;
         text-decoration:none;
       }
     }
@@ -92,7 +92,7 @@
     .evernote-connected{
       float:left;
       height:30px;line-height:30px;
-      padding:0 0 0 $BOX-PADDING;
+      padding:0 0 0 15px;
       position:relative;
       margin-right:10px;
       color:white;
@@ -102,18 +102,18 @@
   .wiki-page{
     height:30px;line-height:30px;
     margin-bottom:10px;
-    padding:0 $BOX-PADDING;
-    background-color:$COLOR-BOX-BG;
+    padding:0 15px;
+    background-color:#3E3D3F;
   }
 }
 
 
 .page-wiki-page{
   .wiki-page-title{
-    background-color:$COLOR-BOX-BG;
+    background-color:#3E3D3F;
     font-size:28px;
     line-height:50px;
-    padding:0 $BOX-PADDING - 5;
+    padding:0 15px - 5;
     font-weight: bold;
     border-left:solid 5px rgba(white, 0.4);
     margin-bottom:10px;
@@ -128,8 +128,8 @@
   }
 
   .table-of-contents{
-    background-color:$COLOR-BOX-BG;
-    padding:$BOX-PADDING $BOX-PADDING $BOX-PADDING 3px;
+    background-color:#3E3D3F;
+    padding:15px 15px 15px 3px;
     margin-bottom:10px;
     ul{
       padding-left:12px;
@@ -137,8 +137,8 @@
   }
 
   .wiki-page-content{
-    background-color:$COLOR-BOX-BG2;
-    padding:$BOX-PADDING;
+    background-color:#363537;
+    padding:15px;
     font-size:14px;
 
     h1{font-size:28px;line-height:42px;border-bottom:solid 1px #4F4F4F;margin-bottom:14px;}
@@ -176,16 +176,16 @@
     }
 
     .wiki-page{
-      background-color:$COLOR-BOX-BG;
+      background-color:#3E3D3F;
       margin-bottom:10px;
 
       .title{height:30px;line-height:30px;
-        background-color:$COLOR-BOX-BG2;
-        padding:0 $BOX-PADDING;
+        background-color:#363537;
+        padding:0 15px;
       }
 
       .ct{
-        padding:$BOX-PADDING;
+        padding:15px;
       }
     }
   }
@@ -194,12 +194,12 @@
 
 .page-wiki-page-versions{
   .version{
-    background-color:$COLOR-BOX-BG;
-    padding:$BOX-PADDING;
+    background-color:#3E3D3F;
+    padding:15px;
     margin-bottom:10px;
 
     &.current{
-      background-color:$COLOR-BOX-BG2;
+      background-color:#363537;
       box-shadow:0 0 5px #FCBA15 inset, 0 0 5px #FCBA15;
       .is-current{
         color:#FCBA15;
@@ -209,8 +209,8 @@
 }
 
 .page-wiki-search{
-  background-color:$COLOR-BOX-BG;
-  padding:$BOX-PADDING;
+  background-color:#3E3D3F;
+  padding:15px;
   margin-bottom:10px;
 
   form{
@@ -223,9 +223,9 @@
     .form-submit-button{
       float: left;
       @include border-radius(0);
-      //background:$COLOR-BOX-BG2;
-      border-color:$COLOR-MEDIUM-BORDER;
-      &:hover{background-color:$COLOR-BOX-BG;}
+      //background:#363537;
+      border-color:rgba(black, 0.3);
+      &:hover{background-color:#3E3D3F;}
       
       height:30px;
       width:30px;
@@ -258,15 +258,15 @@
 
 .page-wiki-search-results{
   .count{
-    background-color:$COLOR-BOX-BG;
-    padding:$BOX-PADDING;
+    background-color:#3E3D3F;
+    padding:15px;
     margin-bottom:10px;
     color:#999;
   }
 
   .wiki-page{
-    background-color:$COLOR-BOX-BG;
-    padding:$BOX-PADDING;
+    background-color:#3E3D3F;
+    padding:15px;
     margin-bottom:10px;
 
     .title{

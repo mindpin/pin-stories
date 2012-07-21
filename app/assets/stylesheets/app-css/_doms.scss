@@ -1,5 +1,5 @@
 @mixin white-link{
-  color:white;&:hover{color:$COLOR-LINK;text-decoration:none;}
+  color:white;&:hover{color:#9FBA6D;text-decoration:none;}
   @include transition(color ease-in .2s);
 }
 
@@ -76,17 +76,17 @@ $story-status-pause-color:#EAC018;
     
     a.how{
       clear:both;
-      color:$COLOR-QUIET-TEXT;
-      padding:$BOX-PADDING-LESS;
-      padding-bottom:$BOX-PADDING-LESS + 20px;
-      background-color:$COLOR-BOX-BG2;
+      color:#999;
+      padding:15px-LESS;
+      padding-bottom:15px-LESS + 20px;
+      background-color:#363537;
       display:block;
 
       @include transition(all ease-in .2s);
       &:hover{
-        color:$COLOR-LINK;text-decoration:none;
+        color:#9FBA6D;text-decoration:none;
         box-shadow:0 0 2px #76B8F2, 0 0 2px #76B8F2 inset;
-        background-color:lighten($COLOR-BOX-BG2, 5%);
+        background-color:lighten(#363537, 5%);
       }
     }
 
@@ -94,15 +94,15 @@ $story-status-pause-color:#EAC018;
       overflow:hidden;
       position:absolute;
       bottom:0;
-      left:$BOX-PADDING-NARROW;
+      left:15px-NARROW;
 
       .story-id{
         float:left;
         color:#fff;height:20px;line-height:20px;
         font-weight:bold;
-        background-color:$COLOR-BOX-LIGHT-BG;
+        background-color:#646464;
         padding:0 3px;
-        text-shadow:1px 1px $COLOR-BLACK-SHADOW;
+        text-shadow:1px 1px rgba(black, 0.2);
       }
       .status{
         float:left;margin-right:5px;

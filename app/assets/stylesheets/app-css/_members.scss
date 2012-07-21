@@ -9,7 +9,7 @@
 
       overflow:hidden;
       width: $w*2 + $padding * 3;
-      background-color:$COLOR-BOX-BG;
+      background-color:#3E3D3F;
       padding:0;
       display:block;
       @include white-link;
@@ -25,8 +25,8 @@
       }
 
       &:hover{
-        .avatar{background-color:$COLOR-LINK;}
-        .meta .real-name{color:$COLOR-LINK;}
+        .avatar{background-color:#9FBA6D;}
+        .meta .real-name{color:#9FBA6D;}
       }
 
       .avatar{
@@ -44,7 +44,7 @@
           font-size:13px;font-weight:bold;margin-bottom:5px;
           margin-top:10px;
         }
-        .real-name{color:$COLOR-QUIET-TEXT;}
+        .real-name{color:#999;}
       }
     }
   }
@@ -52,10 +52,10 @@
 
 .page-member-show{
   .avatar{
-    background-color:$COLOR-BOX-BG;
+    background-color:#3E3D3F;
 
     $w:200px;
-    padding:$BOX-PADDING;
+    padding:15px;
     width:$w;height:$w;overflow:hidden;
     img{width:$w;height:$w;}
 

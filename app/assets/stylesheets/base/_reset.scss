@@ -16,22 +16,21 @@ html{
 
 body {line-height:1.5;}
 
-ins{text-decoration:none}
-del{text-decoration:line-through}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
 
 table {border-collapse:separate;border-spacing:0;}
 caption, th, td {text-align:left;font-weight:normal;}
 table, td, th {vertical-align:middle;}
 
 blockquote,q{quotes:none}
-blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}:focus{outline:0;}
 
 a img {border:none;}
-a em {@include base-font-family;}
 
 // list tags
 // --------------
-li ul, li ol{margin: 0;}
+li ul, li ol{margin:0;}
 ul, ol{margin:0;}
 
 ul{list-style-type:none;}
@@ -41,4 +40,4 @@ dl{margin:0 0 1.5em 0;}
 dl dt{font-weight:bold;}
 dd{margin-left:1.5em;}
 
-textarea{resize:none;@include base-font-family;}
+textarea{resize:none;}

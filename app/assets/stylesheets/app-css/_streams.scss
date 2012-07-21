@@ -1,6 +1,6 @@
 .page-new-stream{
-  padding:$BOX-PADDING;
-  background-color:$COLOR-FORM-BG;
+  padding:15px;
+  background-color:#646464;
 }
 
 .page-stream-show{
@@ -23,8 +23,8 @@
           background-color:#444;
           padding:0 12px;font-weight:bold;
           @include border-radius(3px);
-          text-shadow:1px 1px $COLOR-BLACK-SHADOW;
-          border:solid 1px $COLOR-BLACK-SHADOW;
+          text-shadow:1px 1px rgba(black, 0.2);
+          border:solid 1px rgba(black, 0.2);
         }
         .status{
           float:left;margin-right:12px;
@@ -38,10 +38,10 @@
             color:#fff;
             padding:0 12px;
             @include border-radius(3px);
-            @include number-font-family;
+            @include number-font;
             text-align:center;
-            border:solid 1px $COLOR-BLACK-SHADOW;
-            text-shadow:1px 1px $COLOR-BLACK-SHADOW;
+            border:solid 1px rgba(black, 0.2);
+            text-shadow:1px 1px rgba(black, 0.2);
           }
         }
         

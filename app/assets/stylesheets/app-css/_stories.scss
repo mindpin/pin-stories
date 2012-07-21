@@ -1,6 +1,6 @@
 .page-new-story, .page-edit-story{
-  padding:$BOX-PADDING;
-  background-color:$COLOR-FORM-BG;
+  padding:15px;
+  background-color:#646464;
 
   form{
     .field.how-to-demo, .field.tips{
@@ -17,7 +17,7 @@
       overflow:hidden;
       margin-left:5px;
       .stream{
-        background-color:$COLOR-BG1;
+        background-color:#3E3D3F;
         padding:5px;width:200px;
         margin-right:10px;margin-bottom:10px;
         float:left;
@@ -32,8 +32,8 @@
 
 .page-story-show{
   position:relative;
-  background-color:$COLOR-BOX-BG;
-  padding:$BOX-PADDING;
+  background-color:#3E3D3F;
+  padding:15px;
   
   .admin-ops{
     padding:5px;
@@ -57,7 +57,7 @@
   
   .belongs-to{
     position:relative;
-    margin-bottom:$BOX-PADDING;
+    margin-bottom:15px;
 
     .product{
       position:relative;
@@ -114,12 +114,12 @@
     margin-bottom:30px;
     .t{
       font-weight:bold;
-      border-bottom:solid 1px $COLOR-BOX-LIGHT-BG;
+      border-bottom:solid 1px #646464;
       font-size:14px;padding-bottom:5px;margin-bottom:5px;
     }
     .ct{
       font-size:14px;
-      //color:$COLOR-QUIET-TEXT;
+      //color:#999;
     }
   }
   
@@ -146,9 +146,9 @@
 
 .page-mine-stories-filter-nav{
   position:relative;
-  padding:$BOX-PADDING $BOX-PADDING 0;
+  padding:15px 15px 0;
   margin:0 0 10px 0;
-  background-color:$COLOR-BOX-BG2;
+  background-color:#363537;
   height:33px;
   
   .statuses{
@@ -160,7 +160,7 @@
       margin-right:3px;
       height:32px;line-height:32px;
       background-color:#ddd;
-      border:solid 1px $COLOR-TINY-BORDER;
+      border:solid 1px rgba(black, 0.1);
       border-bottom:none;
       @include border-radius(3px 3px 0 0);
       padding:0 12px 0 6px;
@@ -185,7 +185,7 @@
           color:#999999;&:hover{
             color:#444;
             text-decoration:none;
-            background-color:$COLOR-BLACK-SHADOW;
+            background-color:rgba(black, 0.2);
             @include border-radius(3px);
             @include transition(all ease-in .2s);
           };
@@ -194,7 +194,7 @@
       }
       
       .count{
-        border:solid 1px $COLOR-BLACK-SHADOW;
+        border:solid 1px rgba(black, 0.2);
         background-color:#555;
         font-weight:bold;
         height:16px;line-height:16px;
@@ -203,7 +203,7 @@
         font-size:10px;
         color:#fff;
         margin-top:7px;
-        text-shadow:1px 1px $COLOR-BLACK-SHADOW;
+        text-shadow:1px 1px rgba(black, 0.2);
       }
 
       &.not-assign{
@@ -245,7 +245,7 @@
 
     float:left;
     width:$w;
-    background-color:$COLOR-BOX-BG;
+    background-color:#3E3D3F;
     margin-right:10px;
 
     .name{

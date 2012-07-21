@@ -6,7 +6,7 @@
 .page-products
   -products.each do |product|
     :ruby
-      name = product.name
+      name = truncate_u(product.name, 10)
       description = product.description
       cover_url = product.cover.url
       
@@ -21,22 +21,14 @@
     .product
       .meta-data
         =link_to product_show_url, :class=>'box' do
-          .cover
-            %img{:alt=>name, :src=>cover_url}
-          .name=name
-          .desc.hide=truncate_u description, 100
+          .cover.auto-fit-image{:'data-src'=>cover_url, :'data-alt'=>name}
+          .name= name
+
       .stat-data
-        .base
-          .stat{:class=> stories_count == 0 ? 'zero':''}
-            .n=stories_count
-            .d 故事
-          .stat{:class=> streams_count == 0 ? 'zero':''}
-            .n=streams_count
-            .d 序列
-          .stat{:class=> members_count == 0 ? 'zero':''}
-            .n=members_count
-            .d 参与者
-        .work-member
+        -if stories_count > 0
+          %span.stat #{stories_count} stories
+
+        .work-member.hide
           .members
             -members.each do |member|
               .avatar

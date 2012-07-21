@@ -1,6 +1,6 @@
 .page-evernote-notebook-list{
-  padding:$BOX-PADDING;
-  background-color:$COLOR-BG1;
+  padding:15px;
+  background-color:#3E3D3F;
 
   .desc{
     margin-bottom:10px;
@@ -9,7 +9,7 @@
   .all-notebook, .all-tag{
     padding:0;
     height:30px;line-height:30px;
-    background-color:$COLOR-BG2;
+    background-color:#363537;
     margin-bottom:10px;
     overflow:hidden;
     font-size:14px;
@@ -18,7 +18,7 @@
       float:left;
       height:30px;line-height:30px;
       background-color:#222;
-      margin-right:$BOX-PADDING;
+      margin-right:15px;
       width:30px;
       text-align:center;
     }
@@ -29,7 +29,7 @@
     .notebook{
       padding:0;
       height:30px;line-height:30px;
-      background-color:$COLOR-BG2;
+      background-color:#363537;
       margin-bottom:10px;
       overflow:hidden;
       font-size:14px;
@@ -43,7 +43,7 @@
         float:left;
         height:30px;line-height:30px;
         background-color:#222;
-        margin-right:$BOX-PADDING;
+        margin-right:15px;
         width:30px;
         text-align:center;
 
@@ -61,7 +61,7 @@
     .tag{
       padding:0;
       height:30px;line-height:30px;
-      background-color:$COLOR-BG2;
+      background-color:#363537;
       margin-bottom:10px;
       overflow:hidden;
       font-size:14px;
@@ -75,7 +75,7 @@
         float:left;
         height:30px;line-height:30px;
         background-color:#222;
-        margin-right:$BOX-PADDING;
+        margin-right:15px;
         width:30px;
         text-align:center;
 
@@ -90,8 +90,8 @@
 }
 
 .page-evernote-import-confirm{
-  padding:$BOX-PADDING;
-  background-color:$COLOR-BG1;
+  padding:15px;
+  background-color:#3E3D3F;
   
   .desc{
     margin-bottom:10px;
@@ -100,9 +100,9 @@
   .notes{
     margin-bottom:10px;
     .note{
-      padding:0 $BOX-PADDING;
+      padding:0 15px;
       height:30px;line-height:30px;
-      background-color:$COLOR-BG2;
+      background-color:#363537;
       margin-bottom:10px;
       overflow:hidden;
       font-size:12px;
@@ -116,7 +116,7 @@
         float:left;
         height:30px;line-height:30px;
         background-color:#222;
-        margin-right:$BOX-PADDING;
+        margin-right:15px;
         width:30px;
         text-align:center;
 
@@ -131,9 +131,9 @@
 
   .title-repeat-deal-method{
     margin-bottom:10px;
-    padding:0 $BOX-PADDING;
+    padding:0 15px;
     line-height:30px;
-    background-color:$COLOR-BG2;
+    background-color:#363537;
   }
 
   span.status{

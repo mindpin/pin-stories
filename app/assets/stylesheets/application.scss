@@ -1,79 +1,28 @@
+// basic css，don't change
+// -----------------
 @import 'base/mixins';
 @import 'base/reset';
 @import 'base/typography';
 
-// -------- 各种本项目专用的mixin，基本都是迭代时抽取的
-@import 'useful/consts';
-@import 'useful/doms';
+// page-doms, edit it if you need
+// ------------------
+@import 'mindpin-scss/form';
+@import 'mindpin-scss/button';
 
 
-// -------- 本项目基本布局
-@import 'product_layout/body'; //nav content a
-@import 'product_layout/form'; //form
+// this app
+// ------------------
+@import 'app-css/mixins';
+@import 'app-css/layout';
 
+@import 'app-css/products';
 
-// -------- 代码高亮
-@import 'coderay/coderay';
-
-// -------- 基本通用文档要素
-.page-title{
-  font-size:16px;
-  line-height:24px;height:24px;
-  background-color:$COLOR-BOX-BG2;
-  padding:$BOX-PADDING;
-  margin-bottom:10px;
-  overflow:hidden;
-
-  a.go-back{
-    background-color:$COLOR-BOX-LIGHT-BG;
-    //border:1px solid $COLOR-TINY-LIGHT-BORDER;
-    @include border-radius(2px);
-    display:inline-block;
-    height:30px;line-height:30px;margin-top:-2px;
-    font-size:12px;
-    color:white;&:hover{color:white;text-decoration:none;};
-    box-shadow:0px 0px 2px rgba(black, 0.1);
-    text-shadow:-1px -1px 0 rgba(black, 0.2);
-    margin-left:10px;position:relative;top:-2px;
-    padding:0 10px 0 23px;
-    
-    @include transition(all ease-in .2s);
-
-    &:hover{
-      background-color:$COLOR-BOX-LIGHT-BG-HOVER;
-    }
-    &:before, &:after{
-      content:"";
-      position:absolute;
-      width:21px;height:21px;
-      //@include border-radius(2px);
-      left:-10px;
-      background-color:$COLOR-BOX-BG2;
-      //background-color:red;
-    }
-    &:before{top:-10px;@include transform(rotate(45deg));}
-    &:after{bottom:-11px;@include transform(rotate(-45deg));}
-  }
-}
-
-.flash-error{
-  height:32px;line-height:32px;
-  background-color:#DC4A38;color:white;
-  @include border-radius(3px);
-  margin-bottom:10px;
-  padding:0 10px;
-}
-
-// -------- 登录验证
-
-@import 'app_css/login';
-
-// --------- 业务组件
-@import 'app_css/admin';
-@import 'app_css/products';
-@import 'app_css/members';
-@import 'app_css/stories';
-@import 'app_css/streams';
-@import 'app_css/wiki_page';
-@import 'app_css/issue';
-@import 'app_css/evernote';
+// @import 'app-css/doms';
+// @import 'app-css/login';
+// @import 'app-css/admin';
+// @import 'app-css/members';
+// @import 'app-css/stories';
+// @import 'app-css/streams';
+// @import 'app-css/wiki_page';
+// @import 'app-css/issue';
+// @import 'app-css/evernote';
