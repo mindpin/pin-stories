@@ -16,7 +16,8 @@ class StoriesController < ApplicationController
 
   
   def create
-    @story = Story.new(params[:story])
+    @story = current_user.created_stories.build(params[:story])
+    # @story = Story.new(params[:story])
     @story.product = @product
     
     if @story.save
@@ -102,18 +103,9 @@ class StoriesController < ApplicationController
   # 全文索引，搜索属于我的story
   def search_mine
     @keyword = params[:keyword]
-    stories = Story.search(@keyword)
-    
-    @search_result = []
-    current_user.assigned_stories.each do |my_story|
-
-      stories.each_with_index do |item, index|
-        if my_story.id == item.id
-          @search_result << item
-        end
-      end
-
-    end
+    @assigned = StoryAssign.search(@keyword, 
+      :conditions => {:user_id => current_user.id}, 
+      :page => params[:page], :per_page => 20)
 
   end
 
@@ -130,5 +122,56 @@ class StoriesController < ApplicationController
     redirect_to "/stories/#{@story.id}"
   end
 
+  # 保存到 wiki
+  def save_to_wiki
+    wiki_page = @story.save_to_wiki
+
+    redirect_to URI.encode("/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}")
+
+  end
+
+
+
+  def save_new_draft
+    drafted_hash = {:how_to_demo => params[:how_to_demo], :tips => params[:tips], :product_id => params[:product_id]}
+    temp_id = params[:temp_id] unless params[:temp_id].nil?
+
+    temp_id = Story.save_new_draft(current_user, drafted_hash, temp_id)
+
+    render :text => temp_id
+  end
+
+
+  def save_draft
+    story_id = params[:story_id]
+    @story = Story.find(story_id)
+
+    drafted_hash = {
+      :how_to_demo => params[:how_to_demo], 
+      :tips => params[:tips], 
+      :product_id => @story.product_id
+    }
+
+    @story.save_draft(current_user, drafted_hash)
+
+    render :nothing => true
+  end
+
+
+
+  def get_draft
+    temp_id = params[:temp_id] 
+    draft = Draft.find_by_temp_id(temp_id) unless temp_id.nil?
+
+    story_id = params[:story_id]
+    draft = Draft.where(:model_id => story_id, :model_type => "Story").first unless story_id.nil?
+
+    unless draft.nil?
+      drafted_hash = Marshal.load(draft.drafted_hash)
+      story = {:how_to_demo => drafted_hash[:how_to_demo], :tips => drafted_hash[:tips]}
+    end
+
+    render :text => story.to_json
+  end
 
 end

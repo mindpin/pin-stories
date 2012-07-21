@@ -64,5 +64,15 @@ module StoryHelper
     audit.revision.tips
   end
 
+  # 判断该 story 是否有被 wiki 引用
+  def has_referenced_by_wiki?(story)
+    WikiPage.where(:from_model_id => story.id, :from_model_type => 'Story').exists?
+  end
+
+  # 取得引用当前 story 的  wiki title
+  def referenced_title_by_wiki(story)
+    WikiPage.where(:from_model_id => story.id, :from_model_type => 'Story').first.title
+  end
+
 
 end

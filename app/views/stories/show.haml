@@ -28,7 +28,13 @@
     .streams
       -streams.each do |stream|
         .stream=link_to stream.title, "/streams/#{stream.id}"
-        
+  
+  %p
+    - if has_referenced_by_wiki?(@story)
+      = link_to "已经保存到wiki", "/products/#{@story.product.id}/wiki/#{referenced_title_by_wiki(@story)}"
+    - else
+      = link_to '保存到Wiki', "/stories/#{@story.id}/save_to_wiki", :confirm => "是否确定保存"
+
   .how-to-demo
     .t HOW TO DEMO - 如何演示
     .ct=format_ct story, :how_to_demo

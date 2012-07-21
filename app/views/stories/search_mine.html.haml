@@ -3,7 +3,7 @@
 =render 'stories/parts/search_mine'
 
 .page-wiki-search-results
-  - if @search_result.blank?
+  - if @assigned.blank?
     .count
       找到
       %span.n 0 
@@ -11,16 +11,16 @@
   - else
     .count 
       找到 
-      %span.n #{@search_result.length} 
+      %span.n #{@assigned.length} 
       条结果
 
 
-    - @search_result.each do |story|
+    - @assigned.each do |assign|
       :ruby
-        path = "/stories/#{story.id}"
+        path = "/stories/#{assign.story.id}"
 
-        htd = story.excerpts.how_to_demo.html_safe
-        tips = story.excerpts.tips.html_safe
+        htd = assign.story.how_to_demo.gsub(@keyword, "<span class='match'>#{@keyword}</span>").html_safe
+        tips = assign.story.tips.gsub(@keyword, "<span class='match'>#{@keyword}</span>").html_safe
 
       .wiki-page
         .ct=link_to htd, path

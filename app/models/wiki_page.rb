@@ -3,6 +3,9 @@ class WikiPage < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :product, :class_name => 'Product'
 
+  # 多态
+  belongs_to :from_model, :polymorphic => true
+
   # --- 版本控制
   audited
 
@@ -12,7 +15,15 @@ class WikiPage < ActiveRecord::Base
     :message => '词条标题不允许特殊字符'
 
   validates_uniqueness_of :title, :message => '词条标题不能重复'
-  
+
+  before_validation :validate_unique_of_from_model, :unless => Proc.new { self.from_model.blank? }
+  def validate_unique_of_from_model
+    if WikiPage.where(:from_model_id => self.from_model_id, :from_model_type => self.from_model_type).exists?
+      return false
+    end
+  end
+
+
   validates :title,   :presence => true
   validates :product, :presence => true
   validates :creator, :presence => true
@@ -68,6 +79,32 @@ class WikiPage < ActiveRecord::Base
     end
   end
 
+
+
+  # 生成 wiki page 动态
+  after_create :generate_create_activity
+  after_update :generate_update_activity
+
+  def generate_create_activity
+    Activity.create(
+      :product => self.product,
+      :actor => self.creator,
+      :act_model => self, 
+      :action => 'CREATE_WIKIPAGE'
+    )
+  end
+
+  def generate_update_activity
+    Activity.create(
+      :product => self.product,
+      :actor => self.creator,
+      :act_model => self, 
+      :action => 'UPDATE_WIKIPAGE'
+    )
+  end
+
+
+
   # 判断词条标题是否重复·
   def is_title_repeat?
     x = WikiPage.find_by_title(self.title)
@@ -113,8 +150,67 @@ class WikiPage < ActiveRecord::Base
     WikiPageFormatter.split_section(self, section_num)
   end
 
+
+  def self.save_new_draft(current_user, drafted_hash, temp_id = nil)
+    if temp_id.nil?
+      temp_id = randstr()
+      drafted_hash[:temp_id] = temp_id
+      drafted_hash = Marshal.dump(drafted_hash)
+
+      Draft.create(
+        :creator => current_user,
+        :temp_id => temp_id,
+        :model_type => "WikiPage",
+        :drafted_hash => drafted_hash
+      )
+
+    else
+      drafted_hash[:temp_id] = temp_id
+      drafted_hash = Marshal.dump(drafted_hash)
+
+      draft = Draft.find_by_temp_id(temp_id)
+      draft.drafted_hash = drafted_hash
+      draft.save
+    end
+
+    temp_id
+  end
+
+
+  def save_draft(current_user, drafted_hash)
+    drafted_hash = Marshal.dump(drafted_hash)
+
+    saved_draft = Draft.where(:model_id => self.id, :model_type => self.class.name).exists?
+
+    unless saved_draft
+      Draft.create(
+        :creator => current_user,
+        :model => self,
+        :drafted_hash => drafted_hash
+      )
+    else
+      draft = Draft.where(:model_id => self.id, :model_type => self.class.name).first
+      draft.drafted_hash = drafted_hash
+      draft.save
+    end
+
+  end
+
+
+
+  # 引用其它类
+  include Activity::ActivityableMethods
+
+
   
   # --- 给其他类扩展的方法
+  module WikiPageableMethods
+    def self.included(base)
+      base.has_many :wiki_pages, :as => :from_model
+    end
+  end
+
+
   module UserMethods
     def self.included(base)
       base.has_many :wiki_pages, :foreign_key => :creator_id

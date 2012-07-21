@@ -30,12 +30,24 @@ Voteapp::Application.routes.draw do
   resources :products do
     resources :stories, :only => [:new, :create]
     resources :streams, :only => [:new, :create]
-    resources :issues,  :only => [:new, :create]
+
+    resources :issues
+
     resources :lemmas,  :only => [:new, :create]
   end
+
+  resources :issue_comments do
+    collection do
+      post :reply
+    end
+  end
+
   get 'products/:id/members' => 'products#product_members'
-  get 'products/:id/issues'  => 'products#product_issues'
   get 'products/:id/lemmas'  => 'products#product_lemmas'
+
+
+  # activities
+  get 'products/:id/activities'  => 'products#activities'
 
 
   # ---------------
@@ -83,9 +95,14 @@ Voteapp::Application.routes.draw do
 
   end
 
+  # wiki  draft
+  post '/wiki_save_new_draft' => 'wiki#save_new_draft'
+  post '/wiki_save_draft' => 'wiki#save_draft'
+  get '/wiki_get_draft' => 'wiki#get_draft'
+
   get '/atme/:name' => 'atme#atme'
 
-
+  resources :drafts
 
 
   # -------------------
@@ -101,6 +118,11 @@ Voteapp::Application.routes.draw do
 
     resources :comments
 
+    collection do
+      post :save_new_draft
+      post :save_draft
+      get  :get_draft
+    end
 
     member do
       get :assign_streams
@@ -115,6 +137,9 @@ Voteapp::Application.routes.draw do
   # 历史回滚
   get '/stories/:id/versions'          => 'stories#versions'
   get '/stories/:id/rollback/:version' => 'stories#rollback'
+
+  # story 保存到 wiki
+  get '/stories/:id/save_to_wiki'      => 'stories#save_to_wiki'
 
   resources :comments do
     member do

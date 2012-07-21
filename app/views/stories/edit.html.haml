@@ -1,6 +1,61 @@
 -htitle "修改故事"
 
+
+- content_for :javascript do
+  :javascript
+    var auto_save = self.setInterval("save_as_draft()", 30000);
+
+    jQuery(document).ready(function() {
+      get_draft();
+    });
+
+
+    function get_draft() {
+
+      jQuery.ajax({
+        type: 'GET',
+        url: "/stories/get_draft",
+        data: {story_id: #{@story.id}},
+        dataType: "json"
+      }).done(function ( data ) {
+      
+        if (data != "") {
+          jQuery('#story_how_to_demo').val(data.how_to_demo);
+          jQuery('#story_tips').val(data.tips);
+        }
+        
+      });
+      
+    }
+
+    function save_as_draft() {
+      var how_to_demo = jQuery('#story_how_to_demo').val();
+      var tips = jQuery('#story_tips').val();
+
+      $.ajax({
+        type: 'POST',
+        url: "/stories/save_draft",
+        data: {how_to_demo: how_to_demo, tips: tips, story_id: #{@story.id}},
+        dataType: "html"
+      }).done(function ( data ) {
+        var now = new Date();
+        jQuery('#save_notice').html("草稿保存于 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+      });
+        
+
+      
+    }
+
+
+
+
 .page-title="修改故事"
+
+
+%input{:name => "save_draft_btn", :value => "保存草稿", :type => "button", :onclick => "save_as_draft();"}/
+
+%div{:id => "save_notice"}
+
 
 .page-edit-story
   =flash_info

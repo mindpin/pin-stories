@@ -1,0 +1,187 @@
+-htitle @product.name
+
+=render 'products/parts/product_headbar', :product=>@product
+=render 'products/parts/product_nav', :product=>@product, :current=>:issues
+
+
+- content_for :javascript do
+  :javascript
+    $(document).ready(function(){
+      $('.edit-issue').live('click', function(){
+        var elm = jQuery(this).closest('.edit-issue');
+        var id = elm.data('id');
+
+        $('#content-' + id).hide();
+        $('#edit-box-' + id).show();
+      });
+
+      $('.cancel').live('click', function(){
+        var cancel_elm = jQuery(this).closest('.cancel');
+        var id = cancel_elm.data('id');
+
+        $('#content-' + id).show();
+        $('#edit-box-' + id).hide();
+      });
+
+      $('.update').live('click', function(){
+        var update_elm = jQuery(this).closest('.update');
+        var id = update_elm.data('id');
+        var content = $('#edit-content-' + id).val();
+
+        $.ajax({
+          type: 'PUT',
+          url: "/products/#{@product.id}/issues/" + id,
+          data: {content: content},
+          dataType: "html"
+        }).done(function ( data ) {
+          if (data != '') {
+            $('#content-' + id).html(data);
+            $('#edit-content-' + id).html(data);
+          }
+          
+        });
+
+        $('#content-' + id).show();
+        $('#edit-box-' + id).hide();
+      });
+
+
+      $('.del-issue').live('click', function(){
+        var r = confirm("确定删除!")
+        if (r == false) {
+          return false;
+        }
+        var del_elm = jQuery(this).closest('.del-issue');
+        var id = del_elm.data('id');
+
+        $.ajax({
+          type: 'DELETE',
+          url: "/products/#{@product.id}/issues/" + id,
+          dataType: "html"
+        }).done(function ( data ) {
+        
+        });
+
+        $('#issue-' + id).remove();
+      });
+
+
+      $('.show-comment').live('click', function(){
+        var comment_elm = jQuery(this).closest('.show-comment');
+        var id = comment_elm.data('id');
+        $('#comment-box-' + id).show();
+      });
+
+      $('.cancel-comment').live('click', function(){
+        var elm = jQuery(this).closest('.cancel-comment');
+        var id = elm.data('id');
+
+        $('#comment-box-' + id).hide();
+      });
+
+
+      $('.add-comment').live('click', function(){
+        var elm = jQuery(this).closest('.add-comment');
+        var id = elm.data('id');
+        var content = $('#comment-issue-' + id).val();
+
+        $.ajax({
+          type: 'POST',
+          url: "/issue_comments/",
+          data: {comment: content, issue_id: id},
+          dataType: "html"
+        }).done(function ( data ) {
+          $('#issue-' + id + '-comments').html(data);
+        });
+
+      });
+
+
+      $('.del-comment').live('click', function(){
+        var r = confirm("确定删除!")
+        if (r == false) {
+          return false;
+        }
+        var elm = jQuery(this).closest('.del-comment');
+        var id = elm.data('id');
+
+        $.ajax({
+          type: 'DELETE',
+          url: "/issue_comments/" + id,
+          dataType: "html"
+        }).done(function ( data ) {
+        
+        });
+
+        $('#comment-' + id + '-box').remove();
+      });
+
+
+      $('.show-reply').live('click', function(){
+        var elm = jQuery(this).closest('.show-reply');
+        var id = elm.data('id');
+        $('#reply-box-' + id).show();
+      });
+
+      $('.cancel-reply').live('click', function(){
+        var elm = jQuery(this).closest('.cancel-reply');
+        var id = elm.data('id');
+
+        $('#reply-box-' + id).hide();
+      });
+
+
+      $('.add-reply').live('click', function(){
+        var elm = jQuery(this).closest('.add-reply');
+        var id = elm.data('id');
+        var issue_id = elm.data('issue');
+        var content = $('#reply-content-' + id).val();
+
+        $.ajax({
+          type: 'POST',
+          url: "/issue_comments/reply",
+          data: {comment: content, id: id, issue_id: issue_id},
+          dataType: "html"
+        }).done(function ( data ) {
+          $('#issue-' + issue_id + '-comments').html(data);
+        });
+
+      });
+
+    });		  
+
+.page-product-issues
+  -@issues.each do |issue|
+    %div{:class => "issue", :id => "issue-#{issue.id}"}
+      .creator
+        =avatar_link issue.creator
+      .ct{:id => "content-#{issue.id}"}=issue.content
+
+      .ct{:id => "edit-box-#{issue.id}", :style => "display: none;"}
+        %textarea{:name => "content", :id => "edit-content-#{issue.id}", :style => "width: 500px; height: 120px; "} #{issue.content}
+        .field
+          %a.form-submit-button{:href=>'javascript:;', :class => "update", "data-id" => issue.id} 更新
+          %a.form-submit-button{:href=>'javascript:;', :class => "cancel", "data-id" => issue.id} 取消
+
+
+      .time
+        =issue.created_at
+      %div
+        %span{:class => "edit-issue", "data-id" => issue.id}="编辑"
+        %span{:class => "del-issue", "data-id" => issue.id}="删除"
+        %span{:class => "show-comment", "data-id" => issue.id}="添加评论"
+      
+
+      %div{:id => "issue-#{issue.id}-comments"}
+        =render 'issues/parts/issue_comments', :comments => issue.comments
+            
+        %div{:id => "comment-box-#{issue.id}", :style => "display: none;"}  
+          %label 内容
+          %div
+            %textarea{:name => "comment_content", :id => "comment-issue-#{issue.id}", :style => "width: 500px; height: 120px; "}
+          .field
+            %a.form-submit-button{:href=>'javascript:;', :class => "add-comment", "data-id" => issue.id} 回复
+            %a.form-submit-button{:href=>'javascript:;', :class => "cancel-comment", "data-id" => issue.id} 取消
+
+  .paginate=will_paginate @issues
+

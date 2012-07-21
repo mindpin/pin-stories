@@ -3,3 +3,85 @@
 .page-member-show
   .avatar=avatar @member, :large
 		
+
+%div
+  = link_to "按产品分组", "/members/#{@member.id}?stories_by=product"
+  = link_to "按状态分组", "/members/#{@member.id}?stories_by=status"
+  = link_to "综合概览", "/members/#{@member.id}?stories_by=overview"
+
+%div
+  - if params[:stories_by].nil?
+    - current_user.stories.each do |story|
+      %ul
+        %li= link_to story.how_to_demo[0..32], "/stories/#{story.id}"
+
+  - else
+    - case params[:stories_by]
+      - when "product"
+        - Product.all.each do |product|
+          %p= product.name
+          %ul
+            - current_user.assigned_stories.for_product(product).each do |story|
+              %li= story.how_to_demo[0..32]
+
+      - when "status"
+        %p= "未分配"
+        %ul
+          - current_user.assigned_stories.not_assign do |story|
+            %li= story.how_to_demo[0..32]
+
+        %p= "正在做"
+        %ul
+          - current_user.assigned_stories.doing.each do |story|
+            %li= story.how_to_demo[0..32]
+
+        %p= "已完成"
+        %ul
+          - current_user.assigned_stories.done.each do |story|
+            %li= story.how_to_demo[0..32]
+
+
+        %p= "REVIEW"
+        %ul
+          - current_user.assigned_stories.reviewing.each do |story|
+            %li= story.how_to_demo[0..32]
+
+        %p= "暂缓"
+        %ul
+          - current_user.assigned_stories.pause.each do |story|
+            %li= story.how_to_demo[0..32]
+
+      - when "overview"
+        - Product.all.each do |product|
+          %p= product.name
+          %p= "未分配"
+          %ul
+            - current_user.assigned_stories.for_product(product).not_assign.each do |story|
+              %li= story.how_to_demo[0..32]
+
+          %p= "正在做"
+          %ul
+            - current_user.assigned_stories.for_product(product).doing.each do |story|
+              %li= story.how_to_demo[0..32]
+
+          %p= "已完成"
+          %ul
+            - current_user.assigned_stories.for_product(product).done.each do |story|
+              %li= story.how_to_demo[0..32]
+
+
+          %p= "REVIEW"
+          %ul
+            - current_user.assigned_stories.for_product(product).reviewing.each do |story|
+              %li= story.how_to_demo[0..32]
+
+          %p= "暂缓"
+          %ul
+            - current_user.assigned_stories.for_product(product).pause.each do |story|
+              %li= story.how_to_demo[0..32]
+
+
+
+
+
+

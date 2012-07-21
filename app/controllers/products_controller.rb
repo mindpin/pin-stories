@@ -42,14 +42,14 @@ class ProductsController < ApplicationController
     @product_members = @product.members
   end
 
-  def product_issues
-    @product_issues = @product.issues
-  end
-
   def product_lemmas
     @product_lemmas = @product.lemmas
   end
 
+
+  def activities
+    @activities = Activity.paginate(:page => params[:page], :per_page => 20)
+  end
 
 
 end
