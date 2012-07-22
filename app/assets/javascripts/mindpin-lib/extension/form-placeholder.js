@@ -37,6 +37,6 @@ jQuery.fn.input = function(fn) {
     var label_elm = input_elm.parent().find('label');
     var value = input_elm.val();
 
-    jQuery.string(value).blank() ? label_elm.show() : label_elm.hide();
+    value == '' ? label_elm.show() : label_elm.hide();
   }
 })();

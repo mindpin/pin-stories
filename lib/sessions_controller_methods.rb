@@ -31,7 +31,7 @@ module SessionsControllerMethods
       after_logged_in()
       return render :json=>{:user=>current_user.api0_json_hash}
     else
-      return render :status=>401, :text=>'登录失败，用户名/密码错误'
+      return render :status=>401, :text=>'登录失败，用户名 / 密码错误'
     end
   end
   
@@ -40,7 +40,7 @@ module SessionsControllerMethods
       after_logged_in()
       redirect_back_or_default("/")
     else
-      flash[:error]="邮箱/密码不正确"
+      flash[:error] = '登录失败，用户名 / 密码错误'
       redirect_to '/login'
     end
   end

@@ -1,20 +1,20 @@
 -htitle '用户登录'
 
-.page-title 用户登录。没有账号的话，找ben7th去要…
+-hbreadcrumb '首页', '/'
+-hbreadcrumb '用户登录', '/login', :current=>true
 
-.page-login
-  =flash[:error]
-  =form_tag('/login',{:class=>'login-form'}) do
-    .field
-      %label 电子邮箱 / 用户名
-      =text_field_tag :email, params[:email]
-    .field
-      %label 密码
-      =password_field_tag :password, params[:password]
-    .field
-      %span=check_box_tag :remember_me, params[:remember_me], true
-      %span 下次记住我
-    .field.submit
-      %a.form-submit-button{:href=>'javascript:;'} 登录
-      -#%a.to-signup{:href=>'/signup'} 注册一个新账号
-      %a.form-cancel{:href=>'/'} 返回
+= form_tag '/login', :class=>'login-form', :'data-enter-to-submit'=>true do
+  = flash_info
+  .field.placeholder.need
+    %label 电子邮箱 / 用户名
+    =text_field_tag :email, params[:email]
+  .field.placeholder.need
+    %label 密码
+    =password_field_tag :password, params[:password]
+
+  .field
+    = jcheckbox :remember_me, params[:remember_me], true, '下次记住我'
+
+  .field.submit
+    %a.form-submit-button{:href=>'javascript:;'} 登录
+    %a.form-cancel-button{:href=>'/'} 返回

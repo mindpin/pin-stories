@@ -20,13 +20,13 @@
       font-weight: bold;
     }
     a.edit{
-      @include common-mini-button;
+      @include mini-button;
       float:right;
       margin-top:3px;
     }
   }
   a.add-member, a.add-product{
-    @include new-button;
+    @include mini-button;
     margin-top:5px;margin-right:10px;
   }
 }

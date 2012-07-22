@@ -1,5 +1,11 @@
 -htitle '我们的产品'
 
+-if logged_in?
+  -hbreadcrumb '首页', '/', :current=>true
+-else
+  -content_for :topbar do
+    .login= link_to '我要登录啊', '/login'
+
 :ruby
   products = Product.all
   
@@ -10,11 +16,8 @@
       description = product.description
       cover_url = product.cover.url
       
-      members = product.members
-      
       stories_count = product.stories.count
-      streams_count = product.streams.count
-      members_count = members.count
+      members_count = product.members.count
       
       product_show_url = "/products/#{product.id}"
       
@@ -26,14 +29,9 @@
 
       .stat-data
         -if stories_count > 0
-          %span.stat #{stories_count} stories
-
-        .work-member.hide
-          .members
-            -members.each do |member|
-              .avatar
-                =link_to "/members/#{member.id}", :title=>member.name do
-                  =avatar member, :mini
+          %span.stat #{stories_count} 故事
+        -if members_count > 0
+          %span.stat #{members_count} 开发者
             
       -if admin_logged_in?
         .ops

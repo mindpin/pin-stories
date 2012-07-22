@@ -1,0 +1,17 @@
+.page-breadcrumb{
+  .link{
+    float:left;
+    height:20px;line-height:20px;
+    &:after{
+      content:">";
+      color:#999;
+      margin-left:8px;
+      margin-right:8px;
+    }
+
+    &:last-child{
+      &:after{content:"";}
+      a{font-weight:bold;}
+    }
+  }
+}

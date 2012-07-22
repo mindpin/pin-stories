@@ -214,12 +214,6 @@ class WikiPage < ActiveRecord::Base
   module UserMethods
     def self.included(base)
       base.has_many :wiki_pages, :foreign_key => :creator_id
-
-      base.send(:include, InstanceMethods)
-    end
-    
-    module InstanceMethods
-      #Todo
     end
   end
 

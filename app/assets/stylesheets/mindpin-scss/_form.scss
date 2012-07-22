@@ -1,4 +1,16 @@
 form{
+  .flash-info{
+    margin-bottom:10px;
+    &:before{
+      content:">>";
+      margin-right:7px;
+    }
+
+    &.error{
+      color:red;
+    }
+  }
+
   .field{
     margin-bottom:10px;
     overflow:visible;
@@ -9,22 +21,24 @@ form{
       line-height:20px;height:20px;
       margin-bottom:5px;
       font-size:14px;
-      &.need{
-        &:after{
-          content:"(必填)";
-          display:inline-block;
-          font-size:12px;
-          color:#FFBD00;
-          margin-left:5px;
-        };
-      }
     }
+
+    &.need:not(.placeholder) label{
+      &:after{
+        content:"(必填)";
+        display:inline-block;
+        font-size:12px;
+        color:#FFBD00;
+        margin-left:5px;
+      };
+    }
+
 
     input[type=text], input[type=password], textarea{
       border:solid #ccc 1px;
       box-shadow:0 0px 2px rgba(white, 0.3) inset, 0 0 5px rgba(white, 0.6);
       font-size:14px;
-      padding:0 4px;
+      padding:0 7px;
       width:240px;
       background-color:white;
       color:#444;
@@ -37,11 +51,13 @@ form{
     }
 
     input[type=text], input[type=password]{
-      height:30px;line-height:30px;
+      height:20px;line-height:20px;
+      padding-top:5px;
+      padding-bottom:5px;
     }
 
     textarea{
-      width:640px;height:300px;padding:4px;
+      width:640px;height:300px;padding:7px;
     }
 
     &.submit{overflow:hidden;}
@@ -49,10 +65,33 @@ form{
       position:relative;
       label{
         position:absolute;
-        top:6px;left:6px;
+        top:6px;left:9px;
         color:#999;
         cursor:text;
         pointer-events:none;
+      }
+    }
+
+    .pie-j-checkbox{
+      overflow:hidden;
+      padding:7px 0 0;
+      span.c{
+        display:block;
+        float:left;
+        width:18px;height:18px;
+        overflow:hidden;
+        background:url(mindpin-js-imgs/j.checkbox.png) 0 0 no-repeat;
+        cursor:pointer;
+        &.checked{
+          background:url(mindpin-js-imgs/j.checkbox.png) -26px 0 no-repeat;
+        }
+
+        input[type=checkbox]{visibility:hidden;}
+      }
+      a.text{
+        float:left;
+        margin-left:5px;
+        height:18px;line-height:18px;
       }
     }
   }
@@ -64,7 +103,7 @@ form{
     line-height : 38px;
     padding : 0 24px;
     box-shadow : none;
-    text-shadow : -1px -1px 0 rgba(black, 0.3);
+    text-shadow : 0 0 2px black;
     border : 1px solid rgba(black, 0.3);
 
     font-size:14px;
@@ -85,13 +124,13 @@ form{
 
   .form-submit-button, .form-submit-button-no-default-event{
     @extend .base-button;
-    @include gradient(#DD4B39, #C53727);
+    @include gradient(#87C221, #6F9A1F);
     &:hover{
-      @include gradient(lighten(#DD4B39, 10%), lighten(#C53727, 10%));
+      @include gradient(lighten(#87C221, 10%), lighten(#6F9A1F, 10%));
     }
   }
   
-  .form-cancel, .form-button{
+  .form-cancel-button, .form-button{
     @extend .base-button;
     @include gradient(#666, #555);
     &:hover{

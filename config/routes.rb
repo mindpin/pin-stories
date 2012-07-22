@@ -115,9 +115,7 @@ MindpinAgile::Application.routes.draw do
   get '/my_stories_search' => 'stories#search_mine'
 
   resources :stories, :except => [:new, :create] do
-
     resources :comments
-
     collection do
       post :save_new_draft
       post :save_draft

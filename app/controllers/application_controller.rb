@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   helper :all
   
   def is_android_client?
-    request.headers["User-Agent"] == "android"
+    request.headers['User-Agent'] == 'android'
   end
-
-
 end

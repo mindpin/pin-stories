@@ -1,9 +1,11 @@
 -htitle '我的任务'
 
-=render 'stories/parts/search_mine'
+-hbreadcrumb '首页', '/'
+-hbreadcrumb '我的任务', '/mine', :current=>true
 
+-content_for :topbar do
+  = jsearchbar '/my_stories_search', :placeholder=>'搜索我的任务'
 
--# 5月17日 重新设计，按照产品划分
 .page-mine-stories-grouped
   -@mine_products_hash.each do |product, stories|
     .product

@@ -170,24 +170,18 @@ class Story < ActiveRecord::Base
   include Activity::ActivityableMethods
   include WikiPage::WikiPageableMethods
 
-
   # ----------------------
   
   module UserMethods
     def self.included(base)
       base.has_many :story_assigns
-      base.has_many :stories, :through => :story_assigns 
+      base.has_many :assign_stories, :through => :story_assigns, :source => :stories 
       base.has_many :created_stories, :class_name => 'Story', :foreign_key => :creator_id
     end
     
     def is_admin?
       User.first == self # 第一个用户是管理员，暂时先这样判断
-    end
-    
-    def assigned_stories
-      self.stories
-    end
-    
+    end  
   end
 
 

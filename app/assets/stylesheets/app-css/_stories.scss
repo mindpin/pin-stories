@@ -50,7 +50,7 @@
     }
     .op{
       margin-bottom:5px;
-      overflow:hidden;a{@include common-mini-button;}
+      overflow:hidden;a{@include mini-button;}
       &:last-child{margin-bottom:0;}
     }
   }

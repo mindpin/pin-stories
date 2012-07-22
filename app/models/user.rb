@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_associated_audits
+  
   include UserAuthMethods
   include UserAvatarMethods
   
