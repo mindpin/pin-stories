@@ -24,7 +24,8 @@
     .product
       .meta-data
         =link_to product_show_url, :class=>'box' do
-          .cover.auto-fit-image{:'data-src'=>cover_url, :'data-alt'=>name}
+          
+          = jimage cover_url, :alt=>name, :class=>'cover'
           .name= name
 
       .stat-data

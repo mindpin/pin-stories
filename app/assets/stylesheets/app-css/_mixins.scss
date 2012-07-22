@@ -46,66 +46,62 @@ $story-status-pause-color:#EAC018;
   }
 }
 
+@mixin story-status-bg($alpha : 0.1){
+  &.not-assign{
+    background-color:rgba($story-status-not-assign-color, $alpha);
+  }
+  &.doing{
+    background-color:rgba($story-status-doing-color, $alpha);
+  }
+  &.reviewing{
+    background-color:rgba($story-status-reviewing-color, $alpha);
+  }
+  &.done{
+    background-color:rgba($story-status-done-color, $alpha);
+  }
+  &.pause{
+    background-color:rgba($story-status-pause-color, $alpha);
+  }
+}
+
+@mixin story-status-text-color{
+  &.not-assign{
+    color:lighten($story-status-not-assign-color, 20%);
+  }
+  &.doing{
+    color:lighten($story-status-doing-color, 20%);
+  }
+  &.reviewing{
+    color:lighten($story-status-reviewing-color, 20%);
+  }
+  &.done{
+    color:lighten($story-status-done-color, 20%);
+  }
+  &.pause{
+    color:lighten($story-status-pause-color, 20%);
+  }
+}
+
 @mixin story-in-flow{
+  overflow:hidden;
+  padding:2px 0 0 2px;
   .story{
-    position:relative;
-    margin:0 10px 10px;
-    
-    a.how{
-      clear:both;
-      color:#999;
-      padding:15px-LESS;
-      padding-bottom:15px-LESS + 20px;
-      background-color:#363537;
-      display:block;
+    overflow:hidden;
+    height:50px;line-height:50px;
+    width:50px;
+    float:left;
+    margin:0 2px 2px 0;
 
-      @include transition(all ease-in .2s);
-      &:hover{
-        color:#9FBA6D;text-decoration:none;
-        box-shadow:0 0 2px #76B8F2, 0 0 2px #76B8F2 inset;
-        background-color:lighten(#363537, 5%);
-      }
-    }
+    @include story-status-bg;
 
-    .meta{
-      overflow:hidden;
-      position:absolute;
-      bottom:0;
-      left:15px-NARROW;
-
-      .story-id{
-        float:left;
-        color:#fff;height:20px;line-height:20px;
-        font-weight:bold;
-        background-color:#646464;
-        padding:0 3px;
-        text-shadow:1px 1px rgba(black, 0.2);
-      }
-      .status{
-        float:left;margin-right:5px;
-        .st{float:left;}
-      }
-    }
-    
-    .members{
-      position:absolute;
-      right:-2px;bottom:-2px;
-      .avatar{
-        float:left;
-        width:24px;height:24px;overflow:hidden;
-        img{width:24px;height:24px;}
-        margin-left:3px;
-      }
-    }
-    
-    .ops{
-      display:none;
-      float:right;
-      .os{
-        overflow:hidden;
-        a.show{@include mini-button;margin-right:6px;}
-        a.edit{@include mini-button;}
-      }
+    .story-id{
+      height:50px;line-height:50px;
+      color:#fff;
+      font-weight:bold;
+      text-shadow:0 0 2px rgba(black, 0.4);
+      font-size:16px;
+      margin-left:10px;
+      float:left;
     }
   }
 }

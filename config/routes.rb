@@ -107,7 +107,7 @@ MindpinAgile::Application.routes.draw do
 
   # -------------------
   
-  resources :members
+  resources :users
 
   resources :streams, :except => [:new, :create]
   

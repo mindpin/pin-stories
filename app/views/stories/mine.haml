@@ -6,9 +6,16 @@
 -content_for :topbar do
   = jsearchbar '/my_stories_search', :placeholder=>'搜索我的任务'
 
-.page-mine-stories-grouped
+.page-stories
   -@mine_products_hash.each do |product, stories|
     .product
       .name=product.name
-      =render 'stories/parts/simple_list', :stories=>stories
+      .stories
+        -stories.each do |story|
+          :ruby
+            klass = story.status.downcase
+            story_url = "/stories/#{story.id}"
+          
+          .story{:class=>klass}
+            %a.story-id{:href=>story_url} ##{story.id}
 

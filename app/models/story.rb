@@ -15,69 +15,61 @@ class Story < ActiveRecord::Base
   
   # -------------------------
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
+  belongs_to :product
+
   has_many :stream_story_links
   has_many :streams, :through => :stream_story_links
   accepts_nested_attributes_for :stream_story_links
+  
   has_many :story_assigns
   has_many :users, :through => :story_assigns
   
-  belongs_to :product
 
-  # 调用历史回滚
+  # 记录历史版本
   audited :only=>[:how_to_demo, :tips]
   
   # ------------------
-  
   default_scope order('id DESC')
   
   scope :with_status, lambda {|status| where(:status=>status)}
+  scope :of_product, lambda {|product| where(:product_id => product.id)}
 
-
-  scope :not_assign, where(:status => STATUS_NOT_ASSIGN)
-  scope :doing, where(:status => STATUS_DOING)
-  scope :reviewing, where(:status => STATUS_REVIEWING)
-  scope :done, where(:status => STATUS_DONE)
-  scope :pause, where(:status => STATUS_PAUSE)
-  scope :for_product, lambda {|product| where(:product_id => product.id)}
-
-  
   # ------------------
-  
   validates :product,     :presence => true
   validates :how_to_demo, :presence => true
   validates :status,      :presence => true, :inclusion => {:in => STATUSES}
   
   validate :validate_stream_story_links_count
   def validate_stream_story_links_count
-   if 0 == self.stream_story_links.length
-      errors.add(:streams, :至少指定一个序列)
-   end
+    if 0 == self.stream_story_links.length
+      errors.add(:streams, '至少为故事指定一个序列')
+    end
   end
   
   before_validation(:on => :create) do
     self.status = STATUS_NOT_ASSIGN
   end
 
-
+  # ------------------------
   # 生成 story 动态
   after_create :generate_create_activity
   after_update :generate_update_activity
 
   def generate_create_activity
     Activity.create(
-      :product => self.product,
-      :actor => self.creator,
+      :product   => self.product,
+      :actor     => self.creator,
       :act_model => self, 
-      :action => 'CREATE_STORY'
+      :action    => 'CREATE_STORY'
     )
   end
 
   def generate_update_activity
     Activity.create(
-      :product => self.product,
-      :actor => self.creator,
+      :product   => self.product,
+      :actor     => self.creator,
       :act_model => self, 
-      :action => 'UPDATE_STORY'
+      :action    => 'UPDATE_STORY'
     )
   end
   
@@ -103,15 +95,12 @@ class Story < ActiveRecord::Base
 
   # 保存到 wiki
   def save_to_wiki
-    split_lines = ''
-    30.times do
-      split_lines += '-'
-    end 
+    split_lines = '----------------'
 
     wiki_page = WikiPage.create(
       :creator => self.creator, 
-      :title => "story - #{self.id}", 
-      :content => self.how_to_demo + "\r\n" + split_lines + "\r\n" + self.tips, 
+      :title   => "STORY - #{self.id}", 
+      :content => "#{self.how_to_demo}\n#{split_lines}\n#{self.tips}", 
       :product => self.product,
       :from_model => self
     )

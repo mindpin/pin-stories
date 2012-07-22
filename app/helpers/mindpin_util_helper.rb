@@ -5,6 +5,7 @@ module MindpinUtilHelper
     base.send(:include, AvatarMethods)
     base.send(:include, UserSignMethods)
     base.send(:include, FormDomsMethods)
+    base.send(:include, ImageMethods)
   end
 
   module LayoutMethods
@@ -54,10 +55,12 @@ module MindpinUtilHelper
       end
       
       image_tag(src, :alt=>alt, :class=>klass, :'data-meta'=>meta)
+      # jimage src, :alt=>name, :class=>klass, :'data-meta'=>meta
+      # 暂时还不好替换，dom结构不太一致
     end
   
     def avatar_link(user, style = :normal)
-      href  = user.blank? ? 'javascript:;' : "/members/#{user.id}"
+      href  = user.blank? ? 'javascript:;' : "/users/#{user.id}"
       title = user.blank? ? '未知用户' : user.name
       
       link_to href, :title=>title do
@@ -69,7 +72,7 @@ module MindpinUtilHelper
   module UserSignMethods
     def user_link(user)
       return '未知用户' if user.blank?
-      link_to user.name, "/members/#{user.id}", :class=>'u-name'
+      link_to user.name, "/users/#{user.id}", :class=>'u-name'
     end
   end
 
@@ -105,6 +108,21 @@ module MindpinUtilHelper
           link_to('搜索', 'javascript:;', :class=>'go')
         end
       end
+    end
+  end
+
+  module ImageMethods
+    def jimage(src, options = {})
+      alt = options[:alt] || ''
+
+      klass = options[:class] || ''
+      klass = [klass, 'auto-fit-image'] * ' '
+
+      content_tag :div, '', 
+                  :class=>klass, 
+                  :'data-src'=>src, 
+                  :'data-alt'=>alt, 
+                  :'data-meta'=>options[:'data-meta']
     end
   end
 end

@@ -239,19 +239,22 @@
   @include border-radius(3px);
 }
 
-.page-mine-stories-grouped{
+// 显示产品以及下面的故事
+.page-stories{
   .product{
-    $w : 240px;
-
-    float:left;
-    width:$w;
-    background-color:#3E3D3F;
-    margin-right:10px;
+    width:240px;
+    margin-right:20px;
+    margin-bottom:20px;
+    border:solid 7px rgba(white, 0.1);
+    background-color:rgba(black, 0.3);
+    box-shadow:0 0 7px rgba(black, 1);
 
     .name{
-      padding:10px 10px 10px 15px;
-      font-size:13px;
-      font-weight:bold;
+      height:40px;line-height:40px;
+      font-size:14px;font-weight:bold;
+      padding-left:10px;
+      color:#C6C6C6;
+      background-color:rgba(black, 0.2);
     }
 
     .stories{

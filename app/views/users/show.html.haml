@@ -1,0 +1,32 @@
+-htitle "#{@user.name} - 个人页"
+
+-hbreadcrumb '首页', '/'
+-hbreadcrumb @user.name, "/users/#{@user.id}"
+
+:ruby
+  assigned_stories = @user.assigned_stories
+
+.page-user-show
+  .head
+    .avatar=avatar @user, :medium
+    .meta
+      .name=@user.name
+    - Story::STATUSES.each do |status|
+      .status{:class=>status.downcase}
+        .name= status
+        .desc= status_to_str(status)
+
+  .stories
+    - Product.all.each do |product|
+      :ruby
+        product_stories = assigned_stories.of_product(product)
+
+      - if product_stories.count > 0
+        .product
+          .meta
+            .name= product.name
+          - Story::STATUSES.each do |status|
+            .status
+              - stories = product_stories.with_status(status)
+              - if stories.count > 0
+                .count{:class=>status.downcase}= stories.count
