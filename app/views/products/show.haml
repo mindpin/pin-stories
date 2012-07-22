@@ -1,29 +1,46 @@
 -htitle @product.name
 
-=render 'products/parts/product_headbar', :product=>@product
-=render 'products/parts/product_nav', :product=>@product, :current=>:stories_board
+-hbreadcrumb '首页', '/'
+-hbreadcrumb @product.name, "/products/#{@product.id}"
 
-:ruby
-  product = @product
-  name = product.name
+-content_for :topbar do
+  = jsearchbar "/products/#{@product.id}/stories_search"
 
+=#render 'products/parts/product_nav', :product=>@product, :current=>:stories_board
 
-=render 'stories/parts/search', :product=>@product
+.page-product-stories{:style=>'opacity:0;'}
+  :ruby
+    product = @product
+    name = product.name
+    description = product.description
+    cover_url = product.cover.url
 
+    new_story_url  = "/products/#{product.id}/stories/new"
+    new_stream_url = "/products/#{product.id}/streams/new"
+    activities_url = "/products/#{product.id}/activities"    
 
-.page-product-show
-  .product-streams
-    -product.streams.each do |stream|
-      :ruby
-        title = truncate_u stream.title, 15
-        stream_stories_count = stream.stories.count
-        last_story = stream.stories.last
-        stream_url = "/streams/#{stream.id}"
-        working_hours = stream.working_hours
-        
-        members_limit = stream.members[0..9] # 10个
-        
-      .stream
-        .title=link_to title, stream_url
-        =render 'stories/parts/simple_list', :stories=>stream.stories
+  .product-headbar
+    = jimage cover_url, :alt=>name, :class=>'cover'
+    .desc= description
+    .ops.hide
+      %a.add-issue{:href=>"/products/#{product.id}/issues/new"} 创建BUG或建议
+      - if admin_logged_in?
+        %a.add-story{:href=>new_story_url} ADMIN:创建故事
+        %a.add-stream{:href=>new_stream_url} ADMIN:创建序列
+        %a.add-stream{:href=>activities_url} 最近活动
+
+  - product.streams.each do |stream|
+    :ruby
+      title = truncate_u stream.title, 15
+      stories = stream.stories        
+    .stream
+      .title= title
+      .stories
+        - stories.each do |story|
+          :ruby
+            klass = story.status.downcase
+            story_url = "/stories/#{story.id}"
+          
+          .story{:class=>klass}
+            %a.story-id{:href=>story_url} ##{story.id}
       

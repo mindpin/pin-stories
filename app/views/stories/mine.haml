@@ -6,7 +6,7 @@
 -content_for :topbar do
   = jsearchbar '/my_stories_search', :placeholder=>'搜索我的任务'
 
-.page-stories
+.page-stories{:style=>'opacity:0;'}
   -@mine_products_hash.each do |product, stories|
     .product
       .name=product.name

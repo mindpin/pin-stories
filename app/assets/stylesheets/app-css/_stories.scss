@@ -242,7 +242,7 @@
 // 显示产品以及下面的故事
 .page-stories{
   .product{
-    width:240px;
+    width:210px;
     margin-right:20px;
     margin-bottom:20px;
     border:solid 7px rgba(white, 0.1);
@@ -250,6 +250,50 @@
     box-shadow:0 0 7px rgba(black, 1);
 
     .name{
+      height:40px;line-height:40px;
+      font-size:14px;font-weight:bold;
+      padding-left:10px;
+      color:#C6C6C6;
+      background-color:rgba(black, 0.2);
+    }
+
+    .stories{
+      @include story-in-flow;
+    }
+  }
+}
+
+.page-product-stories{
+  .product-headbar{
+    width:210px;
+    margin-right:20px;
+    margin-bottom:20px;
+    border:solid 7px rgba(white, 0.1);
+    background-color:rgba(black, 0.3);
+    box-shadow:0 0 7px rgba(black, 1);
+    @include transition(border cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s);
+    &:hover{border:solid 7px rgba(white, 0.4);}
+
+    .cover{
+      width:206px;height:150px;
+      margin:2px;
+    }
+    .desc{
+      padding:6px;font-size:12px;
+    }
+  }
+
+  .stream{
+    width:210px;
+    margin-right:20px;
+    margin-bottom:20px;
+    border:solid 7px rgba(white, 0.1);
+    background-color:rgba(black, 0.3);
+    box-shadow:0 0 7px rgba(black, 1);
+    @include transition(border cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s);
+    &:hover{border:solid 7px rgba(white, 0.4);}
+
+    .title{
       height:40px;line-height:40px;
       font-size:14px;font-weight:bold;
       padding-left:10px;

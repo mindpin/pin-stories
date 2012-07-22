@@ -29,4 +29,14 @@
             .status
               - stories = product_stories.with_status(status)
               - if stories.count > 0
-                .count{:class=>status.downcase}= stories.count
+                - # y = 80 - 40 / x
+                - # x = 1, y = 40
+                - # x -> ∞, y = 80
+                :ruby
+                  # x = [stories.count, 101].min 
+                  # w = 80 - 40 / stories.count
+                  w = 50
+                  style = "width:#{w}px;height:#{w}px;line-height:#{w}px;"
+                  style += "margin:#{58 - w/2}px"
+
+                .count{:class=>status.downcase, :style=>style}= stories.count

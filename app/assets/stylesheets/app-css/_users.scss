@@ -131,13 +131,13 @@
         margin:-1px 0 0 -1px;
         font-size:20px;font-weight:bold;
         .count{
-          width:50px;margin-top:33px;margin-left:33px;
-          height:50px;line-height:50px;
+          margin-top:8px;margin-left:8px;
           text-align:center;
           @include border-radius(100px);
           @include story-status-bg(0.2);
           @include story-status-text-color;
           box-shadow:0 0 5px black;
+          text-shadow:0 0 2px rgba(black, 0.4);
         }
       }
     }

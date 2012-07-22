@@ -94,14 +94,30 @@ $story-status-pause-color:#EAC018;
 
     @include story-status-bg;
 
+    &.not-assign .story-id{
+      color:lighten($story-status-not-assign-color, 20%);
+    }
+    &.doing .story-id{
+      color:lighten($story-status-doing-color, 20%);
+    }
+    &.reviewing .story-id{
+      color:lighten($story-status-reviewing-color, 20%);
+    }
+    &.done .story-id{
+      color:lighten($story-status-done-color, 20%);
+    }
+    &.pause .story-id{
+      color:lighten($story-status-pause-color, 20%);
+    }
+
     .story-id{
       height:50px;line-height:50px;
-      color:#fff;
+      width:50px;
       font-weight:bold;
       text-shadow:0 0 2px rgba(black, 0.4);
       font-size:16px;
-      margin-left:10px;
       float:left;
+      text-align:center;
     }
   }
 }
