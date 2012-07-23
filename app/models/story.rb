@@ -14,6 +14,7 @@ class Story < ActiveRecord::Base
   ]
   
   # -------------------------
+
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :product
 
@@ -26,7 +27,10 @@ class Story < ActiveRecord::Base
   
 
   # 记录历史版本
-  audited :only=>[:how_to_demo, :tips]
+  # 暂时不使用 attr_accessible 保护，因此加上 :allow_mass_assignment => true 声明
+  audited :only => [:how_to_demo, :tips, :time_estimate], :allow_mass_assignment => true
+  # attr_accessible :how_to_demo, :tips, :time_estimate
+  # attr_accessible :stream_story_links_attributes
   
   # ------------------
   default_scope order('id DESC')
@@ -108,49 +112,76 @@ class Story < ActiveRecord::Base
     wiki_page
   end
 
-  def self.save_new_draft(current_user, drafted_hash, temp_id = nil)
-    if temp_id.nil?
-      temp_id = randstr()
-      drafted_hash[:temp_id] = temp_id
-      drafted_hash = Marshal.dump(drafted_hash)
+  # ---------------------
 
-      Draft.create(
-        :creator => current_user,
-        :temp_id => temp_id,
-        :model_type => "Story",
-        :drafted_hash => drafted_hash
-      )
+  # def self.save_new_draft(current_user, drafted_hash, temp_id = nil)
+  #   if temp_id.nil?
+  #     temp_id = randstr()
+  #     drafted_hash[:temp_id] = temp_id
+  #     drafted_hash = Marshal.dump(drafted_hash)
 
-    else
-      drafted_hash[:temp_id] = temp_id
-      drafted_hash = Marshal.dump(drafted_hash)
+  #     Draft.create(
+  #       :creator => current_user,
+  #       :temp_id => temp_id,
+  #       :model_type => "Story",
+  #       :drafted_hash => drafted_hash
+  #     )
 
-      draft = Draft.find_by_temp_id(temp_id)
-      draft.drafted_hash = drafted_hash
-      draft.save
-    end
+  #   else
+  #     drafted_hash[:temp_id] = temp_id
+  #     drafted_hash = Marshal.dump(drafted_hash)
 
-    temp_id
+  #     draft = Draft.find_by_temp_id(temp_id)
+  #     draft.drafted_hash = drafted_hash
+  #     draft.save
+  #   end
+
+  #   temp_id
+  # end
+
+
+  # def save_draft(current_user, drafted_hash)
+  #   drafted_hash = Marshal.dump(drafted_hash)
+
+  #   saved_draft = Draft.where(:model_id => self.id, :model_type => self.class.name).exists?
+
+  #   unless saved_draft
+  #     Draft.create(
+  #       :creator => current_user,
+  #       :model => self,
+  #       :drafted_hash => drafted_hash
+  #     )
+  #   else
+  #     draft = Draft.where(:model_id => self.id, :model_type => self.class.name).first
+  #     draft.drafted_hash = drafted_hash
+  #     draft.save
+  #   end
+  # end
+
+  def save_draft(user, _temp_id)
+    temp_id = _temp_id.blank? ? randstr : _temp_id
+    
+    draft = Draft.find_or_initialize_by_temp_id(temp_id)
+
+    return temp_id if draft.update_attributes(
+      :creator    => user,
+      :temp_id    => temp_id,
+      :model_type => self.class.to_s,
+      :model_id   => self.id,
+      :drafted_hash => Marshal.dump({
+        :product_id  => self.product_id,
+        :how_to_demo => self.how_to_demo,
+        :tips        => self.tips
+      })
+    )
+
+    return false
   end
 
-
-  def save_draft(current_user, drafted_hash)
-    drafted_hash = Marshal.dump(drafted_hash)
-
-    saved_draft = Draft.where(:model_id => self.id, :model_type => self.class.name).exists?
-
-    unless saved_draft
-      Draft.create(
-        :creator => current_user,
-        :model => self,
-        :drafted_hash => drafted_hash
-      )
-    else
-      draft = Draft.where(:model_id => self.id, :model_type => self.class.name).first
-      draft.drafted_hash = drafted_hash
-      draft.save
-    end
-
+  def load_draft!(draft)
+    hash = draft.load_hash
+    self.how_to_demo = hash[:how_to_demo]
+    self.tips = hash[:tips]
   end
 
 
@@ -170,20 +201,20 @@ class Story < ActiveRecord::Base
     
     def is_admin?
       User.first == self # 第一个用户是管理员，暂时先这样判断
-    end  
+    end
   end
 
 
-  # 设置全文索引字段
-  define_index do
-    # fields
-    indexes how_to_demo, :sortable => true
-    indexes tips
-    indexes product_id
+  # # 设置全文索引字段
+  # define_index do
+  #   # fields
+  #   indexes how_to_demo, :sortable => true
+  #   indexes tips
+  #   indexes product_id
     
-    # attributes
-    has created_at, updated_at
+  #   # attributes
+  #   has created_at, updated_at
 
-    set_property :delta => true
-  end
+  #   set_property :delta => true
+  # end
 end

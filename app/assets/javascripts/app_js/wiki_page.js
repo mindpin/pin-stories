@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
 
   jQuery(document).live('keydown', function(evt){
     var key_code = evt.keyCode;
-    console.log(key_code);
+    // console.log(key_code);
 
     if(FOCUS){
       var elm = jQuery('.page-new-wiki-page form textarea, .page-edit-wiki-page form textarea');

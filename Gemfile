@@ -8,7 +8,7 @@ gem 'therubyracer'
 gem 'json'
 gem 'jquery-rails'
 gem 'haml'
-gem "audited-activerecord"
+gem 'audited-activerecord'
 gem 'redcarpet', :require => 'redcarpet/compat'
 gem 'coderay'
 

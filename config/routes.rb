@@ -104,7 +104,6 @@ MindpinAgile::Application.routes.draw do
 
   resources :drafts
 
-
   # -------------------
   
   resources :users
@@ -115,7 +114,6 @@ MindpinAgile::Application.routes.draw do
   get '/my_stories_search' => 'stories#search_mine'
 
   resources :stories, :except => [:new, :create] do
-    resources :comments
     collection do
       post :save_new_draft
       post :save_draft
@@ -139,11 +137,6 @@ MindpinAgile::Application.routes.draw do
   # story 保存到 wiki
   get '/stories/:id/save_to_wiki'      => 'stories#save_to_wiki'
 
-  resources :comments do
-    member do
-      get :reply
-      post :do_reply
-    end
-  end
-  
+  # 所有类型的评论都在这里，不单独定义
+  resources :comments
 end

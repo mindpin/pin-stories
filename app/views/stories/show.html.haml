@@ -1,0 +1,56 @@
+:ruby
+  story = @story
+  page_title = "故事 ##{@story.id}"
+  product = story.product
+  product_url = "/products/#{product.id}"
+  
+  streams = story.streams
+  members = story.users
+
+- htitle page_title
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @story.product.name, "/products/#{@story.product.id}"
+- hbreadcrumb page_title, "/stories/#{@story.id}"
+
+.page-story-show{:'data-story-id'=>@story.id}
+  -if admin_logged_in?
+    .admin-ops.hide
+      .t ADMIN OPs
+      .op=link_to 'ADMIN:修改',"/stories/#{@story.id}/edit"
+      .op=link_to 'ADMIN:分配序列',"/stories/#{@story.id}/assign_streams"
+      .op=link_to 'ADMIN:指派成员',"/stories/#{@story.id}/assign_users"
+      .op=link_to '历史记录', "/stories/#{@story.id}/versions"
+  
+  .belongs-to
+    .product=link_to product.name, product_url
+    .streams
+      -streams.each do |stream|
+        .stream=link_to stream.title, "/streams/#{stream.id}"
+  
+  .save-to-wiki.hide
+    - if has_referenced_by_wiki?(@story)
+      = link_to "已经保存到wiki", "/products/#{@story.product.id}/wiki/#{referenced_title_by_wiki(@story)}"
+    - else
+      = link_to '保存到Wiki', "/stories/#{@story.id}/save_to_wiki", :confirm => "是否确定保存"
+
+  .how-to-demo
+    .t 如何演示 - HOW TO DEMO
+    .ct=format_ct story, :how_to_demo
+  
+  -if !story.tips.blank?
+    .tips
+      .t 提示和备注 - TIPs
+      .ct=format_ct story, :tips
+  
+  .assigned-members
+    .t 指派给
+    .members
+      -members.each do |member|
+        .member
+          .avatar=avatar_link member
+    -if members.blank?
+      .no-member 尚未指派给任何人
+    
+  = render 'stories/aj/show_status', :story=>@story
+  = render 'aj/comments', :model=>@story

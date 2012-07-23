@@ -58,9 +58,20 @@ form{
 
     textarea{
       width:640px;height:300px;padding:7px;
+      line-height:20px;
     }
 
-    &.submit{overflow:hidden;}
+    &.submit{
+      overflow:hidden;
+      .draft-status-notice{
+        height:40px;line-height:40px;
+        float:left;
+        margin-top:10px;
+        margin-left:20px;
+        color:#999;
+      }
+    }
+
     &.placeholder{
       position:relative;
       label{
@@ -122,7 +133,7 @@ form{
     }
   }
 
-  .form-submit-button, .form-submit-button-no-default-event{
+  .form-submit-button{
     @extend .base-button;
     @include gradient(#87C221, #6F9A1F);
     &:hover{

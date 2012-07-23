@@ -1,28 +1,25 @@
-.page-title Stories
+- htitle '我的草稿'
 
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '我的草稿', '/drafts'
 
-.page-wiki-search-results
+= flash_info
 
-  - @my_drafts.each do |draft|
+.page-drafts
+  .count 总共 #{current_user.drafts.count} 条草稿
+
+  - @drafts.each do |draft|
     :ruby
-      drafted_hash = draft.drafted_hash
-      drafted_hash = Marshal.load(drafted_hash)
- 
+      hash = Marshal.load draft.drafted_hash
 
-    .wiki-page
-      - if draft.model_id.blank?
-        - case draft.model_type
-          - when "Story"
-            .ct=link_to drafted_hash[:how_to_demo], "/products/#{drafted_hash[:product_id]}/stories/new?temp_id=#{draft.temp_id}"
-            .ct=drafted_hash[:tips]
-          - when "WikiPage"
-            .ct=link_to drafted_hash[:title], "/products/#{drafted_hash[:product_id]}/wiki_new?temp_id=#{draft.temp_id}"
-      - else
-        - case draft.model_type
-          - when "Story"
-            .ct=link_to drafted_hash[:how_to_demo], "/stories/#{draft.model_id}/edit?story_id=#{draft.model_id}"
-            .ct=drafted_hash[:tips]
-          - when "WikiPage"
-            .ct=link_to drafted_hash[:title], "/products/#{drafted_hash[:product_id]}/wiki/#{drafted_hash[:title]}/edit"
+    .draft
+      - case draft.model_type
+        - when 'Story'
+          .type Story
+          .text= hash[:how_to_demo]
+        - when 'WikiPage'
+          .type WikiPage
+          .text= hash[:title]
+      .open=link_to '打开草稿', "/drafts/#{draft.id}"
 
   .paginate=will_paginate @my_drafts

@@ -1,9 +1,11 @@
 # 通过 a.form-submit-button 提交表单
 # 如果按钮是 disabled 状态，不允许提交
+# 如果按钮时 stop 状态，也不允许提交
 pie.load ->
   jQuery('form a.form-submit-button').live 'click', ->
     $button = jQuery(this)
     return if $button.hasClass('disabled')
+    return if $button.hasClass('stop')
 
     $form = $button.closest('form')
     if pie.is_form_all_need_filled($form)

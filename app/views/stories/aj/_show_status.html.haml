@@ -1,0 +1,7 @@
+.status
+  .t 故事状态
+  .st= status_label story
+  -if admin_logged_in?
+    .other-st
+      - (Story::STATUSES - [story.status]).each do |status|
+        %a.toggle-st{:href=>'javascript:;', :class=>status.downcase, :'data-status'=>status}= status

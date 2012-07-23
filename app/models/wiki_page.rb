@@ -219,16 +219,16 @@ class WikiPage < ActiveRecord::Base
 
   # -------------- 这段需要放在最后，否则因为类加载顺序，会有警告信息
   # 设置全文索引字段
-  define_index do
-    # fields
-    indexes title, :sortable => true
-    indexes content
-    indexes product_id
+  # define_index do
+  #   # fields
+  #   indexes title, :sortable => true
+  #   indexes content
+  #   indexes product_id
     
-    # attributes
-    has created_at, updated_at
+  #   # attributes
+  #   has created_at, updated_at
 
-    set_property :delta => true
-  end
+  #   set_property :delta => true
+  # end
 
 end

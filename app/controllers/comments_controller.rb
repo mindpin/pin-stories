@@ -1,35 +1,36 @@
 class CommentsController < ApplicationController
   before_filter :login_required
-  before_filter :pre_load
-  
-  def pre_load
-    @story = Story.find(params[:story_id]) if params[:story_id]
-    @comment = Comment.find(params[:id]) if params[:id]
-  end
   
   def create
-    @comment = @story.comments.build(params[:comment])
-    @comment.creator = current_user
-    if !@comment.save
-      error = @comment.errors.first
-      flash[:error] = "#{error[0]} #{error[1]}"
+    klass = params[:model_type].constantize
+    model = klass.find params[:model_id]
+
+    comment = model.comments.new
+    comment.content = params[:content]
+    comment.reply_comment_id = params[:reply_comment_id]
+    comment.creator = current_user
+
+    if comment.save
+      return render :partial =>'aj/comments', 
+                    :locals => {
+                      :model => model,
+                      :comments => [comment]
+                    }
     end
-    redirect_to "/stories/#{@story.id}"
+
+    render :status => 403,
+           :text => '评论创建失败'
+
+  rescue Exception => ex
+    render :status => 403,
+           :text => '评论创建失败'
   end
-  
-  def reply
-  end
-  
-  def do_reply
-    story = @comment.model
-    reply_comment = story.comments.build(params[:comment])
-    reply_comment.reply_comment_id = @comment.id
-    reply_comment.creator = current_user
-    if reply_comment.save
-      return redirect_to "/stories/#{story.id}"
+
+  def destroy
+    comment = Comment.find(params[:id])
+    if comment.destroy
+      render :text => '删除成功'
     end
-    error = reply_comment.errors.first
-    flash[:error] = "#{error[0]} #{error[1]}"
-    redirect_to "/stories/#{story.id}"
   end
+
 end

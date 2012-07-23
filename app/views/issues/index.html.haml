@@ -1,8 +1,8 @@
 -htitle @product.name
 
-=render 'products/parts/product_headbar', :product=>@product
-=render 'products/parts/product_nav', :product=>@product, :current=>:issues
-
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb '问题或建议', "/products/#{@product.id}/issues"
 
 - content_for :javascript do
   :javascript

@@ -8,6 +8,12 @@ class StoriesController < ApplicationController
   
   def new
     @story = Story.new
+
+    if !params[:draft_temp_id].blank?
+      draft = Draft.find_by_temp_id(params[:draft_temp_id])
+      @story.load_draft! draft
+    end
+
   end
 
   def show
@@ -17,14 +23,13 @@ class StoriesController < ApplicationController
   
   def create
     @story = current_user.created_stories.build(params[:story])
-    # @story = Story.new(params[:story])
     @story.product = @product
     
     if @story.save
       return redirect_to "/stories/#{@story.id}"
     end
 
-    flash[:error] = get_flash_error(@story)
+    flash[:error] = @story.errors.to_json
     redirect_to "/products/#{@product.id}/stories/new"
   end
   
@@ -66,10 +71,12 @@ class StoriesController < ApplicationController
     redirect_to "/stories/#{@story.id}"
   end
   
+  # for ajax
   def change_status
     status = params[:status].upcase
     @story.change_status(status)
-    redirect_to "/stories/#{@story.id}"
+
+    render :partial => '/stories/aj/show_status', :locals => {:story => @story}
   end
   
   def mine    
@@ -127,51 +134,32 @@ class StoriesController < ApplicationController
     wiki_page = @story.save_to_wiki
 
     redirect_to URI.encode("/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}")
-
   end
-
-
 
   def save_new_draft
-    drafted_hash = {:how_to_demo => params[:how_to_demo], :tips => params[:tips], :product_id => params[:product_id]}
-    temp_id = params[:temp_id] unless params[:temp_id].nil?
+    story = current_user.created_stories.build(params[:story])
+    story.product = Product.find(params[:product_id])
 
-    temp_id = Story.save_new_draft(current_user, drafted_hash, temp_id)
+    temp_id = story.save_draft(current_user, params[:draft_temp_id])
 
-    render :text => temp_id
+    return render :text => temp_id if temp_id
+    return render :status => 403, :text => '草稿保存失败'
   end
 
 
-  def save_draft
-    story_id = params[:story_id]
-    @story = Story.find(story_id)
+  # def save_draft
+  #   story_id = params[:story_id]
+  #   @story = Story.find(story_id)
 
-    drafted_hash = {
-      :how_to_demo => params[:how_to_demo], 
-      :tips => params[:tips], 
-      :product_id => @story.product_id
-    }
+  #   drafted_hash = {
+  #     :how_to_demo => params[:how_to_demo], 
+  #     :tips => params[:tips], 
+  #     :product_id => @story.product_id
+  #   }
 
-    @story.save_draft(current_user, drafted_hash)
+  #   @story.save_draft(current_user, drafted_hash)
 
-    render :nothing => true
-  end
-
-
-
-  def get_draft
-    temp_id = params[:temp_id] 
-    draft = Draft.find_by_temp_id(temp_id) unless temp_id.nil?
-
-    story_id = params[:story_id]
-    draft = Draft.where(:model_id => story_id, :model_type => "Story").first unless story_id.nil?
-
-    unless draft.nil?
-      drafted_hash = Marshal.load(draft.drafted_hash)
-      story = {:how_to_demo => drafted_hash[:how_to_demo], :tips => drafted_hash[:tips]}
-    end
-
-    render :text => story.to_json
-  end
+  #   render :nothing => true
+  # end
 
 end

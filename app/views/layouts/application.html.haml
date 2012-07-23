@@ -24,14 +24,12 @@
 
           .current-user-info
             .avatar= avatar current_user, :medium
-            .my-task= link_to '我的任务', '/mine'
+            .my-tasks= link_to '我的任务', '/mine'
+            .my-drafts= link_to '我的草稿', '/drafts'
             
       .nav.hide
         %a.item{:class=>nav_current_klass(:products), :href=>'/'} 我们的产品
         %a.item{:class=>nav_current_klass(:members), :href=>'/members'} 成员和分享者
-        -if logged_in?
-          %a.item{:class=>nav_current_klass(:mine), :href=>'/mine'} 我的任务
-          %a.item{:class=>nav_current_klass(:mine), :href=>'/drafts'} 我的草稿
         
       .hide.page-to
         .p=link_to '全部产品','/'

@@ -1,13 +1,12 @@
--htitle @product.name
+- htitle @product.name
 
--hbreadcrumb '首页', '/'
--hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
 
 -content_for :topbar do
   = jsearchbar "/products/#{@product.id}/stories_search"
 
-=#render 'products/parts/product_nav', :product=>@product, :current=>:stories_board
-
+- # css at _stories.scss
 .page-product-stories{:style=>'opacity:0;'}
   :ruby
     product = @product
@@ -22,12 +21,12 @@
   .product-headbar
     = jimage cover_url, :alt=>name, :class=>'cover'
     .desc= description
-    .ops.hide
+    .ops
+      %a.view-activities{:href=>activities_url} 查看最近动态
       %a.add-issue{:href=>"/products/#{product.id}/issues/new"} 创建BUG或建议
       - if admin_logged_in?
-        %a.add-story{:href=>new_story_url} ADMIN:创建故事
-        %a.add-stream{:href=>new_stream_url} ADMIN:创建序列
-        %a.add-stream{:href=>activities_url} 最近活动
+        %a.add-story.admin{:href=>new_story_url} 创建故事
+        %a.add-stream.admin{:href=>new_stream_url} 创建序列
 
   - product.streams.each do |stream|
     :ruby
@@ -43,4 +42,3 @@
           
           .story{:class=>klass}
             %a.story-id{:href=>story_url} ##{story.id}
-      

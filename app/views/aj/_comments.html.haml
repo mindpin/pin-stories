@@ -1,0 +1,45 @@
+/ model
+/ model.comments
+
+- comments ||= model.comments
+
+.page-comments
+  = form_tag '/comments' do
+    .field.content.need
+      %label 输入评论内容
+      = text_area_tag :content
+    .field.submit
+      %a.form-submit-button.stop{:href=>'javascript:;'} 评论
+    .field.hide
+      = hidden_field_tag :model_type, model.class.to_s
+      = hidden_field_tag :model_id, model.id
+
+  .comments
+    - if comments.blank?
+      .comment.blank 现在还没有评论
+    - else
+      - prev_user = nil
+      - comments.each do |comment|
+        :ruby
+          user = comment.creator
+          created_at = comment.created_at
+          can_be_delete = ( user == current_user )
+          klass = (user == prev_user ? 'same-user' : '')
+          prev_user = user
+
+        .comment{:'data-id'=>comment.id, :'data-user-name'=>user.name, :class=>klass}
+          .avatar
+            = avatar_link user, :tiny
+          .cmain
+            .cdata
+              .meta
+                .name.quiet
+                  = user_link user
+                .ops
+                  - if can_be_delete
+                    = link_to '删除', 'javascript:;', :class=>'delete'
+                    %span.quiet -
+                  = link_to '回复', 'javascript:;', :class=>'reply'
+              .ctext.wordwrap>
+                = comment.content
+                %span.time> (#{jtime created_at})

@@ -19,7 +19,6 @@ class WikiController < ApplicationController
 
   def new
     @wiki_page = WikiPage.new
-    render :layout=>'simple_form'
   end
   
   def create

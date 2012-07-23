@@ -10,7 +10,9 @@
 @import 'mindpin-scss/button';
 @import 'mindpin-scss/image';
 @import 'mindpin-scss/search';
+@import 'mindpin-scss/comment';
 @import 'mindpin-scss/breadcrumb';
+@import 'mindpin-scss/overlay';
 
 
 // this app
@@ -23,10 +25,11 @@
 @import 'app-css/products';
 @import 'app-css/stories';
 @import 'app-css/users';
+@import 'app-css/issues';
+@import 'app-css/drafts';
 
 // @import 'app-css/doms';
 // @import 'app-css/login';
 // @import 'app-css/streams';
 // @import 'app-css/wiki_page';
-// @import 'app-css/issue';
 // @import 'app-css/evernote';
