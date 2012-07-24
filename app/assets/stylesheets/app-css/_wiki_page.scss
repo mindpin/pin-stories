@@ -91,6 +91,7 @@
   }
 
   .wiki-page-content{
+    @include wordwarp;
     @include content-box;
     width:auto;
 

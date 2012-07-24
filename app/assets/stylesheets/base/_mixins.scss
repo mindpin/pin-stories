@@ -13,6 +13,11 @@
   &:after{content:"";display:block;clear:both;font-size:0;line-height:0;}
 }
 
+// 强制自动换行
+@mixin wordwarp{
+  word-wrap:break-word;word-break:break-all;white-space:pre-wrap;
+}
+
 // mixins
 // -----------
 @mixin gradient($from, $to){
