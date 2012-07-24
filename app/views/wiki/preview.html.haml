@@ -1,7 +1,7 @@
 .wiki-page-title
-  %span=@title
+  %span= @title
 
-.wiki-page-content=@content
+.wiki-page-content= @content
 
 .recommander-wiki-pages
   - @recommander_wiki_pages.each do |wiki_page|
@@ -13,6 +13,6 @@
       ct = wiki_page.excerpts.content.html_safe
 
     .wiki-page
-      .title=link_to title, path
+      .title= link_to title, path
       .ct= ct
 

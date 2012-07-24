@@ -36,27 +36,19 @@ class WikiController < ApplicationController
   
   # 预览
   def preview
-    title = params[:title]
-    content = params[:content]
-
-    wiki_page = WikiPage.new({
-      :title   => title, 
-      :content => content, 
-      :product => @product,
-      :creator => current_user,
-      :preview => true
-    })
-
+    wiki_page = WikiPage.new params[:wiki_page]
+    wiki_page.product = @product
+    wiki_page.creator = current_user
+    wiki_page.preview = true
     wiki_page.fix_title
 
     @title = wiki_page.title
     @content = wiki_page.formatted_content_for_preview
 
-    @recommander_wiki_pages = WikiPageRecommander.recommand_by_content(@product, content)
+    commend_content = "#{wiki_page.title} #{wiki_page.content}"
+    @recommander_wiki_pages = WikiPageRecommander.recommand_by_content(@product, commend_content)
 
     render :layout => false
-  rescue Exception => e
-    render :text=>"发生异常 #{e.class} : #{e}"
   end
 
   def edit
@@ -134,10 +126,12 @@ class WikiController < ApplicationController
 
   # 全文索引，搜索
   def search
-    @keyword = params[:keyword]
-    @search_result = WikiPage.search(@keyword, 
-      :conditions => {:product_id => @product.id}, 
-      :page => params[:page], :per_page => 20)
+    @query = params[:query]
+    @search_result = WikiPage.search(@query, 
+      :conditions => {:product => @product}, 
+      :page => params[:page], 
+      :per_page => 20
+    )
   end
 
 

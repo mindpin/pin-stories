@@ -6,8 +6,11 @@ class WikiPage < ActiveRecord::Base
   # 多态
   belongs_to :from_model, :polymorphic => true
 
+  default_scope order('id DESC')
+
   # --- 版本控制
-  audited
+  # 暂时不使用 attr_accessible 保护，因此加上 :allow_mass_assignment => true 声明
+  audited :allow_mass_assignment => true
 
   # --- 校验方法
   validates_format_of :title, 
@@ -16,17 +19,18 @@ class WikiPage < ActiveRecord::Base
 
   validates_uniqueness_of :title, :message => '词条标题不能重复'
 
+  validates :title,   :presence => true
+  validates :product, :presence => true
+  validates :creator, :presence => true
+
+  # -----------
+
   before_validation :validate_unique_of_from_model, :unless => Proc.new { self.from_model.blank? }
   def validate_unique_of_from_model
     if WikiPage.where(:from_model_id => self.from_model_id, :from_model_type => self.from_model_type).exists?
       return false
     end
   end
-
-
-  validates :title,   :presence => true
-  validates :product, :presence => true
-  validates :creator, :presence => true
 
   attr_accessor :preview
 
@@ -47,6 +51,11 @@ class WikiPage < ActiveRecord::Base
     while self.is_title_repeat? do
       self.title = "#{self.title}-#{Time.now.strftime '%Y-%m-%d-%H-%M-%S'}"
     end
+  end
+
+  before_validation :fix_content
+  def fix_content
+    self.content = '' if self.content.nil?
   end
 
   
@@ -219,16 +228,16 @@ class WikiPage < ActiveRecord::Base
 
   # -------------- 这段需要放在最后，否则因为类加载顺序，会有警告信息
   # 设置全文索引字段
-  # define_index do
-  #   # fields
-  #   indexes title, :sortable => true
-  #   indexes content
-  #   indexes product_id
+  define_index do
+    # fields
+    indexes :title
+    indexes :content
+    indexes :product_id
     
-  #   # attributes
-  #   has created_at, updated_at
+    # attributes
+    has :created_at, :updated_at
 
-  #   set_property :delta => true
-  # end
+    set_property :delta => true
+  end
 
 end

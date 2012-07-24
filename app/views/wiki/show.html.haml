@@ -1,5 +1,7 @@
--unless @wiki_page.nil?
-  .page-title WIKI - #{@wiki_page.title}
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki"
+- hbreadcrumb @wiki_page.title, "/products/#{@product.id}/wiki/#{@wiki_page.title}"
  
 .page-wiki-page
   - if @wiki_page.blank?
@@ -19,9 +21,9 @@
         %a.versions{:href=>"#{url_prefix}/versions"} 查看修改历史
         %a.refs{:href=>"#{url_prefix}/refs"} 查看引用关系
 
-    - if has_referenced_from_story?(@wiki_page)
-      .wiki-page-title
-        = link_to "#{@wiki_page.title}", "/stories/#{@wiki_page.from_model_id}"
+    - if !@wiki_page.from_model.blank?
+      .from
+        = link_to "#{@wiki_page.title}", "/stories/#{@wiki_page.from_model.id}"
 
-    .wiki-page-content=content
+    .wiki-page-content= content
 

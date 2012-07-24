@@ -27,9 +27,9 @@
             .my-tasks= link_to '我的任务', '/mine'
             .my-drafts= link_to '我的草稿', '/drafts'
             
-      .nav.hide
-        %a.item{:class=>nav_current_klass(:products), :href=>'/'} 我们的产品
-        %a.item{:class=>nav_current_klass(:members), :href=>'/members'} 成员和分享者
+      .nav
+        %a.item{:href=>'/'} 我们的产品
+        %a.item{:href=>'/users'} 成员和分享者
         
       .hide.page-to
         .p=link_to '全部产品','/'

@@ -1,8 +1,10 @@
-=render 'products/parts/product_nav', :product=>@product, :current=>:wiki
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki"
+- hbreadcrumb '搜索结果', "#"
 
-.page-title #{@product.name} - WIKI
-
-=render 'wiki/parts/search', :product=>@product
+- content_for :topbar do
+  = jsearchbar "/products/#{@product.id}/wiki_search", :placeholder => '搜索WIKI', :default=>params[:query]
 
 .page-wiki-search-results
   .count 

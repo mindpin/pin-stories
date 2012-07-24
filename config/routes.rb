@@ -30,16 +30,8 @@ MindpinAgile::Application.routes.draw do
   resources :products do
     resources :stories, :only => [:new, :create]
     resources :streams, :only => [:new, :create]
-
-    resources :issues
-
+    resources :issues,  :only => [:new, :create, :index]
     resources :lemmas,  :only => [:new, :create]
-  end
-
-  resources :issue_comments do
-    collection do
-      post :reply
-    end
   end
 
   get 'products/:id/members' => 'products#product_members'
@@ -138,5 +130,12 @@ MindpinAgile::Application.routes.draw do
   get '/stories/:id/save_to_wiki'      => 'stories#save_to_wiki'
 
   # 所有类型的评论都在这里，不单独定义
-  resources :comments
+  resources :comments do
+    collection do
+      get 'show_model_comments'
+    end
+  end
+
+  # issues
+  resources :issues, :except => [:new, :create]
 end

@@ -49,4 +49,5 @@ class User < ActiveRecord::Base
   include UserEvernoteAuth::UserMethods
   include Activity::UserMethods
   include Draft::UserMethods
+  include Issue::UserMethods
 end

@@ -75,6 +75,25 @@ body{
         }
       }
     }
+
+    .nav{
+      padding:20px 0;
+      a.item{
+        padding:0 20px;
+        display:block;
+        height:40px;line-height:40px;
+        color:white;
+        &:hover{
+          color:#FFD75F;
+          background-color:rgba(black, 0.2);
+        }
+        font-size:14px;font-weight:bold;
+        &:before{
+          content:">";
+          margin-right:8px;
+        }
+      }
+    }
   }
 
   .page-topbar{

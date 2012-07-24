@@ -1,14 +1,6 @@
 pie.load ->
-  $page_comments = jQuery('.page-comments')
 
-  return if !$page_comments.exists()
-
-  $form = $page_comments.find('form')
-  $input = $form.find('textarea').val('')
-
-  POST_URL = $form.attr('action')
-  model_type = $form.find('input[name=model_type]').val()
-  model_id = $form.find('input[name=model_id]').val()
+  # 各种变量有重复，需要重构
 
   # 发评论
 
@@ -20,7 +12,15 @@ pie.load ->
   # 
   # 不符合条件的，都认为是普通的新增评论
 
-  $form.find('a.form-submit-button').click ->
+  jQuery('.page-comments form a.form-submit-button').live 'click', ->
+    $page_comments = jQuery('.page-comments')
+    $form = $page_comments.find('form')
+    $input = $form.find('textarea')
+    POST_URL = $form.attr('action')
+    model_type = $form.find('input[name=model_type]').val()
+    model_id = $form.find('input[name=model_id]').val()
+
+
     content = jQuery.string($input.val()).strip().str
 
     # 参数检查
@@ -64,6 +64,13 @@ pie.load ->
         comment_success(res)
 
   comment_success = (res)->
+    $page_comments = jQuery('.page-comments')
+    $form = $page_comments.find('form')
+    $input = $form.find('textarea')
+    POST_URL = $form.attr('action')
+    model_type = $form.find('input[name=model_type]').val()
+    model_id = $form.find('input[name=model_id]').val()
+
     $new_comment = jQuery(res).find('.comment')
     $input.val('')
 
@@ -80,6 +87,13 @@ pie.load ->
 
   # 删除评论
   jQuery('.page-comments .comment .ops a.delete').live 'click', ->
+    $page_comments = jQuery('.page-comments')
+    $form = $page_comments.find('form')
+    $input = $form.find('textarea')
+    POST_URL = $form.attr('action')
+    model_type = $form.find('input[name=model_type]').val()
+    model_id = $form.find('input[name=model_id]').val()
+
     $delete = jQuery(this)
 
     $delete.confirm_dialog '确定删除吗', ->
@@ -98,6 +112,13 @@ pie.load ->
 
   # 回复评论
   jQuery('.page-comments .comment .ops a.reply').live 'click', ->
+    $page_comments = jQuery('.page-comments')
+    $form = $page_comments.find('form')
+    $input = $form.find('textarea')
+    POST_URL = $form.attr('action')
+    model_type = $form.find('input[name=model_type]').val()
+    model_id = $form.find('input[name=model_id]').val()
+
     $reply = jQuery(this)
     $comment = $reply.closest('.comment')
     user_name = $comment.data('user-name')

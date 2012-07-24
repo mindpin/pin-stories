@@ -16,13 +16,17 @@
 
     new_story_url  = "/products/#{product.id}/stories/new"
     new_stream_url = "/products/#{product.id}/streams/new"
-    activities_url = "/products/#{product.id}/activities"    
+    activities_url = "/products/#{product.id}/activities"
+    issues_url = "/products/#{product.id}/issues"
+    wiki_url = "/products/#{product.id}/wiki"
 
   .product-headbar
     = jimage cover_url, :alt=>name, :class=>'cover'
     .desc= description
     .ops
-      %a.view-activities{:href=>activities_url} 查看最近动态
+      %a.view.activities.hide{:href=>activities_url} 查看最近动态
+      %a.view.issues{:href=>issues_url} 查看BUG或建议
+      %a.view.issues{:href=>wiki_url} 查看WIKI
       %a.add-issue{:href=>"/products/#{product.id}/issues/new"} 创建BUG或建议
       - if admin_logged_in?
         %a.add-story.admin{:href=>new_story_url} 创建故事

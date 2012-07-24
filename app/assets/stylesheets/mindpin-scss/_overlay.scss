@@ -49,6 +49,32 @@
       }
 
     }
+  }
+}
 
+.ajax-loading-bar{
+  padding:6px 10px;
+  background-color:rgba(#ffd75f, 0.7);
+  box-shadow:0 0 5px black;
+
+  color:#222;
+  position:fixed;
+  width:120px;
+  top:200px;
+  left:0px;
+  height:auto;
+  height:20px;line-height:20px;
+  font-size:14px;font-weight:bold;
+  z-index:10001;
+
+  &:before{
+    content:'';
+    float:left;
+    width:18px;
+    height:4px;
+    position:relative;
+    top:8px;
+    margin-right:8px;
+    background:url(./mindpin-js-imgs/j.loadingber.progress.gif) no-repeat;
   }
 }

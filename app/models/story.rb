@@ -197,24 +197,28 @@ class Story < ActiveRecord::Base
       base.has_many :story_assigns
       base.has_many :assign_stories, :through => :story_assigns, :source => :stories 
       base.has_many :created_stories, :class_name => 'Story', :foreign_key => :creator_id
+
+      base.send(:include, InstanceMethods)
     end
     
-    def is_admin?
-      User.first == self # 第一个用户是管理员，暂时先这样判断
+    module InstanceMethods
+      def is_admin?
+        User.first == self # 第一个用户是管理员，暂时先这样判断
+      end
     end
   end
 
 
   # # 设置全文索引字段
-  # define_index do
-  #   # fields
-  #   indexes how_to_demo, :sortable => true
-  #   indexes tips
-  #   indexes product_id
+  define_index do
+    # fields
+    indexes :how_to_demo
+    indexes :tips
+    indexes :product_id
     
-  #   # attributes
-  #   has created_at, updated_at
+    # attributes
+    has :created_at, :updated_at
 
-  #   set_property :delta => true
-  # end
+    set_property :delta => true
+  end
 end

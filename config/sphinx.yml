@@ -4,4 +4,4 @@ development:
   charset_dictpath: /usr/local/mmseg3/etc
   ngram_len: 0
 
-  searchd_file_path: /web/sphinx
+  searchd_file_path: /web/sphinx/pin-stories

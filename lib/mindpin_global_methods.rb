@@ -13,7 +13,9 @@ end
 # 取自javaeye上庄表伟和quake wang的方法
 # 由于quake wang的方法在需要截取的字符数大于30时有较严重的效率问题，导致卡死进程
 # 因此需要截取长度大于30时使用庄表伟的方法
-def truncate_u(text, length = 30, truncate_string = '...')
+def truncate_u(_text, length = 30, truncate_string = '...')
+  text = _text || ''
+
   if length >= 30
     l = 0
     char_array = text.unpack('U*')

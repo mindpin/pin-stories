@@ -1,11 +1,14 @@
-=render 'products/parts/product_nav', :product=>@product, :current=>:wiki
+- htitle "#{@product.name} - WIKI"
 
-.page-title #{@product.name} - WIKI
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki" 
 
-=render 'wiki/parts/search', :product=>@product
+- content_for :topbar do
+  = jsearchbar "/products/#{@product.id}/wiki_search", :placeholder => '搜索WIKI'
 
 .page-wiki-pages
-  .ops
+  .wiki-ops
     %a.new{:href=>"/products/#{@product.id}/wiki_new"} 创建新词条
     %a.orphan{:href=>"/products/#{@product.id}/wiki_orphan"} 查看孤立词条
 
@@ -21,7 +24,9 @@
       url_prefix = "/products/#{product_id}/wiki/#{wiki_page.title}"
 
     .wiki-page
-      = link_to wiki_page.title, "#{url_prefix}", :class=>'new'
-      = link_to '查看修改历史', "#{url_prefix}/versions", :class=>'versions'
-      = link_to '编辑', "#{url_prefix}/edit", :class=>'edit'
-      = link_to '删除', "#{url_prefix}", :method => :delete, :confirm => '是否确定删除'
+      .title
+        = link_to wiki_page.title, "#{url_prefix}", :class=>'new'
+      .ops
+        = link_to '查看修改历史', "#{url_prefix}/versions", :class=>'versions'
+        = link_to '编辑', "#{url_prefix}/edit", :class=>'edit'
+        = link_to '删除', "#{url_prefix}", :method => :delete, :confirm => '是否确定删除'

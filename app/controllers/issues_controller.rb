@@ -4,7 +4,8 @@ class IssuesController < ApplicationController
   before_filter :pre_load
 
   def pre_load
-    @product = Product.find(params[:product_id]) if params[:product_id] 
+    @product = Product.find(params[:product_id]) if params[:product_id]
+    @issue = Issue.find(params[:id]) if params[:id]
   end
 
   def index
@@ -41,13 +42,9 @@ class IssuesController < ApplicationController
     render :text => issue.content
   end
 
+  # for ajax
   def destroy
-    id = params[:id]
-    unless id.nil?
-      issue = Issue.find(id) 
-      issue.destroy
-    end
-
+    current_user.issues.find(params[:id]).destroy
     render :nothing => true
   end
 

@@ -189,32 +189,6 @@
   }
 }
 
-.page-product-issues{
-  width:690px;
-  .issue{
-    overflow:hidden;
-    border-bottom:dashed 1px #ccc;
-    padding-bottom:12px;
-    margin-bottom:12px;
-    margin-right:20px;
-
-    .creator{
-      float: left;
-      width:48px;height:48px;
-      @include border-radius(3px);
-      overflow:hidden;
-    }
-    .ct{
-      margin-left:60px;margin-bottom:6px;
-      font-size:14px;
-    }
-    .time{
-      margin-left:60px;font-size:10px;
-      color:#999;
-    }
-  }
-}
-
 .page-product-lemmas{
   width:690px;
 

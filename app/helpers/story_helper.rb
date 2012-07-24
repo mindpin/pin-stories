@@ -52,6 +52,10 @@ module StoryHelper
     html_escape(story[field]).gsub(/\n/, '<br />').html_safe
   end
 
+  def issue_ct(issue)
+    html_escape(issue.content).gsub(/\n/, '<br />').html_safe
+  end
+
 
   # 获取一个 story 版本记录的 how_to_demo
   def get_story_audit_how_to_demo(audit)
@@ -74,5 +78,16 @@ module StoryHelper
     WikiPage.where(:from_model_id => story.id, :from_model_type => 'Story').first.title
   end
 
+  def story_link(story)
+    link_to "story #{story.id}", "/stories/#{story.id}"
+  end
+
+  def issue_link(issue)
+    link_to "issue #{issue.id}", "/issues/#{issue.id}"
+  end
+
+  def wiki_page_link(wiki_page)
+    link_to "wiki #{truncate_u(wiki_page.title, 12)}", "/products/#{wiki_page.product.id}/wiki/#{wiki_page.title}"
+  end
 
 end

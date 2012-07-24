@@ -23,9 +23,10 @@ class Issue < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :story_assigns
-      base.has_many :stories, :through => :story_assigns 
-    end    
+      base.has_many :issues,
+                    :class_name => 'Issue', 
+                    :foreign_key => :creator_id
+    end
   end
 
 end

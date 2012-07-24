@@ -7,6 +7,7 @@ module MindpinUtilHelper
     base.send(:include, FormDomsMethods)
     base.send(:include, ImageMethods)
     base.send(:include, TimeMethods)
+    base.send(:include, CommentMethods)
   end
 
   module LayoutMethods
@@ -148,14 +149,17 @@ module MindpinUtilHelper
         seconds = (current_time - time).to_i
         
         return '片刻前' if seconds < 0
-        return "#{seconds}秒前" if seconds < 60
-        
-        minutes = seconds/60
-        return "#{minutes}分钟前" if seconds < 3600
-    
+        return "#{seconds}秒前" if seconds < 60        
+        return "#{seconds/60}分钟前" if seconds < 3600
         return time.strftime('%H:%M') if seconds < 86400 && current_time.day == time.day
         return time.strftime("#{time.month}月#{time.day}日 %H:%M") if current_time.year == time.year
         return time.strftime("%Y年#{time.month}月#{time.day}日 %H:%M")
       end
+  end
+
+  module CommentMethods
+    def comment_ct(comment)
+      html_escape(comment.content).gsub(/\n/, '<br />').html_safe
+    end
   end
 end

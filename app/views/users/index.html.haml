@@ -1,13 +1,17 @@
--htitle '成员和分享者'
+- htitle '成员和分享者'
 
-.page-title 各种多少有点关联和帮过忙的人，都会逐一放在这里。。
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '成员和分享者', '/users'
 
-.page-team-members
-  -@members.each do |member|
-    .member
-      %a.box{:href=>"/members/#{member.id}"}
-        .avatar=avatar member, :medium
+
+.page-all-users
+  .desc 我们的团队成员和一些提供过帮助的朋友 :)
+
+  -@users.each do |user|
+    .user
+      %a.box{:href=>"/users/#{user.id}"}
+        .avatar=avatar user, :medium
         .meta
-          .name=member.name
-          .real-name=member.info_real_name
+          .name=user.name
+          .real-name=user.info_real_name
 		

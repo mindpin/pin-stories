@@ -1,11 +1,5 @@
 cn:
-  activerecord:
-    attributes:
-      issue:
-        creator: 创建者
-    errors:
-      models:
-        issue:
-          attributes:
-            creator:
-              blank: 未指定问题创建者
+  will_paginate:
+    previous_label: 上一页
+    next_label: 下一页
+    page_gap: "&hellip;"

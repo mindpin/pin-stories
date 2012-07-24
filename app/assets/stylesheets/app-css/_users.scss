@@ -1,49 +1,46 @@
-.page-team-members{
-  .member{
+.page-all-users{
+  .desc{
+    margin-bottom:20px;
+  }
+  .user{
     float:left;
-    margin:0 10px 10px 0;
+    margin:0 20px 20px 0;
+    box-shadow:0 0 7px rgba(black, 1);
 
     a.box{
-      $w:96px;
-      $padding : 10px;
-
-      overflow:hidden;
-      width: $w*2 + $padding * 3;
-      background-color:#3E3D3F;
-      padding:0;
-      display:block;
-      position:relative;
-
-      &:before{
-        content:"";
-        display:block;
-        position:absolute;
-        top:0;bottom:0;left:$w + $padding;
-        width:5px;
-        @include gradient-ltor(rgba(black, 0.4), rgba(black, 0));
-      }
-
+      @include floatfix;
+      display:block;      
+      border:solid 7px rgba(white, 0.1);
       &:hover{
-        .avatar{background-color:#9FBA6D;}
-        .meta .real-name{color:#9FBA6D;}
+        border:solid 7px rgba(white, 0.4);
+        .meta .name, .meta .real-name{
+          color:white;
+        }
       }
 
+      $w : 96px;
       .avatar{
         float:left;
-        padding-left:$padding;
         width:$w;height:$w;overflow:hidden;
         img{width:$w;height:$w;}
+        margin:2px;
 
         @include transition(background-color ease-in .2s);
       }
+
       .meta{
-        margin-left:$w + $padding * 2;
-        margin-right:$padding;
-        .name{
-          font-size:13px;font-weight:bold;margin-bottom:5px;
-          margin-top:10px;
+        width:$w;height:$w;
+        float:left;
+        margin:2px;
+        margin-left:0;
+        padding:0 8px;
+
+        background-color:rgba(black, 0.2);
+        .name, .real-name{
+          font-weight:bold;
+          height:24px;line-height:24px;
+          color:#999;
         }
-        .real-name{color:#999;}
       }
     }
   }

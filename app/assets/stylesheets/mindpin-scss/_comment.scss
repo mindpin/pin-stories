@@ -21,7 +21,7 @@
     .comment{
       @include floatfix;
 
-      &.blank{margin-left:44px;padding-left:4px;}
+      &.blank{}
       
       margin-bottom:2px;
       padding:0;
@@ -49,11 +49,11 @@
             @include floatfix;
             .name{
               height:16px;line-height:16px;
-              font-size:12px;float:left;overflow:hidden;padding-right:30px;
+              font-size:12px;float:left;padding-right:30px;
             }
             .ops{
               height:16px;line-height:16px;
-              font-size:12px;float:right;overflow:hidden;
+              font-size:12px;float:right;
             } 
           }
           .ctext{

@@ -1,27 +1,51 @@
--htitle @product.name
+- htitle @product.name
 
-=render 'products/parts/product_headbar', :product=>@product
-=render 'products/parts/product_nav', :product=>@product, :current=>:stories_board
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb '最近活动', "/products/#{@product.id}/activities"
 
-:ruby
-  product = @product
-  name = product.name
+.page-activities
+  - @activities.each do |activity|
+    :ruby
+      actor = activity.actor
+      model = activity.act_model
+
+    .activity
+      .title
+        %span.actor= user_link actor
+
+        - case activity.action
+          - when "CREATE_STORY"
+            %span.act 创建了 
+            %span.act_model= story_link model
+            - content = truncate_u(model.how_to_demo, 30)
+
+          - when "UPDATE_STORY"
+            %span.act 修改了 
+            %span.act_model= story_link model
+            - content = truncate_u(model.how_to_demo, 30)
+
+          - when "CREATE_ISSUE"
+            %span.act 创建了 
+            %span.act_model= issue_link model
+            - content = truncate_u(model.content, 30)
+
+          - when "CREATE_WIKIPAGE"
+            %span.act 创建了 
+            %span.act_model= wiki_page_link model
+            - content = truncate_u(model.content, 30)
+
+          - when "UPDATE_WIKIPAGE"
+            %span.act 修改了
+            %span.act_model= wiki_page_link model
+            - content = truncate_u(model.content, 30)
+
+        %span.act 于
+        %span.time= jtime activity.created_at
+
+      .detail
+        .avatar= avatar actor, :tiny
+        .content= content
 
 
-=render 'stories/parts/search', :product=>@product
-
-- @activities.each do |activity|
-  - case activity.action
-    - when "CREATE_STORY"
-      %p #{activity.actor.name} 创建了一个新的 story #{activity.act_model.how_to_demo}
-    - when "UPDATE_STORY"
-      %p #{activity.actor.name} 更新了 story #{activity.act_model.how_to_demo}
-    - when "CREATE_ISSUE"
-      %p #{activity.actor.name} 创建了一条新的 issue #{activity.act_model.content}
-    - when "CREATE_WIKIPAGE"
-      %p #{activity.actor.name} 创建了一条新的维斯条目 #{activity.act_model.title}
-    - when "UPDATE_WIKIPAGE"
-      %p #{activity.actor.name} 更新了维基条目  #{activity.act_model.title}
-
-%p
-  = will_paginate @activities
+  .page-will-paginate= will_paginate @activities

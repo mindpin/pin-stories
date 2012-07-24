@@ -33,4 +33,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def show_model_comments
+    klass = params[:model_type].constantize
+    model = klass.find params[:model_id]
+
+    return render :partial =>'aj/comments', 
+                  :locals => {
+                    :model => model
+                  }
+  end
+
 end
