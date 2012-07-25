@@ -1,9 +1,9 @@
--htitle '我的任务'
+- htitle '我的任务'
 
--hbreadcrumb '首页', '/'
--hbreadcrumb '我的任务', '/mine', :current=>true
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '我的任务', '/mine'
 
--content_for :topbar do
+- content_for :topbar do
   = jsearchbar '/my_stories_search', :placeholder=>'搜索我的任务'
 
 .page-stories{:style=>'opacity:0;'}

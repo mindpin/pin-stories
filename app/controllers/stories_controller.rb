@@ -101,19 +101,22 @@ class StoriesController < ApplicationController
 
   # 全文索引，搜索当前产品下所有story
   def search
-    @keyword = params[:keyword]
-    @search_result = Story.search(@keyword, 
+    @query = params[:query]
+    @search_result = Story.search(@query, 
       :conditions => {:product_id => @product.id}, 
-      :page => params[:page], :per_page => 20)
+      :page => params[:page], 
+      :per_page => 20
+    )
   end
 
   # 全文索引，搜索属于我的story
   def search_mine
-    @keyword = params[:keyword]
-    @assigned = StoryAssign.search(@keyword, 
+    @query = params[:query]
+    @assigned = StoryAssign.search(@query, 
       :conditions => {:user_id => current_user.id}, 
-      :page => params[:page], :per_page => 20)
-
+      :page => params[:page], 
+      :per_page => 20
+    )
   end
 
 

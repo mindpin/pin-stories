@@ -41,9 +41,6 @@ MindpinAgile::Application.routes.draw do
   # activities
   get 'products/:id/activities' => 'products#activities'
 
-  # story 全文搜索
-  get 'products/stories_search' => 'stories#search'
-
   # ---------------
   # WIKI 相关
   scope '/products/:product_id' do
@@ -83,6 +80,9 @@ MindpinAgile::Application.routes.draw do
 
     # wiki 全文搜索
     get  '/wiki_search'  => 'wiki#search'
+
+    # story 全文搜索
+    get  '/stories_search' => 'stories#search'
   end
 
   # wiki  draft

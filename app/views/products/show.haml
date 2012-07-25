@@ -3,7 +3,7 @@
 - hbreadcrumb '首页', '/'
 - hbreadcrumb @product.name, "/products/#{@product.id}"
 
--content_for :topbar do
+- content_for :topbar do
   = jsearchbar "/products/#{@product.id}/stories_search"
 
 - # css at _stories.scss

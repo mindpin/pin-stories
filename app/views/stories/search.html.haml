@@ -1,6 +1,11 @@
-.page-title #{@product.name} - Stories
+- htitle "#{@product.name} - Stories"
 
-=render 'stories/parts/search', :product=>@product
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb '搜索结果', "#"
+
+- content_for :topbar do
+  = jsearchbar "/products/#{@product.id}/stories_search"
 
 .page-wiki-search-results
   .count 
@@ -19,7 +24,7 @@
       tips = story.excerpts.tips.html_safe
 
     .wiki-page
-      .ct=link_to htd, path
-      .ct=tips
+      .ct= link_to htd, path
+      .ct= tips
 
   .paginate=will_paginate @search_result
