@@ -15,10 +15,14 @@ class WikiController < ApplicationController
   end
   
   def show
+    if @wiki_page.blank?
+      return redirect_to URI.encode("/products/#{@product.id}/wiki_new?title=#{params[:title]}")
+    end
   end
 
   def new
-    @wiki_page = WikiPage.new
+    title = params[:title] || ''
+    @wiki_page = WikiPage.new :title=>title
   end
   
   def create
