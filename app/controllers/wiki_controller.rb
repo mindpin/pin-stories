@@ -85,13 +85,13 @@ class WikiController < ApplicationController
   # 编辑内容区块页面
   def edit_section
     section_number = params[:section].to_i
-    @content = WikiPageFormatter.split_section(@wiki_page, section_number)
+    @content = WikiPageFormatter.new(@wiki_page).split_section(section_number)
   end
 
   def update_section
     section_number = params[:section].to_i
 
-    @wiki_page.content = WikiPageFormatter.replace_section(@wiki_page, section_number, params[:content])
+    @wiki_page.content = WikiPageFormatter.new(@wiki_page).replace_section(section_number, params[:content])
     @wiki_page.save
 
     redirect_to URI.encode("/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}")
