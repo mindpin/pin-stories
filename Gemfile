@@ -1,24 +1,25 @@
 source 'http://ruby.taobao.org'
 
-
 gem 'rails', '3.1.3'
 gem 'mysql2'
 
-gem 'therubyracer'
 gem 'json'
+gem 'therubyracer'
 gem 'jquery-rails'
-gem 'haml'
-gem 'audited-activerecord'
-gem 'redcarpet', :require => 'redcarpet/compat'
-gem 'coderay'
 
-gem 'thinking-sphinx', '2.0.10'
-gem 'will_paginate', '~> 3.0'
+gem 'audited-activerecord'
+gem 'coderay'
 gem 'evernote', '~> 1.2.1'
-gem "oauth", '0.4.5'
-gem "thrift_client"
-gem 'rmmseg-cpp'
+gem 'haml'
 gem 'nokogiri'
+gem "oauth", '0.4.5'
+gem 'paperclip', '~> 2.4'
+gem 'redcarpet', :require => 'redcarpet/compat'
+gem 'rmmseg-cpp'
+gem 'thinking-sphinx', '2.0.10'
+gem "thrift_client"
+gem 'uuidtools', :require => 'uuidtools'
+gem 'will_paginate', '~> 3.0'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'
@@ -26,6 +27,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'uuidtools', :require => 'uuidtools'
-
-gem 'paperclip', '~> 2.4'
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'rcov'
+  gem 'spork', '~> 0.9.2'
+  gem 'timecop'
+end

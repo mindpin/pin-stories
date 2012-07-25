@@ -7,7 +7,6 @@ class Product < ActiveRecord::Base
   has_many :wiki_page_refs
   
   validates :name, :description, :presence => true
-  
   validates_attachment_presence :cover
   
   # --- cover setting

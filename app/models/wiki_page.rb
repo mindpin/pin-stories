@@ -123,7 +123,7 @@ class WikiPage < ActiveRecord::Base
 
   def formatted_content
     # wiki_page_formatter.rb 代码位于 /lib/wiki
-    WikiPageFormatter.format(self)
+    WikiPageFormatter.new(self).format
   end
 
   def formatted_content_for_show

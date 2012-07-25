@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-linux:
- id: 1
- name: 大灰狼果糖
- hashed_password: d31bb926a85e844203d52aad0da36f68d4692e9f
- salt: 832037600.149202347696178
- email: kingla_pei@163.com
- last_login_time: 2012-05-09 09:15:52
