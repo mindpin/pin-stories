@@ -18,15 +18,4 @@
     -else
       %a.connect-evernote{:href=>"/products/#{@product.id}/wiki_evernote_connect"} 连接Evernote
 
-  - @wiki_pages.each do |wiki_page|
-    :ruby
-      product_id = wiki_page.product_id
-      url_prefix = "/products/#{product_id}/wiki/#{wiki_page.title}"
-
-    .wiki-page
-      .title
-        = link_to wiki_page.title, "#{url_prefix}", :class=>'new'
-      .ops
-        = link_to '查看修改历史', "#{url_prefix}/versions", :class=>'versions'
-        = link_to '编辑', "#{url_prefix}/edit", :class=>'edit'
-        = link_to '删除', "#{url_prefix}", :method => :delete, :confirm => '是否确定删除'
+  = render 'wiki/parts/wiki_pages', :wiki_pages=>@wiki_pages

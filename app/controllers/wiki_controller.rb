@@ -30,8 +30,8 @@ class WikiController < ApplicationController
       return
     end
 
-    flash[:error] = @wiki_page.errors.first
-    return render :new, :layout=>'simple_form'
+    flash[:error] = @wiki_page.errors.to_json
+    return render :new
   end
   
   # 预览
@@ -52,7 +52,6 @@ class WikiController < ApplicationController
   end
 
   def edit
-    render :layout=>'simple_form'
   end
   
   def update

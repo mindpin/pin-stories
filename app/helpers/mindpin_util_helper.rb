@@ -23,7 +23,7 @@ module MindpinUtilHelper
     def hbreadcrumb(str, url, options = {})
       content_for :breadcrumb do
         content_tag :div, :class => 'link' do
-          content_tag(:a, str, :href => url)
+          content_tag(:a, truncate_u(str, 16), :href => url)
         end
       end
     end

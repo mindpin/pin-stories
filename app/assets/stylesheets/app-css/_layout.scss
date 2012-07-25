@@ -127,6 +127,12 @@ body{
       overflow:hidden;
       float:left;
       margin-right:10px;
+
+      a{color:#aaa;&:hover{color:white;}}
+
+      &:last-child{
+        a{font-weight:bold;color:white;&:hover{color:white;}}
+      }
     }
 
     form.page-search-bar{

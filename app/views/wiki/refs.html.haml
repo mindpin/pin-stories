@@ -1,21 +1,21 @@
-%p
-  = @wiki_page.title
+- htitle "#{@wiki_page.title} 引用关系"
 
-%p
-  当前引用的
-%ul
-  - @refs.each do |ref|
-    %li
-      = link_to ref.to_page_title, "/products/#{ref.product_id}/wiki/#{ref.to_page_title}/", :target => "_blank"
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki"
+- hbreadcrumb @wiki_page.title, "/products/#{@product.id}/wiki/#{@wiki_page.title}"
+- hbreadcrumb '引用关系', "/products/#{@product.id}/wiki/#{@wiki_page.title}/refs"
 
-
+.page-wiki-page-refs
+  .desc 当前词条引用了这些词条
+  .refs
+    - @refs.each do |ref|
+      .ref
+        = ref_link ref.product, ref.to_page_title
  
-%p
-  引用当前页的
-%ul
-  - @used_refs.each do |ref|
-    %li
-      = link_to ref.from_page_title, "/products/#{ref.product_id}/wiki/#{ref.from_page_title}/", :target => "_blank"
-
-
-  
+.page-wiki-page-refs
+  .desc 当前词条被这些词条引用了
+  .refs
+    - @used_refs.each do |ref|
+      .ref
+        = ref_link ref.product, ref.from_page_title  

@@ -24,7 +24,7 @@ class WikiPageFormatter
       :space_after_headers => true
     )
 
-    formatted_content = markdown.render(wikipage.content)
+    formatted_content = markdown.render(wikipage.content || '')
     toc = coderay_render.get_toc # 顺序必须写在上一句后面
 
     return "#{toc}#{formatted_content}".html_safe
@@ -187,17 +187,20 @@ class WikiPageFormatter
 
       # 转换 @某某 语法
       def _trans_atme(text)
-        text.gsub(ATME_REGEXP, '<a href="/atme/\1">@\1</a>')
+        text.gsub(ATME_REGEXP, '<a href="/atme/\1" class="page-at-user">@\1</a>')
       end
 
-      #  转换 [[]] 语法
+      #  转换 [[]] 双方括弧语法
       def _trans_ref(text)
         text.gsub TITLE_REF_REGEXP do
           # 滤去 & ? _ 三个特殊字符，转换成 -
           #title = $1.gsub /[?&_]+/, '-'
           title = $1
 
-          "<a href='/products/#{@product_id}/wiki/#{title}'>#{title}</a>"
+          exists = WikiPage.where(:product_id => @product_id, :title => title).exists?
+          klass = exists ? 'page-wiki-page-ref' : 'page-wiki-page-ref no-page'
+
+          "<a href='/products/#{@product_id}/wiki/#{title}' class='#{klass}'>#{title}</a>"
         end
       end
 
@@ -211,7 +214,7 @@ class WikiPageFormatter
   # 分段编辑时，将指定的新内容替换到指定的section里
   def self.replace_section(wikipage, section_num, new_content)
     # 生成 lines 对象链表结构
-    lines = self._build_lines_linked_list(wikipage)
+    lines = ContentLine._build_lines_linked_list(wikipage)
 
     # 挑选出所有标题文字所在行
     header_lines = lines.select{|line| line.is_header?}
@@ -247,9 +250,10 @@ class WikiPageFormatter
 
   # 分段编辑时，切分出需要的段落文字
   # TODO 这段还是有些繁琐，可能还需要进一步简化
+  # 2012.7.25 当程序段内出现标题语法时，这种情况没有排除
   def self.split_section(wikipage, section_num)
     # 生成 lines 对象链表结构
-    lines = self._build_lines_linked_list(wikipage)
+    lines = ContentLine._build_lines_linked_list(wikipage)
 
     # 挑选出所有标题文字所在行
     header_lines = lines.select{|line| line.is_header?}
@@ -273,29 +277,61 @@ class WikiPageFormatter
     return lines[start_line_num..end_line_num].map{|line| line.text}
   end
 
-  def self._build_lines_linked_list(wikipage)
-    re = []
 
-    last_line = ContentLine.new(nil, nil)
-    wikipage.content.lines.each_with_index do |text, index|
-      line = ContentLine.new(text, index)
-
-      last_line.next_line = line
-      last_line = line
-      
-      re << line
-    end
-
-    return re
-  end
 
   class ContentLine
-    attr_accessor :text, :next_line, :section_num, :line_num
+    attr_accessor :text, :next_line, :prev_line, :section_num, :line_num, :is_in_code_block
 
     REGEXP_TYPE_ONE = /^(\#{1,6})\s+(.+)/
 
     REGEXP_TYPE_TWO_A = /^\=+\s*$/
     REGEXP_TYPE_TWO_B = /^\-+\s*$/
+
+    REGEXP_CODE_START_A = /^~~~(.*)$/
+    REGEXP_CODE_START_B = /^---(.*)$/
+
+    REGEXP_CODE_END_A = /^~~~\s*$/
+    REGEXP_CODE_END_B = /^---\s*$/
+
+    def self._build_lines_linked_list(wikipage)
+      re = []
+
+      last_line = ContentLine.new(nil, nil)
+      is_in_code_block = false
+      code_status = nil
+
+      wikipage.content.lines.each_with_index do |text, index|
+
+        if (is_in_code_block == false)
+          if text.match REGEXP_CODE_START_A
+            is_in_code_block = true
+            code_status = :A
+          elsif text.match REGEXP_CODE_START_B
+            is_in_code_block = true
+            code_status = :B
+          end
+        elsif (is_in_code_block == true)
+          if (code_status == :A) && (text.match REGEXP_CODE_END_A)
+            is_in_code_block = false
+            code_status = nil
+          elsif (code_status == :B) && (text.match REGEXP_CODE_END_B)
+            is_in_code_block = false
+            code_status = nil
+          end
+        end
+
+        line = ContentLine.new(text, index)
+        line.is_in_code_block = is_in_code_block
+
+        last_line.next_line = line
+        line.prev_line = last_line
+        last_line = line
+        
+        re << line
+      end
+
+      return re
+    end
 
     def initialize(text, line_num)
       self.text     = text
@@ -303,6 +339,8 @@ class WikiPageFormatter
     end
 
     def is_header?
+      return false if self.is_in_code_block
+
       return true if self._is_match_header_type_one?
       return true if self._is_match_header_type_two?
       return false

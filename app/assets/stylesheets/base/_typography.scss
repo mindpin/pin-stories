@@ -73,7 +73,7 @@ caption {background:#eee;}
 .fright{float:right !important;}
 
 .boxfix{overflow:hidden;}
-.wordwrap {word-wrap:break-word;word-break:break-all;white-space:pre-wrap;}
+.wordwrap {word-wrap:break-word;word-break:break-all;}//white-space:pre-wrap;}
 
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 .clearfix:after{clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;width:0;height:0}

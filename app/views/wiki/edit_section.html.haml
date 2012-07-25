@@ -1,5 +1,10 @@
-.page-title #{@product.name} WIKI - 修改词条 - #{@wiki_page.title}
-  
+- htitle "#{@product.name} WIKI - 词条段落编辑 - #{@wiki_page.title}"
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki"
+- hbreadcrumb '段落编辑', "/products/#{@product.id}/wiki/#{@wiki_page.title}/edit_section?section=#{params[:section]}"
+
 .page-edit-wiki-page
   = flash_info
   = form_for @wiki_page, :url => "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/update_section?section=#{params[:section]}", :method => 'put' do |f|
@@ -12,4 +17,4 @@
       
     .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 确定
-      %a.form-cancel{:href=>"/products/#{@wiki_page.product_id}/wiki"} 取消
+      %a.form-cancel-button{:href=>"javascript:history.go(-1);"} 取消

@@ -8,7 +8,7 @@
 .page-new-wiki-page
   = flash_info
   = form_for @wiki_page, :url=>"/products/#{@product.id}/wiki" do |f|
-    .form-url-preview{:'data-url'=>"/products/#{@product.id}/wiki/preview"}
+    .form-url-preview{:'data-url'=>"/products/#{@product.id}/wiki_preview"}
     
     .field.title
       %label.need 页面标题
@@ -21,6 +21,6 @@
     .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 保存
       %a.form-preview.form-button{:href=>'javascript:;'} 预览
-      %a.form-cancel-button{:href=>"/products/#{@product.id}/wiki"} 取消
+      %a.form-cancel-button{:href=>"javascript:history.go(-1);"} 取消
 
     .preview_result

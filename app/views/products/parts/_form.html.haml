@@ -1,9 +1,9 @@
 = flash_info
 = form_for @product, :html=>{:multipart=>true} do |f|
-  .field
+  .field.need
     %label 产品名
     =f.text_field :name
-  .field
+  .field.need
     %label 产品描述
     =f.text_area :description
   .field
@@ -11,4 +11,4 @@
     =file_field_tag :'product[cover]'
   .field
     %a.form-submit-button{:href=>'javascript:;'} 确定
-    %a.form-cancel{:href=>'javascript:history.go(-1);'} 取消
+    %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消

@@ -39,8 +39,10 @@ MindpinAgile::Application.routes.draw do
 
 
   # activities
-  get 'products/:id/activities'  => 'products#activities'
+  get 'products/:id/activities' => 'products#activities'
 
+  # story 全文搜索
+  get 'products/stories_search' => 'stories#search'
 
   # ---------------
   # WIKI 相关
@@ -67,24 +69,20 @@ MindpinAgile::Application.routes.draw do
     get  '/wiki_new' => 'wiki#new'
 
     #  开始 evernote 路由
-    get '/wiki_evernote_connect'  => 'evernote#connect'
-    get '/wiki_evernote_callback' => 'evernote#callback'
-    get '/wiki_evernote_import'   => 'evernote#import'
-    post '/wiki_evernote_confirmimport'   => 'evernote#confirm_import'
-    post '/wiki_evernote_doimport'   => 'evernote#do_import'
+    get  '/wiki_evernote_connect'       => 'evernote#connect'
+    get  '/wiki_evernote_callback'      => 'evernote#callback'
+    get  '/wiki_evernote_import'        => 'evernote#import'
+    post '/wiki_evernote_confirmimport' => 'evernote#confirm_import'
+    post '/wiki_evernote_doimport'      => 'evernote#do_import'
     #  结束 evernote
 
-    post '/wiki'     => 'wiki#create'
-    post '/wiki/preview' => 'wiki#preview'
+    post '/wiki'         => 'wiki#create'
+    post '/wiki_preview' => 'wiki#preview'
 
-    get '/wiki_orphan' => 'wiki#orphan'
+    get  '/wiki_orphan'  => 'wiki#orphan'
 
-    # wiki 全文索引
-    get '/wiki_search' => 'wiki#search'
-
-    # story 全文索引
-    get '/stories_search' => 'stories#search'
-
+    # wiki 全文搜索
+    get  '/wiki_search'  => 'wiki#search'
   end
 
   # wiki  draft

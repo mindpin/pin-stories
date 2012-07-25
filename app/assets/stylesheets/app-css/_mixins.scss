@@ -47,6 +47,28 @@
   .match{color:#FCBA15;background-color:rgba(#FCBA15, 0.2);}
 }
 
+@mixin loud-link{
+  a{color:#ffd75f;&:hover{color:#ffd75f;}}
+}
+
+body{
+  a.page-wiki-page-ref{
+    border-bottom:dashed 1px rgba(white, 0.2);
+    background-color:rgba(#a1dd39, 0.1);
+    color:#a1dd39;&:hover{border-color:#a1dd39;}
+
+    &.no-page{
+      background-color:rgba(#FF702A, 0.1);
+      color:#FF702A;&:hover{color:white;border-color:#FF702A, 0.6;}
+    }
+  }
+
+  a.page-at-user{
+    border-bottom:dashed 1px rgba(white, 0.2);
+    color:#2B7BD9;&:hover{border-color:#2B7BD9;}
+  }
+}
+
 $story-status-not-assign-color:#C34000;
 $story-status-doing-color:#95BB52;
 $story-status-reviewing-color:#5552BB;

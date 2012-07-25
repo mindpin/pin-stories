@@ -1,12 +1,18 @@
-.page-title #{@wiki_page.title} 版本记录
+- htitle "#{@wiki_page.title} 版本记录"
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki"
+- hbreadcrumb @wiki_page.title, "/products/#{@product.id}/wiki/#{@wiki_page.title}"
+- hbreadcrumb '修改历史', "/products/#{@product.id}/wiki/#{@wiki_page.title}/versions"
 
 .page-wiki-page-versions
   - i = 0
   - @audits.each do |audit|
     :ruby
       action_str = {'create'=>'创建', 'update'=>'编辑修改'}[audit.action]
-      current_content = get_wiki_audit_content(audit)
-      i+=1
+      current_content = truncate_u get_wiki_audit_content(audit), 140
+      i += 1
 
     -if 1 == i
       .version.current
@@ -21,7 +27,7 @@
         .id 版本序号: #{audit.version}
         .action 操作: #{action_str}
         .current-content 当前内容: #{current_content}
-        .time 操作时间: #{audit.created_at}
+        .time 操作时间: #{jtime audit.created_at}
         
         .ops
           = link_to '回滚到这个版本', "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/rollback/#{audit.version}", :confirm => '是否确定回滚到这个版本？'

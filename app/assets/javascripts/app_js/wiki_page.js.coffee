@@ -3,7 +3,7 @@ pie.load ->
   bind_preview = ($form)->
     $form.find('a.form-preview').live 'click', ->
       url = $form.find('.form-url-preview').data('url')
-      data = $form.serialize()
+      data = $form.find('[name!=_method]').serialize()
 
       $preview_result = $form.find('.preview_result')
       $preview_result.html('正在生成预览...')

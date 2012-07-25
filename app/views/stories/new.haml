@@ -33,7 +33,7 @@
               = jcheckbox 'story[stream_story_links_attributes][][stream_id]', stream.id, false, stream.title
       .field.submit
         %a.form-submit-button{:href=>'javascript:;'} 确定
-        %a.form-cancel-button{:href=>product_show_url} 取消
+        %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消
 
         %a.form-button.save-draft{:href=>'javascript:;'} 保存草稿
         .draft-status-notice

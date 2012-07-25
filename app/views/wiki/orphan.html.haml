@@ -1,6 +1,12 @@
-.page-title #{@product.name} - WIKI - 孤立词条页
+- htitle "#{@product.name} - WIKI - 孤立词条页"
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @product.name, "/products/#{@product.id}"
+- hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki"
+- hbreadcrumb '孤立词条页', "/products/#{@product.id}/wiki_orphan"
 
 .page-wiki-orphan-pages
-  - @orphan_pages.each do |wiki_page|
-    .wiki-page
-      = link_to wiki_page.title, "/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}"
+  .desc
+    这里显示着所有没有建立任何引用关系的词条，建议尽快建立它们的引用关系
+
+  = render 'wiki/parts/wiki_pages', :wiki_pages=>@orphan_pages

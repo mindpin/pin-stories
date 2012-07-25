@@ -15,7 +15,7 @@
 
 // 强制自动换行
 @mixin wordwarp{
-  word-wrap:break-word;word-break:break-all;white-space:pre-wrap;
+  word-wrap:break-word;word-break:break-all;//white-space:pre-wrap; 会导致多出空行的问题
 }
 
 // mixins
