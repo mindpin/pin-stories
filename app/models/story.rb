@@ -184,14 +184,6 @@ class Story < ActiveRecord::Base
     self.tips = hash[:tips]
   end
 
-
-  # 引用其它类
-  include Comment::CommentableMethods
-  include Activity::ActivityableMethods
-  include WikiPage::WikiPageableMethods
-
-  # ----------------------
-  
   module UserMethods
     def self.included(base)
       base.has_many :story_assigns
@@ -208,8 +200,11 @@ class Story < ActiveRecord::Base
     end
   end
 
+  # 引用其它类
+  include Comment::CommentableMethods
+  include Activity::ActivityableMethods
+  include WikiPage::WikiPageableMethods
 
-  # # 设置全文索引字段
   define_index do
     # fields
     indexes :how_to_demo

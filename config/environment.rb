@@ -1,7 +1,6 @@
 # Load the rails application
 require File.expand_path('../application', __FILE__)
 
-
 # 添加 oAuth evernote 验证
 require 'oauth'
 require 'oauth/consumer'
@@ -23,7 +22,6 @@ $LOAD_PATH.push(Rails.root.to_s + "/lib/Evernote/EDAM")
 # 中文分词
 require "rmmseg"
 RMMSeg::Dictionary.load_dictionaries
-
 
 # Initialize the rails application
 MindpinAgile::Application.initialize!

@@ -205,13 +205,6 @@ class WikiPage < ActiveRecord::Base
 
   end
 
-
-
-  # 引用其它类
-  include Activity::ActivityableMethods
-
-
-  
   # --- 给其他类扩展的方法
   module WikiPageableMethods
     def self.included(base)
@@ -226,8 +219,9 @@ class WikiPage < ActiveRecord::Base
     end
   end
 
-  # -------------- 这段需要放在最后，否则因为类加载顺序，会有警告信息
-  # 设置全文索引字段
+  # 引用其它类
+  include Activity::ActivityableMethods
+
   define_index do
     # fields
     indexes :title

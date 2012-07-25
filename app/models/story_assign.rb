@@ -4,7 +4,6 @@ class StoryAssign < ActiveRecord::Base
   
   validates :story, :user, :presence => true
 
-
   module UserMethods
     def self.included(base)
       base.has_many :story_assigns
@@ -12,8 +11,6 @@ class StoryAssign < ActiveRecord::Base
     end    
   end
 
-
-  # 设置全文索引字段
   define_index do
     # fields
     indexes story(:how_to_demo)
