@@ -5,3 +5,11 @@ development:
   ngram_len: 0
 
   searchd_file_path: /web/sphinx/pin-stories
+
+production:
+  charset_type: zh_cn.utf-8
+  bin_path: /usr/local/coreseek/bin
+  charset_dictpath: /usr/local/mmseg3/etc
+  ngram_len: 0
+
+  searchd_file_path: /web/sphinx/pin-stories/production
