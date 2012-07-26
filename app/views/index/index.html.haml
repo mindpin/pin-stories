@@ -1,39 +1,22 @@
 -htitle '我们的产品'
 
 -if logged_in?
-  -hbreadcrumb '首页', '/', :current=>true
+  - hbreadcrumb '首页', '/', :current=>true
 -else
-  -content_for :topbar do
+  - content_for :topbar do
     .login= link_to '我要登录啊', '/login'
-
-:ruby
-  products = Product.all
   
 .page-products
-  -products.each do |product|
-    :ruby
-      name = truncate_u(product.name, 10)
-      description = product.description
-      cover_url = product.cover.url
-      
-      stories_count = product.stories.count
-      members_count = product.members.count
-      
-      product_show_url = "/products/#{product.id}"
-      
-    .product
-      .meta-data
-        =link_to product_show_url, :class=>'box' do
-          
-          = jimage cover_url, :alt=>name, :class=>'cover'
-          .name= name
+  - Product::KINDS.each do |kind|
+    - products = Product.with_kind(kind)
+    - name = Product::KINDS_NAME[kind]
+    - desc = Product::KINDS_DESC[kind]
 
-      .stat-data
-        -if stories_count > 0
-          %span.stat #{stories_count} 故事
-        -if members_count > 0
-          %span.stat #{members_count} 开发者
-            
-      -if admin_logged_in?
-        .ops
-          %a.edit.admin-btn{:href=>"/products/#{product.id}/edit"} 修改
+    .kind
+      .kname= name
+      .kdesc= desc
+      .ref 
+        %span 更详细的参考见：
+        %a{:href=>"/products/6/wiki/产品定义-#{name}"} 产品定义-#{name}
+
+      = render 'index/parts/index_products', :products => products

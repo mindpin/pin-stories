@@ -1,0 +1,28 @@
+.products
+  - products.each do |product|
+    :ruby
+      name = truncate_u(product.name, 10)
+      description = product.description
+      cover_url = product.cover.url
+      
+      stories_count = product.stories.count
+      members_count = product.members.count
+      
+      product_show_url = "/products/#{product.id}"
+            
+    .product
+      .meta-data
+        =link_to product_show_url, :class=>'box' do
+          
+          = jimage cover_url, :alt=>name, :class=>'cover'
+          .name= name
+
+      .stat-data
+        -if stories_count > 0
+          %span.stat #{stories_count} 故事
+        -if members_count > 0
+          %span.stat #{members_count} 开发者
+            
+      -if admin_logged_in?
+        .ops
+          %a.edit.admin-btn{:href=>"/products/#{product.id}/edit"} 修改
