@@ -131,7 +131,7 @@ class WikiController < ApplicationController
   def search
     @query = params[:query]
     @search_result = WikiPage.search(@query, 
-      :conditions => {:product => @product}, 
+      :conditions => {:product_id => @product.id}, 
       :page => params[:page], 
       :per_page => 20
     )

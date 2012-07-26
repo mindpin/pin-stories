@@ -42,7 +42,7 @@ class WikiPageRecommander
 
     top_3_words = top_words[0..2].map{|data| data[0]}
 
-    search_str = top_3_words.join(' | ')
+    search_str = top_3_words.join(' ')
 
     p content
     p top_3_words
@@ -52,6 +52,8 @@ class WikiPageRecommander
     return WikiPage.search(search_str, 
       :conditions => {:product_id => product.id}
     )
+  rescue Exception => ex
+    return []
   end
 
 end
