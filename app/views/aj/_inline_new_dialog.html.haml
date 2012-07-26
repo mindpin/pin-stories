@@ -1,0 +1,10 @@
+.page-inline-new-dialog{:style=>'display:none;'}
+  .header
+    %a.close{:href=>'javascript:;'} 关闭
+    %a.send{:href=>'javascript:;'} 发送
+    .title 给 Agile 提BUG/提建议
+  .avatar=avatar current_user
+  .data-form
+    = form_tag '/create_agile_issue' do
+      .field.content.need
+        =text_area_tag :content

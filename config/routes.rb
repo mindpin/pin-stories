@@ -136,4 +136,7 @@ MindpinAgile::Application.routes.draw do
 
   # issues
   resources :issues, :except => [:new, :create]
+
+  # 快速提交 agile 的 bug
+  post '/create_agile_issue' => 'index#create_agile_issue'
 end

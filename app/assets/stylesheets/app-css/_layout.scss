@@ -94,6 +94,25 @@ body{
         }
       }
     }
+
+    .add-agile-issue{
+      a.open-dialog{
+        padding:0 20px;
+        display:block;
+        height:40px;line-height:40px;
+        color:#AAD363;
+        &:hover{
+          // color:#AAD363;
+          background-color:rgba(#AAD363, 0.1);
+        }
+        font-size:14px;font-weight:bold;
+        &:before{
+          content:"+";
+          margin-right:8px;
+          color:#AAD363;
+        }
+      }
+    }
   }
 
   .page-topbar{

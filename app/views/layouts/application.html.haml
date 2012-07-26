@@ -30,6 +30,11 @@
       .nav
         %a.item{:href=>'/'} 我们的产品
         %a.item{:href=>'/users'} 成员和分享者
+
+      -if logged_in?
+        .add-agile-issue
+          %a.open-dialog{:href=>'javascript:;'} 给Agile提BUG和建议
+          = render 'aj/inline_new_dialog'
         
       .hide.page-to
         .p=link_to '全部产品','/'

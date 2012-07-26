@@ -12,6 +12,6 @@
   .field.kind
     %label 产品类型
     = f.select :kind, Product::KINDS
-  .field
+  .field.submit
     %a.form-submit-button{:href=>'javascript:;'} 确定
     %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消
