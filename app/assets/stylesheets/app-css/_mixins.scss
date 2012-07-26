@@ -53,13 +53,13 @@
 
 body{
   a.page-wiki-page-ref{
-    border-bottom:dashed 1px rgba(white, 0.2);
+    border-bottom:dashed 1px rgba(white, 0.1);
     background-color:rgba(#a1dd39, 0.1);
     color:#a1dd39;&:hover{border-color:#a1dd39;}
 
     &.no-page{
       background-color:rgba(#FF702A, 0.1);
-      color:#FF702A;&:hover{color:white;border-color:#FF702A, 0.6;}
+      color:#FF702A;&:hover{color:white;border-color:#FF702A;}
     }
   }
 

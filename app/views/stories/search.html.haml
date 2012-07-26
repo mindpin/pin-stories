@@ -5,7 +5,7 @@
 - hbreadcrumb '搜索结果', "#"
 
 - content_for :topbar do
-  = jsearchbar "/products/#{@product.id}/stories_search"
+  = jsearchbar "/products/#{@product.id}/stories_search", :default=>params[:query]
 
 .page-wiki-search-results
   .count 

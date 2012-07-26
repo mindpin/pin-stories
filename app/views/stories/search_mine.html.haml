@@ -5,7 +5,7 @@
 - hbreadcrumb '搜索结果', "#"
 
 -content_for :topbar do
-  = jsearchbar '/my_stories_search', :placeholder=>'搜索我的任务'
+  = jsearchbar '/my_stories_search', :placeholder=>'搜索我的任务', :default=>params[:query]
 
 .page-wiki-search-results
   - if @assigned.blank?
