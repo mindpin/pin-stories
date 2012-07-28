@@ -15,5 +15,21 @@
 
       .content.wordwrap>
         = comment_ct comment
+        %span.time> (#{jtime comment.created_at})
+      .from
+        - if !comment.reply_comment.blank?
+          - reply_user = comment.reply_user
+          - name_link = reply_user == current_user ? '我' : user_link(reply_user)
+
+          %span 回复
+          %span= name_link
+          %span 的评论：
+          %span= link_to "“#{truncate_u comment.reply_comment.content, 16}”", comment.model
+
+        - else
+          %span 回复我的
+          %span #{comment.model.class}：
+          %span= link_to "“#{comment_from_content comment}”", comment.model
+
 
 .page-paginate= will_paginate @comments

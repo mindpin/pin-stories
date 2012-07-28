@@ -30,4 +30,4 @@
         .time 操作时间: #{jtime audit.created_at}
         
         .ops
-          = link_to '回滚到这个版本', "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/rollback/#{audit.version}", :confirm => '是否确定回滚到这个版本？'
+          = link_to '回滚到这个版本', "/products/#{@wiki_page.product_id}/wiki/#{@wiki_page.title}/rollback/#{audit.version}", :confirm => '确定要回滚到这个版本？', :method => :put

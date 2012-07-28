@@ -1,10 +1,10 @@
 - htitle '我的任务'
 
 - hbreadcrumb '首页', '/'
-- hbreadcrumb '我的任务', '/mine'
+- hbreadcrumb '我的任务', mine_stories_path
 
 - content_for :topbar do
-  = jsearchbar '/my_stories_search', :placeholder=>'搜索我的任务'
+  = jsearchbar search_mine_stories_path, :placeholder=>'搜索我的任务'
 
 .page-stories{:style=>'opacity:0;'}
   -@mine_products_hash.each do |product, stories|

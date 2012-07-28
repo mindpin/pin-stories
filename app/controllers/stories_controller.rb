@@ -139,7 +139,7 @@ class StoriesController < ApplicationController
     redirect_to URI.encode("/products/#{wiki_page.product_id}/wiki/#{wiki_page.title}")
   end
 
-  def save_new_draft
+  def save_draft
     story = current_user.created_stories.build(params[:story])
     story.product = Product.find(params[:product_id])
 
@@ -148,21 +148,5 @@ class StoriesController < ApplicationController
     return render :text => temp_id if temp_id
     return render :status => 403, :text => '草稿保存失败'
   end
-
-
-  # def save_draft
-  #   story_id = params[:story_id]
-  #   @story = Story.find(story_id)
-
-  #   drafted_hash = {
-  #     :how_to_demo => params[:how_to_demo], 
-  #     :tips => params[:tips], 
-  #     :product_id => @story.product_id
-  #   }
-
-  #   @story.save_draft(current_user, drafted_hash)
-
-  #   render :nothing => true
-  # end
 
 end

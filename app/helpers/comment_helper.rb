@@ -7,4 +7,15 @@ module CommentHelper
     end
   end
 
+  def comment_from_content(comment)
+    model = comment.model
+
+    case model
+    when Story
+      return truncate_u model.how_to_demo, 16
+    when Issue
+      return truncate_u model.content, 16
+    end
+  end
+
 end

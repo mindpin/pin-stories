@@ -10,9 +10,19 @@
     }
     .name{
       margin-left:48px + 10px;
+      height:24px;line-height:24px;
     }
     .content{
       margin-left:48px + 10px;
+      line-height:24px;
+      span.time{padding-left:7px;color:#666;}
+      margin-bottom:7px;
+    }
+    .from{
+      margin-left:48px + 10px;
+      line-height:24px;
+      color:#666;
+      a{color:#999;&:hover{color:white;}}
     }
   }
 }
