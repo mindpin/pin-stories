@@ -28,6 +28,7 @@ pie.load ->
           .hide()
 
         @$dialog = jQuery("<div class='page-tip-message-dialog'></div>")
+          .hide()
           .append($comment)
           .append($atme)
           .appendTo jQuery(document.body)
@@ -59,6 +60,7 @@ pie.load ->
       @jug = new Juggernaut
 
       @jug.subscribe window.USER_INFO['channels']['comment'], (json)=>
+        # console.log(json)
         @change_tip_dialog('comment', json.count)
 
       @jug.subscribe window.USER_INFO['channels']['atme'], (json)=>
