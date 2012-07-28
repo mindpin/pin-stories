@@ -29,6 +29,10 @@ class IssuesController < ApplicationController
     redirect_to [:new, @product, :issue]
   end
 
+  def show
+    @product = @issue.product
+  end
+
   def update
     id = params[:id]
     content = params[:content]

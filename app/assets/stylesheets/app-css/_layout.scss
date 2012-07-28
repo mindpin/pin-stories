@@ -62,10 +62,16 @@ body{
           float:left;
         }
 
-        .my-tasks, .my-drafts{
+        .my-tasks, .my-drafts, .my-comments{
           margin-left:96px + 20px;
           height:24px;line-height:24px;
-          a{color:#eee;&:hover{color:#FFD75F;}}
+          a{
+            color:#eee;
+            &:hover{
+              color:#FFD75F;
+              background-color:rgba(#FFD75F, 0.1);
+            }
+          }
 
           &:before{
             content:'>';
