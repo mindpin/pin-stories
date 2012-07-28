@@ -27,8 +27,19 @@
         .text
           = issue_ct issue
           %span.time> (#{jtime issue.created_at})
+
+        .admin-replys
+          - issue.comments.with_creator(User.find(1)).each do |comment|
+            .reply
+              .ravatar= avatar_link comment.creator, :mini
+              .rct>
+                %span>= user_link comment.creator
+                %span> ：
+                %span>= comment_ct comment
+
         .status
           %a.comments-count{:href=>'javascript:;'} #{issue.comments.count} 评论
+          %a.show{:href=>"/issues/#{issue.id}"} 查看详情
 
 .page-paginate= will_paginate @issues
 

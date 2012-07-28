@@ -21,6 +21,7 @@ class Comment < ActiveRecord::Base
   
   default_scope order('id DESC')
   scope :without_creator, lambda {|creator| {:conditions => ['creator_id <> ?', creator.id]}}
+  scope :with_creator, lambda {|creator| {:conditions => ['creator_id = ?', creator.id]}}
 
   validates :model, 
             :presence => true

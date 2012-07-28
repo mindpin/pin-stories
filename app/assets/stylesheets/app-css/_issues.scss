@@ -33,7 +33,7 @@
     }
 
     .id{
-      font-size:20px;
+      font-size:14px;
       font-weight:bold;
       color:#ffd75f;
       height:32px;line-height:32px;
@@ -65,11 +65,37 @@
         margin-top:10px;
         span.time{padding-left:7px;color:#666;}
       }
+
+      .admin-replys{
+        .reply{
+          @include floatfix;
+          padding:5px 10px;
+          background-color:rgba(black, 0.4);
+          margin-top:3px;
+          color:#FFD75F;
+          &:first-child{
+            margin-top:20px;
+          }
+          .ravatar{
+            margin-left:-5px;
+            float:left;width:24px;height:24px;
+            img{width:24px;height:24px;box-shadow:0 0 5px black;}
+          }
+          .rct{
+            margin-left:29px;
+            line-height:24px;
+            font-size:12px;
+          }
+        }
+      }
+
+      .status{
+        margin-top:10px;
+        a{margin-right:14px;}
+      }
+
     }
 
-    .status{
-      margin-top:10px;
-    }
 
     .page-comments{
       $m : 32px + 10px;
