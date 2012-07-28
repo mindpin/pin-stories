@@ -1,0 +1,18 @@
+.page-received-comments{
+  .comment{
+    @include floatfix;
+    @include content-box;
+
+    .avatar{
+      float:left;
+      width:48px;height:48px;
+      img{width:48px;height:48px;box-shadow:0 0 5px black;}
+    }
+    .name{
+      margin-left:48px + 10px;
+    }
+    .content{
+      margin-left:48px + 10px;
+    }
+  }
+}

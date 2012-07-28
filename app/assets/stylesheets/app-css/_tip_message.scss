@@ -1,0 +1,22 @@
+.page-tip-message-dialog{
+  position:fixed;
+  top:50px;
+  right:100px;
+  background-color:rgba(#2B2716, 0.8);
+  border:solid 1px rgba(white, 0.3);
+  box-shadow:0 0 5px black;
+  z-index:20000;
+  padding:10px 0 10px 20px;
+  width:200px;
+
+  .item{
+    height:24px;line-height:24px;
+    // span{
+    //   color:black;
+    // }
+    a{
+      color:#ffd75f;
+      &:hover{background-color:rgba(#ffd75f, 0.2);}
+    }
+  }
+}

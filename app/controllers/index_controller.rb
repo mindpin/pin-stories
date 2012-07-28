@@ -20,4 +20,11 @@ class IndexController < ApplicationController
     render :status => 401,
            :text => '创建失败'
   end
+
+  def check_tip_messages
+    render :json => {
+      :comments_count => current_user.comment_tip_message.count,
+      :atmes_count => current_user.atme_tip_message.count
+    }
+  end
 end

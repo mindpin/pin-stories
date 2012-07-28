@@ -43,4 +43,9 @@ class CommentsController < ApplicationController
                   }
   end
 
+  def received
+    @comments = current_user.received_comments.without_creator(current_user).paginate :page => params[:page],
+                                                                                      :per_page => 20
+  end
+
 end

@@ -50,4 +50,9 @@ class User < ActiveRecord::Base
   include Activity::UserMethods
   include Draft::UserMethods
   include Issue::UserMethods
+
+  include Comment::UserMethods
+  include UserCommentTipMessage::UserMethods
+  include UserAtmeTipMessage::UserMethods
+
 end

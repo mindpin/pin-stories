@@ -1,0 +1,19 @@
+- htitle '我收到的评论'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '收到的评论', '/comments/received'
+
+- do_clear_comment_tip_message!
+
+.page-received-comments
+  - @comments.each do |comment|
+    .comment
+      .avatar= avatar comment.creator
+      .name>
+        %span>= user_link comment.creator
+        %span>= ":"
+
+      .content.wordwrap>
+        = comment_ct comment
+
+.page-paginate= will_paginate @comments

@@ -131,6 +131,7 @@ MindpinAgile::Application.routes.draw do
   resources :comments do
     collection do
       get 'show_model_comments'
+      get 'received' # 我收到的评论
     end
   end
 
@@ -139,4 +140,7 @@ MindpinAgile::Application.routes.draw do
 
   # 快速提交 agile 的 bug
   post '/create_agile_issue' => 'index#create_agile_issue'
+
+  # 检查各种统计
+  get '/check_tip_messages' => 'index#check_tip_messages'
 end

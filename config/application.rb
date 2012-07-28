@@ -27,6 +27,8 @@ module MindpinAgile
 end
 
 # ---- 全局配置 ----
+$REDIS_NAMESPACE = 'MindpinAgile'
+
 $SPHINX_SPILT_WORDS_TEMPFILE_PATH = '/web/sphinx_temp'
 
 $EVERNOTE_CONSUMER_KEY    = 'ben7th'

@@ -58,5 +58,22 @@
     .page-content
       = yield
 
+    -if logged_in?
+      :javascript
+        window.USER_INFO = {
+          id : #{current_user.id},
+          name : #{current_user.name.to_json},
+          email : #{current_user.email.to_json},
+          channels : {
+            comment : #{current_user.comment_tip_message.hash_name.to_json},
+            atme : #{current_user.atme_tip_message.hash_name.to_json}
+          },
+          paths : {
+            comment : #{current_user.comment_tip_message.path.to_json},
+            atme : #{current_user.atme_tip_message.path.to_json}
+          }
+        }
+
+    = javascript_include_tag "http://#{request.host}/juggernaut/application.js"
     = javascript_include_tag 'application'
     = yield :javascript

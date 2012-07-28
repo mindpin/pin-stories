@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726034044) do
+ActiveRecord::Schema.define(:version => 20120727211523) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -52,7 +52,14 @@ ActiveRecord::Schema.define(:version => 20120726034044) do
     t.integer  "reply_comment_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "receiver_id"
   end
+
+  add_index "comments", ["creator_id"], :name => "index_comments_on_creator_id"
+  add_index "comments", ["model_id", "model_type"], :name => "index_comments_on_model_id_and_model_type"
+  add_index "comments", ["receiver_id"], :name => "index_comments_on_receiver_id"
+  add_index "comments", ["reply_comment_id"], :name => "index_comments_on_reply_comment_id"
+  add_index "comments", ["reply_comment_user_id"], :name => "index_comments_on_reply_comment_user_id"
 
   create_table "drafts", :force => true do |t|
     t.integer  "creator_id"
