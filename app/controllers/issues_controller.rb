@@ -9,7 +9,14 @@ class IssuesController < ApplicationController
   end
 
   def index
-    @issues = Issue.where(:product_id => @product.id).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    c = @product.issues.with_state(Issue::STATE_OPEN)
+    @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+  end
+
+  def index_closed
+    c = @product.issues.with_state(Issue::STATE_CLOSED)
+    @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    render :index
   end
 
   def new
@@ -50,6 +57,24 @@ class IssuesController < ApplicationController
   def destroy
     current_user.issues.find(params[:id]).destroy
     render :nothing => true
+  end
+
+  # for ajax
+  def reopen
+    @issue.state = Issue::STATE_OPEN
+    @issue.save
+
+    render :partial => 'issues/parts/show', 
+           :locals => {:issue => @issue}
+  end
+
+  # for ajax
+  def close
+    @issue.state = Issue::STATE_CLOSED
+    @issue.save
+
+    render :partial => 'issues/parts/show', 
+           :locals => {:issue => @issue}
   end
 
 end

@@ -5,18 +5,6 @@
 - hbreadcrumb '问题或建议', "/products/#{@product.id}/issues"
 - hbreadcrumb "Issue ##{@issue.id}", @issue
 
-.page-issue-show{:'data-issue-id'=>@issue.id}
+= render 'issues/parts/show', :issue => @issue
 
-  .belongs-to
-    .product= link_to @product.name, @product
-
-  .content= issue_ct @issue
-
-  .status-change.creator
-    .avatar= avatar_link @issue.creator, :tiny
-    .name= user_link @issue.creator
-    .desc
-      %span 提交于
-      %span= jtime @issue.created_at
-
-  = render 'aj/comments', :model=>@issue
+= render 'aj/comments', :model=>@issue

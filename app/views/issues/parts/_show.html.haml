@@ -1,0 +1,31 @@
+.page-issue-show{:'data-id'=>issue.id}
+  .head
+    - case issue.state
+    - when Issue::STATE_OPEN
+      .state{:class=>'open'} Open
+    - when Issue::STATE_CLOSED
+      .state{:class=>'closed'} Closed
+
+  .content= issue_ct issue
+
+  .state-change.creator
+    .avatar= avatar_link issue.creator, :tiny
+    .name= user_link issue.creator
+    .desc
+      %span 提交于
+      %span= jtime issue.created_at
+
+  - if issue.closed?
+    .state-change.closed
+      .state Closed
+      .avatar= avatar_link User.find(1), :tiny
+      .name= user_link User.find(1)
+      .desc
+        %span 关闭了这个 Issue
+
+  - if admin_logged_in?
+    .state-change.open-close
+      - if issue.closed?
+        %a.reopen{:href=>'javascript:;'} 重新打开这个 Issue
+      - else
+        %a.close{:href=>'javascript:;'} 关闭这个 Issue

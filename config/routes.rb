@@ -31,13 +31,22 @@ MindpinAgile::Application.routes.draw do
   
   resources :products do
     resources :stories,    :except => [:show, :edit, :update, :destroy]
-    resources :issues,     :except => [:show, :edit, :update, :destroy]
+    resources :issues,     :except => [:show, :edit, :update, :destroy] do
+      collection do
+        get :closed, :action=>'index_closed'
+      end
+    end
     resources :streams,    :shallow => true
     resources :lemmas,     :shallow => true
     resources :activities, :shallow => true
   end
 
-  resources :issues, :only => [:show, :edit, :update, :destroy]
+  resources :issues, :only => [:show, :edit, :update, :destroy] do
+    member do
+      put :close
+      put :reopen
+    end
+  end
 
   resources :stories, :only => [:show, :edit, :update, :destroy] do
     collection do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120727211523) do
+ActiveRecord::Schema.define(:version => 20120729062203) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20120727211523) do
     t.integer  "urgent_level"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state",            :default => "OPEN"
   end
 
   add_index "issues", ["creator_id"], :name => "index_issues_on_creator_id"

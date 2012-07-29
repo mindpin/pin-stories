@@ -15,6 +15,32 @@
     }
   }
 
+  .nav{
+    margin-bottom:20px;
+    @include floatfix;
+    a{
+      float:left;
+      height:24px;line-height:24px;
+      padding:0 7px;
+      margin-right:10px;
+    }
+    a.open{
+      color:lighten(#6CC644, 30%);
+      background-color:rgba(#6CC644, 0.1);
+    }
+    a.closed{
+      color:lighten(#BD2C00, 30%);
+      background-color:rgba(#BD2C00, 0.1);
+    }
+    &.open a.open, &.closed a.closed{
+      &:before{
+        content:">";
+        //color:white;
+        margin-right:5px;
+      }
+    }
+  }
+
   .issue{
     @include floatfix;
     margin-bottom:10px;
@@ -89,9 +115,27 @@
         }
       }
 
-      .status{
+      .foot{
         margin-top:10px;
-        a{margin-right:14px;}
+        a{margin-right:14px;height:24px;line-height:24px;}
+
+        .state{
+          height:24px;line-height:24px;
+          float:right;
+          color:white;
+          font-weight:bold;
+          text-shadow:0 0 2px black;
+          text-align:center;
+          @include number-font;
+          box-shadow:0 0 5px black;
+          padding:0 7px;
+          &.open{
+            background-color:#6CC644;
+          }
+          &.closed{
+            background-color:#BD2C00;
+          }
+        }
       }
 
     }
@@ -176,41 +220,28 @@
 
 .page-issue-show{
   width:600px;
+  margin-bottom:20px;
 
-  .belongs-to{
-    position:relative;
-    margin-bottom:15px;
-
-    .product{
-      position:relative;
+  .head{
+    @include floatfix;
+    .state{
       margin-bottom:10px;
-      a{color:#fff;&:hover{color:#fff;}
-        margin-left:32px;
-        display:inline-block;
-        padding:0 8px;
-        background-color:#555;
-        @include border-radius(3px);
-        height:24px;line-height:24px;
+      height:30px;line-height:30px;
+      float:left;
+      color:white;
+      font-weight:bold;
+      text-shadow:0 0 2px black;
+      width:100px;
+      text-align:center;
+      @include number-font;
+      border:solid 1px rgba(white, 0.4);
+      box-shadow:0 0 5px black;
+      font-size:20px;
+      &.open{
+        background-color:#6CC644;
       }
-    }
-
-    .product{
-      &:before{
-        content:"";
-        position:absolute;
-        border:solid 3px #ccc;
-        border-top:none;
-        border-right:none;
-        width:12px;height:3px;
-        left:0;top:8px;
-        @include border-radius(0 0 0 3px);
-      };
-      &:after{
-        content:"";
-        position:absolute;
-        border:solid 5px #ccc;
-        border-color:transparent transparent transparent #ccc;
-        left:14px;top:7px;
+      &.closed{
+        background-color:#BD2C00;
       }
     }
   }
@@ -221,12 +252,12 @@
     padding-top:10px;
   }
 
-  .status-change{
+  .state-change{
     border-top:solid 1px rgba(white, 0.1);
     padding:10px 0;
   }
-  .status-change.creator{
 
+  .state-change.creator{
     @include floatfix;
     .avatar{
       float:left;
@@ -237,6 +268,33 @@
       float:left;
       height:32px;line-height:32px;
       margin-left:10px;
+    }
+  }
+
+  .state-change.closed{
+    @extend .state-change.creator;
+    .state{
+      float:left;
+      //border:solid 1px rgba(white, 0.4);
+      box-shadow:0 0 5px black;
+      text-shadow:0 0 2px black;
+      background-color:#BD2C00;
+      margin-right:10px;
+      padding:0 7px;
+      height:24px;line-height:24px;
+      margin-top:4px;
+      font-weight:bold;
+      @include number-font;
+      color:white;
+    }
+  }
+
+  .state-change.open-close{
+    .reopen, .close{
+      &:before{
+        content:"> admin ";
+        color:#FF9999;
+      }
     }
   }
 }

@@ -1,13 +1,22 @@
 class Issue < ActiveRecord::Base
 
+  STATE_OPEN = 'OPEN'
+  STATE_CLOSED = 'CLOSED'
+
+  STATES = [
+    STATE_OPEN,
+    STATE_CLOSED
+  ]
+
   belongs_to :product
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
 
   validates :product, :creator, :content, :presence => true
 
+  scope :with_state, lambda {|state| where(:state => state)}
+
   # 生成 issue 动态
   after_create :generate_create_activity
-
   def generate_create_activity
     Activity.create(
       :product => self.product,
@@ -15,6 +24,10 @@ class Issue < ActiveRecord::Base
       :act_model => self, 
       :action => 'CREATE_ISSUE'
     )
+  end
+
+  def closed?
+    self.state == STATE_CLOSED
   end
 
   # 引用其它类

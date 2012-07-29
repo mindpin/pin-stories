@@ -40,6 +40,26 @@ pie.load ->
           $comments = jQuery(res)
           $comments.appendTo($issue).hide().fadeIn(200)
 
+  # 打开/关闭 issue
+  jQuery('.page-issue-show .state-change a.close').live 'click', ->
+    $show = jQuery(this).closest('.page-issue-show')
+    id = $show.data('id')
+    jQuery.ajax
+      url: "/issues/#{id}/close"
+      type: 'PUT'
+      success: (res)->
+        $new = jQuery(res)
+        $show.before($new).remove()
+
+  jQuery('.page-issue-show .state-change a.reopen').live 'click', ->
+    $show = jQuery(this).closest('.page-issue-show')
+    id = $show.data('id')
+    jQuery.ajax
+      url: "/issues/#{id}/reopen"
+      type: 'PUT'
+      success: (res)->
+        $new = jQuery(res)
+        $show.before($new).remove()
 
 
 # $(document).ready(function(){
@@ -80,88 +100,3 @@ pie.load ->
 #     $('#content-' + id).show();
 #     $('#edit-box-' + id).hide();
 #   });
-
-
-#   $('.show-comment').live('click', function(){
-#     var comment_elm = jQuery(this).closest('.show-comment');
-#     var id = comment_elm.data('id');
-#     $('#comment-box-' + id).show();
-#   });
-
-#   $('.cancel-comment').live('click', function(){
-#     var elm = jQuery(this).closest('.cancel-comment');
-#     var id = elm.data('id');
-
-#     $('#comment-box-' + id).hide();
-#   });
-
-
-#   $('.add-comment').live('click', function(){
-#     var elm = jQuery(this).closest('.add-comment');
-#     var id = elm.data('id');
-#     var content = $('#comment-issue-' + id).val();
-
-#     $.ajax({
-#       type: 'POST',
-#       url: "/issue_comments/",
-#       data: {comment: content, issue_id: id},
-#       dataType: "html"
-#     }).done(function ( data ) {
-#       $('#issue-' + id + '-comments').html(data);
-#     });
-
-#   });
-
-
-#   $('.del-comment').live('click', function(){
-#     var r = confirm("确定删除!")
-#     if (r == false) {
-#       return false;
-#     }
-#     var elm = jQuery(this).closest('.del-comment');
-#     var id = elm.data('id');
-
-#     $.ajax({
-#       type: 'DELETE',
-#       url: "/issue_comments/" + id,
-#       dataType: "html"
-#     }).done(function ( data ) {
-    
-#     });
-
-#     $('#comment-' + id + '-box').remove();
-#   });
-
-
-#   $('.show-reply').live('click', function(){
-#     var elm = jQuery(this).closest('.show-reply');
-#     var id = elm.data('id');
-#     $('#reply-box-' + id).show();
-#   });
-
-#   $('.cancel-reply').live('click', function(){
-#     var elm = jQuery(this).closest('.cancel-reply');
-#     var id = elm.data('id');
-
-#     $('#reply-box-' + id).hide();
-#   });
-
-
-#   $('.add-reply').live('click', function(){
-#     var elm = jQuery(this).closest('.add-reply');
-#     var id = elm.data('id');
-#     var issue_id = elm.data('issue');
-#     var content = $('#reply-content-' + id).val();
-
-#     $.ajax({
-#       type: 'POST',
-#       url: "/issue_comments/reply",
-#       data: {comment: content, id: id, issue_id: issue_id},
-#       dataType: "html"
-#     }).done(function ( data ) {
-#       $('#issue-' + issue_id + '-comments').html(data);
-#     });
-
-#   });
-
-# });    

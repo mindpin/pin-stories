@@ -2,11 +2,22 @@
 
 - hbreadcrumb '首页', '/'
 - hbreadcrumb @product.name, "/products/#{@product.id}"
-- hbreadcrumb '问题或建议', "/products/#{@product.id}/issues" 
+- if action_name == 'index_closed'
+  - nav_klass = 'closed'
+  - hbreadcrumb '已关闭的Issue', "/products/#{@product.id}/issues/closed"
+- else
+  - nav_klass = 'open'
+  - hbreadcrumb 'Issue', "/products/#{@product.id}/issues"
+
 
 .page-product-issues
   .ops
-    %a.add-issue{:href=>"/products/#{@product.id}/issues/new"} 创建BUG或建议
+    %a.add-issue{:href=>"/products/#{@product.id}/issues/new"} 创建Issue
+  .nav{:class=>nav_klass}
+    - open_count = Issue.with_state(Issue::STATE_OPEN).count
+    - closed_count = Issue.with_state(Issue::STATE_CLOSED).count
+    %a.open{:href=>"/products/#{@product.id}/issues"} 未关闭的Issue (#{open_count})
+    %a.closed{:href=>"/products/#{@product.id}/issues/closed"} 已关闭的Issue (#{closed_count})
     
   - @issues.each do |issue|
     :ruby
@@ -37,9 +48,14 @@
                 %span> ：
                 %span>= comment_ct comment
 
-        .status
+        .foot
           %a.comments-count{:href=>'javascript:;'} #{issue.comments.count} 评论
           %a.show{:href=>"/issues/#{issue.id}"} 查看详情
+          - case issue.state
+          - when Issue::STATE_OPEN
+            .state{:class=>'open'} Open
+          - when Issue::STATE_CLOSED
+            .state{:class=>'closed'} Closed
 
 .page-paginate= will_paginate @issues
 

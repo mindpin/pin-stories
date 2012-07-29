@@ -23,9 +23,11 @@
   height:30px;line-height:30px;
   margin-bottom:20px;
   margin-right:20px;
+  color:#AAD363;
 
   &:hover{
     background-color:rgba(255, 215, 95, 0.1);
+    color:white;
   }
   &:before{
     content:"+";
