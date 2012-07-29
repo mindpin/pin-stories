@@ -14,8 +14,8 @@
   .ops
     %a.add-issue{:href=>"/products/#{@product.id}/issues/new"} 创建Issue
   .nav{:class=>nav_klass}
-    - open_count = Issue.with_state(Issue::STATE_OPEN).count
-    - closed_count = Issue.with_state(Issue::STATE_CLOSED).count
+    - open_count = @product.issues.with_state(Issue::STATE_OPEN).count
+    - closed_count = @product.issues.with_state(Issue::STATE_CLOSED).count
     %a.open{:href=>"/products/#{@product.id}/issues"} 未关闭的Issue (#{open_count})
     %a.closed{:href=>"/products/#{@product.id}/issues/closed"} 已关闭的Issue (#{closed_count})
     
