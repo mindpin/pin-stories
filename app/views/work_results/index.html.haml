@@ -1,0 +1,89 @@
+:css
+  .item {
+    width: 220px;
+    margin: 10px;
+    float: left;
+  }
+
+- content_for :javascript do
+  :javascript
+    jQuery(function(){
+      
+      var $container = jQuery('#container');
+      
+      $container.imagesLoaded(function(){
+        $container.masonry({
+          itemSelector: '.box',
+          columnWidth: 320
+        });
+      });
+      
+      $container.infinitescroll({
+        navSelector  : '#page-nav',    // selector for the paged navigation 
+        nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+        itemSelector : '.box',     // selector for all items you'll retrieve
+        loading: {
+            finishedMsg: 'No more pages to load.',
+            img: 'http://i.imgur.com/6RMhx.gif'
+          }
+        },
+        // trigger Masonry as a callback
+        function( newElements ) {
+          // hide new items while they are loading
+          var $newElems = $( newElements ).css({ opacity: 0 });
+          // ensure that images load before adding to masonry layout
+          $newElems.imagesLoaded(function(){
+            // show elems now they're ready
+            $newElems.animate({ opacity: 1 });
+            $container.masonry( 'appended', $newElems, true ); 
+          });
+        }
+      );
+      
+    });
+
+
+
+
+
+=render 'work_results/parts/nav'
+
+
+%section#content
+  #container
+    - @work_results.each do |work_result|
+      :ruby
+        half_users_count = (User.all.length - 1) / 2
+        viewed_count = work_result.view_records.length
+        background_color = ''
+        if viewed_count > half_users_count
+          background_color = '#FFA84E'
+        end
+
+        tags = work_result.tag_counts_on(:tags)
+
+      .box{:style => "background-color: #{background_color}"}
+        - if work_result.image_file_name.blank?
+          - case work_result.kind
+            - when WorkResult::Kind::UI
+              %img{:height => "300", :src => "/assets/images/kind-ui.png", :width => "300"}/
+            - when WorkResult::Kind::LOGIC
+              %img{:height => "300", :src => "/assets/images/kind-logic.png", :width => "300"}/
+            - when WorkResult::Kind::CONCEPT
+              %img{:height => "300", :src => "/assets/images/kind-concept.png", :width => "300"}/
+            - else
+              %img{:height => "300", :src => "/assets/images/kind-logic.png", :width => "300"}/
+
+        -else
+          = link_to image_tag(work_result.image.url(:medium)), "/work_results/#{work_result.id}"
+
+        %p= work_result.creator.name
+        - tag_cloud(tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+          = link_to tag.name, "/tags/#{tag.name}", :class => css_class
+
+        %p= link_to work_result.description, "/work_results/#{work_result.id}"
+
+  %nav#page-nav{:style => "display: none;"}
+    %a{:href => "/work_results/next?page=2"}
+
+

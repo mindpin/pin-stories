@@ -9,3 +9,4 @@ vendor/bundle/*
 Gemfile.lock
 config/database.yml
 db/sphinx
+public/system

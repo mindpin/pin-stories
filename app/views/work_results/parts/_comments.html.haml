@@ -1,0 +1,28 @@
+-comments.each do |comment|
+  -if comment.reply_comment_id.blank?
+    %div{:id => "comment-box-#{comment.id}"}
+      %span=comment.creator.name
+      %span :
+      %span=comment.content
+      %span{:class => "show-reply", "data-id" => comment.id}="回复"
+      
+      %span{:class => "del-comment", "data-id" => comment.id}="删除"
+
+      %div{:id => "reply-box-#{comment.id}", :style => "display: none;"}
+        %textarea{:name => "reply_content", :id => "reply-content-#{comment.id}", :style => "width: 500px; height: 120px; "}
+        .field
+          %a.form-submit-button{:href=>'javascript:;', :class => "add-reply", "data-id" => comment.id, "data-work_result" => comment.model_id} 回复
+          %a.form-submit-button{:href=>'javascript:;', :class => "cancel-reply", "data-id" => comment.id} 取消
+  -else
+    %div{:id => "comment-box-#{comment.id}"}
+      %span  #{comment.creator.name} 回复 #{comment.reply_user.name} : #{comment.content}
+      %span{:class => "show-reply", "data-id" => comment.id}="回复"
+      
+
+      %span{:class => "del-comment", "data-id" => comment.id}="删除"
+
+      %div{:id => "reply-box-#{comment.id}", :style => "display: none;"}
+        %textarea{:name => "reply_content", :id => "reply-content-#{comment.id}", :style => "width: 500px; height: 120px; "}
+        .field
+          %a.form-submit-button{:href=>'javascript:;', :class => "add-reply", "data-id" => comment.id, "data-work_result" => comment.model_id} 回复
+          %a.form-submit-button{:href=>'javascript:;', :class => "cancel-reply", "data-id" => comment.id} 取消

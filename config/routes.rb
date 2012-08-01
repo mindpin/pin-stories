@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 MindpinAgile::Application.routes.draw do  
   # -- 用户登录认证相关 --
   root :to => 'index#index'
@@ -121,6 +122,13 @@ MindpinAgile::Application.routes.draw do
     collection do
       get 'show_model_comments'
       get 'received' # 我收到的评论
+    end
+  end
+
+  resources :work_results do
+  	collection do
+      get :next
+      get :tag
     end
   end
 

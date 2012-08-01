@@ -66,12 +66,14 @@
           name : #{current_user.name.to_json},
           email : #{current_user.email.to_json},
           channels : {
-            comment : #{current_user.comment_tip_message.hash_name.to_json},
-            atme : #{current_user.atme_tip_message.hash_name.to_json}
+            comment  : #{current_user.comment_tip_message.hash_name.to_json},
+            atme     : #{current_user.atme_tip_message.hash_name.to_json},
+            hot_work : #{current_user.hot_work_tip_message.hash_name.to_json}
           },
           paths : {
-            comment : #{current_user.comment_tip_message.path.to_json},
-            atme : #{current_user.atme_tip_message.path.to_json}
+            comment  : #{current_user.comment_tip_message.path.to_json},
+            atme     : #{current_user.atme_tip_message.path.to_json},
+            hot_work : #{current_user.hot_work_tip_message.path.to_json}
           }
         }
 

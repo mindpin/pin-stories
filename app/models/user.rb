@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   has_associated_audits
   
@@ -52,7 +53,10 @@ class User < ActiveRecord::Base
   include Issue::UserMethods
 
   include Comment::UserMethods
+  include WorkResult::UserMethods
+  include ViewRecord::UserMethods
   include UserCommentTipMessage::UserMethods
   include UserAtmeTipMessage::UserMethods
+  include UserHotWorkTipMessage::UserMethods
 
 end

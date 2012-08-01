@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class IndexController < ApplicationController
   def index
     # return render :template=>'index/index' if logged_in?
@@ -23,8 +24,9 @@ class IndexController < ApplicationController
 
   def check_tip_messages
     render :json => {
-      :comments_count => current_user.comment_tip_message.count,
-      :atmes_count => current_user.atme_tip_message.count
+      :comments_count  => current_user.comment_tip_message.count,
+      :atmes_count     => current_user.atme_tip_message.count,
+      :hot_works_count => current_user.hot_work_tip_message.count
     }
   end
 end

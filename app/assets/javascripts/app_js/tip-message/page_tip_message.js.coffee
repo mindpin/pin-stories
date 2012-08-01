@@ -27,10 +27,17 @@ pie.load ->
           .append("<a href='#{window.USER_INFO['paths']['atme']}'>点击查看</a>")
           .hide()
 
+        $hot_work = jQuery("<div></div>")
+          .addClass('item hot_work')
+          .append("<span></span>")
+          .append("<a href='#{window.USER_INFO['paths']['hot_work']}'>点击查看</a>")
+          .hide()
+
         @$dialog = jQuery("<div class='page-tip-message-dialog'></div>")
           .hide()
           .append($comment)
           .append($atme)
+          .append($hot_work)
           .appendTo jQuery(document.body)
       else
         @$dialog
@@ -55,6 +62,11 @@ pie.load ->
             .fadeIn()
             .find('.atme').removeClass('zero').fadeIn(200)
             .find('span').html("#{count}个新@，")
+        when 'hot_work'
+          @$dialog
+            .fadeIn()
+            .find('.hot_work').removeClass('zero').fadeIn(200)
+            .find('span').html("#{count}个新热门工作成果，")
 
     bind_juggernaut_listener: ->
       @jug = new Juggernaut
@@ -65,6 +77,9 @@ pie.load ->
 
       @jug.subscribe window.USER_INFO['channels']['atme'], (json)=>
         @change_tip_dialog('atme', json.count)
+
+      @jug.subscribe window.USER_INFO['channels']['hot_work'], (json)=>
+        @change_tip_dialog('hot_work', json.count)
 
 
     change_tip_dialog: (kind, count)->

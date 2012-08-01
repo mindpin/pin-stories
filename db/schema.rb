@@ -164,6 +164,23 @@ ActiveRecord::Schema.define(:version => 20120729062203) do
     t.datetime "updated_at"
   end
 
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
+
   create_table "user_evernote_auths", :force => true do |t|
     t.integer  "user_id"
     t.text     "access_token"
@@ -192,6 +209,13 @@ ActiveRecord::Schema.define(:version => 20120729062203) do
     t.datetime "updated_at"
   end
 
+  create_table "view_records", :force => true do |t|
+    t.integer  "viewer_id"
+    t.integer  "work_result_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "wiki_page_refs", :force => true do |t|
     t.integer  "product_id"
     t.string   "from_page_title"
@@ -211,6 +235,18 @@ ActiveRecord::Schema.define(:version => 20120729062203) do
     t.boolean  "delta",           :default => true, :null => false
     t.integer  "from_model_id"
     t.string   "from_model_type"
+  end
+
+  create_table "work_results", :force => true do |t|
+    t.integer  "creator_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "kind",               :default => "LOGIC", :null => false
   end
 
 end

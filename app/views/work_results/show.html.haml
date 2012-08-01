@@ -1,0 +1,15 @@
+%div
+  = image_tag @work_result.image.url(:medium)
+  %p= @work_result.creator.name
+  %p= @work_result.description
+
+:ruby
+  view_records = @work_result.view_records
+
+%div
+  = view_records.length
+%ul
+  - view_records.each do |view_record|
+    %li= view_record.viewer.name
+
+= render 'aj/comments', :model=>@work_result
