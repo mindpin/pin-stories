@@ -7,14 +7,12 @@
   = flash_info
   .field.placeholder.need
     %label 电子邮箱 / 用户名
-    =text_field_tag :email, params[:email]
+    = text_field_tag :email, params[:email]
   .field.placeholder.need
     %label 密码
-    =password_field_tag :password, params[:password]
-
+    = password_field_tag :password, params[:password]
   .field
     = jcheckbox :remember_me, params[:remember_me], true, '下次记住我'
-
   .field.submit
-    %a.form-submit-button{:href=>'javascript:;'} 登录
-    %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 返回
+    = jfsubmit '登录'
+    = jfcancel '返回'
