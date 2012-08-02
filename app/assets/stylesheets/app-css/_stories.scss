@@ -107,7 +107,7 @@
     }
   }
   
-  .how-to-demo, .tips, .assigned-members, .status{
+  .how-to-demo, .tips, .assigned-members, .add-ideas, .status{
     margin-bottom:30px;
     .t{
       font-weight:bold;
@@ -130,6 +130,10 @@
     }
   }
   
+  .add-ideas {
+    form {display:none;}
+  }
+
   .status{
     overflow:hidden;
     .st{

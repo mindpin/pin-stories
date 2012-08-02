@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 MindpinAgile::Application.routes.draw do  
   # -- 用户登录认证相关 --
   root :to => 'index#index'
@@ -65,6 +66,13 @@ MindpinAgile::Application.routes.draw do
 
       get :versions
       put 'rollback/:version', :action => :rollback
+    end
+  end
+
+  resources :ideas do
+    collection do
+      post :create_for_story
+      get  :mine
     end
   end
 

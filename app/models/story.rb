@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Story < ActiveRecord::Base
   STATUS_NOT_ASSIGN = 'NOT-ASSIGN'
   STATUS_DOING      = 'DOING'
@@ -16,6 +17,7 @@ class Story < ActiveRecord::Base
   # -------------------------
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
+  belongs_to :source_idea, :class_name => 'Idea', :foreign_key => :source_idea_id
   belongs_to :product
 
   has_many :stream_story_links
@@ -24,7 +26,8 @@ class Story < ActiveRecord::Base
   
   has_many :story_assigns
   has_many :users, :through => :story_assigns
-  
+  has_many :ideas, :foreign_key => :source_story_id
+
 
   # 记录历史版本
   # 暂时不使用 attr_accessible 保护，因此加上 :allow_mass_assignment => true 声明

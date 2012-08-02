@@ -1,0 +1,16 @@
+- htitle '添加新想法'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '想法', ideas_path
+- hbreadcrumb '添加新想法', new_idea_path
+
+.page-new-idea
+  = form_for @idea do |f|
+    = flash_info
+    .field.need
+      %label 内容
+      = f.text_area :content
+
+    .field.submit
+      = jfsubmit '添加'
+      = jfcancel '取消'

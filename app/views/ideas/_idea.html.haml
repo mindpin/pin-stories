@@ -1,0 +1,21 @@
+.idea
+  = link_to "想法##{idea.id}", idea
+  .creator
+    = avatar_link idea.creator
+    = user_link idea.creator
+  .content= idea.content
+  - if idea.stories.any? || idea.source_story
+    .story-related
+      - if idea.source_story
+        .source_story
+          来源story：
+          = link_to "##{idea.source_story_id}", idea.source_story
+      - if idea.stories.any?
+        .stories
+          延伸stories：
+          - idea.stories.each do |story|
+            = link_to "##{story.id}", story
+  - if admin_logged_in?
+    请点击要添加延伸story的产品：
+    - Product.all.each do |product|
+      = link_to product.name, new_product_story_path(product, :source_idea_id => idea.id)
