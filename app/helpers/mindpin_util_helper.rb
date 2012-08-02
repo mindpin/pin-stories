@@ -20,7 +20,9 @@ module MindpinUtilHelper
     end
 
     # 在 layout 的 :topbar 区域生成面包屑导航
-    def hbreadcrumb(str, url, options = {})
+    def hbreadcrumb(str, url = nil, options = {})
+      url ||= 'javascript:;'
+
       content_for :breadcrumb do
         content_tag :div, :class => 'link' do
           content_tag(:a, truncate_u(str, 16), :href => url)
@@ -111,20 +113,50 @@ module MindpinUtilHelper
         end
       end
     end
+
+    # 表单里的提交按钮
+    def jfsubmit(text)
+      # %a.form-submit-button{:href=>'javascript:;'} 登录
+      content_tag :a, text, :href => 'javascript:;',
+                            :class => 'form-submit-button'
+    end
+
+    def jfcancel(text)
+      # %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 返回
+      content_tag :a, text, :href => 'javascript:history.go(-1);',
+                            :class => 'form-cancel-button'
+    end
+
+    def jdelete(text, href, confirm_text)
+      content_tag :a, text, :href => 'javascript:;',
+                            :class => 'page-jdelete',
+                            :'data-jconfirm' => confirm_text,
+                            :'data-jhref' => href
+    end
   end
 
   module ImageMethods
     def jimage(src, options = {})
       alt = options[:alt] || ''
 
+      width = options[:width] || nil
+      height = options[:height] || nil
+      
+      if !width.nil? && !height.nil?
+        style = "width:#{width}px;height:#{height}px;"
+      else
+        style = ''
+      end
+
       klass = options[:class] || ''
       klass = [klass, 'auto-fit-image'] * ' '
 
       content_tag :div, '', 
-                  :class=>klass, 
-                  :'data-src'=>src, 
-                  :'data-alt'=>alt, 
-                  :'data-meta'=>options[:'data-meta']
+                  :class => klass, 
+                  :style => style,
+                  :'data-src' => src, 
+                  :'data-alt' => alt, 
+                  :'data-meta' => options[:'data-meta']
     end
   end
 
@@ -160,6 +192,10 @@ module MindpinUtilHelper
   module CommentMethods
     def comment_ct(comment)
       html_escape(comment.content).gsub(/\n/, '<br />').html_safe
+    end
+
+    def jcomments(model)
+      render 'aj/comments', :model => model
     end
   end
 end

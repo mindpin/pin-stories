@@ -53,4 +53,5 @@
       .no-member 尚未指派给任何人
     
   = render 'stories/aj/show_status', :story=>@story
-  = render 'aj/comments', :model=>@story
+
+= jcomments @story
