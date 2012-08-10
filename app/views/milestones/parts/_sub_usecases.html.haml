@@ -1,0 +1,10 @@
+%ul
+  - usecase.sub_usecases.each do |usecase|
+    %li
+    %a.add{:href=>'javascript:;', "data-id" => usecase.id} +
+    %div{:id => "usecase-#{usecase.id}", "data-id" => usecase.id, :style => "display: none;"}
+      =render 'milestones/parts/new_usecase', :usecase_id => usecase.id
+    = usecase.content
+
+    - if usecase.sub_usecases.any?
+      =render 'milestones/parts/sub_usecases', :usecase => usecase

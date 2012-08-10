@@ -1,0 +1,32 @@
+- htitle '创建里程碑'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '里程碑', "/products/#{params[:product_id]}/milestones"
+
+.page-milestone
+  %label= @milestone.name
+
+.page-new-usercase
+  =render 'milestones/parts/new_usecase', :usecase_id => 0, :product_id => params[:product_id]
+
+- content_for :javascript do
+  :javascript
+    jQuery(document).ready(function(){
+      $("ul li a.add").live('click',function(){
+        var usecase_id = $(this).data("id");
+        $('#usecase-' + usecase_id).show();
+      });
+    })
+
+.table-of-contents
+  %ul
+    - @usecases.each do |usecase|
+      %li
+        %a.add{:href=>'javascript:;', "data-id" => usecase.id} +
+        %div{:id => "usecase-#{usecase.id}", "data-id" => usecase.id, :style => "display: none;"}
+          =render 'milestones/parts/new_usecase', :usecase_id => usecase.id
+        = usecase.content
+        
+        =render 'milestones/parts/sub_usecases', :usecase => usecase
+
+

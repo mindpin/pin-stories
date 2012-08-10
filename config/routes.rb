@@ -42,7 +42,12 @@ MindpinAgile::Application.routes.draw do
     resources :activities, :shallow => true
 
     # 里程碑
-    resources  :milestones
+    resources  :milestones do
+      collection do
+        post :create_usecase
+      end
+    end
+
   end
 
   resources :issues, :only => [:show, :edit, :update, :destroy] do

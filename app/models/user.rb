@@ -58,5 +58,5 @@ class User < ActiveRecord::Base
   include UserAtmeTipMessage::UserMethods
 
   include Milestone::UserMethods
-
+  include UseCase::UserMethods
 end

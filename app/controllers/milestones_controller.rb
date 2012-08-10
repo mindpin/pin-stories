@@ -22,6 +22,9 @@ class MilestonesController < ApplicationController
   end
 
   def show 
+    @usecase = UseCase.new
+
+    @usecases = @milestone.root_usecases
   end
 
   def edit
@@ -37,5 +40,12 @@ class MilestonesController < ApplicationController
     @milestone.destroy
 
     redirect_to "/products/#{@milestone.product_id}/milestones"
+  end
+
+  def create_usecase
+    @usecase = current_user.usecases.build(params[:use_case])
+    @usecase.save
+
+    redirect_to :back
   end
 end
