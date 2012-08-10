@@ -1,0 +1,18 @@
+- htitle '创建里程碑'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '里程碑', "/milestones"
+
+.page-new-milestone
+  = form_for @milestone do |f|
+    = flash_info
+    .field.need
+      %label 里程碑
+      = f.text_field :name
+
+      %label 状态
+      = f.select(:state, options_for_select([['关闭', 'CLOSED'], ['打开', 'OPEN']]))
+
+    .field.submit
+      = jfsubmit '添加'
+      = jfcancel '取消'

@@ -137,4 +137,7 @@ MindpinAgile::Application.routes.draw do
 
   # 检查各种统计
   get '/check_tip_messages' => 'index#check_tip_messages'
+
+  # 里程碑
+  resources :milestones
 end
