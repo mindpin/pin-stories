@@ -40,6 +40,9 @@ MindpinAgile::Application.routes.draw do
     resources :streams,    :shallow => true
     resources :lemmas,     :shallow => true
     resources :activities, :shallow => true
+
+    # 里程碑
+    resources  :milestones
   end
 
   resources :issues, :only => [:show, :edit, :update, :destroy] do
@@ -113,6 +116,7 @@ MindpinAgile::Application.routes.draw do
 
     # story 全文搜索
     get  '/stories_search' => 'stories#search'
+
   end
 
   # # wiki  draft
@@ -138,6 +142,5 @@ MindpinAgile::Application.routes.draw do
   # 检查各种统计
   get '/check_tip_messages' => 'index#check_tip_messages'
 
-  # 里程碑
-  resources :milestones
+
 end

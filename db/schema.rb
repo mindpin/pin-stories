@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810044151) do
+ActiveRecord::Schema.define(:version => 20120810065836) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -176,6 +176,16 @@ ActiveRecord::Schema.define(:version => 20120810044151) do
   create_table "streams", :force => true do |t|
     t.string   "title",      :null => false
     t.integer  "product_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "use_cases", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "product_id"
+    t.integer  "milestone_id"
+    t.integer  "usecase_id"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

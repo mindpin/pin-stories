@@ -18,7 +18,7 @@ class MilestonesController < ApplicationController
     @milestone = current_user.milestones.build(params[:milestone])
     @milestone.save
 
-    redirect_to "/milestones"
+    redirect_to "/products/#{@milestone.product_id}/milestones"
   end
 
   def show 
@@ -30,12 +30,12 @@ class MilestonesController < ApplicationController
   def update
     @milestone.update_attributes(params[:milestone])
 
-    redirect_to "/milestones"
+    redirect_to "/products/#{@milestone.product_id}/milestones"
   end
 
   def destroy
     @milestone.destroy
 
-    redirect_to "/milestones"
+    redirect_to "/products/#{@milestone.product_id}/milestones"
   end
 end

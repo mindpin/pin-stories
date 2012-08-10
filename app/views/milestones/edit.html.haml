@@ -1,7 +1,7 @@
 - htitle '编辑里程碑'
 
 - hbreadcrumb '首页', '/'
-- hbreadcrumb '里程碑', "/milestones"
+- hbreadcrumb '里程碑', "/products/#{params[:product_id]}/milestones"
 
 .page-new-milestone
   = form_for @milestone, :url => {:action => "update" } do |f|
