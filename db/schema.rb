@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810065836) do
+ActiveRecord::Schema.define(:version => 20120813030858) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -114,6 +114,23 @@ ActiveRecord::Schema.define(:version => 20120810065836) do
     t.string  "deposit_bank"
     t.string  "address"
     t.string  "post_code"
+  end
+
+  create_table "milestone_issues", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "usecase_id"
+    t.integer  "check_report_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "milestone_reports", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "milestone_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "milestones", :force => true do |t|

@@ -27,6 +27,8 @@ class Product < ActiveRecord::Base
   has_many :lemmas
   has_many :wiki_pages
   has_many :wiki_page_refs
+  has_many :milestones
+  has_many :milestone_reports
   
   validates :name, 
             :description, 

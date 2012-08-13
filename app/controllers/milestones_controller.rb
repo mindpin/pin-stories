@@ -22,9 +22,6 @@ class MilestonesController < ApplicationController
   end
 
   def show 
-    @usecase = UseCase.new
-
-    @usecases = @milestone.root_usecases
   end
 
   def edit
@@ -48,4 +45,12 @@ class MilestonesController < ApplicationController
 
     redirect_to :back
   end
+
+  def create_report
+    @milestone.create_report(current_user)
+
+    redirect_to :back
+  end
+
+
 end

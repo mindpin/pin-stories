@@ -44,11 +44,21 @@ MindpinAgile::Application.routes.draw do
     # 里程碑
     resources  :milestones do
       collection do
-        post :create_usecase
+        # post :create_usecase
       end
     end
+    # end 里程碑
 
   end
+
+  post '/milestones/:id/create_usecase' => 'milestones#create_usecase'
+  post '/milestones/:id/create_report' => 'milestones#create_report'
+  # get '/milestones/:id/report/:report_id' => 'milestones#show_report'
+  # post '/milestones/:id/report/:report_id/create_issue' => 'milestones#create_issue'
+
+  resources  :milestone_reports
+  post '/milestone_reports/:id/create_issue' => 'milestone_reports#create_issue'
+
 
   resources :issues, :only => [:show, :edit, :update, :destroy] do
     member do

@@ -16,18 +16,35 @@
         var usecase_id = $(this).data("id");
         $('#usecase-' + usecase_id).show();
       });
+
+
+      $("ul li a.input").live('click',function(){
+        var usecase_id = $(this).data("id");
+        $('#usecase-' + usecase_id + "-input-issue").show();
+      });
     })
 
 .table-of-contents
   %ul
-    - @usecases.each do |usecase|
+    - @milestone.root_usecases.each do |usecase|
       %li
         %span.list-number
           %a.add{:href=>'javascript:;', "data-id" => usecase.id} +
         %div{:id => "usecase-#{usecase.id}", "data-id" => usecase.id, :style => "display: none;"}
           =render 'milestones/parts/new_usecase', :usecase_id => usecase.id
+
         %span.text= usecase.content
-        
+
         =render 'milestones/parts/sub_usecases', :usecase => usecase
+
+
+
+.page-new-report
+  =link_to "创建报告", "/milestones/#{@milestone.id}/create_report", :method => :post
+
+.page-reports
+  %ul
+    - @milestone.reports.each do |report|
+      %li= link_to "##{report.id}", "/milestone_reports/#{report.id}"
 
 
