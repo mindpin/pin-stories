@@ -6,5 +6,9 @@
     = f.hidden_field :usecase_id, :value => usecase_id
     = f.hidden_field :check_report_id, :value => params[:id]
 
+  .field.state
+    %label 状态
+    = f.select :state, MilestoneIssue::STATES
+
   .field.submit
     = jfsubmit '确定'

@@ -1,18 +1,14 @@
 %ul
   - usecase.sub_usecases.each do |usecase|
     %li
-      %span.text= usecase.content
+      .content= usecase.content
 
-
-      %span{:id => "usecase-#{usecase.id}-input-label"}
-        %a.input{:href=>'javascript:;', "data-id" => usecase.id} 填写结果
-      %div{:id => "usecase-#{usecase.id}-input-issue", "data-id" => usecase.id, :style => "display: none;"}
+      %a.new-issue{:href=>'javascript:;', "data-id" => usecase.id} 填写结果
+      %div{:id => "usecase-#{usecase.id}-new-issue", "data-id" => usecase.id, :style => "display: none;"}
         =render 'milestone_reports/parts/new_issue', :usecase_id => usecase.id
 
-      - if usecase.issues.any?
-        %ul
-          - usecase.issues.each do |issue|
-            %li= issue.content
+
+      =render 'milestone_reports/parts/issues', :usecase => usecase
 
 
     - if usecase.sub_usecases.any?

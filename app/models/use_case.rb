@@ -8,6 +8,19 @@ class UseCase < ActiveRecord::Base
   validates :product_id, :milestone_id,  :usecase_id,  :presence => true
 
 
+  def opened_issues
+    MilestoneIssue.where(:usecase_id => self.id, :state => 'OPEN')
+  end
+
+  def closed_issues
+    MilestoneIssue.where(:usecase_id => self.id, :state => 'CLOSE')
+  end
+
+  def paused_issues
+    MilestoneIssue.where(:usecase_id => self.id, :state => 'PAUSE')
+  end
+
+
   module UserMethods
     def self.included(base)
       base.has_many :usecases, :class_name => 'UseCase', :foreign_key => :creator_id

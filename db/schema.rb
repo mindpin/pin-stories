@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813030858) do
+ActiveRecord::Schema.define(:version => 20120814015638) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20120813030858) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state",           :default => "OPEN"
   end
 
   create_table "milestone_reports", :force => true do |t|
