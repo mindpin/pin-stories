@@ -22,16 +22,6 @@ class Milestone < ActiveRecord::Base
   validates :state,       :presence => true,
     :inclusion => [Milestone::State::OPEN,Milestone::State::CLOSED]
 
-
-  def create_report(user)
-    MilestoneReport.create(
-      :milestone => self, 
-      :product => self.product,
-      :creator => user
-    )
-  end
-
-
   module UserMethods
     def self.included(base)
       base.has_many :milestones, :class_name => 'Milestone', :foreign_key => :creator_id

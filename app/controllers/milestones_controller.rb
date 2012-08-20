@@ -47,7 +47,7 @@ class MilestonesController < ApplicationController
   end
 
   def create_report
-    @milestone.create_report(current_user)
+    @milestone.reports.create(:creator => current_user)
 
     redirect_to :back
   end

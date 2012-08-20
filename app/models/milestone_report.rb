@@ -4,6 +4,14 @@ class MilestoneReport < ActiveRecord::Base
   belongs_to :product, :class_name => 'Product', :foreign_key => :product_id
   has_many :milestone_issues, :class_name => 'MilestoneIssue', :foreign_key => :check_report_id
 
+  validates :milestone, :product, :creator, :presence => true
+
+  before_validation :on => :create do |report|
+    if !report.milestone.blank?
+      report.product = report.milestone.product
+    end
+  end
+
 
   def create_issue(user, usecase_id, content)
     MilestoneIssue.create(
