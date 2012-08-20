@@ -16,7 +16,7 @@ class MilestoneIssue < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :milestone_issues, :class_name => 'User', :foreign_key => :creator_id
+      base.has_many :milestone_issues, :foreign_key => :creator_id
 
       base.send(:include, InstanceMethods)
     end

@@ -2,7 +2,6 @@
   = flash_info
   .field.need
     = f.text_area :content, :style => "width: 350px; height: 60px;"
-    = f.hidden_field :creator_id, :value => current_user.id
     = f.hidden_field :usecase_id, :value => usecase_id
     = f.hidden_field :check_report_id, :value => params[:id]
 
