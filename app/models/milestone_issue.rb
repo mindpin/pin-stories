@@ -1,8 +1,14 @@
 class MilestoneIssue < ActiveRecord::Base
+  class State
+    OPEN   = 'OPEN'
+    CLOSED = 'CLOSED'
+    PAUSE  = 'PAUSE'
+  end
+
   STATES = [
-    'OPEN',
-    'CLOSED',
-    'PAUSE'
+    MilestoneIssue::State::OPEN,
+    MilestoneIssue::State::CLOSED,
+    MilestoneIssue::State::PAUSE
   ]
 
 
@@ -11,7 +17,9 @@ class MilestoneIssue < ActiveRecord::Base
   belongs_to :usecase, :class_name => 'UseCase', :foreign_key => :usecase_id
 
 
-  validates :creator_id, :check_report_id,  :usecase_id,  :presence => true
+  validates :creator_id, :check_report_id,  :usecase_id, :content, :presence => true
+  validates :state, :presence => true,
+    :inclusion => MilestoneIssue::STATES
 
 
   module UserMethods

@@ -3,11 +3,11 @@
     issues = usecase.issues
   else
     case params[:state]
-    when 'OPEN'
+    when MilestoneIssue::State::OPEN
       issues = usecase.opened_issues
-    when 'CLOSED'
+    when MilestoneIssue::State::CLOSED
       issues = usecase.closed_issues
-    when 'PAUSE'
+    when MilestoneIssue::State::PAUSE
       issues = usecase.paused_issues
     else
       issues = usecase.issues

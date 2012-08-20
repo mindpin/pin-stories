@@ -11,7 +11,7 @@
       = f.text_field :name
 
       %label 状态
-      = f.select(:state, options_for_select([['关闭', 'CLOSED'], ['打开', 'OPEN']], :selected => f.object.state))
+      = f.select(:state, options_for_select([['关闭', Milestone::State::CLOSED], ['打开', Milestone::State::OPEN]], :selected => f.object.state))
 
     .field.submit
       = jfsubmit '更新'

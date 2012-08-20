@@ -9,15 +9,15 @@ class UseCase < ActiveRecord::Base
 
 
   def opened_issues
-    MilestoneIssue.where(:usecase_id => self.id, :state => 'OPEN')
+    MilestoneIssue.where(:usecase_id => self.id, :state => MilestoneIssue::State::OPEN)
   end
 
   def closed_issues
-    MilestoneIssue.where(:usecase_id => self.id, :state => 'CLOSE')
+    MilestoneIssue.where(:usecase_id => self.id, :state => MilestoneIssue::State::CLOSED)
   end
 
   def paused_issues
-    MilestoneIssue.where(:usecase_id => self.id, :state => 'PAUSE')
+    MilestoneIssue.where(:usecase_id => self.id, :state => MilestoneIssue::State::PAUSE)
   end
 
 
