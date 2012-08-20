@@ -1,6 +1,9 @@
 class IdeasController < ApplicationController
   before_filter :login_required
   before_filter :pre_load
+  def pre_load
+    @idea = Idea.find(params[:id]) if params[:id]
+  end
 
   def index
     @ideas = Idea.all
@@ -12,7 +15,7 @@ class IdeasController < ApplicationController
 
   def create
     @idea = current_user.ideas.build params[:idea]
-    return redirect_to :index if @idea.save
+    return redirect_to :action => :index if @idea.save
     render :action => :new
   end
 
@@ -34,9 +37,4 @@ class IdeasController < ApplicationController
     @ideas = Idea.all
   end
 
-  protected
-
-  def pre_load
-    @idea = Idea.find(params[:id]) if params[:id]
-  end
 end
