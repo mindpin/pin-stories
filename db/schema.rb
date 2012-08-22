@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814015638) do
+ActiveRecord::Schema.define(:version => 20120822024644) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -67,6 +67,24 @@ ActiveRecord::Schema.define(:version => 20120814015638) do
     t.string   "model_type"
     t.string   "temp_id"
     t.text     "drafted_hash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "http_api_params", :force => true do |t|
+    t.integer  "http_api_id"
+    t.string   "name"
+    t.boolean  "need",        :default => true
+    t.string   "desc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "http_apis", :force => true do |t|
+    t.integer  "creator_id"
+    t.string   "request_type"
+    t.string   "url"
+    t.text     "logic"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
