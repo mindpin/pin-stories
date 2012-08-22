@@ -6,17 +6,32 @@
 
 - content_for :javascript do
   :javascript
-    jQuery(document).ready(function(){
-      
-    })
+    // 删除选项
+    jQuery('.page-http-api-form form .item-list .item a.delete').live('click', function(){
+      jQuery(this).closest('.item').remove();
+    });
+    
+    // 增加选项
+    jQuery('.page-http-api-form form .add-new-item').click(function(){
+      var item_elm = jQuery('<div class="item"></div>')
+      .append(jQuery('<input type="text" name="http_api[http_api_params_attributes][][name]" />'))
+      .append(jQuery('<select name="http_api[http_api_params_attributes][][need]"><option value="1">必须</option><option value="0">可选</option></select>'))
+      .append(jQuery('<input type="text" name="http_api[http_api_params_attributes][][desc]" />'))
+      .append(jQuery('<a class="delete" href="javascript:;">删除</a>'))
+      .appendTo(jQuery(this).closest('.field').find('.item-list'));
+    });
 
 
 =render 'http_apis/parts/navigation'
 
 
-.page-edit-http-api
+.page-http-api-form
   = flash_info
   = form_for @http_api do |f|
+
+    .field.title
+      %label.need 标题
+      = f.text_field :title
     
     .field.type
       %label.need 类型
@@ -30,8 +45,9 @@
     .field.items
       %label.need 参数
 
-      - @http_api.http_api_params.each do |http_api_param|
-        .item-list
+      .item-list
+        - @http_api.http_api_params.each do |http_api_param|
+        
           .item
             %input{:type=>'text', :name=>'http_api[http_api_params_attributes][][name]', :value => http_api_param.name}
 

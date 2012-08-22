@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822024644) do
+ActiveRecord::Schema.define(:version => 20120822081113) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20120822024644) do
     t.text     "logic"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "ideas", :force => true do |t|

@@ -13,7 +13,7 @@ class HttpApi < ActiveRecord::Base
   accepts_nested_attributes_for :http_api_params
 
   
-  validates :creator, :request_type, :url, :logic, :presence => true
+  validates :creator, :title, :request_type, :url, :logic, :presence => true
 
 
   # --- 给其他类扩展的方法

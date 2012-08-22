@@ -12,9 +12,12 @@
     %ul
     - @http_apis.each do |http_api|
       %li
-        .logic= http_api.logic
+        .logic= http_api.title
         .ops
           -if http_api.creator = current_user
             =link_to "修改", "/http_apis/#{http_api.id}/edit"
             =link_to "删除", "/http_apis/#{http_api.id}", :confirm => '确认删除?', :method => :delete
+
+
+    .page-paginate= will_paginate @http_apis
 

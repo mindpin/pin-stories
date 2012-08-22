@@ -8,16 +8,16 @@ class HttpApisController < ApplicationController
 
 
   def designer
-    @http_apis = HttpApi.all
+    @http_apis = HttpApi.paginate(:page => params[:page], :per_page => 20)
   end
 
   def create
     http_api = current_user.http_apis.build(params[:http_api])
-    redirect_to "/http_apis/designer" if http_api.save
-
-    error = http_api.errors.first
-    flash[:error] = "#{error[0]} #{error[1]}"
-    render :action => :new
+    if http_api.save
+      redirect_to "/http_apis/designer"
+    else
+      flash[:error] = "error"
+    end
   end
 
   def new
