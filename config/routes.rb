@@ -153,4 +153,12 @@ MindpinAgile::Application.routes.draw do
   get '/check_tip_messages' => 'index#check_tip_messages'
 
 
+
+  resources :http_apis do
+    collection do
+      get  :designer
+    end
+  end
+
+
 end

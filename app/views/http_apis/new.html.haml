@@ -1,0 +1,50 @@
+- htitle "Http Api - 创建新Api"
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb "Http Api列表", "/http_apis/designer"
+
+
+- content_for :javascript do
+  :javascript
+    jQuery(document).ready(function(){
+      
+    })
+
+
+
+.page-new-http-api
+  = flash_info
+  = form_for HttpApi.new do |f|
+    
+    .field.type
+      %label.need 类型
+      = f.select(:request_type, options_for_select([['GET', HttpApi::RequestType::GET], ['POST', HttpApi::RequestType::POST], ['PUT', HttpApi::RequestType::PUT], ['DELETE', HttpApi::RequestType::DELETE]], :selected => f.object.type))
+      
+    .field.url
+      %label.need 链接
+      = f.text_field :url
+
+
+    .field.items
+      %label.need 参数
+      .item-list
+        .item
+          %input{:type=>'text', :name=>'http_api[http_api_params_attributes][][name]'}
+
+          %select{:name => "http_api[http_api_params_attributes][][need]"}
+            %option{:value => "1"} 必须
+            %option{:value => "0"} 可选
+
+          %input{:type=>'text', :name=>'http_api[http_api_params_attributes][][desc]'}
+          %a.delete{:href=>'javascript:;'} 删除
+            
+      %a.add-new-item{:href=>'javascript:;'} 增加一项
+
+
+    .field.logic
+      %label.need 逻辑
+      = f.text_area :logic
+      
+    .field.submit
+      %a.form-submit-button{:href=>'javascript:;'} 保存
+      %a.form-cancel-button{:href=>"javascript:history.go(-1);"} 取消
