@@ -1,4 +1,12 @@
 class HttpApisController < ApplicationController
+  before_filter :login_required
+  before_filter :pre_load
+
+  def pre_load
+    @http_api = HttpApi.find(params[:id]) if params[:id]
+  end
+
+
   def designer
     @http_apis = HttpApi.all
   end
@@ -16,19 +24,17 @@ class HttpApisController < ApplicationController
   end
 
   def edit
-    @http_api = HttpApi.find(params[:id])
   end
 
   def update
-    @http_api = HttpApi.find(params[:id])
+    @http_api.http_api_params.each {|http_api_param| http_api_param.destroy }
     @http_api.update_attributes(params[:http_api])
 
     redirect_to "/http_apis/designer"
   end
 
   def destroy
-    http_api = HttpApi.find(params[:id])
-    http_api.destroy if http_api.creator == current_user
+    @http_api.destroy if @http_api.creator == current_user
 
     redirect_to "/http_apis/designer"
   end

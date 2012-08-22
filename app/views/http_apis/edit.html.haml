@@ -11,6 +11,8 @@
     })
 
 
+=render 'http_apis/parts/navigation'
+
 
 .page-edit-http-api
   = flash_info
@@ -27,16 +29,23 @@
 
     .field.items
       %label.need 参数
-      .item-list
-        .item
-          %input{:type=>'text', :name=>'http_api[http_api_params_attributes][][name]'}
 
-          %select{:name => "http_api[http_api_params_attributes][][need]"}
-            %option{:value => "1"} 必须
-            %option{:value => "0"} 可选
+      - @http_api.http_api_params.each do |http_api_param|
+        .item-list
+          .item
+            %input{:type=>'text', :name=>'http_api[http_api_params_attributes][][name]', :value => http_api_param.name}
 
-          %input{:type=>'text', :name=>'http_api[http_api_params_attributes][][desc]'}
-          %a.delete{:href=>'javascript:;'} 删除
+            %select{:name => "http_api[http_api_params_attributes][][need]"}
+              %option{:value => "1"} 必须
+              - unless http_api_param.need
+                %option{:value => "0", :selected => 'selected'} 可选
+              - else
+                %option{:value => "0"} 可选
+
+            %input{:type=>'text', :name=>'http_api[http_api_params_attributes][][desc]', :value => http_api_param.desc}
+
+            %a.delete{:href=>'javascript:;'} 删除
+
             
       %a.add-new-item{:href=>'javascript:;'} 增加一项
 

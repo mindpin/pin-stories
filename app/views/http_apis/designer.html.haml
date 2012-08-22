@@ -16,5 +16,5 @@
         .ops
           -if http_api.creator = current_user
             =link_to "修改", "/http_apis/#{http_api.id}/edit"
-            =link_to "删除", "/http_apis", :confirm => '确认删除?', :method => :delete
+            =link_to "删除", "/http_apis/#{http_api.id}", :confirm => '确认删除?', :method => :delete
 
