@@ -1,0 +1,143 @@
+indexer
+{
+}
+
+searchd
+{
+  listen = 127.0.0.1:9312
+  log = /Users/xiaorich/www/pin-stories/log/searchd.log
+  query_log = /Users/xiaorich/www/pin-stories/log/searchd.query.log
+  pid_file = /Users/xiaorich/www/pin-stories/log/searchd.development.pid
+}
+
+source story_core_0
+{
+  type = mysql
+  sql_host = localhost
+  sql_user = root
+  sql_pass = 111111
+  sql_db = pin-stories
+  sql_query_pre = UPDATE `stories` SET `delta` = 0 WHERE `delta` = 1
+  sql_query_pre = SET NAMES utf8
+  sql_query_pre = SET TIME_ZONE = '+0:00'
+  sql_query = SELECT SQL_NO_CACHE `stories`.`id` * CAST(2 AS SIGNED) + 0 AS `id` , `stories`.`how_to_demo` AS `how_to_demo`, `stories`.`tips` AS `tips`, `stories`.`product_id` AS `product_id`, `stories`.`id` AS `sphinx_internal_id`, 0 AS `sphinx_deleted`, 714550076 AS `class_crc`, IFNULL('Story', '') AS `sphinx_internal_class`, IFNULL(`stories`.`how_to_demo`, '') AS `how_to_demo_sort`, UNIX_TIMESTAMP(`stories`.`created_at`) AS `created_at`, UNIX_TIMESTAMP(`stories`.`updated_at`) AS `updated_at` FROM `stories`  WHERE (`stories`.`id` >= $start AND `stories`.`id` <= $end AND `stories`.`delta` = 0) GROUP BY `stories`.`id` ORDER BY NULL
+  sql_query_range = SELECT IFNULL(MIN(`id`), 1), IFNULL(MAX(`id`), 1) FROM `stories` WHERE `stories`.`delta` = 0
+  sql_attr_uint = sphinx_internal_id
+  sql_attr_uint = sphinx_deleted
+  sql_attr_uint = class_crc
+  sql_attr_timestamp = created_at
+  sql_attr_timestamp = updated_at
+  sql_attr_string = sphinx_internal_class
+  sql_attr_string = how_to_demo_sort
+  sql_query_info = SELECT * FROM `stories` WHERE `id` = (($id - 0) / 2)
+}
+
+index story_core
+{
+  source = story_core_0
+  path = /web/sphinx/story_core
+  charset_dictpath = /usr/local/mmseg3/etc
+  charset_type = zh_cn.utf-8
+  ngram_len = 0
+}
+
+source story_delta_0 : story_core_0
+{
+  type = mysql
+  sql_host = localhost
+  sql_user = root
+  sql_pass = 111111
+  sql_db = pin-stories
+  sql_query_pre = 
+  sql_query_pre = SET NAMES utf8
+  sql_query_pre = SET TIME_ZONE = '+0:00'
+  sql_query = SELECT SQL_NO_CACHE `stories`.`id` * CAST(2 AS SIGNED) + 0 AS `id` , `stories`.`how_to_demo` AS `how_to_demo`, `stories`.`tips` AS `tips`, `stories`.`product_id` AS `product_id`, `stories`.`id` AS `sphinx_internal_id`, 0 AS `sphinx_deleted`, 714550076 AS `class_crc`, IFNULL('Story', '') AS `sphinx_internal_class`, IFNULL(`stories`.`how_to_demo`, '') AS `how_to_demo_sort`, UNIX_TIMESTAMP(`stories`.`created_at`) AS `created_at`, UNIX_TIMESTAMP(`stories`.`updated_at`) AS `updated_at` FROM `stories`  WHERE (`stories`.`id` >= $start AND `stories`.`id` <= $end AND `stories`.`delta` = 1) GROUP BY `stories`.`id` ORDER BY NULL
+  sql_query_range = SELECT IFNULL(MIN(`id`), 1), IFNULL(MAX(`id`), 1) FROM `stories` WHERE `stories`.`delta` = 1
+  sql_attr_uint = sphinx_internal_id
+  sql_attr_uint = sphinx_deleted
+  sql_attr_uint = class_crc
+  sql_attr_timestamp = created_at
+  sql_attr_timestamp = updated_at
+  sql_attr_string = sphinx_internal_class
+  sql_attr_string = how_to_demo_sort
+  sql_query_info = SELECT * FROM `stories` WHERE `id` = (($id - 0) / 2)
+}
+
+index story_delta : story_core
+{
+  source = story_delta_0
+  path = /web/sphinx/story_delta
+}
+
+index story
+{
+  type = distributed
+  local = story_delta
+  local = story_core
+}
+
+source wiki_page_core_0
+{
+  type = mysql
+  sql_host = localhost
+  sql_user = root
+  sql_pass = 111111
+  sql_db = pin-stories
+  sql_query_pre = UPDATE `wiki_pages` SET `delta` = 0 WHERE `delta` = 1
+  sql_query_pre = SET NAMES utf8
+  sql_query_pre = SET TIME_ZONE = '+0:00'
+  sql_query = SELECT SQL_NO_CACHE `wiki_pages`.`id` * CAST(2 AS SIGNED) + 1 AS `id` , `wiki_pages`.`title` AS `title`, `wiki_pages`.`content` AS `content`, `wiki_pages`.`product_id` AS `product_id`, `wiki_pages`.`id` AS `sphinx_internal_id`, 0 AS `sphinx_deleted`, 1199702055 AS `class_crc`, IFNULL('WikiPage', '') AS `sphinx_internal_class`, IFNULL(`wiki_pages`.`title`, '') AS `title_sort`, UNIX_TIMESTAMP(`wiki_pages`.`created_at`) AS `created_at`, UNIX_TIMESTAMP(`wiki_pages`.`updated_at`) AS `updated_at` FROM `wiki_pages`  WHERE (`wiki_pages`.`id` >= $start AND `wiki_pages`.`id` <= $end AND `wiki_pages`.`delta` = 0) GROUP BY `wiki_pages`.`id` ORDER BY NULL
+  sql_query_range = SELECT IFNULL(MIN(`id`), 1), IFNULL(MAX(`id`), 1) FROM `wiki_pages` WHERE `wiki_pages`.`delta` = 0
+  sql_attr_uint = sphinx_internal_id
+  sql_attr_uint = sphinx_deleted
+  sql_attr_uint = class_crc
+  sql_attr_timestamp = created_at
+  sql_attr_timestamp = updated_at
+  sql_attr_string = sphinx_internal_class
+  sql_attr_string = title_sort
+  sql_query_info = SELECT * FROM `wiki_pages` WHERE `id` = (($id - 1) / 2)
+}
+
+index wiki_page_core
+{
+  source = wiki_page_core_0
+  path = /web/sphinx/wiki_page_core
+  charset_dictpath = /usr/local/mmseg3/etc
+  charset_type = zh_cn.utf-8
+  ngram_len = 0
+}
+
+source wiki_page_delta_0 : wiki_page_core_0
+{
+  type = mysql
+  sql_host = localhost
+  sql_user = root
+  sql_pass = 111111
+  sql_db = pin-stories
+  sql_query_pre = 
+  sql_query_pre = SET NAMES utf8
+  sql_query_pre = SET TIME_ZONE = '+0:00'
+  sql_query = SELECT SQL_NO_CACHE `wiki_pages`.`id` * CAST(2 AS SIGNED) + 1 AS `id` , `wiki_pages`.`title` AS `title`, `wiki_pages`.`content` AS `content`, `wiki_pages`.`product_id` AS `product_id`, `wiki_pages`.`id` AS `sphinx_internal_id`, 0 AS `sphinx_deleted`, 1199702055 AS `class_crc`, IFNULL('WikiPage', '') AS `sphinx_internal_class`, IFNULL(`wiki_pages`.`title`, '') AS `title_sort`, UNIX_TIMESTAMP(`wiki_pages`.`created_at`) AS `created_at`, UNIX_TIMESTAMP(`wiki_pages`.`updated_at`) AS `updated_at` FROM `wiki_pages`  WHERE (`wiki_pages`.`id` >= $start AND `wiki_pages`.`id` <= $end AND `wiki_pages`.`delta` = 1) GROUP BY `wiki_pages`.`id` ORDER BY NULL
+  sql_query_range = SELECT IFNULL(MIN(`id`), 1), IFNULL(MAX(`id`), 1) FROM `wiki_pages` WHERE `wiki_pages`.`delta` = 1
+  sql_attr_uint = sphinx_internal_id
+  sql_attr_uint = sphinx_deleted
+  sql_attr_uint = class_crc
+  sql_attr_timestamp = created_at
+  sql_attr_timestamp = updated_at
+  sql_attr_string = sphinx_internal_class
+  sql_attr_string = title_sort
+  sql_query_info = SELECT * FROM `wiki_pages` WHERE `id` = (($id - 1) / 2)
+}
+
+index wiki_page_delta : wiki_page_core
+{
+  source = wiki_page_delta_0
+  path = /web/sphinx/wiki_page_delta
+}
+
+index wiki_page
+{
+  type = distributed
+  local = wiki_page_delta
+  local = wiki_page_core
+}

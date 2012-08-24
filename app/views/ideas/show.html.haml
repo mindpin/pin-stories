@@ -1,0 +1,10 @@
+- htitle '想法'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '想法', ideas_path
+- hbreadcrumb "想法##{@idea.id}", @idea
+
+.page-ideas
+  = render 'idea', :idea => @idea
+
+= jcomments @idea

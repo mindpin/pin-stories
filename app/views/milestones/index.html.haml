@@ -1,0 +1,15 @@
+- htitle '里程碑'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '里程碑', "/products/#{@milestones.first.product_id}/milestones"
+
+
+.page-milestones
+  - unless @milestones.nil?
+    %ul
+      - @milestones.each do |milestone|
+        %li= link_to milestone.name, "/products/#{milestone.product_id}/milestones/#{milestone.id}"
+        %li
+          = link_to "编辑", "/products/#{milestone.product_id}/milestones/#{milestone.id}/edit"
+          = link_to '删除', "/products/#{milestone.product_id}/milestones/#{milestone.id}", :confirm => '确认删除?', :method => :delete, :class => 'delete'
+

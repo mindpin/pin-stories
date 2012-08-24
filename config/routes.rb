@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 MindpinAgile::Application.routes.draw do  
   # -- 用户登录认证相关 --
   root :to => 'index#index'
@@ -39,7 +40,20 @@ MindpinAgile::Application.routes.draw do
     resources :streams,    :shallow => true
     resources :lemmas,     :shallow => true
     resources :activities, :shallow => true
+
+    # 里程碑
+    resources  :milestones
+
   end
+
+  post '/milestones/:id/create_usecase' => 'milestones#create_usecase'
+  post '/milestones/:id/create_report' => 'milestones#create_report'
+
+  resources :milestone_reports
+  post '/milestone_reports/:id/create_issue' => 'milestone_reports#create_issue'
+
+  resources :milestone_issues
+
 
   resources :issues, :only => [:show, :edit, :update, :destroy] do
     member do
@@ -65,6 +79,13 @@ MindpinAgile::Application.routes.draw do
 
       get :versions
       put 'rollback/:version', :action => :rollback
+    end
+  end
+
+  resources :ideas do
+    collection do
+      post :create_for_story
+      get  :mine
     end
   end
 
@@ -105,6 +126,7 @@ MindpinAgile::Application.routes.draw do
 
     # story 全文搜索
     get  '/stories_search' => 'stories#search'
+
   end
 
   # # wiki  draft
@@ -129,4 +151,6 @@ MindpinAgile::Application.routes.draw do
 
   # 检查各种统计
   get '/check_tip_messages' => 'index#check_tip_messages'
+
+
 end

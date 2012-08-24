@@ -1,0 +1,19 @@
+- htitle '创建里程碑'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '里程碑', "/products/#{params[:product_id]}/milestones"
+
+.page-new-milestone
+  = form_for @milestone, :url => {:action => 'create'} do |f|
+    = flash_info
+    .field.need
+      %label 里程碑
+      = f.text_field :name
+      = f.hidden_field :product_id, :value => params[:product_id]
+
+      %label 状态
+      = f.select(:state, options_for_select([['关闭', Milestone::State::CLOSED], ['打开', Milestone::State::OPEN]]))
+
+    .field.submit
+      = jfsubmit '添加'
+      = jfcancel '取消'

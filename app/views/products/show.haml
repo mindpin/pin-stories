@@ -27,10 +27,13 @@
       %a.view.activities.hide{:href=>activities_url} 查看最近动态
       %a.view.issues{:href=>issues_url} 查看BUG或建议
       %a.view.issues{:href=>wiki_url} 查看WIKI
+      %a.view.milestone{:href=>"/products/#{product.id}/milestones"} 查看里程碑列表
       %a.add-issue{:href=>"/products/#{product.id}/issues/new"} 创建BUG或建议
+      %a.add-milestone{:href=>"/products/#{product.id}/milestones/new"} 创建里程碑
       - if admin_logged_in?
         %a.add-story.admin{:href=>new_story_url} 创建故事
         %a.add-stream.admin{:href=>new_stream_url} 创建序列
+      
 
   - product.streams.each do |stream|
     :ruby

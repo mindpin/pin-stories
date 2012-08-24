@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120729062203) do
+ActiveRecord::Schema.define(:version => 20120814015638) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -71,6 +71,12 @@ ActiveRecord::Schema.define(:version => 20120729062203) do
     t.datetime "updated_at"
   end
 
+  create_table "ideas", :force => true do |t|
+    t.text    "content"
+    t.integer "source_story_id"
+    t.integer "creator_id"
+  end
+
   create_table "issues", :force => true do |t|
     t.integer  "product_id"
     t.integer  "creator_id"
@@ -110,6 +116,33 @@ ActiveRecord::Schema.define(:version => 20120729062203) do
     t.string  "post_code"
   end
 
+  create_table "milestone_issues", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "usecase_id"
+    t.integer  "check_report_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "state",           :default => "OPEN"
+  end
+
+  create_table "milestone_reports", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "milestone_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "milestones", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "creator_id"
+    t.string   "name"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "online_records", :force => true do |t|
     t.integer  "user_id"
     t.string   "key"
@@ -131,15 +164,16 @@ ActiveRecord::Schema.define(:version => 20120729062203) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",        :default => "",   :null => false
+    t.string   "status",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
     t.text     "how_to_demo"
     t.text     "tips"
-    t.integer  "time_estimate", :default => 8,    :null => false
-    t.boolean  "delta",         :default => true, :null => false
+    t.integer  "time_estimate",  :default => 8,    :null => false
+    t.boolean  "delta",          :default => true, :null => false
     t.integer  "creator_id"
+    t.integer  "source_idea_id"
   end
 
   create_table "story_assigns", :force => true do |t|
@@ -158,8 +192,18 @@ ActiveRecord::Schema.define(:version => 20120729062203) do
   end
 
   create_table "streams", :force => true do |t|
-    t.string   "title",      :default => "", :null => false
-    t.integer  "product_id",                 :null => false
+    t.string   "title",      :null => false
+    t.integer  "product_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "use_cases", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "product_id"
+    t.integer  "milestone_id"
+    t.integer  "usecase_id"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

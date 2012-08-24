@@ -1,0 +1,15 @@
+%ul
+  - usecase.sub_usecases.each do |usecase|
+    %li
+      .content= usecase.content
+
+      %a.new-issue{:href=>'javascript:;', "data-id" => usecase.id} 填写结果
+      %div{:id => "usecase-#{usecase.id}-new-issue", "data-id" => usecase.id, :style => "display: none;"}
+        =render 'milestone_reports/parts/new_issue', :usecase_id => usecase.id
+
+
+      =render 'milestone_reports/parts/issues', :usecase => usecase
+
+
+    - if usecase.sub_usecases.any?
+      =render 'milestone_reports/parts/sub_usecases', :usecase => usecase

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class StoriesController < ApplicationController
   before_filter :login_required
   before_filter :pre_load
@@ -30,7 +31,8 @@ class StoriesController < ApplicationController
     end
 
     flash[:error] = @story.errors.to_json
-    redirect_to "/products/#{@product.id}/stories/new"
+    q = params[:story][:source_idea_id].blank? ? "" : "?source_idea_id=#{params[:story][:source_idea_id]}"
+    redirect_to "/products/#{@product.id}/stories/new#{q}"
   end
   
   def edit

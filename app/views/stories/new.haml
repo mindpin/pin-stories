@@ -16,6 +16,8 @@
   -else
     = flash_info
     = form_for @story, :url=>"/products/#{@product.id}/stories" do |f|
+      = f.hidden_field :source_idea_id, :value => params[:source_idea_id]
+
       .field.how-to-demo.need
         %label 如何演示？(HOW TO DEMO)
         = f.text_area :how_to_demo
