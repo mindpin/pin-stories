@@ -1,0 +1,16 @@
+- htitle '创建里程碑'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '编辑案例', "/usecases/#{@usecase.id}/edit"
+
+.page-new-milestone
+
+  = form_for @usecase, :url => {:action => 'update'} do |f|
+    = flash_info
+    .field.need
+      %label 用例描述
+      = f.text_field :content
+
+    .field.submit
+      = jfsubmit '编辑'
+      = jfcancel '取消'

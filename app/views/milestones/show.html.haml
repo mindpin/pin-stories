@@ -17,8 +17,12 @@
   .new-report
     = link_to '创建检查报告', "/milestones/#{@milestone.id}/milestone_reports/new"
   .reports
-    - @milestone.reports.each do |report|
+    - @milestone.open_reports.each do |report|
       .report
         %a{:href=>"/milestone_reports/#{report.id}"} 
           %span= "#{report.title}"
           = jtime(report.created_at)
+
+      .ops
+        = link_to '修改', "/milestone_reports/#{report.id}/edit"
+        = link_to '删除', "/milestone_reports/#{report.id}", :confirm=>'确定删除吗？', :method=>:delete, :class=>:remove

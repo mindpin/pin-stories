@@ -13,6 +13,12 @@ class MilestoneReport < ActiveRecord::Base
   end
 
 
+  def close
+    self.state = 'CLOSE'
+    self.save
+  end
+
+
   def create_issue(user, usecase_id, content)
     MilestoneIssue.create(
       :creator => user,

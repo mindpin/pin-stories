@@ -22,6 +22,16 @@ class UsecasesController < ApplicationController
     render :text=>usecase.errors.to_json
   end
 
+
+  def edit
+  end
+
+
+  def update
+    @usecase.update_attributes(params[:usecase])
+    redirect_to "/milestones/#{@usecase.milestone_id}"
+  end
+
   def destory
     @usecase.destroy
     redirect_to @milestone

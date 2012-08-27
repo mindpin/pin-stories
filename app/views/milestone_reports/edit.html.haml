@@ -1,0 +1,15 @@
+- htitle '创建里程碑'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '编辑报告', "/milestone_reports/#{@report.id}/edit"
+
+.page-new-milestone
+  = form_for @report, :url => {:action => 'update'} do |f|
+    = flash_info
+    .field.need
+      %label 报告标题
+      = f.text_field :title
+
+    .field.submit
+      = jfsubmit '编辑'
+      = jfcancel '取消'

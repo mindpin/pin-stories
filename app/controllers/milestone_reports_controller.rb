@@ -4,12 +4,10 @@ class MilestoneReportsController < ApplicationController
 
   def pre_load
     @milestone = Milestone.find(params[:milestone_id]) if params[:milestone_id]
+    @report = MilestoneReport.find(params[:id]) if params[:id]
   end
 
   def show
-    report_id = params[:id]
-
-    @report = MilestoneReport.find(report_id)
     @milestone = Milestone.find(@report.milestone_id)
   end
 
@@ -21,6 +19,20 @@ class MilestoneReportsController < ApplicationController
     report = @milestone.reports.create(params[:milestone_report])
 
     redirect_to "/milestone_reports/#{report.id}"
+  end
+
+
+  def edit
+  end
+
+  def update
+    @report.update_attributes(params[:milestone_report])
+    redirect_to "/milestones/#{@report.milestone_id}"
+  end
+
+  def destroy
+    @report.close
+    redirect_to "/milestones/#{@report.milestone_id}"
   end
 
 

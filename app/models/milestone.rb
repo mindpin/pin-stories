@@ -15,6 +15,10 @@ class Milestone < ActiveRecord::Base
    has_many :reports,
             :class_name => 'MilestoneReport', :foreign_key => :milestone_id
 
+  has_many :open_reports, 
+           :conditions => lambda { "state = 'OPEN'" },
+           :class_name => 'MilestoneReport', :foreign_key => :milestone_id
+
 
   validates :product_id,  :presence => true
   validates :creator_id,  :presence => true
