@@ -32,8 +32,9 @@ class UsecasesController < ApplicationController
     redirect_to "/milestones/#{@usecase.milestone_id}"
   end
 
-  def destory
+  def destroy
+    url = @usecase.milestone
     @usecase.destroy
-    redirect_to @milestone
+    redirect_to url
   end
 end
