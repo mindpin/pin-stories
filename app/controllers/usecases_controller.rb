@@ -4,20 +4,26 @@ class UsecasesController < ApplicationController
 
   def pre_load
     @milestone = Milestone.find(params[:milestone_id]) if params[:milestone_id]
+    @usecase = Usecase.find(params[:id]) if params[:id]
   end
 
   def new
   end
 
   def create
-
-    params[:usecase][:product_id] = @milestone.product_id
-    params[:usecase][:milestone_id] = @milestone.id
-    params[:usecase][:usecase_id] = 0 if params[:usecase][:usecase_id].blank?
-
     usecase = current_user.usecases.build(params[:usecase])
-    usecase.save
+    usecase.product = @milestone.product
+    usecase.milestone = @milestone
 
-    redirect_to "/milestones/#{@milestone.id}"
+    if usecase.save
+      return redirect_to @milestone
+    end
+
+    render :text=>usecase.errors.to_json
+  end
+
+  def destory
+    @usecase.destroy
+    redirect_to @milestone
   end
 end

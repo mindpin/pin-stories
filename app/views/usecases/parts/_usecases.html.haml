@@ -4,11 +4,13 @@
     .meta
       :ruby
         new_url = "/milestones/#{milestone.id}/usecases/new?parent_id=#{usecase.id}"
+        edit_url = "/usecases/#{usecase.id}/edit"
         delete_url = "/usecases/#{usecase.id}"
 
       .name= usecase.content
       .ops
         = link_to '增加子用例', new_url, :class=>:'add-child'
+        = link_to '修改', edit_url
         = link_to '删除', delete_url, :confirm=>'确定删除用例吗？', :method=>:delete, :class=>:remove
 
     .children

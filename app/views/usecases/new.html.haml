@@ -4,12 +4,15 @@
 - hbreadcrumb '创建案例', "/milestones/#{params[:id]}/usecases/new"
 
 .page-new-milestone
+  :ruby
+    usecase_id = params[:parent_id] || 0
+
   = form_for Usecase.new, :url => {:action => 'create'} do |f|
     = flash_info
     .field.need
-      %label 里程碑
-      = f.text_area :content
-      = f.hidden_field :usecase_id, :value => params[:parent_id]
+      %label 用例描述
+      = f.text_field :content
+      = f.hidden_field :usecase_id, :value => usecase_id
 
     .field.submit
       = jfsubmit '添加'
