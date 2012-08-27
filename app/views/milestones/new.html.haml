@@ -11,8 +11,10 @@
       = f.text_field :name
       = f.hidden_field :product_id, :value => params[:product_id]
 
+    .field
+      - states = [['打开', Milestone::State::OPEN], ['关闭', Milestone::State::CLOSED]]
       %label 状态
-      = f.select(:state, options_for_select([['关闭', Milestone::State::CLOSED], ['打开', Milestone::State::OPEN]]))
+      = f.select(:state, options_for_select(states))
 
     .field.submit
       = jfsubmit '添加'

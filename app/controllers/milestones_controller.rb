@@ -3,6 +3,7 @@ class MilestonesController < ApplicationController
   before_filter :pre_load
 
   def pre_load
+    @product = Product.find(params[:product_id]) if params[:product_id]
     @milestone = Milestone.find(params[:id]) if params[:id]
   end
 

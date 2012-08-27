@@ -1,49 +1,24 @@
 - htitle '创建里程碑'
 
 - hbreadcrumb '首页', '/'
-- hbreadcrumb '里程碑', "/products/#{params[:product_id]}/milestones"
+- hbreadcrumb '里程碑', "/products/#{@milestone.product.id}/milestones"
+- hbreadcrumb @milestone.name
 
-.page-milestone
-  %label= @milestone.name
+.page-milestone-show
+  .milestone-title
+    里程碑 #{@milestone.name} - 用例清单
 
-.page-new-usercase
-  =render 'milestones/parts/new_usecase', :usecase_id => 0, :product_id => params[:product_id]
+  .milestone-ops
+    %a.create{:href=>"/milestones/#{@milestone.id}/usecases/new"} 增加用例
 
-- content_for :javascript do
-  :javascript
-    jQuery(document).ready(function(){
-      $("ul li a.new-usecase").live('click',function(){
-        var usecase_id = $(this).data("id");
-        $('#usecase-' + usecase_id).show();
-      });
+  .usecases
+    = render 'usecases/parts/usecases', :usecases=>@milestone.root_usecases
 
-
-      $("ul li a.new-issue").live('click',function(){
-        var usecase_id = $(this).data("id");
-        $('#usecase-' + usecase_id + "-new-issue").show();
-      });
-    })
-
-.table-of-contents
-  %ul
-    - @milestone.root_usecases.each do |usecase|
-      %li
-        %a.new-usecase{:href=>'javascript:;', "data-id" => usecase.id} +
-        %div{:id => "usecase-#{usecase.id}", "data-id" => usecase.id, :style => "display: none;"}
-          =render 'milestones/parts/new_usecase', :usecase_id => usecase.id
-
-        .content= usecase.content
-
-        =render 'milestones/parts/sub_usecases', :usecase => usecase
-
-
-
-.page-new-report
-  =link_to "创建报告", "/milestones/#{@milestone.id}/create_report", :method => :post
-
-.page-reports
-  %ul
+  .new-report
+    = link_to '创建检查报告', "/milestones/#{@milestone.id}/milestone_reports", :method => :post
+  .reports
     - @milestone.reports.each do |report|
-      %li= link_to "##{report.id}", "/milestone_reports/#{report.id}"
-
-
+      .report
+        %a{:href=>"/milestone_reports/#{report.id}"} 
+          %span= "##{report.id}"
+          = jtime(report.created_at)

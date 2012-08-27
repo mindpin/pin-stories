@@ -18,9 +18,9 @@
 
 // this app
 // ------------------
-@import 'app-css/override';
-@import 'app-css/mixins';
-@import 'app-css/layout';
+@import 'app-css/base/override';
+@import 'app-css/base/mixins';
+@import 'app-css/base/layout';
 
 @import 'app-css/admin';
 @import 'app-css/products';
@@ -31,7 +31,8 @@
 @import 'app-css/wiki_page';
 @import 'app-css/tip_message';
 @import 'app-css/comments';
-@import 'app-css/ideas'
+@import 'app-css/ideas';
+@import 'app-css/milestones';
 
 // @import 'app-css/doms';
 // @import 'app-css/login';

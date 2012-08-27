@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(:version => 20120814015638) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",                           :null => false
+    t.string   "status",         :default => "",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
@@ -192,8 +192,8 @@ ActiveRecord::Schema.define(:version => 20120814015638) do
   end
 
   create_table "streams", :force => true do |t|
-    t.string   "title",      :null => false
-    t.integer  "product_id", :null => false
+    t.string   "title",      :default => "", :null => false
+    t.integer  "product_id",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

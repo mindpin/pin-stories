@@ -181,3 +181,12 @@ $story-status-pause-color:#EAC018;
   
   @include story-status-bg(1);
 }
+
+.page-top-ops{
+  overflow:hidden;
+  margin-bottom:10px;
+  
+  a.button{
+    @include new-model-button;
+  }
+}

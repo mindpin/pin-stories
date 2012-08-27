@@ -40,13 +40,13 @@ MindpinAgile::Application.routes.draw do
     resources :streams,    :shallow => true
     resources :lemmas,     :shallow => true
     resources :activities, :shallow => true
-
-    # 里程碑
-    resources  :milestones
-
+    resources :milestones, :shallow => true
   end
 
-  post '/milestones/:id/create_usecase' => 'milestones#create_usecase'
+  resources :milestones do
+    resources :usecases, :shallow => true
+  end
+
   post '/milestones/:id/create_report' => 'milestones#create_report'
 
   resources :milestone_reports

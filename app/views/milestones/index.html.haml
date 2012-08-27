@@ -1,15 +1,20 @@
 - htitle '里程碑'
 
 - hbreadcrumb '首页', '/'
-- hbreadcrumb '里程碑', "/products/#{@milestones.first.product_id}/milestones"
-
+- hbreadcrumb '里程碑'
 
 .page-milestones
-  - unless @milestones.nil?
-    %ul
-      - @milestones.each do |milestone|
-        %li= link_to milestone.name, "/products/#{milestone.product_id}/milestones/#{milestone.id}"
-        %li
-          = link_to "编辑", "/products/#{milestone.product_id}/milestones/#{milestone.id}/edit"
-          = link_to '删除', "/products/#{milestone.product_id}/milestones/#{milestone.id}", :confirm => '确认删除?', :method => :delete, :class => 'delete'
+  .page-top-ops
+    - if admin_logged_in?
+      %a.button.new{:href=>"/products/#{@product.id}/milestones/new"} 新建里程碑
+
+  - @milestones.each do |milestone|
+    .milestone
+      .title
+        = link_to milestone.name, milestone
+      .ops
+        = link_to '打开查看', milestone, :class=>:show
+        - if current_user == milestone.creator
+          = link_to '编辑', [:edit, milestone], :class=>:edit
+          = link_to '删除', milestone, :confirm=>'确认删除?', :method=>:delete, :class=>:delete
 

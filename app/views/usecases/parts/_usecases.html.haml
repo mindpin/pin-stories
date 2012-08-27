@@ -1,0 +1,15 @@
+- usecases.each do |usecase|
+  - milestone = usecase.milestone
+  .usecase
+    .meta
+      :ruby
+        new_url = "/milestones/#{milestone.id}/usecases/new?parent_id=#{usecase.id}"
+        delete_url = "/usecases/#{usecase.id}"
+
+      .name= usecase.content
+      .ops
+        = link_to '增加子用例', new_url, :class=>:'add-child'
+        = link_to '删除', delete_url, :confirm=>'确定删除用例吗？', :method=>:delete, :class=>:remove
+
+    .children
+      = render 'usecases/parts/usecases', :usecases=>usecase.sub_usecases

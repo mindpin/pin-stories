@@ -32,8 +32,8 @@
       .nav
         %a.item{:href=>'/'} 我们的产品
         %a.item{:href=>'/users'} 成员和分享者
-        %a.item{:href => ideas_path} 想法列表
-        %a.item{:href => new_idea_path} 添加新想法
+        / %a.item{:href => ideas_path} 想法列表
+        / %a.item{:href => new_idea_path} 添加新想法
 
       -if logged_in?
         .add-agile-issue
