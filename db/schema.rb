@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822081113) do
+ActiveRecord::Schema.define(:version => 20120827031203) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -217,7 +217,7 @@ ActiveRecord::Schema.define(:version => 20120822081113) do
     t.datetime "updated_at"
   end
 
-  create_table "use_cases", :force => true do |t|
+  create_table "usecases", :force => true do |t|
     t.integer  "creator_id"
     t.integer  "product_id"
     t.integer  "milestone_id"
