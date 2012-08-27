@@ -9,7 +9,7 @@ class Milestone < ActiveRecord::Base
   
   has_many :root_usecases, 
            :conditions => lambda { "usecase_id = 0" },
-           :class_name => 'UseCase', :foreign_key => :milestone_id
+           :class_name => 'Usecase', :foreign_key => :milestone_id
 
 
    has_many :reports,

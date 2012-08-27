@@ -60,5 +60,7 @@ class User < ActiveRecord::Base
   include Milestone::UserMethods
   include MilestoneIssue::UserMethods
   include MilestoneReport::UserMethods
-  include UseCase::UserMethods
+  include Usecase::UserMethods
+
+  include HttpApi::UserMethods
 end

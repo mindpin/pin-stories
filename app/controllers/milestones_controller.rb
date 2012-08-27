@@ -41,7 +41,7 @@ class MilestonesController < ApplicationController
   end
 
   def create_usecase
-    @usecase = current_user.usecases.build(params[:use_case])
+    @usecase = current_user.usecases.build(params[:usecase])
     @usecase.save
 
     redirect_to :back

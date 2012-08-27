@@ -1,7 +1,7 @@
-class UseCase < ActiveRecord::Base
+class Usecase < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :milestone, :class_name => 'Milestone', :foreign_key => :milestone_id
-  has_many :sub_usecases, :class_name => 'UseCase', :foreign_key => :usecase_id
+  has_many :sub_usecases, :class_name => 'Usecase', :foreign_key => :usecase_id
   has_many :issues, :class_name => 'MilestoneIssue', :foreign_key => :usecase_id
 
 
@@ -23,7 +23,7 @@ class UseCase < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :usecases, :class_name => 'UseCase', :foreign_key => :creator_id
+      base.has_many :usecases, :class_name => 'Usecase', :foreign_key => :creator_id
 
       base.send(:include, InstanceMethods)
     end
