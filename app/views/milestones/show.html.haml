@@ -15,10 +15,10 @@
     = render 'usecases/parts/usecases', :usecases=>@milestone.root_usecases
 
   .new-report
-    = link_to '创建检查报告', "/milestones/#{@milestone.id}/milestone_reports", :method => :post
+    = link_to '创建检查报告', "/milestones/#{@milestone.id}/milestone_reports/new"
   .reports
     - @milestone.reports.each do |report|
       .report
         %a{:href=>"/milestone_reports/#{report.id}"} 
-          %span= "##{report.id}"
+          %span= "#{report.title}"
           = jtime(report.created_at)

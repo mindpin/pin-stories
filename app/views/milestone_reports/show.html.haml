@@ -26,11 +26,17 @@
       });
     })
 
+.title
+  = @report.title
+
+  
 .state-menu
   =link_to "打开的", "/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::OPEN}"
   =link_to "关闭的", "/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::CLOSED}"
   =link_to "暂缓的", "/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::PAUSE}"
   =link_to "全部", "/milestone_reports/#{@report.id}"
+
+
 
 .table-of-contents
   %ul

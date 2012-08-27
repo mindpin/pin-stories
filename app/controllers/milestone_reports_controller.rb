@@ -13,10 +13,14 @@ class MilestoneReportsController < ApplicationController
     @milestone = Milestone.find(@report.milestone_id)
   end
 
-  def create
-    @milestone.reports.create(:creator => current_user)
+  def new
+  end
 
-    redirect_to :back
+  def create
+    params[:milestone_report][:creator_id] = current_user.id
+    report = @milestone.reports.create(params[:milestone_report])
+
+    redirect_to "/milestone_reports/#{report.id}"
   end
 
 
