@@ -3,7 +3,7 @@ class Usecase < ActiveRecord::Base
   belongs_to :milestone, :class_name => 'Milestone', :foreign_key => :milestone_id
   belongs_to :product
 
-  has_many :sub_usecases, :class_name => 'Usecase', :foreign_key => :usecase_id
+  has_many :sub_usecases, :class_name => 'Usecase', :foreign_key => :usecase_id, :dependent => :destroy
   has_many :issues, :class_name => 'MilestoneIssue', :foreign_key => :usecase_id
 
   validates :product, :milestone, :presence => true
