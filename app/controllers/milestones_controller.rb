@@ -40,18 +40,4 @@ class MilestonesController < ApplicationController
     redirect_to "/products/#{@milestone.product_id}/milestones"
   end
 
-  def create_usecase
-    @usecase = current_user.usecases.build(params[:usecase])
-    @usecase.save
-
-    redirect_to :back
-  end
-
-  def create_report
-    @milestone.reports.create(:creator => current_user)
-
-    redirect_to :back
-  end
-
-
 end

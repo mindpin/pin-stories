@@ -45,11 +45,10 @@ MindpinAgile::Application.routes.draw do
 
   resources :milestones do
     resources :usecases, :shallow => true
+    resources :milestone_reports, :shallow => true
   end
 
-  post '/milestones/:id/create_report' => 'milestones#create_report'
-
-  resources :milestone_reports
+  
   post '/milestone_reports/:id/create_issue' => 'milestone_reports#create_issue'
 
   resources :milestone_issues

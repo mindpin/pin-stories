@@ -1,0 +1,16 @@
+- htitle '创建里程碑'
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb '创建案例', "/milestones/#{params[:id]}/usecases/new"
+
+.page-new-milestone
+  = form_for Usecase.new, :url => {:action => 'create'} do |f|
+    = flash_info
+    .field.need
+      %label 里程碑
+      = f.text_area :content
+      = f.hidden_field :usecase_id, :value => params[:parent_id]
+
+    .field.submit
+      = jfsubmit '添加'
+      = jfcancel '取消'
