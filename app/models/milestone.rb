@@ -12,7 +12,7 @@ class Milestone < ActiveRecord::Base
            :class_name => 'Usecase', :foreign_key => :milestone_id
 
 
-   has_many :reports,
+  has_many :reports,
             :class_name => 'MilestoneReport', :foreign_key => :milestone_id
 
   has_many :open_reports, 
