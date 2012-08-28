@@ -2,11 +2,7 @@
   - milestone = usecase.milestone
   .usecase{:data=>{:id=>usecase.id}}
     .meta
-      :ruby
-        new_url = "/milestones/#{milestone.id}/usecases/new?parent_id=#{usecase.id}"
-        edit_url = "/usecases/#{usecase.id}/edit"
-        delete_url = "/usecases/#{usecase.id}"
-
+      .id= usecase.id
       .name= usecase.content
       %a.new-issue{:href=>'javascript:;'} 添加问题
       .new-issue-form{:style=>'display:none;'}
