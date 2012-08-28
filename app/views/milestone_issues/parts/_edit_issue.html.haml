@@ -1,15 +1,10 @@
-:ruby
-  @milestone_issue = MilestoneIssue.find(issue_id)
-
-= form_for @milestone_issue  do |f|
-  = flash_info
+= form_for issue  do |f|
   .field.need
-    = f.text_area :content, :style => "width: 350px; height: 60px;"
+    = f.text_area :content
 
   .field.state
-    %label 状态
     = f.select :state, MilestoneIssue::STATES
 
   .field.submit
     = jfsubmit '确定'
-    %a.cancel-issue{:href=>'javascript:;', "data-id" => issue_id} 取消
+    %a.form-button.cancel{:href=>'javascript:;'} 取消

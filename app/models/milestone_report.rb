@@ -6,6 +6,8 @@ class MilestoneReport < ActiveRecord::Base
 
   validates :milestone, :product, :creator, :presence => true
 
+  default_scope order('id DESC')
+
   before_validation :on => :create do |report|
     if !report.milestone.blank?
       report.product = report.milestone.product

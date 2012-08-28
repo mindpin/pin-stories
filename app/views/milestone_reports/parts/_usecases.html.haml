@@ -1,0 +1,26 @@
+- usecases.each do |usecase|
+  - milestone = usecase.milestone
+  .usecase{:data=>{:id=>usecase.id}}
+    .meta
+      :ruby
+        new_url = "/milestones/#{milestone.id}/usecases/new?parent_id=#{usecase.id}"
+        edit_url = "/usecases/#{usecase.id}/edit"
+        delete_url = "/usecases/#{usecase.id}"
+
+      .name= usecase.content
+      %a.new-issue{:href=>'javascript:;'} 添加问题
+      .new-issue-form{:style=>'display:none;'}
+        = render 'milestone_issues/parts/new_issue', :usecase=>usecase
+
+    .issues
+      - issues = usecase.issues.with_state(params[:state] || 'OPEN')
+      - issues.each do |issue|
+        .issue{:data=>{:id=>issue.id}}
+          .content= issue.content
+          %a.edit-issue{:href=>'javascript:;'} 编辑
+          = link_to '删除', issue, :confirm=>'确定要删除这个问题吗?', :method=>:delete
+          .edit-issue-form{:style=>'display:none;'}
+            = render 'milestone_issues/parts/edit_issue', :issue=>issue
+
+    .children
+      = render 'milestone_reports/parts/usecases', :usecases=>usecase.sub_usecases

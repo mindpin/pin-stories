@@ -8,7 +8,11 @@ class MilestoneIssuesController < ApplicationController
 
   def update
     @milestone_issue.update_attributes(params[:milestone_issue])
+    redirect_to :back
+  end
 
+  def destroy
+    @milestone_issue.destroy
     redirect_to :back
   end
 end

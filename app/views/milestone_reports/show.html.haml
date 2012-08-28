@@ -1,52 +1,18 @@
+- product = @milestone.product
+
 - hbreadcrumb '首页', '/'
-- hbreadcrumb '里程碑', "/products/#{@milestone.product.id}/milestones"
-- hbreadcrumb @milestone.name, @milestone
+- hbreadcrumb "#{product.name} - 里程碑", "/products/#{product.id}/milestones"
+- hbreadcrumb @milestone.name, "/milestones/#{@milestone.id}"
 - hbreadcrumb "检查报告 - #{@report.title}"
 
-- content_for :javascript do
-  :javascript
-    jQuery(document).ready(function(){
-
-      $("ul li a.new-issue").live('click',function(){
-        var usecase_id = $(this).data("id");
-        $('#usecase-' + usecase_id + "-new-issue").show();
-      });
-
-
-      $("ul li a.edit-issue").live('click',function(){
-        var issue_id = $(this).data("id");
-        $('#edit-issue-' + issue_id).show();
-      });
-
-      $("ul li a.cancel-issue").live('click',function(){
-        var issue_id = $(this).data("id");
-        $('#edit-issue-' + issue_id).hide();
-      });
-    })
-
 .page-milestone-report-show
-  .title
+  .report-title
     = @report.title
-
   
   .states
-    = link_to "打开的", "/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::OPEN}"
-    = link_to "关闭的", "/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::CLOSED}"
-    = link_to "暂缓的", "/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::PAUSE}"
-    = link_to "全部", "/milestone_reports/#{@report.id}"
+    %a.open{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::OPEN}"} 打开的
+    %a.closed{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::CLOSED}"} 关闭的
+    %a.pause{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::PAUSE}"} 暂缓的
 
-
-
-  .table-of-contents
-    %ul
-      - @milestone.root_usecases.each do |usecase|
-        %li
-          .content= usecase.content
-
-          %a.new-issue{:href=>'javascript:;', "data-id" => usecase.id} 填写结果
-
-          %div{:id => "usecase-#{usecase.id}-new-issue", "data-id" => usecase.id, :style => "display: none;"}
-            = render 'milestone_reports/parts/new_issue', :usecase_id => usecase.id
-
-          = render 'milestone_reports/parts/issues', :usecase => usecase
-          = render 'milestone_reports/parts/sub_usecases', :usecase => usecase
+  .usecases
+    = render 'milestone_reports/parts/usecases', :usecases=>@milestone.root_usecases

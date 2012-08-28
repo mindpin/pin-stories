@@ -39,7 +39,6 @@
     &.open a.open, &.closed a.closed{
       &:before{
         content:">";
-        //color:white;
         margin-right:5px;
       }
     }

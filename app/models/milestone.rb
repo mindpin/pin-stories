@@ -24,7 +24,7 @@ class Milestone < ActiveRecord::Base
   validates :creator_id,  :presence => true
   validates :name,        :presence => true
   validates :state,       :presence => true,
-    :inclusion => [Milestone::State::OPEN,Milestone::State::CLOSED]
+    :inclusion => [Milestone::State::OPEN, Milestone::State::CLOSED]
 
   module UserMethods
     def self.included(base)

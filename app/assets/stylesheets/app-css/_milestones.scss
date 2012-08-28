@@ -14,6 +14,46 @@
   }
 }
 
+@mixin usecases{
+  background-color:rgba(black, 0.05);
+  padding:10px;
+  margin-bottom:20px;
+
+  .usecase{
+    .meta{
+      @include floatfix;
+      padding:0 16px;
+      height:32px;line-height:32px;
+      position:relative;
+
+      .name{
+        font-size:16px;
+        float:left;
+        margin-right:14px;
+      }
+      .ops{
+        float:left;
+      }
+
+      &:before{
+        content:"";
+        display:block;
+        position:absolute;
+        left:-4px;
+        top:13px;
+        @include border-radius(10px);
+        width:8px;height:8px;
+        border:solid 1px lighten(#ffd75f, 40%);
+        background-color:darken(#ffd75f, 20%);
+      }
+    }
+    .children{
+      padding-left:28px;
+      border-left:solid 2px #ccc;
+    }
+  }
+}
+
 .page-milestone-show{
   .milestone-title{
     font-size:16px;
@@ -32,43 +72,7 @@
   }
 
   .usecases{
-    background-color:rgba(black, 0.05);
-    padding:10px;
-    margin-bottom:20px;
-
-    .usecase{
-      .meta{
-        @include floatfix;
-        padding:0 16px;
-        height:32px;line-height:32px;
-        position:relative;
-
-        .name{
-          font-size:16px;
-          float:left;
-          margin-right:20px;
-        }
-        .ops{
-          float:left;
-        }
-
-        &:before{
-          content:"";
-          display:block;
-          position:absolute;
-          left:-4px;
-          top:13px;
-          @include border-radius(10px);
-          width:8px;height:8px;
-          border:solid 1px lighten(#ffd75f, 40%);
-          background-color:darken(#ffd75f, 20%);
-        }
-      }
-      .children{
-        padding-left:28px;
-        border-left:solid 2px #ccc;
-      }
-    }
+    @include usecases;
   }
 
   .new-report{
@@ -77,6 +81,128 @@
     border-bottom:solid 1px #454545;
     a{
       @include new-model-button;
+    }
+  }
+
+  .reports{
+    .report{
+      @include content-box;
+      @include floatfix;
+      .title{
+        float:left;
+        margin-right:20px;
+      }
+      .time{
+        float:left;
+        margin-right:20px;
+      }
+      .ops{
+        float:left;
+      }
+    }
+  }
+}
+
+.page-milestone-report-show{
+  .report-title{
+    font-size:16px;
+    padding-bottom:10px;
+    margin-bottom:10px;
+    border-bottom:solid 1px #454545;
+  }
+  .states{
+    @include floatfix;
+
+    a{
+      float:left;
+      height:24px;line-height:24px;
+      padding:0 7px;
+      margin-right:10px;
+    }
+
+    a.open{
+      color:lighten(#6CC644, 30%);
+      background-color:rgba(#6CC644, 0.1);
+    }
+    a.closed{
+      color:lighten(#BD2C00, 30%);
+      background-color:rgba(#BD2C00, 0.1);
+    }
+    a.pause{
+      color:lighten(#FFBD00, 30%);
+      background-color:rgba(#FFBD00, 0.1);
+    }
+  }
+  .usecases{
+    @include usecases;
+
+    .usecase{
+      .meta{
+        @include floatfix;
+        height:auto;
+        a.new-issue{
+          float:left;
+          height:32px;line-height:32px;
+        }
+        .new-issue-form{
+          clear:both;
+          margin-top:10px;
+          padding:10px;
+          @include content-box;
+          textarea{
+            width:350px;
+            height:40px;
+          }
+          .field{
+            margin-bottom:0;
+          }
+          .field.submit{
+            a{margin-top:0;
+              height:30px;line-height:30px;
+              padding:0 14px;
+            }
+          }
+        }
+      }
+
+      .issues{
+        margin-left:16px;
+        .issue{
+          line-height:24px;
+          .content{
+            float:left;margin-right:14px;
+            color:#76B8F2;
+            &:before{
+              content:">";
+              margin-right:7px;
+            }
+          }
+
+          &:last-child{
+            margin-bottom:10px;
+          }
+
+          .edit-issue-form{
+            clear:both;
+            margin-top:10px;
+            padding:10px;
+            @include content-box;
+            textarea{
+              width:350px;
+              height:40px;
+            }
+            .field.submit{
+              a{
+                height:30px;line-height:30px;
+                padding:0 14px;
+              }
+            }
+          }
+        }
+      }
+      .children{
+        border-color:transparent;
+      }
     }
   }
 }

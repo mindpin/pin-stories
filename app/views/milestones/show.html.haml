@@ -1,7 +1,7 @@
-- htitle '创建里程碑'
+- product = @milestone.product
 
 - hbreadcrumb '首页', '/'
-- hbreadcrumb '里程碑', "/products/#{@milestone.product.id}/milestones"
+- hbreadcrumb "#{product.name} - 里程碑", "/products/#{product.id}/milestones"
 - hbreadcrumb @milestone.name
 
 .page-milestone-show
@@ -19,10 +19,8 @@
   .reports
     - @milestone.open_reports.each do |report|
       .report
-        %a{:href=>"/milestone_reports/#{report.id}"} 
-          %span= "#{report.title}"
-          = jtime(report.created_at)
-
-      .ops
-        = link_to '修改', "/milestone_reports/#{report.id}/edit"
-        = link_to '删除', "/milestone_reports/#{report.id}", :confirm=>'确定删除吗？', :method=>:delete, :class=>:remove
+        %a.title{:href=>"/milestone_reports/#{report.id}"}= report.title
+        .time= jtime(report.created_at)
+        .ops
+          = link_to '修改', "/milestone_reports/#{report.id}/edit"
+          = link_to '删除', "/milestone_reports/#{report.id}", :confirm=>'确定删除吗？', :method=>:delete, :class=>:remove
