@@ -31,7 +31,7 @@
         %a.close{:href=>'javascript:;'} 关闭这个 Issue
 
     .state-change.paused
-      - if issue.paused?
+      - if issue.pause?
         %a.reopen{:href=>'javascript:;'} 重新启用这个 Issue
       - else
         %a.pause{:href=>'javascript:;'} 暂缓这个 Issue

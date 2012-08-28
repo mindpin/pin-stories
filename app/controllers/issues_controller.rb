@@ -19,8 +19,8 @@ class IssuesController < ApplicationController
     render :index
   end
 
-  def index_paused
-    c = @product.issues.with_state(Issue::STATE_PAUSED)
+  def index_pause
+    c = @product.issues.with_state(Issue::STATE_PAUSE)
     @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
     render :index
   end
