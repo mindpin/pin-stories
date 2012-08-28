@@ -2,10 +2,12 @@ class Issue < ActiveRecord::Base
 
   STATE_OPEN = 'OPEN'
   STATE_CLOSED = 'CLOSED'
+  STATE_PAUSED = 'PAUSED'
 
   STATES = [
     STATE_OPEN,
-    STATE_CLOSED
+    STATE_CLOSED,
+    STATE_PAUSED
   ]
 
   belongs_to :product
@@ -28,6 +30,10 @@ class Issue < ActiveRecord::Base
 
   def closed?
     self.state == STATE_CLOSED
+  end
+
+  def paused?
+    self.state == STATE_PAUSED
   end
 
   # 引用其它类

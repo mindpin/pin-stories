@@ -61,6 +61,17 @@ pie.load ->
         $new = jQuery(res)
         $show.before($new).remove()
 
+  # 暂缓 issue
+  jQuery('.page-issue-show .state-change a.pause').live 'click', ->
+    $show = jQuery(this).closest('.page-issue-show')
+    id = $show.data('id')
+    jQuery.ajax
+      url: "/issues/#{id}/pause"
+      type: 'PUT'
+      success: (res)->
+        $new = jQuery(res)
+        $show.before($new).remove()
+
 
 # $(document).ready(function(){
 #   $('.edit-issue').live('click', function(){

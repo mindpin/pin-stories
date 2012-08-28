@@ -16,8 +16,10 @@
   .nav{:class=>nav_klass}
     - open_count = @product.issues.with_state(Issue::STATE_OPEN).count
     - closed_count = @product.issues.with_state(Issue::STATE_CLOSED).count
+    - paused_count = @product.issues.with_state(Issue::STATE_PAUSED).count
     %a.open{:href=>"/products/#{@product.id}/issues"} 未关闭的Issue (#{open_count})
     %a.closed{:href=>"/products/#{@product.id}/issues/closed"} 已关闭的Issue (#{closed_count})
+    %a.paused{:href=>"/products/#{@product.id}/issues/paused"} 已暂缓的Issue (#{paused_count})
     
   - @issues.each do |issue|
     :ruby
@@ -33,7 +35,7 @@
           .name= user_link creator
           .ops
             -if can_edit
-              %a.edit-issue{:href=>'javascript:;'} 修改
+              %a.edit{:href=>"/issues/#{issue.id}/edit"} 修改
               %a.delete-issue{:href=>'javascript:;'} 删除
         .text
           = issue_ct issue

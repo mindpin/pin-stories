@@ -35,6 +35,7 @@ MindpinAgile::Application.routes.draw do
     resources :issues,     :except => [:show, :edit, :update, :destroy] do
       collection do
         get :closed, :action=>'index_closed'
+        get :paused, :action=>'index_paused'
       end
     end
     resources :streams,    :shallow => true
@@ -58,6 +59,7 @@ MindpinAgile::Application.routes.draw do
     member do
       put :close
       put :reopen
+      put :pause
     end
   end
 

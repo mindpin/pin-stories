@@ -14,7 +14,7 @@ class MilestoneReport < ActiveRecord::Base
 
 
   def close
-    self.state = 'CLOSE'
+    self.state = 'CLOSED'
     self.save
   end
 

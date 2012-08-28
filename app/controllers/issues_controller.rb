@@ -19,8 +19,17 @@ class IssuesController < ApplicationController
     render :index
   end
 
+  def index_paused
+    c = @product.issues.with_state(Issue::STATE_PAUSED)
+    @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    render :index
+  end
+
   def new
     @issue = Issue.new
+  end
+
+  def edit
   end
 
   def create    
@@ -41,16 +50,8 @@ class IssuesController < ApplicationController
   end
 
   def update
-    id = params[:id]
-    content = params[:content]
-
-    unless id.nil?
-      issue = Issue.find(id) 
-      issue.content = content
-      issue.save
-    end
-
-    render :text => issue.content
+    @issue.update_attributes(params[:issue])
+    redirect_to "/issues/#{@issue.id}"
   end
 
   # for ajax
@@ -71,6 +72,16 @@ class IssuesController < ApplicationController
   # for ajax
   def close
     @issue.state = Issue::STATE_CLOSED
+    @issue.save
+
+    render :partial => 'issues/parts/show', 
+           :locals => {:issue => @issue}
+  end
+
+
+  # for ajax
+  def pause
+    @issue.state = Issue::STATE_PAUSED
     @issue.save
 
     render :partial => 'issues/parts/show', 
