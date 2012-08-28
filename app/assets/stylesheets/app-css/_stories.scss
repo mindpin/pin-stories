@@ -31,27 +31,7 @@
 .page-story-show{
   position:relative;
   width:600px;
-  
-  .admin-ops{
-    padding:5px;
-    border:dashed 1px #eee;
-    background-color:#fafafa;@include border-radius(3px);
-    position:absolute;top:-20px;right:10px;
-    z-index:2;
-    .t{
-      background-color:darken(red,30%);
-      text-align:center;
-      color:#fff;font-size:10px;
-      margin-bottom:5px;
-      @include border-radius(3px);
-    }
-    .op{
-      margin-bottom:5px;
-      overflow:hidden;a{@include mini-button;}
-      &:last-child{margin-bottom:0;}
-    }
-  }
-  
+
   .belongs-to{
     position:relative;
     margin-bottom:15px;
@@ -107,7 +87,7 @@
     }
   }
   
-  .how-to-demo, .tips, .assigned-members, .add-ideas, .status{
+  .how-to-demo, .tips, .assigned-members, .add-ideas, .status, .admin-ops{
     margin-bottom:30px;
     .t{
       font-weight:bold;
@@ -160,6 +140,16 @@
       }
     }
   }
+
+  .admin-ops{
+    .op{
+      &:before{
+        content:"> admin ";
+        color:#FF9999;
+      }
+    }
+  }
+
 }
 
 .page-mine-stories-filter-nav{
