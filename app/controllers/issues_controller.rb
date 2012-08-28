@@ -81,7 +81,7 @@ class IssuesController < ApplicationController
 
   # for ajax
   def pause
-    @issue.state = Issue::STATE_PAUSED
+    @issue.state = Issue::STATE_PAUSE
     @issue.save
 
     render :partial => 'issues/parts/show', 
