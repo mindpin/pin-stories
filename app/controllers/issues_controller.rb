@@ -103,4 +103,12 @@ class IssuesController < ApplicationController
     redirect_to "/issues/#{@issue.id}"
   end
 
+  # ajax, 领取 issue
+  def receive
+    current_user.receive_issue(@issue)
+
+    render :partial => 'issues/parts/show', 
+           :locals => {:issue => @issue}
+  end
+
 end
