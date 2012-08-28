@@ -32,6 +32,9 @@
       color:lighten(#BD2C00, 30%);
       background-color:rgba(#BD2C00, 0.1);
     }
+    a.pause{
+      
+    }
     &.open a.open, &.closed a.closed{
       &:before{
         content:">";
