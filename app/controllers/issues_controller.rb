@@ -29,6 +29,9 @@ class IssuesController < ApplicationController
     @issue = Issue.new
   end
 
+  def edit
+  end
+
   def create    
     issue = Issue.new params[:issue]
     issue.creator = current_user
@@ -47,16 +50,8 @@ class IssuesController < ApplicationController
   end
 
   def update
-    id = params[:id]
-    content = params[:content]
-
-    unless id.nil?
-      issue = Issue.find(id) 
-      issue.content = content
-      issue.save
-    end
-
-    render :text => issue.content
+    @issue.update_attributes(params[:issue])
+    redirect_to "/issues/#{@issue.id}"
   end
 
   # for ajax

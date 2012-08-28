@@ -1,0 +1,20 @@
+:ruby
+  product_name = @issue.product.name
+  product_issues_url = "/products/#{@issue.product.id}/issues"
+
+- htitle "创建问题或建议: #{product_name}"
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @issue.product.name, "/products/#{@issue.product.id}"
+- hbreadcrumb '问题或建议', "/products/#{@issue.product.id}/issues"
+- hbreadcrumb '编辑问题或建议', "/products/#{@issue.product.id}/issues/edit"
+
+.page-new-issue
+  =flash_info
+  =form_for [@product, @issue] do |f|
+    .field.content.need
+      %label 请在下面填写你的问题或建议描述
+      =f.text_area :content
+    .field.submit
+      %a.form-submit-button{:href=>'javascript:;'} 确定
+      %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消
