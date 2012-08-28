@@ -12,6 +12,8 @@ class Issue < ActiveRecord::Base
 
   belongs_to :product
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
+  has_many :issue_assigns
+  has_many :users, :through => :issue_assigns
 
   validates :product, :creator, :content, :presence => true
 

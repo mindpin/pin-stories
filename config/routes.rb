@@ -60,6 +60,9 @@ MindpinAgile::Application.routes.draw do
       put :close
       put :reopen
       put :pause
+
+      get :assign_users
+      put :do_assign_users
     end
   end
 

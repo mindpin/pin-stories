@@ -88,4 +88,19 @@ class IssuesController < ApplicationController
            :locals => {:issue => @issue}
   end
 
+
+
+  def assign_users
+  end
+  
+  def do_assign_users
+    users = (params[:user_ids]||[]).map{|uid|User.find_by_id(uid)}.compact
+    if users.blank?
+      flash[:error] = "至少指派给一个人"
+      return redirect_to "/issues/#{@issue.id}/assign_users"
+    end
+    @issue.users = users
+    redirect_to "/issues/#{@issue.id}"
+  end
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120827092443) do
+ActiveRecord::Schema.define(:version => 20120828052550) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -94,6 +94,13 @@ ActiveRecord::Schema.define(:version => 20120827092443) do
     t.text    "content"
     t.integer "source_story_id"
     t.integer "creator_id"
+  end
+
+  create_table "issue_assigns", :force => true do |t|
+    t.integer  "issue_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "issues", :force => true do |t|
@@ -185,7 +192,7 @@ ActiveRecord::Schema.define(:version => 20120827092443) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",         :default => "",   :null => false
+    t.string   "status",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
@@ -213,8 +220,8 @@ ActiveRecord::Schema.define(:version => 20120827092443) do
   end
 
   create_table "streams", :force => true do |t|
-    t.string   "title",      :default => "", :null => false
-    t.integer  "product_id",                 :null => false
+    t.string   "title",      :null => false
+    t.integer  "product_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
