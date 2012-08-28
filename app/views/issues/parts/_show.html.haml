@@ -5,6 +5,8 @@
       .state{:class=>'open'} Open
     - when Issue::STATE_CLOSED
       .state{:class=>'closed'} Closed
+    - when Issue::STATE_PAUSE
+      .state{:class=>'pause'} Pause
 
   .content= issue_ct issue
 
@@ -22,16 +24,20 @@
       .name= user_link User.find(1)
       .desc
         %span 关闭了这个 Issue
+  - if issue.pause?
+    .state-change.pause
+      .state Pause
+      .avatar= avatar_link User.find(1), :tiny
+      .name= user_link User.find(1)
+      .desc
+        %span 将这个 Issue 暂缓
 
   - if admin_logged_in?
     .state-change.open-close
       - if issue.closed?
         %a.reopen{:href=>'javascript:;'} 重新打开这个 Issue
+      - elsif issue.pause?
+        %a.reopen{:href=>'javascript:;'} 重新打开这个 Issue
       - else
         %a.close{:href=>'javascript:;'} 关闭这个 Issue
-
-    .state-change.paused
-      - if issue.paused?
-        %a.reopen{:href=>'javascript:;'} 重新启用这个 Issue
-      - else
-        %a.pause{:href=>'javascript:;'} 暂缓这个 Issue
+        %a.pause{:href=>'javascript:;'} 将这个 Issue 暂缓

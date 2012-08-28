@@ -2,24 +2,29 @@
 
 - hbreadcrumb '首页', '/'
 - hbreadcrumb @product.name, "/products/#{@product.id}"
-- if action_name == 'index_closed'
+
+- case action_name
+- when 'index_closed'
   - nav_klass = 'closed'
   - hbreadcrumb '已关闭的Issue', "/products/#{@product.id}/issues/closed"
-- else
+- when 'index_paush'
+  - nav_klass = 'pause'
+  - hbreadcrumb '暂缓的Issue', "/products/#{@product.id}/issues/pause"
+- when 'index'
   - nav_klass = 'open'
   - hbreadcrumb 'Issue', "/products/#{@product.id}/issues"
-
 
 .page-product-issues
   .ops
     %a.add-issue{:href=>"/products/#{@product.id}/issues/new"} 创建Issue
   .nav{:class=>nav_klass}
-    - open_count = @product.issues.with_state(Issue::STATE_OPEN).count
-    - closed_count = @product.issues.with_state(Issue::STATE_CLOSED).count
-    - paused_count = @product.issues.with_state(Issue::STATE_PAUSED).count
+    :ruby
+      open_count = @product.issues.with_state(Issue::STATE_OPEN).count
+      closed_count = @product.issues.with_state(Issue::STATE_CLOSED).count
+      pause_count = @product.issues.with_state(Issue::STATE_PAUSE).count
     %a.open{:href=>"/products/#{@product.id}/issues"} 未关闭的Issue (#{open_count})
     %a.closed{:href=>"/products/#{@product.id}/issues/closed"} 已关闭的Issue (#{closed_count})
-    %a.paused{:href=>"/products/#{@product.id}/issues/paused"} 暂缓的Issue (#{paused_count})
+    %a.pause{:href=>"/products/#{@product.id}/issues/pause"} 暂缓的Issue (#{pause_count})
     
   - @issues.each do |issue|
     :ruby
@@ -58,6 +63,8 @@
             .state{:class=>'open'} Open
           - when Issue::STATE_CLOSED
             .state{:class=>'closed'} Closed
+          - when Issue::STATE_PAUSE
+            .state{:class=>'pause'} Pause
 
 .page-paginate= will_paginate @issues
 
