@@ -19,6 +19,12 @@ class IssuesController < ApplicationController
     render :index
   end
 
+  def index_paused
+    c = @product.issues.with_state(Issue::STATE_PAUSED)
+    @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    render :index
+  end
+
   def new
     @issue = Issue.new
   end
@@ -71,6 +77,16 @@ class IssuesController < ApplicationController
   # for ajax
   def close
     @issue.state = Issue::STATE_CLOSED
+    @issue.save
+
+    render :partial => 'issues/parts/show', 
+           :locals => {:issue => @issue}
+  end
+
+
+  # for ajax
+  def pause
+    @issue.state = Issue::STATE_PAUSED
     @issue.save
 
     render :partial => 'issues/parts/show', 
