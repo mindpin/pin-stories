@@ -35,7 +35,7 @@
           .name= user_link creator
           .ops
             -if can_edit
-              %a.edit-issue{:href=>"/issues/#{issue.id}/edit"} 修改
+              %a.edit{:href=>"/issues/#{issue.id}/edit"} 修改
               %a.delete-issue{:href=>'javascript:;'} 删除
         .text
           = issue_ct issue
