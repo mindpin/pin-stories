@@ -57,7 +57,12 @@ MindpinAgile::Application.routes.draw do
   
   post '/milestone_reports/:id/create_issue' => 'milestone_reports#create_issue'
 
-  resources :milestone_issues
+  resources :milestone_issues do
+    member do
+      get :assign_users
+      put :do_assign_users
+    end
+  end
 
 
   resources :issues, :only => [:show, :edit, :update, :destroy] do
