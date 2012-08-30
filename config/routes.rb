@@ -60,6 +60,8 @@ MindpinAgile::Application.routes.draw do
 
   resources :milestone_issues do
     member do
+      get :assign_users
+      put :do_assign_users
       put :change_state
     end
   end
