@@ -9,10 +9,19 @@
         = render 'milestone_issues/parts/new_issue', :usecase=>usecase
 
     .issues
-      - issues = usecase.issues.with_state(params[:state] || 'OPEN')
+      :ruby
+        state = params[:state] || 'OPEN'
+        issues = usecase.issues.with_state(state)
+
       - issues.each do |issue|
-        .issue{:data=>{:id=>issue.id}}
-          .creator-avatar= avatar_link issue.creator, :mini
+        :ruby
+          creator = issue.creator
+          can_edit = admin_logged_in? || creator == current_user
+
+          data = {:id => issue.id}
+
+        .issue{:data=>data}
+          .creator-avatar= avatar_link creator, :mini
           .content= issue.content
           .ops
             = link_to '编辑', 'javascript:;', :class=>'edit-issue'
