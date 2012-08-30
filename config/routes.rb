@@ -28,6 +28,7 @@ MindpinAgile::Application.routes.draw do
   resources :users do
     member do
       get :issues
+      get :assigned_issues
       get :ideas
     end
   end
@@ -59,9 +60,13 @@ MindpinAgile::Application.routes.draw do
 
   resources :milestone_issues do
     member do
+<<<<<<< HEAD
       get :assign_users
       put :do_assign_users
       get :receive
+=======
+      put :change_state
+>>>>>>> upstream/master
     end
   end
 
