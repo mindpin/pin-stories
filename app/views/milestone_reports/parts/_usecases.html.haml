@@ -2,19 +2,22 @@
   milestone = report.milestone
 
 - usecases.each do |usecase|
+  :ruby
+    state = params[:state] || 'OPEN'
+    issues = usecase.issues.with_state(state).of_report(report)
+
+    name_klass = issues.blank? ? 'no-issue' : ''
+
   .usecase{:data=>{:id=>usecase.id}}
     .meta
       .id= usecase.id
-      .name= usecase.content
+      .name{:class=>name_klass}= usecase.content
+
       %a.new-issue{:href=>'javascript:;'} 添加问题
       .new-issue-form{:style=>'display:none;'}
         = render 'milestone_issues/parts/new_issue', :usecase=>usecase
 
     .issues
-      :ruby
-        state = params[:state] || 'OPEN'
-        issues = usecase.issues.with_state(state).of_report(report)
-
       - issues.each do |issue|
         :ruby
           creator = issue.creator

@@ -28,6 +28,7 @@ MindpinAgile::Application.routes.draw do
   resources :users do
     member do
       get :issues
+      get :assigned_issues
       get :ideas
     end
   end
