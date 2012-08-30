@@ -1,0 +1,24 @@
+.add-ideas
+  .t 添加一个想法
+
+  - if story.source_idea
+    .source-idea
+      来源想法：
+      = link_to "##{story.source_idea.id}", story.source_idea
+
+  = link_to '添加延伸想法', 'javascript:;', :class => 'add-idea'
+
+  .ideas
+    - if story.ideas.any?
+      = render 'ideas/for_story', :story => story
+
+  = form_for Idea.new, :url => create_for_story_ideas_path do |f|
+    = flash_info
+    = f.hidden_field :source_story_id, :value => story.id
+    .field.need
+      %label 想法内容
+      = f.text_area :content
+    .field.submit
+      = link_to '提交', 'javascript:;', :class => 'submit-idea'
+      = link_to '取消', 'javascript:;', :class => 'cancel-idea'
+

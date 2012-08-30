@@ -1,3 +1,4 @@
+# -*- coding: no-conversion -*-
 class IdeasController < ApplicationController
   before_filter :login_required
   before_filter :pre_load
@@ -11,15 +12,6 @@ class IdeasController < ApplicationController
 
   def new
     @idea = Idea.new
-  end
-
-  def edit
-  end
-
-  def update
-    @idea.update_attributes(params[:idea])
-
-    redirect_to "/ideas/#{@idea.id}"
   end
 
   def create
@@ -46,4 +38,16 @@ class IdeasController < ApplicationController
     @ideas = Idea.all
   end
 
+  def edit
+  end
+
+  def update
+    return redirect_to ideas_path if @idea.update_attributes params[:idea]
+    render :action => :edit
+  end
+
+  def destroy
+    @idea.destroy
+    render :text => '想法成功删除'
+  end
 end

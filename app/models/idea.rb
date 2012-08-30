@@ -13,6 +13,8 @@ class Idea < ActiveRecord::Base
 
   validates :content, :creator, :presence => true
 
+  default_scope order('created_at DESC')
+
   include Comment::CommentableMethods
 
   module UserMethods
