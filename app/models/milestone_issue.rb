@@ -28,6 +28,7 @@ class MilestoneIssue < ActiveRecord::Base
                     :inclusion => MilestoneIssue::STATES
 
   scope :with_state, lambda {|state| where(:state=>state)}
+  scope :of_report, lambda {|report| where(:check_report_id=>report.id)}
 
 
   module UserMethods

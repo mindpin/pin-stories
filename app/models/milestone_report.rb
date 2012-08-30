@@ -2,6 +2,7 @@ class MilestoneReport < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :milestone, :class_name => 'Milestone', :foreign_key => :milestone_id
   belongs_to :product, :class_name => 'Product', :foreign_key => :product_id
+  
   has_many :milestone_issues, :class_name => 'MilestoneIssue', :foreign_key => :check_report_id
 
   validates :milestone, :product, :creator, :presence => true

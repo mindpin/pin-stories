@@ -1,5 +1,7 @@
+:ruby
+  milestone = report.milestone
+
 - usecases.each do |usecase|
-  - milestone = usecase.milestone
   .usecase{:data=>{:id=>usecase.id}}
     .meta
       .id= usecase.id
@@ -11,7 +13,7 @@
     .issues
       :ruby
         state = params[:state] || 'OPEN'
-        issues = usecase.issues.with_state(state)
+        issues = usecase.issues.with_state(state).of_report(report)
 
       - issues.each do |issue|
         :ruby
@@ -31,4 +33,4 @@
             = render 'milestone_issues/parts/edit_issue', :issue=>issue
 
     .children
-      = render 'milestone_reports/parts/usecases', :usecases=>usecase.sub_usecases
+      = render 'milestone_reports/parts/usecases', :usecases=>usecase.sub_usecases, :report=>report

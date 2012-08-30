@@ -15,4 +15,4 @@
     %a.pause{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::PAUSE}"} 暂缓的问题
 
   .usecases
-    = render 'milestone_reports/parts/usecases', :usecases=>@milestone.root_usecases
+    = render 'milestone_reports/parts/usecases', :usecases=>@milestone.root_usecases, :report=>@report
