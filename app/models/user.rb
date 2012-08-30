@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   include Activity::UserMethods
   include Draft::UserMethods
   include Issue::UserMethods
+  include IssueAssign::UserMethods
   include Idea::UserMethods
 
   include Comment::UserMethods

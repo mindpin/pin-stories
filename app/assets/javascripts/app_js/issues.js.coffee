@@ -73,6 +73,20 @@ pie.load ->
         $show.before($new).remove()
 
 
+  # 领取 issue
+  jQuery('.page-issue-show .receive-issue a.receive').live 'click', ->
+    $show = jQuery(this).closest('.page-issue-show')
+    id = $show.data('id')
+    jQuery.ajax
+      url: "/issues/#{id}/receive"
+      type: 'PUT'
+      success: (res)->
+        $new = jQuery(res)
+        $show.before($new).remove()
+
+
+
+
 # $(document).ready(function(){
 #   $('.edit-issue').live('click', function(){
 #     var elm = jQuery(this).closest('.edit-issue');

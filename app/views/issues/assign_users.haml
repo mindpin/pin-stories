@@ -1,0 +1,13 @@
+=flash[:error]
+=form_tag "/issues/#{@issue.id}/do_assign_users",:method=>:put do
+  %div
+    %label 指派执行人
+  %div
+    -users = @issue.users
+    -User.all.each do |user|
+      %span
+        =check_box_tag("user_ids[]", user.id, users.include?(user))
+        %label=user.name
+        
+  %div
+    =submit_tag "指派"
