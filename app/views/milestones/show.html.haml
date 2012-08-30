@@ -21,6 +21,13 @@
       .report
         %a.title{:href=>"/milestone_reports/#{report.id}"}= report.title
         .time= jtime(report.created_at)
+        .issues
+          %a.open{:href=>"/milestone_reports/#{report.id}?state=#{MilestoneIssue::State::OPEN}"}
+            #{report.open_issues_count}个打开的问题
+          %a.closed{:href=>"/milestone_reports/#{report.id}?state=#{MilestoneIssue::State::CLOSED}"}
+            #{report.closed_issues_count}个关闭的问题
+          %a.pause{:href=>"/milestone_reports/#{report.id}?state=#{MilestoneIssue::State::PAUSE}"}
+            #{report.pause_issues_count}个暂缓的问题
         .ops
           = link_to '修改', "/milestone_reports/#{report.id}/edit"
           = link_to '删除', "/milestone_reports/#{report.id}", :confirm=>'确定删除吗？', :method=>:delete, :class=>:remove
