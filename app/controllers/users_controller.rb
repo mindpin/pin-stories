@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   def issues
   end
 
+  def assigned_issues
+  end
+
   def ideas
   end
   
