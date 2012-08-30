@@ -10,9 +10,12 @@
     = @report.title
   
   .states
-    %a.open{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::OPEN}"} 打开的问题
-    %a.closed{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::CLOSED}"} 关闭的问题
-    %a.pause{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::PAUSE}"} 暂缓的问题
+    %a.open{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::OPEN}"}
+      #{@report.open_issues_count}个打开的问题
+    %a.closed{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::CLOSED}"}
+      #{@report.closed_issues_count}个关闭的问题
+    %a.pause{:href=>"/milestone_reports/#{@report.id}?state=#{MilestoneIssue::State::PAUSE}"}
+      #{@report.pause_issues_count}个暂缓的问题
 
   .usecases
     = render 'milestone_reports/parts/usecases', :usecases=>@milestone.root_usecases, :report=>@report
