@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class UsecasesController < ApplicationController
   before_filter :login_required
   before_filter :pre_load
@@ -12,14 +13,15 @@ class UsecasesController < ApplicationController
 
   def create
     usecase = current_user.usecases.build(params[:usecase])
+    #usecase = current_user.usecases.build(:content => params[:content], :usecase_id => params[:usecase_id])
     usecase.product = @milestone.product
     usecase.milestone = @milestone
 
     if usecase.save
-      return redirect_to @milestone
+      return render :text => '用例创建成功!'
     end
 
-    render :text=>usecase.errors.to_json
+    render :status => 406, :text => usecase.errors.messages.to_json
   end
 
 

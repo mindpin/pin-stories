@@ -11,3 +11,4 @@ config/database.yml
 db/sphinx
 *~
 public/system
+.rvmrc

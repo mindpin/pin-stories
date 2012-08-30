@@ -29,6 +29,10 @@ class MilestoneIssue < ActiveRecord::Base
 
   scope :with_state, lambda {|state| where(:state=>state)}
 
+  scope :closed_issues, with_state(MilestoneIssue::State::CLOSED)
+  scope :pause_issues, with_state(MilestoneIssue::State::PAUSE)
+  scope :open_issues, with_state(MilestoneIssue::State::OPEN)
+
 
   module UserMethods
     def self.included(base)
