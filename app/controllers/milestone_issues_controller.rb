@@ -15,4 +15,9 @@ class MilestoneIssuesController < ApplicationController
     @milestone_issue.destroy
     redirect_to :back
   end
+
+  def change_state
+    @milestone_issue.update_attributes(:state => params[:state])
+    render :partial => '/milestone_issues/aj/show_state', :locals => {:milestone_issue => @milestone_issue}
+  end
 end
