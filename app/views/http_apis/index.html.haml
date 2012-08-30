@@ -12,7 +12,7 @@
     %ul
     - @http_apis.each do |http_api|
       %li
-        .logic= http_api.title
+        .logic= link_to http_api.title, "/http_apis/#{http_api.id}"
         .ops
           -if http_api.creator = current_user
             =link_to "修改", "/http_apis/#{http_api.id}/edit"

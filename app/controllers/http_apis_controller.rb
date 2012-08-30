@@ -7,8 +7,12 @@ class HttpApisController < ApplicationController
   end
 
 
-  def designer
+  def index
     @http_apis = HttpApi.paginate(:page => params[:page], :per_page => 20)
+  end
+
+
+  def show
   end
 
   def create

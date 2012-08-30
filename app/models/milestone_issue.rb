@@ -21,6 +21,9 @@ class MilestoneIssue < ActiveRecord::Base
   belongs_to :usecase, :class_name => 'Usecase', 
                        :foreign_key => :usecase_id
 
+  has_many :milestone_issue_assigns
+  has_many :users, :through => :milestone_issue_assigns
+
 
   validates :creator_id, :check_report_id, :usecase_id, :content, :presence => true
 

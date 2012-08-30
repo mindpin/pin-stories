@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
 
   include Milestone::UserMethods
   include MilestoneIssue::UserMethods
+  include MilestoneIssueAssign::UserMethods
   include MilestoneReport::UserMethods
   include Usecase::UserMethods
 

@@ -1,0 +1,14 @@
+- htitle "Http Api - 创建新Api"
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb "Http Api列表", "/http_apis"
+
+
+=render 'http_apis/parts/navigation'
+
+
+.page-http-apis
+  .title= @http_api.title
+  .type= @http_api.request_type
+  .url= @http_api.url
+  .logic= @http_api.logic
