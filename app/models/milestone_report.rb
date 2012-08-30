@@ -14,6 +14,17 @@ class MilestoneReport < ActiveRecord::Base
     end
   end
 
+  def open_issues_count
+    milestone_issues.open_issues.count
+  end
+
+  def closed_issues_count
+    milestone_issues.closed_issues.count
+  end
+
+  def pause_issues_count
+    milestone_issues.pause_issues.count
+  end
 
   def close
     self.state = 'CLOSED'
