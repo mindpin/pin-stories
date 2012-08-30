@@ -13,19 +13,6 @@ class IssueAssign < ActiveRecord::Base
     end
     
     module InstanceMethods
-
-      def received_issue?(issue)
-        if IssueAssign.where(:user_id => self.id, :issue_id => issue.id).exists?
-          return true
-        end
-        return false
-      end
-
-      def receive_issue(issue)        
-        unless received_issue?(issue)
-          IssueAssign.create(:user => self, :issue => issue)
-        end
-      end
     end
 
   end
