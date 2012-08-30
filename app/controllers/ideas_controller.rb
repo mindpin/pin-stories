@@ -13,6 +13,15 @@ class IdeasController < ApplicationController
     @idea = Idea.new
   end
 
+  def edit
+  end
+
+  def update
+    @idea.update_attributes(params[:idea])
+
+    redirect_to "/ideas/#{@idea.id}"
+  end
+
   def create
     @idea = current_user.ideas.build params[:idea]
     return redirect_to :action => :index if @idea.save
