@@ -1,0 +1,12 @@
+-htitle "#{@user.name} - 个人页"
+
+-hbreadcrumb '首页', '/'
+-hbreadcrumb @user.name, "/users/#{@user.id}"
+
+
+.page-issues
+  
+  - if !@user.issues.blank?
+    %ul
+    - @user.issues.each do |issue|
+      %li= issue.content
