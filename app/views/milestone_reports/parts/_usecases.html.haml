@@ -12,9 +12,11 @@
       - issues = usecase.issues.with_state(params[:state] || 'OPEN')
       - issues.each do |issue|
         .issue{:data=>{:id=>issue.id}}
+          .creator-avatar= avatar_link issue.creator, :mini
           .content= issue.content
-          %a.edit-issue{:href=>'javascript:;'} 编辑
-          = link_to '删除', issue, :confirm=>'确定要删除这个问题吗?', :method=>:delete
+          .ops
+            = link_to '编辑', 'javascript:;', :class=>'edit-issue'
+            = link_to '删除', issue, :class=>'delete-issue', :confirm=>'确定要删除这个问题吗?', :method=>:delete
           .edit-issue-form{:style=>'display:none;'}
             = render 'milestone_issues/parts/edit_issue', :issue=>issue
 
