@@ -8,7 +8,7 @@ class MilestonesController < ApplicationController
   end
 
   def index
-    @milestones = Milestone.all
+    @milestones = @product.milestones
   end
 
   def new

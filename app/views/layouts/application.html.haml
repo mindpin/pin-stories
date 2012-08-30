@@ -27,13 +27,14 @@
             .my-tasks= link_to '我的任务', '/stories/mine'
             .my-drafts= link_to '我的草稿', '/drafts'
             .my-comments= link_to '我的评论', '/comments/received'
-            / .my-ideas= link_to '我的想法', mine_ideas_path
+            .my-ideas= link_to '我的想法', mine_ideas_path
             
       .nav
         %a.item{:href=>'/'} 我们的产品
         %a.item{:href=>'/users'} 成员和分享者
-        / %a.item{:href => ideas_path} 想法列表
-        / %a.item{:href => new_idea_path} 添加新想法
+        %a.item{:href=>'/ideas'} 想法列表
+        %a.item{:href=>'/ideas/new'} 添加新想法
+        %a.item{:href=>'/http_apis'} HttpApi设计
 
       -if logged_in?
         .add-agile-issue
