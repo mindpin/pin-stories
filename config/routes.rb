@@ -164,11 +164,7 @@ MindpinAgile::Application.routes.draw do
 
 
 
-  resources :http_apis do
-    collection do
-      get  :designer
-    end
-  end
+  resources :http_apis
 
 
 end
