@@ -183,42 +183,40 @@
         .issue{
           @include floatfix;
 
-          .creator-avatar{
-            float:left;
-            margin-right:7px;
-            width:20px;height:20px;
-            margin-top:2px;
-            box-shadow:0 0 3px rgba(black, 0.8);
-            img{
-              width:20px;height:20px;
-            }
-          }
-
-          .content{
-            float:left;margin-right:14px;
-            color:#76B8F2;
-            height:24px;line-height:24px;
-            &:before{
-              content:">";
-              margin-right:7px;
-            }
-          }
-
-          .ops{
-            float:left;
-            a{
-              height:24px;line-height:24px;
-            }
-          }
-
           &:last-child{
             margin-bottom:10px;
           }
 
-          .edit-issue-form{
-            clear:both;
-            margin-top:10px;
-            padding:10px;
+          .data{
+            @include floatfix;
+            margin-bottom:10px;
+
+            .creator-avatar{
+              float:left;
+              margin-right:7px;
+              width:20px;height:20px;
+              margin-top:2px;
+              box-shadow:0 0 3px rgba(black, 0.8);
+              img{width:20px;height:20px;}
+            }
+
+            .content{
+              float:left;margin-right:14px;
+              color:#76B8F2;
+              height:24px;line-height:24px;
+              &:before{
+                content:">";
+                margin-right:7px;
+              }
+            }
+
+            .ops{
+              float:left;
+              a{height:24px;line-height:24px;}
+            }
+          }
+
+          .form{
             @include content-box;
             textarea{
               width:350px;

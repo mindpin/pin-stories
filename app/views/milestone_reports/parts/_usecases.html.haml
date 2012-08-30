@@ -21,12 +21,13 @@
           data = {:id => issue.id}
 
         .issue{:data=>data}
-          .creator-avatar= avatar_link creator, :mini
-          .content= issue.content
-          .ops
-            = link_to '编辑', 'javascript:;', :class=>'edit-issue'
-            = link_to '删除', issue, :class=>'delete-issue', :confirm=>'确定要删除这个问题吗?', :method=>:delete
-          .edit-issue-form{:style=>'display:none;'}
+          .data
+            .creator-avatar= avatar_link creator, :mini
+            .content= issue.content
+            .ops
+              = link_to '编辑', 'javascript:;', :class=>'edit-issue'
+              = link_to '删除', issue, :class=>'delete-issue', :confirm=>'确定要删除这个问题吗?', :method=>:delete
+          .form{:style=>'display:none;'}
             = render 'milestone_issues/parts/edit_issue', :issue=>issue
 
     .children
