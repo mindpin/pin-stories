@@ -105,7 +105,7 @@ class IssuesController < ApplicationController
 
   # ajax, 领取 issue
   def receive
-    current_user.receive_issue(@issue)
+    @issue.users << current_user
 
     render :partial => 'issues/parts/show', 
            :locals => {:issue => @issue}
