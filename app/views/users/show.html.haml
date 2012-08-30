@@ -6,6 +6,11 @@
 :ruby
   assigned_stories = @user.assigned_stories
 
+
+.page-links
+  = link_to "用户 Issues", "/users/#{@user.id}/issues"
+  = link_to "用户 Ideas", "/users/#{@user.id}/ideas"
+
 .page-user-show
   .head
     .avatar=avatar @user, :medium
