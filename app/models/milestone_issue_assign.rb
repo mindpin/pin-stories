@@ -23,7 +23,7 @@ class MilestoneIssueAssign < ActiveRecord::Base
 
       def receive_milestone_issue(milestone_issue)        
         unless received_issue?(milestone_issue)
-          MilestoneIssueAssign.create(:user => self, :issue => milestone_issue)
+          MilestoneIssueAssign.create(:user => self, :milestone_issue => milestone_issue)
         end
       end
     end

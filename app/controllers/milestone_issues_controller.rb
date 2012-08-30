@@ -33,8 +33,7 @@ class MilestoneIssuesController < ApplicationController
   def receive
     current_user.receive_milestone_issue(@milestone_issue)
 
-    render :partial => 'issues/parts/show', 
-           :locals => {:issue => @issue}
+    redirect_to :back
   end
 
 end

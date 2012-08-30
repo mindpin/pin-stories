@@ -61,6 +61,7 @@ MindpinAgile::Application.routes.draw do
     member do
       get :assign_users
       put :do_assign_users
+      get :receive
     end
   end
 
