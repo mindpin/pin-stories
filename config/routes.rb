@@ -25,6 +25,12 @@ MindpinAgile::Application.routes.draw do
     put  '/members/:id'      => 'admin#update_member'
   end
 
+  resources :user_assigns do
+    collection do
+      post :assign_to_me
+    end
+  end
+
   resources :users do
     member do
       get :issues
