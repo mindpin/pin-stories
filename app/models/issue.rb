@@ -40,7 +40,7 @@ class Issue < ActiveRecord::Base
   # 引用其它类
   include Comment::CommentableMethods
   include Activity::ActivityableMethods
-  include Assign::AssignableMethods
+  include UserAssign::AssignableMethods
 
   module UserMethods
     def self.included(base)
@@ -49,7 +49,7 @@ class Issue < ActiveRecord::Base
                     :foreign_key => :creator_id
 
       base.has_many :assigned_issues,
-                    :through     => :assigns,
+                    :through     => :user_assigns,
                     :source      => :model,
                     :source_type => 'Issue'
     end

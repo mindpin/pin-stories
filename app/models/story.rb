@@ -24,10 +24,6 @@ class Story < ActiveRecord::Base
   has_many :streams, :through => :stream_story_links
   accepts_nested_attributes_for :stream_story_links
   
-  has_many :users,
-           :through => :assigns
-
-
   has_many :ideas, :foreign_key => :source_story_id
 
 
@@ -192,7 +188,7 @@ class Story < ActiveRecord::Base
   module UserMethods
     def self.included(base)
       base.has_many :assigned_stories,
-                    :through => :assigns,
+                    :through => :user_assigns,
                     :source => :model,
                     :source_type => 'Story'
 
@@ -212,7 +208,7 @@ class Story < ActiveRecord::Base
   include Comment::CommentableMethods
   include Activity::ActivityableMethods
   include WikiPage::WikiPageableMethods
-  include Assign::AssignableMethods
+  include UserAssign::AssignableMethods
 
   define_index do
     # fields

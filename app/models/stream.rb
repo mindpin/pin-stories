@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Stream < ActiveRecord::Base
   belongs_to :product
   has_many :stream_story_links
@@ -14,8 +15,8 @@ class Stream < ActiveRecord::Base
   
   # 参与过的成员
   def members
-    stories = self.stories.all(:include=>[:users])
-    stories.map{|story| story.users}.flatten.uniq.compact
+    stories = self.stories.all(:include=>[:assigned_users])
+    stories.map{|story| story.assigned_users}.flatten.uniq.compact
   end
   
 end

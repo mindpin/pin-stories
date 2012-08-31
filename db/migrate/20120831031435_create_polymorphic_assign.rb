@@ -1,6 +1,6 @@
 class CreatePolymorphicAssign < ActiveRecord::Migration
   def change
-    create_table :assigns do |t|
+    create_table :user_assigns do |t|
       t.integer :model_id
       t.string  :model_type
       t.integer :user_id

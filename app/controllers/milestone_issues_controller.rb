@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class MilestoneIssuesController < ApplicationController
   before_filter :login_required
   before_filter :pre_load
@@ -25,7 +26,7 @@ class MilestoneIssuesController < ApplicationController
       flash[:error] = "至少指派给一个人"
       return redirect_to :back
     end
-    @milestone_issue.users = users
+    @milestone_issue.assigned_users = users
     redirect_to :back
   end
 

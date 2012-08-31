@@ -69,7 +69,7 @@ class StoriesController < ApplicationController
       flash[:error] = "至少指派给一个人"
       return redirect_to "/stories/#{@story.id}/assign_users"
     end
-    @story.users = users
+    @story.assigned_users = users
     redirect_to "/stories/#{@story.id}"
   end
   

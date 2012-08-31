@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class IssuesController < ApplicationController
 
   before_filter :login_required
@@ -99,13 +100,13 @@ class IssuesController < ApplicationController
       flash[:error] = "至少指派给一个人"
       return redirect_to "/issues/#{@issue.id}/assign_users"
     end
-    @issue.users = users
+    @issue.assigned_users = users
     redirect_to "/issues/#{@issue.id}"
   end
 
   # ajax, 领取 issue
   def receive
-    @issue.users << current_user
+    @issue.assigned_users << current_user
 
     render :partial => 'issues/parts/show', 
            :locals => {:issue => @issue}

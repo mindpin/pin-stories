@@ -1,4 +1,4 @@
-class Assign < ActiveRecord::Base
+class UserAssign < ActiveRecord::Base
   belongs_to :model,
              :polymorphic => true
 
@@ -13,7 +13,9 @@ class Assign < ActiveRecord::Base
   module AssignableMethods
     def self.included(base)
       base.has_many :user_assigns, :as => :model
-      base.has_many :assigned_users, :through => :user_assigns
+      base.has_many :assigned_users, :through => :user_assigns, :source => :user
     end
+
   end
+
 end

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include UserAvatarMethods
   
   has_one :online_record, :dependent => :destroy
+  has_many :user_assigns
   
   # 校验部分
   # 不能为空的有：用户名，登录名，电子邮箱
@@ -58,7 +59,6 @@ class User < ActiveRecord::Base
 
   include Milestone::UserMethods
   include MilestoneIssue::UserMethods
-  include MilestoneIssueAssign::UserMethods
   include MilestoneReport::UserMethods
   include Usecase::UserMethods
 

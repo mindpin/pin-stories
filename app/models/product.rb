@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Product < ActiveRecord::Base
   KIND_SERVICE = 'SERVICE'
   KIND_INHOUSE = 'INHOUSE'
@@ -60,8 +61,8 @@ class Product < ActiveRecord::Base
   
   # 参与过的成员
   def members
-    stories = self.stories.all(:include=>[:users])
-    stories.map{|story| story.users}.flatten.uniq.compact
+    stories = self.stories.all(:include=>[:assigned_users])
+    stories.map{|story| story.assigned_users}.flatten.uniq.compact
   end
   
 end

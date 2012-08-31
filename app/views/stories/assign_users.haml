@@ -3,7 +3,7 @@
   %div
     %label 指派执行人
   %div
-    -users = @story.users
+    -users = @story.assigned_users
     -User.all.each do |user|
       %span
         =check_box_tag("user_ids[]",user.id,users.include?(user))

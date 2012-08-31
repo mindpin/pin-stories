@@ -37,11 +37,16 @@ class MilestoneIssue < ActiveRecord::Base
   scope :pause_issues, with_state(MilestoneIssue::State::PAUSE)
   scope :open_issues, with_state(MilestoneIssue::State::OPEN)
 
-  include Assign::AssignableMethods
+  include UserAssign::AssignableMethods
 
   module UserMethods
     def self.included(base)
       base.has_many :milestone_issues, :foreign_key => :creator_id
+
+      base.has_many :assigned_milestone_issues,
+                    :through     => :user_assigns,
+                    :source      => :model,
+                    :source_type => 'Story'
 
       base.send(:include, InstanceMethods)
     end

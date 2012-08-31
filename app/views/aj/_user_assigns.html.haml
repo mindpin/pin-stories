@@ -1,6 +1,6 @@
 :ruby
   assign_url = "/user_assigns/new?model_id=#{model.id}&model_type=#{model.class.to_s}"
-  assigned_users = model.users
+  assigned_users = model.assigned_users
 
 .page-user-assigns
   - if admin_logged_in?

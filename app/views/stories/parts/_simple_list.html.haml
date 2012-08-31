@@ -5,7 +5,7 @@
       story_edit_url = "/stories/#{story.id}/edit"
       tips = story.tips
       estimate = story.time_estimate
-      members = story.users
+      members = story.assigned_users
       
     .story
       %a.how{:href=>"/stories/#{story.id}"}
