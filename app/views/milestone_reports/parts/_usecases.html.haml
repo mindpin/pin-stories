@@ -42,6 +42,7 @@
               = link_to '删除', issue, :class=>'delete-issue', :confirm=>'确定要删除这个问题吗?', :method=>:delete
           .form{:style=>'display:none;'}
             = render 'milestone_issues/parts/edit_issue', :issue=>issue
+          = render 'milestone_issues/aj/show_state', :milestone_issue=>issue
 
     .children
       = render 'milestone_reports/parts/usecases', :usecases=>usecase.sub_usecases, :report=>report

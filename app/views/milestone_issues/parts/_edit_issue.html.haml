@@ -2,9 +2,6 @@
   .field.need
     = f.text_area :content
 
-  .field.state
-    = f.select :state, MilestoneIssue::STATES
-
   .field.submit
     = jfsubmit '确定'
     %a.form-button.cancel{:href=>'javascript:;'} 取消
