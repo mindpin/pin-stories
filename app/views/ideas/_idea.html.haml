@@ -19,12 +19,12 @@
           - idea.stories.each do |story|
             = link_to "story##{story.id}", story
 
-  - if logged_in?
-    请点击要添加延伸story的产品：
-    - Product.all.each do |product|
-      = link_to product.name, new_product_story_path(product, :source_idea_id => idea.id)
+  .ops
+    - if logged_in?
+      .add-derived-story
+        请点击要添加延伸story的产品：
+        - Product.all.each do |product|
+          = link_to product.name, new_product_story_path(product, :source_idea_id => idea.id)
     
-  - if admin_logged_in? || current_user == idea.creator
-    .ops
       = link_to '删除', 'javascript:;', :class => 'remove-idea', :data => {:url => idea_path(idea)}
       = link_to '编辑', edit_idea_path(idea), :class => 'edit-idea'

@@ -1,4 +1,4 @@
-# -*- coding: no-conversion -*-
+# -*- coding: utf-8 -*-
 class IdeasController < ApplicationController
   before_filter :login_required
   before_filter :pre_load
@@ -47,6 +47,7 @@ class IdeasController < ApplicationController
 
   def destroy
     @idea.destroy
-    render :text => '想法成功删除'
+    return render :text => '想法被成功删除' if request.xhr?
+    redirect_to :action => :index
   end
 end
