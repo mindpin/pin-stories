@@ -45,13 +45,11 @@ class User < ActiveRecord::Base
   
   include MemberInfo::UserMethods
   include Story::UserMethods
-  include StoryAssign::UserMethods
   include WikiPage::UserMethods
   include UserEvernoteAuth::UserMethods
   include Activity::UserMethods
   include Draft::UserMethods
   include Issue::UserMethods
-  include IssueAssign::UserMethods
   include Idea::UserMethods
 
   include Comment::UserMethods
@@ -65,4 +63,5 @@ class User < ActiveRecord::Base
   include Usecase::UserMethods
 
   include HttpApi::UserMethods
+  include Assign::UserMethods
 end

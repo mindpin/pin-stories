@@ -21,22 +21,23 @@ class MilestoneIssue < ActiveRecord::Base
   belongs_to :usecase, :class_name => 'Usecase', 
                        :foreign_key => :usecase_id
 
-  has_many :milestone_issue_assigns
-  has_many :users, :through => :milestone_issue_assigns
+  has_many :users, :through => :assigns
 
-
-  validates :creator_id, :check_report_id, :usecase_id, :content, :presence => true
-
+  validates :creator_id, :presence => true
+  validates :check_report_id, :presence => true
+  validates :usecase_id, :presence => true
+  validates :content, :presence => true 
   validates :state, :presence => true,
                     :inclusion => MilestoneIssue::STATES
 
-  scope :with_state, lambda {|state| where(:state=>state)}
-  scope :of_report, lambda {|report| where(:check_report_id=>report.id)}
+  scope :with_state, lambda {|state| where(:state => state)}
+  scope :of_report, lambda {|report| where(:check_report_id => report.id)}
 
   scope :closed_issues, with_state(MilestoneIssue::State::CLOSED)
   scope :pause_issues, with_state(MilestoneIssue::State::PAUSE)
   scope :open_issues, with_state(MilestoneIssue::State::OPEN)
 
+  include Assign::AssignableMethods
 
   module UserMethods
     def self.included(base)

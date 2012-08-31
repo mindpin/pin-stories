@@ -6,6 +6,6 @@
 - hbreadcrumb "Issue ##{@issue.id}", @issue
 
 = render 'issues/parts/show', :issue=>@issue
-= render 'issues/parts/assign', :issue=>@issue
 
+= juser_assigns @issue
 = jcomments @issue

@@ -1,0 +1,23 @@
+:ruby
+  assign_url = "/user_assigns/new?model_id=#{model.id}&model_type=#{model.class.to_s}"
+  assigned_users = model.users
+
+.page-user-assigns
+  - if admin_logged_in?
+    .assign
+      %a.do-assign{:href=>assign_url} 分配执行人
+
+  - if logged_in?
+    .assign-to-me
+      - if assigned_users.include? current_user
+        %span.assigned 已经分配给我了
+      - else
+        %a.do-assign-to-me{:href=>'javascript:;'} 我要领取
+
+  - if !assigned_users.blank?
+    .assigned-users
+      .t 目前已分配给
+      .users
+        - assigned_users.each do |user|
+          .user
+            .avatar=avatar_link user, :tiny

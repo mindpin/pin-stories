@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class IdeasController < ApplicationController
   before_filter :login_required
   before_filter :pre_load
@@ -13,15 +14,6 @@ class IdeasController < ApplicationController
     @idea = Idea.new
   end
 
-  def edit
-  end
-
-  def update
-    @idea.update_attributes(params[:idea])
-
-    redirect_to "/ideas/#{@idea.id}"
-  end
-
   def create
     @idea = current_user.ideas.build params[:idea]
     return redirect_to :action => :index if @idea.save
@@ -30,8 +22,7 @@ class IdeasController < ApplicationController
 
   def create_for_story
     @idea = current_user.ideas.create params[:idea]
-    @story = Story.find params[:idea][:source_story_id]
-    return render :partial => 'ideas/for_story', :locals => {:story => @story}
+    return render :partial => 'ideas/parts/for_story', :locals => {:story => @idea.source_story}
   end
 
   def mine
@@ -46,4 +37,17 @@ class IdeasController < ApplicationController
     @ideas = Idea.all
   end
 
+  def edit
+  end
+
+  def update
+    return redirect_to ideas_path if @idea.update_attributes params[:idea]
+    render :action => :edit
+  end
+
+  def destroy
+    @idea.destroy
+    return render :text => '想法被成功删除' if request.xhr?
+    redirect_to :action => :index
+  end
 end

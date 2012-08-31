@@ -13,7 +13,6 @@ class UsecasesController < ApplicationController
 
   def create
     usecase = current_user.usecases.build(params[:usecase])
-    #usecase = current_user.usecases.build(:content => params[:content], :usecase_id => params[:usecase_id])
     usecase.product = @milestone.product
     usecase.milestone = @milestone
 
@@ -27,7 +26,6 @@ class UsecasesController < ApplicationController
 
   def edit
   end
-
 
   def update
     @usecase.update_attributes(params[:usecase])

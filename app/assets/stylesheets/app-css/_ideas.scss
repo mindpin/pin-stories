@@ -7,5 +7,52 @@
     .content {
       padding:8px 16px;
     }
+
+
   }
+
+}
+
+.page-ideas, .page-idea-show {
+  .ops {
+    .add-derived-story {
+      display:block;
+    }
+
+    .remove-idea {
+      color:red;
+    }
+
+    .edit-idea {
+      color:orange;
+    }
+
+  }
+
+}
+
+.page-story-show {
+  .add-idea {
+    color:blue;
+  }
+
+  .submit-idea {
+    @extend .form-submit-button;
+  }
+
+  .cancel-idea {
+    @extend .form-cancel-button;
+  }
+
+}
+
+.page-idea-show {
+  .id, .content {
+    display:inline-block;
+  }
+
+  .idea, .derived-stories {
+    margin-left:32px;
+  }
+
 }

@@ -4,7 +4,42 @@
 - hbreadcrumb '想法', ideas_path
 - hbreadcrumb "想法##{@idea.id}", @idea
 
-.page-ideas
-  = render 'idea', :idea => @idea
+.page-idea-show
+  //= render 'idea', :idea => @idea
+  - source_story = @idea.source_story
+  - derived_stories = @idea.stories
+
+  .source-story
+    - if source_story
+      .id= "来源story##{source_story.id}"
+      .content= link_to source_story.how_to_demo, source_story
+
+    - else
+      无来源想法
+
+    .idea
+      .id= "想法##{@idea.id}"
+      .content= link_to @idea.content, @idea
+
+      .derived-stories
+        - if derived_stories.any?
+          - derived_stories.each do |derived_story|
+            .id= "延伸story##{derived_story.id}"
+            .content= link_to derived_story.how_to_demo, derived_story
+
+        - else
+          无延伸story
+
+  .ops
+    - if logged_in?
+      .add-derived-story
+        请点击要添加延伸story的产品：
+        - Product.all.each do |product|
+          = link_to product.name, new_product_story_path(product, :source_idea_id => @idea.id)
+    
+    - if admin_logged_in? || current_user == @idea.creator
+      = jdelete '删除', idea_path(@idea), '确定删除吗？'
+      = link_to '编辑', edit_idea_path(@idea), :class => 'edit-idea'
+
 
 = jcomments @idea

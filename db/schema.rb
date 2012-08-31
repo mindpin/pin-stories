@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830092809) do
+ActiveRecord::Schema.define(:version => 20120831031435) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(:version => 20120830092809) do
     t.integer  "act_model_id"
     t.string   "act_model_type"
     t.string   "action"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assigns", :force => true do |t|
+    t.integer  "model_id"
+    t.string   "model_type"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -91,9 +99,11 @@ ActiveRecord::Schema.define(:version => 20120830092809) do
   end
 
   create_table "ideas", :force => true do |t|
-    t.text    "content"
-    t.integer "source_story_id"
-    t.integer "creator_id"
+    t.text     "content"
+    t.integer  "source_story_id"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "issue_assigns", :force => true do |t|
