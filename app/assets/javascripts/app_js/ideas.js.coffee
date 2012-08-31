@@ -15,17 +15,15 @@ pie.load ->
       type: 'POST'
       url: $for_story_form.attr('action')
       data: $for_story_form.serialize()
-
-    $request.success (response)->
-      $('.add-ideas .ideas').html(response)
-      $for_story_form.slideUp()
+      success: (response)->
+        $('.add-ideas .ideas').html(response)
+        $for_story_form.slideUp()
 
   jQuery('.idea .remove-idea').click ->
     jQuery(this).confirm_dialog '确定删除吗?', =>
-      $request = jQuery.ajax
+      jQuery.ajax
         type: 'DELETE'
         url: jQuery(this).data('url')
-
-      $request.success =>
-        jQuery(this).closest('.idea').slideUp()
+        success: =>
+          jQuery(this).closest('.idea').slideUp()
 

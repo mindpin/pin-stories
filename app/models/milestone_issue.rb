@@ -21,6 +21,8 @@ class MilestoneIssue < ActiveRecord::Base
   belongs_to :usecase, :class_name => 'Usecase', 
                        :foreign_key => :usecase_id
 
+  has_many :users,
+           :through => :assigns
 
   validates :creator_id, :check_report_id, :usecase_id, :content, :presence => true
 
@@ -34,6 +36,7 @@ class MilestoneIssue < ActiveRecord::Base
   scope :pause_issues, with_state(MilestoneIssue::State::PAUSE)
   scope :open_issues, with_state(MilestoneIssue::State::OPEN)
 
+  include Assign::AssignableMethods
 
   module UserMethods
     def self.included(base)

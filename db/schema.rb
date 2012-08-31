@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830101854) do
+ActiveRecord::Schema.define(:version => 20120831055153) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(:version => 20120830101854) do
     t.integer  "act_model_id"
     t.string   "act_model_type"
     t.string   "action"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assigns", :force => true do |t|
+    t.integer  "model_id"
+    t.string   "model_type"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -94,13 +102,6 @@ ActiveRecord::Schema.define(:version => 20120830101854) do
     t.text     "content"
     t.integer  "source_story_id"
     t.integer  "creator_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "issue_assigns", :force => true do |t|
-    t.integer  "issue_id"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -204,14 +205,6 @@ ActiveRecord::Schema.define(:version => 20120830101854) do
     t.boolean  "delta",          :default => true, :null => false
     t.integer  "creator_id"
     t.integer  "source_idea_id"
-  end
-
-  create_table "story_assigns", :force => true do |t|
-    t.integer  "story_id",                     :null => false
-    t.integer  "user_id",                      :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "delta",      :default => true, :null => false
   end
 
   create_table "stream_story_links", :force => true do |t|
