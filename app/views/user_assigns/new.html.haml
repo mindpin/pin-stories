@@ -1,0 +1,20 @@
+:ruby
+  create_url = "/user_assigns"
+  assigned_users = @model.users
+
+.page-user-assign-form
+  = form_tag create_url, :method=>:post do
+    = flash_info
+    .field
+      %label 指派执行人
+      - User.all.each do |user|
+        .user
+          - checked = assigned_users.include?(user)
+          = jcheckbox "user_ids[]", user.id, checked, user.name
+          
+    .field.submit
+      = jfsubmit '确定'
+
+    .field.hide
+      = hidden_field_tag :model_type, @model.class.to_s
+      = hidden_field_tag :model_id, @model.id

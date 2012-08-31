@@ -35,18 +35,8 @@
     .tips
       .t 提示和备注 - TIPs
       .ct=format_ct story, :tips
-  
-  .assigned-members
-    .t 指派给
-    .members
-      -members.each do |member|
-        .member
-          .avatar=avatar_link member
-    - if members.blank?
-      .no-member 尚未指派给任何人
 
   = render 'ideas/parts/story_ideas', :story => @story
-
   = render 'stories/aj/show_status', :story=>@story
 
   - if admin_logged_in?
@@ -54,7 +44,7 @@
       .t 管理员操作
       .op=link_to '修改',"/stories/#{@story.id}/edit"
       .op=link_to '调整序列',"/stories/#{@story.id}/assign_streams"
-      .op=link_to '指派执行人',"/stories/#{@story.id}/assign_users"
       .op.hide=link_to '历史记录', "/stories/#{@story.id}/versions"
 
+= juser_assigns @story
 = jcomments @story

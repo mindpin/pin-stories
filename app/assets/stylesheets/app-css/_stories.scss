@@ -29,8 +29,7 @@
 }
 
 .page-story-show{
-  position:relative;
-  width:600px;
+  @include content-box;
 
   .belongs-to{
     position:relative;
@@ -142,6 +141,7 @@
   }
 
   .admin-ops{
+    margin-bottom:0;
     .op{
       &:before{
         content:"> admin ";

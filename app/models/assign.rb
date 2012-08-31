@@ -12,14 +12,8 @@ class Assign < ActiveRecord::Base
 
   module AssignableMethods
     def self.included(base)
-      base.has_many :assigns,
-                    :as => :model
-    end
-  end
-
-  module UserMethods
-    def self.included(base)
-      base.has_many :assigns
+      base.has_many :user_assigns, :as => :model
+      base.has_many :assigned_users, :through => :user_assigns
     end
   end
 end

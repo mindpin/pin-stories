@@ -327,6 +327,12 @@
   }
 }
 
+// ---------------------
+
+.page-user-assign-form{
+  @include content-box;
+}
+
 .page-user-assigns{
   padding:10px;
   background-color:rgba(black, 0.3);

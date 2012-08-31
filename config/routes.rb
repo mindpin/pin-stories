@@ -153,14 +153,21 @@ MindpinAgile::Application.routes.draw do
   # get '/wiki_get_draft' => 'wiki#get_draft'
   
   resources :drafts
+  resources :http_apis
 
   # ----------------------
 
   # 所有类型的评论都在这里，不单独定义
   resources :comments do
     collection do
-      get 'show_model_comments'
-      get 'received' # 我收到的评论
+      get :show_model_comments
+      get :received # 我收到的评论
+    end
+  end
+
+  resources :user_assigns do
+    collection do
+      post :assign_to_me # 领取待分配对象
     end
   end
 
@@ -169,10 +176,5 @@ MindpinAgile::Application.routes.draw do
 
   # 检查各种统计
   get '/check_tip_messages' => 'index#check_tip_messages'
-
-
-
-  resources :http_apis
-
-
+  
 end

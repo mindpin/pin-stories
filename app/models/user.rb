@@ -63,5 +63,4 @@ class User < ActiveRecord::Base
   include Usecase::UserMethods
 
   include HttpApi::UserMethods
-  include Assign::UserMethods
 end
