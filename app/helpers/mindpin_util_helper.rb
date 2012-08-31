@@ -46,7 +46,7 @@ module MindpinUtilHelper
 
   module AvatarMethods
     def avatar(user, style = :normal)
-      klass = ['avatar-img', style]*' '
+      klass = ['page-avatar-img', style]*' '
 
       if user.blank?
         alt   = '未知用户'
@@ -58,9 +58,13 @@ module MindpinUtilHelper
         meta  = dom_id(user)
       end
       
-      image_tag(src, :alt=>alt, :class=>klass, :'data-meta'=>meta)
-      # jimage src, :alt=>name, :class=>klass, :'data-meta'=>meta
-      # 暂时还不好替换，dom结构不太一致
+      # jimage src, :alt => alt, 
+      #             :class => klass, 
+      #             :'data-meta' => meta
+
+      image_tag src, :alt => alt, 
+                     :class => klass, 
+                     :'data-meta' => meta
     end
   
     def avatar_link(user, style = :normal)

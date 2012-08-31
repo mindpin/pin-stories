@@ -5,6 +5,7 @@
 - hbreadcrumb '问题或建议', "/products/#{@product.id}/issues"
 - hbreadcrumb "Issue ##{@issue.id}", @issue
 
-= render 'issues/parts/show', :issue => @issue
+= render 'issues/parts/show', :issue=>@issue
+= render 'issues/parts/assign', :issue=>@issue
 
 = jcomments @issue

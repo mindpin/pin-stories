@@ -10,17 +10,6 @@
 
   .content= issue_ct issue
 
-  .receive-issue
-    - if issue.users.blank?
-      %a.receive{:href=>'javascript:;'} 领取这个 Issue
-    - else
-      .assigned-users
-        .t 指派给
-        .users
-          - issue.users.each do |user|
-            .user
-              .avatar=avatar_link user
-
   .state-change.creator
     .avatar= avatar_link issue.creator, :tiny
     .name= user_link issue.creator
@@ -45,7 +34,7 @@
 
   - if admin_logged_in?
 
-    .state-change.open-close
+    .state-change.state-ops
       - if issue.closed?
         %a.reopen{:href=>'javascript:;'} 重新打开这个 Issue
       - elsif issue.pause?
@@ -53,5 +42,3 @@
       - else
         %a.close{:href=>'javascript:;'} 关闭这个 Issue
         %a.pause{:href=>'javascript:;'} 将这个 Issue 暂缓
-
-    .op=link_to '指派执行人',"/issues/#{@issue.id}/assign_users"

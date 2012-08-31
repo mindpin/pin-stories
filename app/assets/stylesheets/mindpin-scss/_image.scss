@@ -1,1 +1,21 @@
 .auto-fit-image{overflow:hidden;}
+
+.page-avatar-img{
+  float:left;
+  &.medium{
+    width:96px;height:96px;
+  }
+  &.normal{
+    width:48px;height:48px;
+  }
+  &.tiny{
+    width:32px;height:32px;
+  }
+  &.mini{
+    width:24px;height:24px;
+  }
+}
+
+.page-avatar-link{
+  float:left;
+}
