@@ -10,7 +10,7 @@
 
   .ideas
     - if story.ideas.any?
-      = render 'ideas/for_story', :story => story
+      = render 'ideas/parts/for_story', :story => story
 
   = form_for Idea.new, :url => create_for_story_ideas_path do |f|
     = flash_info

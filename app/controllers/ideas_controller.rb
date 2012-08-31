@@ -22,8 +22,7 @@ class IdeasController < ApplicationController
 
   def create_for_story
     @idea = current_user.ideas.create params[:idea]
-    @story = Story.find params[:idea][:source_story_id]
-    return render :partial => 'ideas/for_story', :locals => {:story => @story}
+    return render :partial => 'ideas/parts/for_story', :locals => {:story => @idea.source_story}
   end
 
   def mine

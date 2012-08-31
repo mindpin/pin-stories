@@ -45,7 +45,7 @@
     - if members.blank?
       .no-member 尚未指派给任何人
 
-  = render 'ideas/story_ideas', :story => @story
+  = render 'ideas/parts/story_ideas', :story => @story
 
   = render 'stories/aj/show_status', :story=>@story
 

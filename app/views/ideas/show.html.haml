@@ -4,7 +4,7 @@
 - hbreadcrumb '想法', ideas_path
 - hbreadcrumb "想法##{@idea.id}", @idea
 
-.page-ideas
-  = render 'idea', :idea => @idea
+.page-idea-show
+  #= render 'idea', :idea => @idea
 
 = jcomments @idea

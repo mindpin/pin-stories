@@ -25,12 +25,12 @@
     color:blue;
   }
 
-}
+  .submit-idea {
+    @extend .form-submit-button;
+  }
 
-.submit-idea {
-  @extend .form-submit-button;
-}
+  .cancel-idea {
+    @extend .form-cancel-button;
+  }
 
-.cancel-idea {
-  @extend .form-cancel-button;
 }

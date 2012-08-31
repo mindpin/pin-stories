@@ -29,5 +29,3 @@ pie.load ->
       $request.success =>
         jQuery(this).closest('.idea').slideUp()
 
-  jQuery('.idea .edit-idea').click ->
-    
