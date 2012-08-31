@@ -13,3 +13,16 @@ pie.load ->
 
   jQuery('.page-milestone-report-show .issue .form a.cancel').live 'click', ->
     jQuery(this).closest('.form').hide();
+
+
+  jQuery(document).delegate '.page-milestone-report-show .state .toggle-st', 'click', ->
+    state = jQuery(this).data('state')
+    id = jQuery(this).closest('.issue').data('id')
+    $state = jQuery(this).closest('.state')
+
+    jQuery.ajax
+      url: "/milestone_issues/#{id}/change_state"
+      type: 'put'
+      data: {'state' : state}
+      success: (res)->
+        $state.after(res).remove()
