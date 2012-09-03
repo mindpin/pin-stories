@@ -37,11 +37,6 @@ class Issue < ActiveRecord::Base
     self.state == STATE_PAUSE
   end
 
-  # 引用其它类
-  include Comment::CommentableMethods
-  include Activity::ActivityableMethods
-  include UserAssign::AssignableMethods
-
   module UserMethods
     def self.included(base)
       base.has_many :issues,
@@ -55,4 +50,8 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  # 引用其它类
+  include Comment::CommentableMethods
+  include Activity::ActivityableMethods
+  include UserAssign::AssignableMethods
 end

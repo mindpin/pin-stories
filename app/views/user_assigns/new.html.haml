@@ -6,7 +6,7 @@
   = form_tag create_url, :method=>:post do
     = flash_info
     .field
-      %label 指派执行人
+      %label 分配执行人
       - User.all.each do |user|
         .user
           - checked = assigned_users.include?(user)

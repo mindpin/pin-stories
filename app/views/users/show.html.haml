@@ -6,11 +6,10 @@
 :ruby
   assigned_stories = @user.assigned_stories
 
-
 .page-links
-  = link_to "Ta 创建的 Issue", "/users/#{@user.id}/issues"
-  = link_to "分配给 Ta 的 Issue", "/users/#{@user.id}/assigned_issues"
-  = link_to "Ta 的想法", "/users/#{@user.id}/ideas"
+  = link_to "#{@user.name}创建的Issue", "/users/#{@user.id}/issues"
+  = link_to "分配给#{@user.name}的Issue", "/users/#{@user.id}/assigned_issues"
+  = link_to "#{@user.name}的想法", "/users/#{@user.id}/ideas"
 
 .page-user-show
   .head

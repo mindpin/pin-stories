@@ -30,14 +30,6 @@
             .creator-avatar= avatar_link creator, :mini
             .content= issue.content
             .ops
-              - if admin_logged_in?
-                = link_to '分配执行者', "/milestone_issues/#{issue.id}/assign_users"
-              
-              - if current_user.received_milestone_issue?(issue)
-                = "已经领取"
-              - else
-                = link_to '领取', "/milestone_issues/#{issue.id}/receive"
-
               = link_to '编辑', 'javascript:;', :class=>'edit-issue'
               = link_to '删除', issue, :class=>'delete-issue', :confirm=>'确定要删除这个问题吗?', :method=>:delete
           .form{:style=>'display:none;'}

@@ -23,7 +23,10 @@ class UserAssignsController < ApplicationController
 
     model.assigned_users << current_user
 
-    render :text => '成功分配'
+    render :partial => 'aj/user_assigns',
+           :locals => {
+              :model => model
+           }
   rescue Exception => ex
     render :status => 403,
            :text => '分配失败'

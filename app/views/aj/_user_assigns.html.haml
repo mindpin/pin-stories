@@ -1,8 +1,16 @@
 :ruby
-  assign_url = "/user_assigns/new?model_id=#{model.id}&model_type=#{model.class.to_s}"
+  id = model.id
+  type = model.class.to_s
+
+  assign_url = "/user_assigns/new?model_id=#{id}&model_type=#{type}"
   assigned_users = model.assigned_users
 
-.page-user-assigns
+  data = {
+    :id => id,
+    :type => type
+  }
+
+.page-user-assigns{:data=>data}
   - if admin_logged_in?
     .assign
       %a.do-assign{:href=>assign_url} 分配执行人
@@ -16,8 +24,11 @@
 
   - if !assigned_users.blank?
     .assigned-users
-      .t 目前已分配给
+      .t 目前已经分配给了：
       .users
         - assigned_users.each do |user|
           .user
             .avatar=avatar_link user, :tiny
+  - else
+    .assigned-users
+      .t 目前没有分配给任何人
