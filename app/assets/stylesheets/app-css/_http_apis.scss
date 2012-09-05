@@ -84,6 +84,18 @@
 .page-http-api-show{
   @include content-box;
 
+  .ops{
+    @include floatfix;
+    margin-bottom:20px;
+    a.edit{
+      &:before{
+        content:">";
+        color:#F2DA76;
+        margin-right:7px;
+      }
+    }
+  }
+
   .title{
     font-size:16px;
     margin-bottom:10px;
@@ -140,6 +152,9 @@
   .logic{
     .t{
       margin-bottom:10px;
+    }
+    .ct{
+      margin-left:10px;
     }
   }
 }

@@ -18,7 +18,7 @@ class HttpApisController < ApplicationController
   def create
     http_api = current_user.http_apis.build(params[:http_api])
     if http_api.save
-      return redirect_to '/http_apis'
+      return redirect_to http_api
     end
 
     flash[:error] = http_api.errors.to_json
@@ -35,7 +35,7 @@ class HttpApisController < ApplicationController
     @http_api.http_api_params.each {|http_api_param| http_api_param.destroy }
     @http_api.update_attributes(params[:http_api])
 
-    redirect_to '/http_apis'
+    redirect_to @http_api
   end
 
   def destroy

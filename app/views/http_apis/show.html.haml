@@ -4,6 +4,9 @@
 
 
 .page-http-api-show
+  .ops
+    %a.edit{:href=>url_for([:edit, @http_api])} 编辑修改
+
   .title= @http_api.title
   .request-type= @http_api.request_type
   .url
@@ -20,5 +23,8 @@
         .desc.quiet= http_api_param.desc
 
   .logic
+    :ruby
+      ct = html_escape(@http_api.logic).gsub(' ', '&nbsp;').gsub(/\n/, '<br />').html_safe
+
     .t 逻辑描述
-    .ct= @http_api.logic
+    .ct= ct
