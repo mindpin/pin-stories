@@ -2,17 +2,7 @@
   if params[:state].nil?
     issues = usecase.issues
   else
-    case params[:state]
-    when MilestoneIssue::State::OPEN
-      issues = usecase.opened_issues
-    when MilestoneIssue::State::CLOSED
-      issues = usecase.closed_issues
-    when MilestoneIssue::State::PAUSE
-      issues = usecase.paused_issues
-    else
-      issues = usecase.issues
-    end
-  end
+    issues = usecase.issues.with_state(params[:state])
 
 - unless issues.nil?
   %ul
@@ -22,4 +12,4 @@
         %a.edit-issue{:href=>'javascript:;', "data-id" => issue.id} 编辑
 
         %div{:id => "edit-issue-#{issue.id}", :style => "display: none;"}
-          =render 'milestone_issues/parts/edit_issue', :issue_id => issue.id
+          =render 'issues/parts/edit_issue', :issue_id => issue.id

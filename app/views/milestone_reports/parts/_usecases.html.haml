@@ -15,7 +15,7 @@
 
       %a.new-issue{:href=>'javascript:;'} 添加问题
       .new-issue-form{:style=>'display:none;'}
-        = render 'milestone_issues/parts/new_issue', :usecase=>usecase
+        = render 'issues/parts/new_milestone_issue', :usecase=>usecase
 
     .issues
       - issues.each do |issue|
@@ -33,8 +33,8 @@
               = link_to '编辑', 'javascript:;', :class=>'edit-issue'
               = link_to '删除', issue, :class=>'delete-issue', :confirm=>'确定要删除这个问题吗?', :method=>:delete
           .form{:style=>'display:none;'}
-            = render 'milestone_issues/parts/edit_issue', :issue=>issue
-          = render 'milestone_issues/aj/show_state', :milestone_issue=>issue
+            = render 'issues/parts/edit_issue', :issue=>issue
+          = render 'issues/aj/show_state', :issue=>issue
 
     .children
       = render 'milestone_reports/parts/usecases', :usecases=>usecase.sub_usecases, :report=>report

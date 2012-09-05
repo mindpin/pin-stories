@@ -37,8 +37,7 @@ class MilestoneReportsController < ApplicationController
 
 
   def create_issue
-    current_user.milestone_issues.create(params[:milestone_issue])
-
+    current_user.issues.create(params[:issue])
     redirect_to :back
   end
 end

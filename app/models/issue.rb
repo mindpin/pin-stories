@@ -14,9 +14,31 @@ class Issue < ActiveRecord::Base
   belongs_to :product
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
 
-  validates :product, :creator, :content, :presence => true
+  belongs_to :milestone_report
+  belongs_to :usecase
+
+  validates :creator, :content, :presence => true
+  validates :state, :presence => true,
+                    :inclusion => Issue::STATES
+
+  validates :product, :presence => true
+
+  validates :milestone_report, :presence => {:if => Proc.new { |issue| issue.product.blank? }}
+  validates :usecase, :presence => {:if => Proc.new { |issue| issue.product.blank? }}
+
+
+  scope :of_report, lambda {|report| where(:milestone_report_id => report.id)}
 
   scope :with_state, lambda {|state| where(:state => state)}
+  scope :open_issues, with_state(Issue::STATE_OPEN)
+  scope :pause_issues, with_state(Issue::STATE_PAUSE)
+  scope :closed_issues, with_state(Issue::STATE_CLOSED)
+
+  before_validation(:on => :create) do |issue|
+    if issue.product.blank? && !issue.usecase.blank?
+      issue.product = issue.usecase.product
+    end
+  end
 
   # 生成 issue 动态
   after_create :generate_create_activity

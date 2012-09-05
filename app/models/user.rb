@@ -58,7 +58,6 @@ class User < ActiveRecord::Base
   include UserAtmeTipMessage::UserMethods
 
   include Milestone::UserMethods
-  include MilestoneIssue::UserMethods
   include MilestoneReport::UserMethods
   include Usecase::UserMethods
 

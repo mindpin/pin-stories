@@ -1,0 +1,10 @@
+= form_for Issue.new, :url => {:action => 'create_issue'} do |f|
+  .field.need
+    = f.text_area :content
+    = f.hidden_field :usecase_id, :value => usecase.id
+    = f.hidden_field :milestone_report_id, :value => @report.id
+    = f.hidden_field :state, :value => Issue::STATE_OPEN
+
+  .field.submit
+    = jfsubmit '确定'
+    %a.form-button.cancel{:href=>'javascript:;'} 取消

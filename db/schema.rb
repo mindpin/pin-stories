@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831031435) do
+ActiveRecord::Schema.define(:version => 20120904012814) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -109,17 +109,15 @@ ActiveRecord::Schema.define(:version => 20120831031435) do
     t.integer  "product_id"
     t.integer  "creator_id"
     t.text     "content"
-    t.integer  "importance_level"
-    t.integer  "urgent_level"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",            :default => "OPEN"
+    t.string   "state",               :default => "OPEN"
+    t.integer  "usecase_id"
+    t.integer  "milestone_report_id"
   end
 
   add_index "issues", ["creator_id"], :name => "index_issues_on_creator_id"
-  add_index "issues", ["importance_level"], :name => "index_issues_on_importance_level"
   add_index "issues", ["product_id"], :name => "index_issues_on_product_id"
-  add_index "issues", ["urgent_level"], :name => "index_issues_on_urgent_level"
 
   create_table "lemmas", :force => true do |t|
     t.integer  "product_id"
@@ -191,7 +189,7 @@ ActiveRecord::Schema.define(:version => 20120831031435) do
   add_index "online_records", ["user_id"], :name => "index_online_records_on_user_id"
 
   create_table "products", :force => true do |t|
-    t.string   "name",                                   :null => false
+    t.string   "name",            :default => "",        :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -201,7 +199,7 @@ ActiveRecord::Schema.define(:version => 20120831031435) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",                           :null => false
+    t.string   "status",         :default => "",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
@@ -229,27 +227,10 @@ ActiveRecord::Schema.define(:version => 20120831031435) do
   end
 
   create_table "streams", :force => true do |t|
-    t.string   "title",      :null => false
-    t.integer  "product_id", :null => false
+    t.string   "title",      :default => "", :null => false
+    t.integer  "product_id",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       :limit => 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", :force => true do |t|
-    t.string "name"
   end
 
   create_table "usecases", :force => true do |t|
@@ -298,13 +279,6 @@ ActiveRecord::Schema.define(:version => 20120831031435) do
     t.datetime "updated_at"
   end
 
-  create_table "view_records", :force => true do |t|
-    t.integer  "viewer_id"
-    t.integer  "work_result_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "wiki_page_refs", :force => true do |t|
     t.integer  "product_id"
     t.string   "from_page_title"
@@ -324,18 +298,6 @@ ActiveRecord::Schema.define(:version => 20120831031435) do
     t.boolean  "delta",           :default => true, :null => false
     t.integer  "from_model_id"
     t.string   "from_model_type"
-  end
-
-  create_table "work_results", :force => true do |t|
-    t.integer  "creator_id"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "kind",               :default => "LOGIC", :null => false
   end
 
 end

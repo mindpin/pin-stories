@@ -1,5 +1,5 @@
 .state
   -if admin_logged_in?
     .other-st
-      - (MilestoneIssue::STATES - [milestone_issue.state]).each do |state|
+      - (Issue::STATES - [issue.state]).each do |state|
         %a.toggle-st{:href=>'javascript:;', :class=>state.downcase, :'data-state'=>state}= state

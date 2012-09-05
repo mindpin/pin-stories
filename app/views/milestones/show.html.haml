@@ -22,11 +22,11 @@
         %a.title{:href=>"/milestone_reports/#{report.id}"}= report.title
         .time= jtime(report.created_at)
         .issues
-          %a.open{:href=>"/milestone_reports/#{report.id}?state=#{MilestoneIssue::State::OPEN}"}
+          %a.open{:href=>"/milestone_reports/#{report.id}?state=#{Issue::STATE_OPEN}"}
             #{report.open_issues_count}个打开的问题
-          %a.closed{:href=>"/milestone_reports/#{report.id}?state=#{MilestoneIssue::State::CLOSED}"}
+          %a.closed{:href=>"/milestone_reports/#{report.id}?state=#{Issue::STATE_CLOSED}"}
             #{report.closed_issues_count}个关闭的问题
-          %a.pause{:href=>"/milestone_reports/#{report.id}?state=#{MilestoneIssue::State::PAUSE}"}
+          %a.pause{:href=>"/milestone_reports/#{report.id}?state=#{Issue::STATE_PAUSE}"}
             #{report.pause_issues_count}个暂缓的问题
         .ops
           = link_to '修改', "/milestone_reports/#{report.id}/edit"

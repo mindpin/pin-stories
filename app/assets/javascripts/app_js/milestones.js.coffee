@@ -21,7 +21,7 @@ pie.load ->
     $state = jQuery(this).closest('.state')
 
     jQuery.ajax
-      url: "/milestone_issues/#{id}/change_state"
+      url: "/issues/#{id}/change_state"
       type: 'put'
       data: {'state' : state}
       success: (res)->

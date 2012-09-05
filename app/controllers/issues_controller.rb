@@ -112,4 +112,10 @@ class IssuesController < ApplicationController
            :locals => {:issue => @issue}
   end
 
+  def change_state
+    @issue.update_attributes(:state => params[:state])
+    render :partial => '/issues/aj/show_state', :locals => {:issue => @issue}
+  end
+
+
 end

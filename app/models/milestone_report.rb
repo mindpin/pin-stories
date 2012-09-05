@@ -3,7 +3,7 @@ class MilestoneReport < ActiveRecord::Base
   belongs_to :milestone, :class_name => 'Milestone', :foreign_key => :milestone_id
   belongs_to :product, :class_name => 'Product', :foreign_key => :product_id
   
-  has_many :milestone_issues, :class_name => 'MilestoneIssue', :foreign_key => :check_report_id
+  has_many :issues
 
   validates :milestone, :product, :creator, :presence => true
 
@@ -16,32 +16,21 @@ class MilestoneReport < ActiveRecord::Base
   end
 
   def open_issues_count
-    milestone_issues.open_issues.count
+    issues.open_issues.count
   end
 
   def closed_issues_count
-    milestone_issues.closed_issues.count
+    issues.closed_issues.count
   end
 
   def pause_issues_count
-    milestone_issues.pause_issues.count
+    issues.pause_issues.count
   end
 
   def close
     self.state = 'CLOSED'
     self.save
   end
-
-
-  def create_issue(user, usecase_id, content)
-    MilestoneIssue.create(
-      :creator => user,
-      :check_report_id => self.id,
-      :usecase_id => usecase_id,
-      :content => content
-    )
-  end
-
 
   module UserMethods
     def self.included(base)
