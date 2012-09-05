@@ -1,0 +1,145 @@
+.page-http-apis{
+  .nav{
+    @include floatfix;
+    @include content-box;
+    a.create{
+      @include mini-button;
+    }
+    margin-bottom:10px;
+  }
+
+  .list{
+    .http-api{
+      @include content-box;
+
+      .title{
+        height:20px;line-height:20px;
+        font-size:16px;
+        margin-bottom:10px;
+        a{color:white;&:hover{color:#ffd75f;}}
+      }
+      .ops{
+        font-size:12px;
+      }
+    }
+  }
+}
+
+.page-http-api-form{
+  .field{
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(white, 0.1);
+    &.submit{
+      padding-bottom:0;
+      border-bottom:none;
+    }
+  }
+
+  .field.url{
+    .dash{
+      color:#F2DA76;
+    }
+  }
+
+  .field.items{
+    .item-head{
+      @include floatfix;
+      margin-bottom:5px;
+      .f{float:left;margin-right:20px;}
+      .name{width:250px;}
+      .need{width:100px;}
+      .desc{width:250px;}
+    }
+    .item-list{
+      .item{
+        @include floatfix;
+        margin-bottom:5px;
+        .f{float:left;margin-right:20px;}
+        .name{width:250px;}
+        .need{width:100px;select{width:80px;}}
+        .desc{width:250px;}
+        .ops{
+          height:32px;line-height:32px;
+          a.delete{
+            &:before{
+              content:"-";
+              margin-right:7px;
+              color:#FF9999;
+            }
+          }
+        }
+      }
+    }
+    a.add-new-item{
+      height:32px;line-height:32px;
+      &:before{
+        content:"+";
+        margin-right:7px;
+        color:#AAD363;
+      }
+    }
+  }
+}
+
+.page-http-api-show{
+  @include content-box;
+
+  .title{
+    font-size:16px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:solid 1px rgba(white, 0.1);
+  }
+
+  .request-type{
+    font-size:16px;
+    font-weight:bold;
+  }
+  .url{
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:solid 1px rgba(white, 0.1);
+
+    span.dash{
+      color:#F2DA76;
+    }
+  }
+
+  .params{
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:solid 1px rgba(white, 0.1);
+
+    .t{
+      margin-bottom:10px;
+    }
+    .param{
+      padding-top:5px;
+      margin-bottom:5px;
+      margin-left:10px;
+      border-top:solid 1px rgba(white, 0.1);
+
+      .desc{font-size:12px;}
+
+      &.need{
+        // background-color:rgba(#F2DA76, 0.1);
+        .name{
+          &:after{
+            content:"(必须)";
+            font-size:12px;
+            color:#F2DA76;
+            margin-left:7px;
+          }
+        }
+      }
+    }
+  }
+
+  .logic{
+    .t{
+      margin-bottom:10px;
+    }
+  }
+}

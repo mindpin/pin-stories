@@ -1,14 +1,24 @@
-- htitle "Http Api - 创建新Api"
-
 - hbreadcrumb '首页', '/'
-- hbreadcrumb "Http Api列表", "/http_apis"
+- hbreadcrumb 'Http API', '/http_apis'
+- hbreadcrumb @http_api.title
 
 
-=render 'http_apis/parts/navigation'
-
-
-.page-http-apis
+.page-http-api-show
   .title= @http_api.title
-  .type= @http_api.request_type
-  .url= @http_api.url
-  .logic= @http_api.logic
+  .request-type= @http_api.request_type
+  .url
+    %span.dash> /
+    %span>= @http_api.url
+  .params
+    .t 参数列表
+    - @http_api.http_api_params.each do |http_api_param|
+      :ruby
+        klass = http_api_param.need ? 'need' : ''
+
+      .param{:class=>klass}
+        .name= http_api_param.name
+        .desc.quiet= http_api_param.desc
+
+  .logic
+    .t 逻辑描述
+    .ct= @http_api.logic

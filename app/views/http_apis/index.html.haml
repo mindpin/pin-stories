@@ -1,23 +1,19 @@
-- htitle "Http Api - 创建新Api"
-
 - hbreadcrumb '首页', '/'
-- hbreadcrumb "Http Api列表", "/http_apis/designer"
-
-
-=render 'http_apis/parts/navigation'
-
+- hbreadcrumb 'Http API'
 
 .page-http-apis
-  - if @http_apis.any?
-    %ul
+  .nav
+    %a.create{:href=>'/http_apis/new'} 创建新API
+
+  .list
     - @http_apis.each do |http_api|
-      %li
-        .logic= link_to http_api.title, "/http_apis/#{http_api.id}"
+      .http-api
+        .title= link_to http_api.title, "/http_apis/#{http_api.id}"
         .ops
-          -if http_api.creator = current_user
-            =link_to "修改", "/http_apis/#{http_api.id}/edit"
-            =link_to "删除", "/http_apis/#{http_api.id}", :confirm => '确认删除?', :method => :delete
+          - if http_api.creator = current_user
+            = link_to '修改', "/http_apis/#{http_api.id}/edit"
+            = jdelete '删除', "/http_apis/#{http_api.id}", '确认删除?'
 
 
-    .page-paginate= will_paginate @http_apis
+.page-paginate= will_paginate @http_apis
 
