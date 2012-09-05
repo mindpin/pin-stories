@@ -17,7 +17,8 @@ class UsecasesController < ApplicationController
     usecase.milestone = @milestone
 
     if usecase.save
-      return render :text => '用例创建成功!'
+      # return render :text => '用例创建成功!'
+      return redirect_to @milestone
     end
 
     render :status => 406, :text => usecase.errors.messages.to_json
