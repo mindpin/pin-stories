@@ -113,17 +113,15 @@ class WikiController < ApplicationController
 
   # 没有被其他wiki页引用，也没有引用其他wiki页的页面
   def orphan
-    wiki_pages = WikiPage.where(:product_id => params[:product_id])
-
     @orphan_pages = []
-    wiki_pages.each do |wiki_page|
+        
+    @product.wiki_pages.each do |wiki_page|
       from = WikiPageRef.where(:product_id => wiki_page.product_id, :from_page_title => wiki_page.title).exists?
       to = WikiPageRef.where(:product_id => wiki_page.product_id, :to_page_title => wiki_page.title).exists?
 
       unless from || to
         @orphan_pages << wiki_page
       end
-
     end
   end
 
