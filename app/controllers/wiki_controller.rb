@@ -113,7 +113,7 @@ class WikiController < ApplicationController
 
   # 没有被其他wiki页引用，也没有引用其他wiki页的页面
   def orphan
-    wiki_pages = WikiPage.all
+    wiki_pages = WikiPage.where(:product_id => params[:product_id])
 
     @orphan_pages = []
     wiki_pages.each do |wiki_page|
