@@ -32,9 +32,11 @@ class Product < ActiveRecord::Base
   has_many :milestone_reports
   
   validates :name, 
-            :description, 
             :presence => true
-  
+
+  validates :description, 
+            :presence => true
+
   validates :kind, 
             :presence => true, 
             :inclusion => {:in => KINDS}

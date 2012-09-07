@@ -41,7 +41,6 @@ class WikiPage < ActiveRecord::Base
 
     # 第一步，替换非法字符
     self.title = self.title.gsub(WikiPageFormatter::TITLE_INVALID_CHAR_REGEXP, '-')
-    self.title = self.title.gsub(/\?+/, '-')
 
     # 第二步，去掉多余不必要空格
     self.title = self.title.strip.gsub(/\s+/, ' ')

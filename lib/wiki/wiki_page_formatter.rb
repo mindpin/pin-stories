@@ -1,8 +1,8 @@
 class WikiPageFormatter
 
-  TITLE_REGEXP              = /^[A-Za-z0-9一-龥\-\s\!\?]+$/
-  TITLE_INVALID_CHAR_REGEXP = /[^A-Za-z0-9一-龥\-\s\!\?]+/
-  TITLE_REF_REGEXP          = /\[\[([A-Za-z0-9一-龥\-\s\!\?]+)\]\]/
+  TITLE_REGEXP              = /^[A-Za-z0-9一-龥\-\s\!]+$/
+  TITLE_INVALID_CHAR_REGEXP = /[^A-Za-z0-9一-龥\-\s\!]+/
+  TITLE_REF_REGEXP          = /\[\[([A-Za-z0-9一-龥\-\s\!]+)\]\]/
   ATME_REGEXP               = /@([A-Za-z0-9一-龥]+)/
 
   class NoProductError < Exception; end;
