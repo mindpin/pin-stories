@@ -25,23 +25,25 @@ MindpinAgile::Application.routes.draw do
     put  '/members/:id'      => 'admin#update_member'
   end
 
-  resources :users do
-    member do
-      get :issues
-      get :assigned_issues
-      get :ideas
-    end
-  end
   get '/atme/:name' => 'atme#atme'
+
+  resources :users do
+    resources :issues, :controller => :user_issues do
+      collection do
+        get :assigned, :action => :index_assigned
+      end
+    end
+    resources :ideas,  :controller => :user_ideas
+  end
   
   # --------
   
   resources :products do
-    resources :stories,    :except => [:show, :edit, :update, :destroy]
-    resources :issues,     :except => [:show, :edit, :update, :destroy] do
+    resources :stories,    :shallow => true
+    resources :issues,     :shallow => true do
       collection do
-        get :closed, :action=>'index_closed'
-        get :pause, :action=>'index_pause'
+        get :closed, :action => :index_closed
+        get :pause,  :action => :index_pause
       end
     end
     resources :streams,    :shallow => true

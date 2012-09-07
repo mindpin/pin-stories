@@ -1,23 +1,20 @@
--htitle "#{@user.name} - 个人页"
+- htitle "#{@user.name} - 个人页"
 
--hbreadcrumb '首页', '/'
--hbreadcrumb @user.name, "/users/#{@user.id}"
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @user.name, "/users/#{@user.id}"
 
-:ruby
-  assigned_stories = @user.assigned_stories
-
-.page-links
-  = link_to "#{@user.name}创建的Issue", "/users/#{@user.id}/issues"
-  = link_to "分配给#{@user.name}的Issue", "/users/#{@user.id}/assigned_issues"
-  = link_to "#{@user.name}的想法", "/users/#{@user.id}/ideas"
+= subtabs
 
 .page-user-show
+  :ruby
+    assigned_stories = @user.assigned_stories
   .head
-    .avatar=avatar @user, :medium
+    .avatar= avatar @user, :medium
     .meta
-      .name=@user.name
+      .name= @user.name
+
     - Story::STATUSES.each do |status|
-      .status{:class=>status.downcase}
+      .status{:class => status.downcase}
         .name= status
         .desc= status_to_str(status)
 
