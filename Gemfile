@@ -19,7 +19,7 @@ gem 'redis'
 gem 'redis-namespace'
 gem 'redcarpet', :require => 'redcarpet/compat'
 gem 'rmmseg-cpp'
-gem 'tabulous' # tab 页签插件
+# gem 'tabulous' # tab 页签插件 暂时不用它
 gem 'thinking-sphinx', '2.0.10'
 gem 'thrift_client'
 gem 'uuidtools', :require => 'uuidtools'
