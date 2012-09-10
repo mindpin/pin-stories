@@ -16,6 +16,12 @@
     .field.time-estimate
       %label 时间预估(TIME ESTIMATE)
       =f.select :time_estimate, [4, 8, 16, 24, 32, 40, 100]
+
+    .field.github
+      %label Github
+      =f.select :github_project_id, options_for_select(@story.product.github_projects.map {|github| [github.url, github.id]}, @story.github_project_id)
+
+
     .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 确定
       %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消

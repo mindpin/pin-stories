@@ -33,6 +33,12 @@
           -@product.streams.each do |stream|
             .stream
               = jcheckbox 'story[stream_story_links_attributes][][stream_id]', stream.id, false, stream.title
+
+      .field.github
+        %label Github
+        =f.select :github_project_id, options_for_select(@product.github_projects.map {|github| [github.url, github.id]})
+
+
       .field.submit
         %a.form-submit-button{:href=>'javascript:;'} 确定
         %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消
