@@ -22,6 +22,15 @@
         .name= http_api_param.name
         .desc.quiet= http_api_param.desc
 
+
+  .responses
+    .t 返回值
+    - @http_api.http_api_responses.each do |http_api_response|
+  
+      .param
+        .code= http_api_response.code
+        .desc.quiet= http_api_response.content
+
   .logic
     :ruby
       ct = html_escape(@http_api.logic).gsub(' ', '&nbsp;').gsub(/\n/, '<br />').html_safe
