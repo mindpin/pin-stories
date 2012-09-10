@@ -19,7 +19,7 @@
 
     .field.github
       %label Github
-      =f.select :github_project_id, options_for_select(@story.product.github_projects.map {|github| [github.url, github.id]}, @story.github_project_id)
+      =f.select :github_project_id, options_for_select(@story.product.github_projects.collect {|github| [github.url, github.id]}, @story.github_project_id)
 
 
     .field.submit
