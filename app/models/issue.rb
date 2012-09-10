@@ -26,13 +26,18 @@ class Issue < ActiveRecord::Base
   validates :milestone_report, :presence => {:if => Proc.new { |issue| issue.product.blank? }}
   validates :usecase, :presence => {:if => Proc.new { |issue| issue.product.blank? }}
 
+  default_scope order('id DESC')
 
   scope :of_report, lambda {|report| where(:milestone_report_id => report.id)}
+  scope :not_of_report, :conditions => ['milestone_report_id IS NULL']
 
   scope :with_state, lambda {|state| where(:state => state)}
+  
   scope :open_issues, with_state(Issue::STATE_OPEN)
   scope :pause_issues, with_state(Issue::STATE_PAUSE)
   scope :closed_issues, with_state(Issue::STATE_CLOSED)
+
+
 
   before_validation(:on => :create) do |issue|
     if issue.product.blank? && !issue.usecase.blank?

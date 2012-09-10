@@ -10,19 +10,22 @@ class IssuesController < ApplicationController
   end
 
   def index
-    c = @product.issues.with_state(Issue::STATE_OPEN)
-    @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    c = @product.issues.not_of_report.with_state(Issue::STATE_OPEN)
+    @issues = c.paginate :page => params[:page], 
+                        :per_page => 20
   end
 
   def index_closed
-    c = @product.issues.with_state(Issue::STATE_CLOSED)
-    @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    c = @product.issues.not_of_report.with_state(Issue::STATE_CLOSED)
+    @issues = c.paginate :page => params[:page], 
+                        :per_page => 20
     render :index
   end
 
   def index_pause
-    c = @product.issues.with_state(Issue::STATE_PAUSE)
-    @issues = c.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    c = @product.issues.not_of_report.with_state(Issue::STATE_PAUSE)
+    @issues = c.paginate :page => params[:page], 
+                        :per_page => 20
     render :index
   end
 
