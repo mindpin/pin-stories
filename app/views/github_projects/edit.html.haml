@@ -1,0 +1,16 @@
+- hbreadcrumb '首页', '/'
+- hbreadcrumb 'Github Projects', "/products/#{@github_project.product_id}/github_projects"
+- hbreadcrumb '编辑 Github Project'
+
+
+
+.page-github-project-form
+  = flash_info
+  = form_for @github_project do |f|
+    .field.url.need
+      %label 链接
+      = f.text_field :url
+         
+    .field.submit
+      = jfsubmit '保存'
+      = jfcancel '取消'

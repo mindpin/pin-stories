@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120910023256) do
+ActiveRecord::Schema.define(:version => 20120910072253) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(:version => 20120910023256) do
     t.string   "model_type"
     t.string   "temp_id"
     t.text     "drafted_hash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "github_projects", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -208,16 +215,17 @@ ActiveRecord::Schema.define(:version => 20120910023256) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",                           :null => false
+    t.string   "status",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
     t.text     "how_to_demo"
     t.text     "tips"
-    t.integer  "time_estimate",  :default => 8,    :null => false
-    t.boolean  "delta",          :default => true, :null => false
+    t.integer  "time_estimate",     :default => 8,    :null => false
+    t.boolean  "delta",             :default => true, :null => false
     t.integer  "creator_id"
     t.integer  "source_idea_id"
+    t.integer  "github_project_id"
   end
 
   create_table "story_assigns", :force => true do |t|

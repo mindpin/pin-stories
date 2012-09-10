@@ -1,0 +1,17 @@
+- hbreadcrumb '首页', '/'
+- hbreadcrumb 'Github Projects', "/products/#{@product.id}/github_projects"
+
+
+.page-github-projects
+  .nav
+    %a.create{:href=>"/products/#{@product.id}/github_projects/new"} 增加 Github Projects
+
+  .list
+    - @product.github_projects.each do |github_project|
+      .title= link_to github_project.url, "#{github_project.url}", :target => '_blank'
+      .ops
+        - if admin_logged_in?
+          = link_to '修改', "/github_projects/#{github_project.id}/edit"
+          = jdelete '删除', "/github_projects/#{github_project.id}", '确认删除?'
+
+  .page-paginate= will_paginate @github_projects

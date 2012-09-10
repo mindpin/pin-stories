@@ -30,6 +30,7 @@ class Product < ActiveRecord::Base
   has_many :wiki_page_refs
   has_many :milestones
   has_many :milestone_reports
+  has_many :github_projects 
   
   validates :name, 
             :presence => true

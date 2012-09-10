@@ -19,6 +19,7 @@ class Story < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :source_idea, :class_name => 'Idea', :foreign_key => :source_idea_id
   belongs_to :product
+  belongs_to :github_project
 
   has_many :stream_story_links
   has_many :streams, :through => :stream_story_links

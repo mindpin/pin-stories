@@ -19,6 +19,7 @@
     activities_url = "/products/#{product.id}/activities"
     issues_url = "/products/#{product.id}/issues"
     wiki_url = "/products/#{product.id}/wiki"
+    new_github_project_url = "/products/#{product.id}/github_projects/new"
 
   .product-headbar
     = jimage cover_url, :alt=>name, :class=>'cover'
@@ -30,6 +31,7 @@
       %a.view.milestone{:href=>"/products/#{product.id}/milestones"} 里程碑
       %a.add-issue{:href=>"/products/#{product.id}/issues/new"} 创建BUG或建议
       - if admin_logged_in?
+        %a.add-story.admin{:href=>new_github_project_url} 增加 github 工程
         %a.add-story.admin{:href=>new_story_url} 创建故事
         %a.add-stream.admin{:href=>new_stream_url} 创建序列
       

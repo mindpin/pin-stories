@@ -50,6 +50,7 @@ MindpinAgile::Application.routes.draw do
     resources :lemmas,     :shallow => true
     resources :activities, :shallow => true
     resources :milestones, :shallow => true
+    resources :github_projects,    :shallow => true
   end
 
   resources :milestones do
