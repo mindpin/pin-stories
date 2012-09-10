@@ -33,6 +33,7 @@ class HttpApisController < ApplicationController
 
   def update
     @http_api.http_api_params.each {|http_api_param| http_api_param.destroy }
+    @http_api.http_api_responses.each {|http_api_response| http_api_response.destroy }
     @http_api.update_attributes(params[:http_api])
 
     redirect_to @http_api

@@ -11,6 +11,13 @@
   ]
 
 
+  response_select = options_for_select [
+    ['TEXT', HttpApi::ResponseFormat::TEXT],
+    ['XML', HttpApi::ResponseFormat::XML],
+    ['JSON', HttpApi::ResponseFormat::JSON]
+  ]
+
+
 .page-http-api-form
   = flash_info
   = form_for @http_api do |f|
@@ -53,6 +60,33 @@
             .f.ops
               %a.delete{:href=>'javascript:;'} 减少一项
             
+      %a.add-new-item{:href=>'javascript:;'} 增加一项
+
+
+    .field.type
+      %label 返回类型
+      = f.select(:response_format, response_select)
+
+    .field.items.need
+      .item-head
+        .f.code 状态码
+        .f.desc 状态描述
+      .item-list
+        :ruby
+          responses = @http_api.http_api_responses
+          responses = [HttpApiResponse.new] if responses.blank?
+
+        - responses.each do |http_api_response|
+          .item
+            .f.need
+              %input{:type=>'text', :name=>'http_api[http_api_responses_attributes][][code]', :value=>http_api_response.code}
+
+            .f.desc
+              %textarea{:name => 'http_api[http_api_responses_attributes][][content]'}#{http_api_response.content}
+
+            .f.ops
+              %a.delete{:href=>'javascript:;'} 减少一项
+
       %a.add-new-item{:href=>'javascript:;'} 增加一项
 
 

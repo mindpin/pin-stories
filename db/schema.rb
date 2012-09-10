@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904012814) do
+ActiveRecord::Schema.define(:version => 20120910023256) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -80,6 +80,14 @@ ActiveRecord::Schema.define(:version => 20120904012814) do
     t.datetime "updated_at"
   end
 
+  create_table "http_api_responses", :force => true do |t|
+    t.integer  "http_api_id"
+    t.string   "code"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "http_apis", :force => true do |t|
     t.integer  "creator_id"
     t.string   "request_type"
@@ -88,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20120904012814) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.string   "response_format"
   end
 
   create_table "ideas", :force => true do |t|
@@ -199,7 +208,7 @@ ActiveRecord::Schema.define(:version => 20120904012814) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "status",         :default => "",   :null => false
+    t.string   "status",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id"
@@ -227,8 +236,8 @@ ActiveRecord::Schema.define(:version => 20120904012814) do
   end
 
   create_table "streams", :force => true do |t|
-    t.string   "title",      :default => "", :null => false
-    t.integer  "product_id",                 :null => false
+    t.string   "title",      :null => false
+    t.integer  "product_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
