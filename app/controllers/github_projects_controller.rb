@@ -10,6 +10,19 @@ class GithubProjectsController < ApplicationController
   def index
     @github_projects = GithubProject.paginate(:page => params[:page], :per_page => 20)
   end
+
+
+  def show
+    uri = URI.parse(ARGV[0] || 'https://api.github.com/repos/mykingla/pin-stories/commits')
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == "https"  # enable SSL/TLS
+    http.start {
+      http.request_get(uri.path) {|res|
+        # print res.body
+        @commits = JSON.parse res.body
+      }
+    }
+  end
   
   def new
   end

@@ -9,7 +9,7 @@
 
   .list
     - @product.github_projects.each do |github_project|
-      .title= link_to github_project.url, "#{github_project.url}", :target => '_blank'
+      .title= link_to github_project.url, "/github_projects/#{github_project.id}"
       .ops
         - if admin_logged_in?
           = link_to '修改', "/github_projects/#{github_project.id}/edit"
