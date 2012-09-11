@@ -58,6 +58,13 @@ MindpinAgile::Application.routes.draw do
     resources :milestone_reports, :shallow => true
   end
 
+  resources :github_projects do
+    member do
+      get :next_page
+      get :prev_page
+    end
+  end
+
   
   post '/milestone_reports/:id/create_issue' => 'milestone_reports#create_issue'
 

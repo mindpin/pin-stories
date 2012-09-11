@@ -13,15 +13,33 @@ class GithubProjectsController < ApplicationController
 
 
   def show
-    uri = URI.parse(ARGV[0] || 'https://api.github.com/repos/mykingla/pin-stories/commits')
+    @last_sha = ''
+    @last_sha = "?sha=" + params['last_sha'] if params['last_sha']
+
+    uri = URI.parse(ARGV[0] || @github_project.url + @last_sha)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true if uri.scheme == "https"  # enable SSL/TLS
     http.start {
-      http.request_get(uri.path) {|res|
+      http.request_get(@github_project.url + @last_sha) {|res|
         # print res.body
         @commits = JSON.parse res.body
       }
     }
+
+    @next_sha = "?last_sha=#{@commits[@commits.length - 1]['sha']}"
+    @next_path = uri.path + @next_sha
+    http.start {
+      http.request_get(@next_path) {|res|
+        # print res.body
+        @next_commits = JSON.parse res.body
+      }
+    }
+  end
+
+  def next_page
+  end
+
+  def prev_page
   end
   
   def new
