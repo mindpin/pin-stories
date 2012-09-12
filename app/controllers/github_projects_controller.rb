@@ -31,6 +31,8 @@ class GithubProjectsController < ApplicationController
         @commits = JSON.parse res.body
       }
     }
+    @commits_by_time = @commits.group_by {|commit| commit['commit']['author']['date'][0..9] }
+
 
     # 用于判断下一页
     @next_sha = "?last_sha=#{@commits[@commits.length - 1]['sha']}"
