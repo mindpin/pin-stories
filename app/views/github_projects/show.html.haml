@@ -22,7 +22,7 @@
   .page-nav
     - if !@last_sha.blank?
       .next
-        %a{:href => "/github_projects/#{@github_project.id}?first_sha=#{commit['sha']}"} 上一页
+        %a{:href => "/github_projects/#{@github_project.id}?first_sha=#{@commits[0]['sha']}"} 上一页
 
     - if !@next_commits.blank?
       .next

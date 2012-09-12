@@ -13,14 +13,15 @@ class GithubProjectsController < ApplicationController
 
 
   def show
-    @last_sha = ''
-    @last_sha = "?sha=" + params['last_sha'] if params['last_sha']
-
-    uri = URI.parse(ARGV[0] || @github_project.url + @last_sha)
+    @last_sha, @first_sha = '', ''
+    @last_sha = "?last_sha=" + params['last_sha'] if params['last_sha']
+    @first_sha = "?first_sha=" + params['first_sha'] if params['first_sha']
+ 
+    uri = URI.parse(ARGV[0] || @github_project.url + @last_sha + @first_sha)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true if uri.scheme == "https"  # enable SSL/TLS
     http.start {
-      http.request_get(@github_project.url + @last_sha) {|res|
+      http.request_get(uri.path + @last_sha + @first_sha) {|res|
         # print res.body
         @commits = JSON.parse res.body
       }
