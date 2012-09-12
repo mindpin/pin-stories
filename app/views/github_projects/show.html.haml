@@ -6,6 +6,8 @@
 
 .page-github
   - @commits.each do |commit|
+    :ruby
+      commit_url = commit['parents'][0]['url'].gsub(/api./, '').gsub(/repos\//, '').gsub(/commits/, 'commit')
     .commit-items
       .head
       .field
@@ -13,7 +15,7 @@
           - if !commit['author'].nil?
             = link_to(image_tag(commit['author']['avatar_url'], :style=>"width: 50px; height: 50px;"), "")
         .title
-          = commit['commit']['message']
+          = link_to commit['commit']['message'], commit_url, :target => '_blank'
         .author
           = commit['commit']['name']
         .time
