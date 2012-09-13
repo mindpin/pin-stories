@@ -11,7 +11,8 @@ class GithubUser < ActiveRecord::Base
 
     module InstanceMethods
 
-      def save_github_user_from_api(github_user)
+      def save_github_user_from_api(github_user) 
+
         if !self.github_user.nil?
           self.github_user.destroy
         end
@@ -39,7 +40,7 @@ class GithubUser < ActiveRecord::Base
           :type => github_user['type'],
           :bio => github_user['bio'],
           :followers => github_user['followers'],
-          :hireadble => hireadble
+          :hireadble => github_user['hireadble']
         )
       end
     end

@@ -12,8 +12,13 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id], :include=>[:member_info])
 
-    github_user = GithubApiMethods.get_github_user(@user)
-    @user.save_github_user_from_api(github_user) if !github_user
+    if @user.github_user.blank? || (!@user.github_user.blank? && (Time.now > @user.github_user.updated_at + 1.hour))
+      github_user = GithubApiMethods.get_github_user(@user)
+
+      @user.save_github_user_from_api(github_user)
+    end
+
+    
   end
 
   def issues

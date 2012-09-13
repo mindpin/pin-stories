@@ -23,7 +23,7 @@ class GithubProjectsController < ApplicationController
 
 
     # 用于判断下一页
-    api_uri = GithubApiMethods.get_api_uri(@github_project.url)
+    api_uri = GithubApiMethods.get_api_uri(@github_project.url, 'commits')
     @next_sha = "?last_sha=#{@commits[@commits.length - 1]['sha']}"
     @next_commits = GithubApiMethods.http_connection(api_uri, @next_sha)
   end

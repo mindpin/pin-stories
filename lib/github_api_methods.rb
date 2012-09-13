@@ -1,25 +1,32 @@
 class GithubApiMethods
 
   def self.get_github_user(user)
-    if !user.github_user.blank? && (Time.now < user.github_user.updated_at + 1.hour)
-      return false
-    end
-    api_uri = get_api_uri(user.member_info.github_homepage)
+    api_uri = get_api_uri(user.member_info.github_homepage, 'user')
 
     return http_connection(api_uri)
   end
 
 
   def self.get_github_project(github_url, uri_params)
-    api_uri = get_api_uri(github_url)
+    api_uri = get_api_uri(github_url, 'commits')
 
     return http_connection(api_uri, uri_params)
   end
 
 
-  def self.get_api_uri(github_url)
+  def self.get_api_uri(github_url, type = '')
     uri = URI.parse(ARGV[0] || github_url)
-    api_uri = "https://" + uri.host.gsub(/github.com/, "api.github.com/repos") + uri.path + "/commits"
+
+    case type
+    when 'user'
+       api_uri = "https://" + uri.host.gsub(/github.com/, "api.github.com/users") + uri.path
+    when 'commits'
+       api_uri = "https://" + uri.host.gsub(/github.com/, "api.github.com/repos") + uri.path + "/commits"
+    else
+       return
+    end
+
+    
     return URI.parse(api_uri)
   end
 
