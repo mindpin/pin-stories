@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120913014824) do
+ActiveRecord::Schema.define(:version => 20120913023054) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -74,6 +74,31 @@ ActiveRecord::Schema.define(:version => 20120913014824) do
   create_table "github_projects", :force => true do |t|
     t.integer  "product_id"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "github_users", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "login"
+    t.integer  "github_id"
+    t.string   "avatar_url"
+    t.string   "gravatar_id"
+    t.string   "url"
+    t.string   "name"
+    t.string   "company"
+    t.string   "blog"
+    t.string   "location"
+    t.string   "email"
+    t.boolean  "hireadble"
+    t.string   "bio"
+    t.integer  "public_repos"
+    t.integer  "public_gists"
+    t.integer  "followers"
+    t.integer  "following"
+    t.string   "html_url"
+    t.datetime "github_created_at"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -17,32 +17,15 @@ class GithubProjectsController < ApplicationController
     @last_sha = "?last_sha=" + params['last_sha'] if params['last_sha']
     @first_sha = "?first_sha=" + params['first_sha'] if params['first_sha']
 
-    uri = URI.parse(ARGV[0] || @github_project.url)
-    api_uri = "https://" + uri.host.gsub(/github.com/, "api.github.com/repos") + uri.path + "/commits"
-    api_uri = URI.parse(api_uri)
 
-
-    http = Net::HTTP.new(api_uri.host, api_uri.port)
-    http.use_ssl = true if api_uri.scheme == "https"  # enable SSL/TLS 
-
-    http.start {
-      http.request_get(api_uri.path + @last_sha + @first_sha) {|res|
-        # print res.body
-        @commits = JSON.parse res.body
-      }
-    }
+    @commits = GithubApiMethods.get_github_project(@github_project.url, @last_sha + @first_sha)
     @commits_by_time = @commits.group_by {|commit| commit['commit']['author']['date'][0..9] }
 
 
     # 用于判断下一页
+    api_uri = GithubApiMethods.get_api_uri(@github_project.url)
     @next_sha = "?last_sha=#{@commits[@commits.length - 1]['sha']}"
-    @next_path = api_uri.path + @next_sha
-    http.start {
-      http.request_get(@next_path) {|res|
-        # print res.body
-        @next_commits = JSON.parse res.body
-      }
-    }
+    @next_commits = GithubApiMethods.http_connection(api_uri, @next_sha)
   end
 
   def next_page

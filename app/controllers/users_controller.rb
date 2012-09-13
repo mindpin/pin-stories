@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id], :include=>[:member_info])
+
+    github_user = GithubApiMethods.get_github_user(@user)
+    @user.save_github_user_from_api(github_user) if !github_user
   end
 
   def issues
