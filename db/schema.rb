@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120910072253) do
+ActiveRecord::Schema.define(:version => 20120913014824) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20120910072253) do
     t.string  "deposit_bank"
     t.string  "address"
     t.string  "post_code"
+    t.string  "github_homepage"
   end
 
   create_table "milestone_issue_assigns", :force => true do |t|

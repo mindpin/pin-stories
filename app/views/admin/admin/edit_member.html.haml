@@ -41,6 +41,10 @@
           %label 邮编
           = mif.text_field :post_code
 
+        .field.github_homepage
+          %label Github 主页
+          = mif.text_field :github_homepage
+
     .field
       %a.form-submit-button{:href=>'javascript:;'} 确认
       %a.form-cancel{:href=>'/admin/members'} 取消
