@@ -11,16 +11,22 @@ class GithubUser < ActiveRecord::Base
 
     module InstanceMethods
 
+      def refresh_github_user(github_user)
+        return if github_user.nil?
+
+        save_github_user_from_api(github_user)
+      end
+
       def save_github_user_from_api(github_user) 
 
-        if !self.github_user.nil?
+        if !self.github_user.blank?
           self.github_user.destroy
         end
 
         hireadble = false
         hireadble = true if github_user['hireadble'] == 'true'
 
-        GithubUser.create(
+        self.github_user = GithubUser.create(
           :user => self,
           :url => github_user['url'],
           :html_url => github_user['html_url'],
@@ -42,6 +48,9 @@ class GithubUser < ActiveRecord::Base
           :followers => github_user['followers'],
           :hireadble => github_user['hireadble']
         )
+
+        self.github_user.save
+
       end
     end
 

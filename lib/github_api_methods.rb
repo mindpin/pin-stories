@@ -1,6 +1,9 @@
 class GithubApiMethods
 
   def self.get_github_user(user)
+    if !user.github_user.blank? && (Time.now < user.github_user.updated_at + 1.hour)
+      return nil
+    end
     api_uri = get_api_uri(user.member_info.github_homepage, 'user')
 
     return http_connection(api_uri)
