@@ -44,72 +44,73 @@
                 .count{:class=>status.downcase, :style=>style}= stories.count
 
   
-  :ruby
-    github_user = @user.github_user
+  - if !@user.member_info.github_homepage.blank?
+    :ruby
+      github_user = @user.github_user
 
-  .github-user
-    .avatar= link_to(image_tag(github_user.avatar_url), github_user.html_url, :target => "_blank")
+    .github-user
+      .avatar= link_to(image_tag(github_user.avatar_url), github_user.html_url, :target => "_blank")
 
-    .login
-      %span 登录
-      %span=github_user.login
+      .login
+        %span 登录
+        %span=github_user.login
 
-    .name
-      %span 名称
-      %span=github_user.name
+      .name
+        %span 名称
+        %span=github_user.name
 
-    .company
-      %span 公司
-      %span=github_user.company
-
-
-    .blog
-      %span 博客
-      %span=github_user.blog
+      .company
+        %span 公司
+        %span=github_user.company
 
 
-    .location
-      %span 位置
-      %span=github_user.location
+      .blog
+        %span 博客
+        %span=github_user.blog
 
 
-    .email
-      %span Email
-      %span=github_user.email
+      .location
+        %span 位置
+        %span=github_user.location
 
 
-    .followers
-      %span Followers
-      %span=github_user.followers
+      .email
+        %span Email
+        %span=github_user.email
 
 
-    .following
-      %span Following
-      %span=github_user.following
+      .followers
+        %span Followers
+        %span=github_user.followers
 
 
-    .bio
-      %span Bio
-      %span=github_user.bio
+      .following
+        %span Following
+        %span=github_user.following
+
+
+      .bio
+        %span Bio
+        %span=github_user.bio
 
 
 
-    .html-url
-      %span Html Url
-      %span=github_user.html_url
+      .html-url
+        %span Html Url
+        %span=github_user.html_url
 
 
-    .public-repos
-      %span Public Repos
-      %span=github_user.public_repos
+      .public-repos
+        %span Public Repos
+        %span=github_user.public_repos
 
 
-    .public-gists
-      %span Public Gists
-      %span=github_user.public_gists
+      .public-gists
+        %span Public Gists
+        %span=github_user.public_gists
 
 
-    .github-created-at
-      %span Bio
-      %span=github_user.github_created_at
+      .github-created-at
+        %span Bio
+        %span=github_user.github_created_at
 
