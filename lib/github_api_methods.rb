@@ -30,8 +30,8 @@ class GithubApiMethods
     if github_url.nil?
       return
     end
-    
-    uri = URI.parse(ARGV[0] || github_url)
+
+    uri = URI.parse(github_url)
 
     case type
     when 'user'

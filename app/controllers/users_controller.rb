@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id], :include=>[:member_info])
 
-
     github_user = GithubApiMethods.get_github_user(@user)
     @user.refresh_github_user(github_user)    
   end
