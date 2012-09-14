@@ -6,17 +6,18 @@
 
 
 .page-user-gists
-  - @gists.each do |gist|
-    .gist
-      .head
-        .id= link_to "gist: #{gist['id']}", gist['html_url'], :target => "_blank"
-        .description= gist['description']
-        .time= jtime(Time.parse(gist['updated_at']))
+  - if !@gists.blank?
+    - @gists.each do |gist|
+      .gist
+        .head
+          .id= link_to "gist: #{gist['id']}", gist['html_url'], :target => "_blank"
+          .description= gist['description']
+          .time= jtime(Time.parse(gist['updated_at']))
 
-      .content
-        :ruby
-          gist_info = GithubApiMethods.get_single_gist(gist['id'])
-          keys = gist_info['files'].keys
+        .content
+          :ruby
+            gist_info = GithubApiMethods.get_single_gist(gist['id'])
+            keys = gist_info['files'].keys
 
-        = gist_info['files'][keys[0]]['content'][0..300]
+          = gist_info['files'][keys[0]]['content'][0..300]
 
