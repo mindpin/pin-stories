@@ -28,12 +28,18 @@ MindpinAgile::Application.routes.draw do
   get '/atme/:name' => 'atme#atme'
 
   resources :users do
+    member do
+      get :github
+    end
+
     resources :issues, :controller => :user_issues do
       collection do
         get :assigned, :action => :index_assigned
       end
     end
     resources :ideas,  :controller => :user_ideas
+
+
   end
   
   # --------

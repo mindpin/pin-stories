@@ -1,0 +1,83 @@
+- htitle "#{@user.name} - 个人页"
+
+- hbreadcrumb '首页', '/'
+- hbreadcrumb @user.name, "/users/#{@user.id}"
+
+
+
+.page-user-show
+
+
+
+  - if @user.member_info.github_homepage.blank?
+    您还没有指定相应的 Github Homepage
+
+  - else
+    :ruby
+      github_user = @user.github_user
+
+    .github-user
+      .avatar= link_to(image_tag(github_user.avatar_url), github_user.html_url, :target => "_blank")
+
+      .login
+        %span 登录
+        %span=github_user.login
+
+      .name
+        %span 名称
+        %span=github_user.name
+
+      .company
+        %span 公司
+        %span=github_user.company
+
+
+      .blog
+        %span 博客
+        %span=github_user.blog
+
+
+      .location
+        %span 位置
+        %span=github_user.location
+
+
+      .email
+        %span Email
+        %span=github_user.email
+
+
+      .followers
+        %span Followers
+        %span=github_user.followers
+
+
+      .following
+        %span Following
+        %span=github_user.following
+
+
+      .bio
+        %span Bio
+        %span=github_user.bio
+
+
+
+      .html-url
+        %span Html Url
+        %span=github_user.html_url
+
+
+      .public-repos
+        %span Public Repos
+        %span=github_user.public_repos
+
+
+      .public-gists
+        %span Public Gists
+        %span=github_user.public_gists
+
+
+      .github-created-at
+        %span Bio
+        %span=github_user.github_created_at
