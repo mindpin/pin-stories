@@ -19,6 +19,10 @@ class UsersController < ApplicationController
     @user.refresh_github_user(github_user) 
   end
 
+  def gists
+    @gists = GithubApiMethods.get_user_gists(@user)
+  end
+
   def issues
   end
 

@@ -30,6 +30,7 @@ MindpinAgile::Application.routes.draw do
   resources :users do
     member do
       get :github
+      get :gists
     end
 
     resources :issues, :controller => :user_issues do

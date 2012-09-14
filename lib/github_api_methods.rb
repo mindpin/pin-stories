@@ -26,6 +26,23 @@ class GithubApiMethods
   end
 
 
+  def self.get_user_gists(user)
+    if user.member_info.github_homepage.blank?
+      return
+    end
+
+    api_uri = get_api_uri(user.member_info.github_homepage, 'gists')
+    return http_connection(api_uri)
+  end
+
+
+  def self.get_single_gist(gist_id)
+    gist_url = "https://gist.github.com/#{gist_id}"
+    api_uri = get_api_uri(gist_url, 'gist')
+    return http_connection(api_uri)
+  end
+
+
   def self.get_api_uri(github_url, type = '')
     if github_url.nil?
       return
@@ -38,6 +55,10 @@ class GithubApiMethods
        api_uri = "https://" + uri.host.gsub(/github.com/, "api.github.com/users") + uri.path
     when 'commits'
        api_uri = "https://" + uri.host.gsub(/github.com/, "api.github.com/repos") + uri.path + "/commits"
+    when 'gists'
+      api_uri = "https://" + uri.host.gsub(/github.com/, "api.github.com/users") + uri.path + "/gists"
+    when 'gist'
+      api_uri = "https://" + uri.host.gsub(/gist.github.com/, "api.github.com/gists") + uri.path
     else
        return
     end
