@@ -1,0 +1,18 @@
+=render 'work_results/parts/nav'
+
+= form_for WorkResult.new, :url => "/work_results", :html => { :multipart => true, :method => 'post' } do |f|
+  %div
+    上传图片:
+    = f.file_field :image
+  %div
+    Tags: 
+    = f.text_field :tag_list
+  %div
+    内容:
+    = f.hidden_field :kind, :value => params[:kind] unless params[:kind].nil?
+    =f.text_area :description, :rows => 3
+  %div
+    =f.submit "添加"
+
+
+

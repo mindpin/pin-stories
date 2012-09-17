@@ -163,6 +163,16 @@ MindpinAgile::Application.routes.draw do
   resources :drafts
   resources :http_apis
 
+
+
+  resources :work_results do
+    collection do
+      get :next
+      get :tag
+    end
+  end
+  get '/tags/*path' => 'tags#list_by_tag'
+
   # ----------------------
 
   # 所有类型的评论都在这里，不单独定义

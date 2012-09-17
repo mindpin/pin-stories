@@ -24,6 +24,7 @@ gem 'thinking-sphinx', '2.0.10'
 gem 'thrift_client'
 gem 'uuidtools', :require => 'uuidtools'
 gem 'will_paginate', '~> 3.0'
+gem 'acts-as-taggable-on', '~> 2.3.1'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'

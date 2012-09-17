@@ -63,4 +63,7 @@ class User < ActiveRecord::Base
 
   include HttpApi::UserMethods
   include GithubUser::UserMethods
+
+  include WorkResult::UserMethods
+  include ViewRecord::UserMethods
 end
