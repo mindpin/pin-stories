@@ -22,4 +22,4 @@ pie.load ->
             .hide().fadeIn(500)
       }
 
-    # setInterval("save_as_draft()", 30000)
+    setInterval("save_as_draft()", 30000)

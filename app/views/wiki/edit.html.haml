@@ -7,7 +7,7 @@
 - hbreadcrumb 'WIKI', "/products/#{@product.id}/wiki"
 - hbreadcrumb '编辑词条', "/products/#{@product.id}/wiki/#{@wiki_page.title}/edit"
 
-.page-edit-wiki-page
+.page-wiki-page
   = flash_info
   = form_for @wiki_page, :url => "/products/#{@product.id}/wiki/#{@wiki_page.title}", :method => 'put' do |f|
     .form-url-preview{:'data-url'=>"/products/#{@product.id}/wiki_preview"}

@@ -160,32 +160,35 @@ class WikiPage < ActiveRecord::Base
   end
 
 
-  def self.save_new_draft(current_user, drafted_hash, temp_id = nil)
-    if temp_id.nil?
-      temp_id = randstr()
-      drafted_hash[:temp_id] = temp_id
-      drafted_hash = Marshal.dump(drafted_hash)
+  def save_draft(user, _temp_id = nil)
+    temp_id = _temp_id.blank? ? randstr : _temp_id
+    
+    draft = Draft.find_or_initialize_by_temp_id(temp_id)
 
-      Draft.create(
-        :creator => current_user,
-        :temp_id => temp_id,
-        :model_type => "WikiPage",
-        :drafted_hash => drafted_hash
-      )
+    return temp_id if draft.update_attributes(
+      :creator    => user,
+      :temp_id    => temp_id,
+      :model_type => self.class.to_s,
+      :model_id   => self.id,
+      :drafted_hash => Marshal.dump({
+        :product_id  => self.product_id,
+        :title => self.title,
+        :content  => self.content
+      })
+    )
 
-    else
-      drafted_hash[:temp_id] = temp_id
-      drafted_hash = Marshal.dump(drafted_hash)
+    return false
 
-      draft = Draft.find_by_temp_id(temp_id)
-      draft.drafted_hash = drafted_hash
-      draft.save
-    end
-
-    temp_id
   end
 
 
+  def load_draft!(draft)
+    hash = draft.load_hash
+    self.title = hash[:title]
+    self.content = hash[:content]
+  end
+
+=begin
   def save_draft(current_user, drafted_hash)
     drafted_hash = Marshal.dump(drafted_hash)
 
@@ -204,6 +207,7 @@ class WikiPage < ActiveRecord::Base
     end
 
   end
+=end
 
   # --- 给其他类扩展的方法
   module WikiPageableMethods

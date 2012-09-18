@@ -90,7 +90,7 @@ MindpinAgile::Application.routes.draw do
 
   resources :stories, :only => [:show, :edit, :update, :destroy] do
     collection do
-      post :save_draft
+      post  :save_draft
       get  :mine
       get  :search_mine
     end
@@ -156,9 +156,8 @@ MindpinAgile::Application.routes.draw do
   end
 
   # # wiki  draft
-  # post '/wiki_save_new_draft' => 'wiki#save_new_draft'
-  # post '/wiki_save_draft' => 'wiki#save_draft'
-  # get '/wiki_get_draft' => 'wiki#get_draft'
+  post '/wiki_save_draft' => 'wiki#save_draft'
+  get '/wiki_get_draft' => 'wiki#get_draft'
   
   resources :drafts
   resources :http_apis

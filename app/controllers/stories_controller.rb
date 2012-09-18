@@ -36,6 +36,10 @@ class StoriesController < ApplicationController
   end
   
   def edit
+    if !params[:draft_temp_id].blank?
+      draft = Draft.find_by_temp_id(params[:draft_temp_id])
+      @story.load_draft! draft
+    end
   end
 
   def update
@@ -143,7 +147,7 @@ class StoriesController < ApplicationController
 
   def save_draft
     story = current_user.created_stories.build(params[:story])
-    story.product = Product.find(params[:product_id])
+    story.product = Product.find(params[:product_id]) if params[:product_id]
 
     temp_id = story.save_draft(current_user, params[:draft_temp_id])
 
