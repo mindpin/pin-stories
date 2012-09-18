@@ -43,8 +43,8 @@ pie.load ->
             .html("草稿保存于 #{now.getFormatValue('yyyy-MM-dd hh:mm:ss')}")
             .hide().fadeIn(500)
       }
-      
-    setInterval("save_as_draft()", 30000)
+
+    # setInterval("save_as_draft()", 30000)
   # 结束 保存草稿
 
 # 输入表单体验改进
