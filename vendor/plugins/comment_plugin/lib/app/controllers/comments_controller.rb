@@ -11,11 +11,11 @@ class CommentsController < ApplicationController
     comment.creator = current_user
 
     if comment.save
-      return render :partial =>'aj/comments', 
-                    :locals => {
-                      :model => model,
-                      :comments => [comment]
-                    }
+      return render :file => File.expand_path('../../views/aj/_comments.html.haml',__FILE__), 
+      :locals => {
+        :model => model,
+        :comments => [comment]
+      }
     end
 
     render :status => 403,
@@ -36,11 +36,10 @@ class CommentsController < ApplicationController
   def show_model_comments
     klass = params[:model_type].constantize
     model = klass.find params[:model_id]
-
-    return render :partial =>'aj/comments', 
-                  :locals => {
-                    :model => model
-                  }
+    return render :file => File.expand_path('../../views/aj/_comments.html.haml',__FILE__), 
+      :locals => {
+        :model => model
+      }
   end
 
   def received

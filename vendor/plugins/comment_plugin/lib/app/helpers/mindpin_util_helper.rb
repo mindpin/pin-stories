@@ -199,7 +199,7 @@ module MindpinUtilHelper
     end
 
     def jcomments(model)
-      render 'aj/comments', :model => model
+      render :file => File.expand_path('../../views/aj/_comments.html.haml',__FILE__), :locals => {:model => model}
     end
   end
 end

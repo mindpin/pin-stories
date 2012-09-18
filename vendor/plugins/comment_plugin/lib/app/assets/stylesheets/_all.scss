@@ -1,0 +1,16 @@
+// basic css，don't change
+// -----------------
+@import 'base/mixins';
+@import 'base/reset';
+@import 'base/typography';
+
+// page-doms, edit it if you need
+// ------------------
+@import 'mindpin-scss/form';
+@import 'mindpin-scss/button';
+@import 'mindpin-scss/image';
+@import 'mindpin-scss/search';
+@import 'mindpin-scss/comment';
+@import 'mindpin-scss/breadcrumb';
+@import 'mindpin-scss/overlay';
+@import 'mindpin-scss/coderay';
