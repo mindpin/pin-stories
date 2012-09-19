@@ -29,5 +29,8 @@ rails generate comment_plugin:migration
 @import 'all';
 ```
 
-
+5 在需要增加评论功能的模型上增加声明
+```
+  include Comment::CommentableMethods
+```
 Copyright (c) 2012 [name of plugin creator], released under the MIT license
