@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_filter :login_required
+
+  layout false
   
   def create
     klass = params[:model_type].constantize

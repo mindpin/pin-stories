@@ -5,7 +5,7 @@ gem 'mysql2'
 
 gem 'json'
 gem 'therubyracer'
-gem 'jquery-rails'
+gem 'jquery-rails', '2.0.3'
 
 gem 'audited-activerecord'
 gem 'coderay'
