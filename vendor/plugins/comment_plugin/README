@@ -1,13 +1,33 @@
 CommentPlugin
 =============
-
-Introduction goes here.
+这是一个通用的评论组件
 
 
 Example
 =======
 
-Example goes here.
+1 创建 需要的数据库表的 migration
+rails generate comment_plugin:migration
+
+
+2 rake db:migrate
+
+
+3 增加 路由配置到 config/routes.rb
+```
+  resources :comments do
+    collection do
+      get :show_model_comments
+      get :received # 我收到的评论
+    end
+  end
+```
+
+
+4 增加 scss 引入到 app/assets/stylesheets/application.scss
+```
+@import 'all';
+```
 
 
 Copyright (c) 2012 [name of plugin creator], released under the MIT license
