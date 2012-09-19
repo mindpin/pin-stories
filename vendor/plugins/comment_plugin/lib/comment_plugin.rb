@@ -9,4 +9,5 @@ end
 ActionView::Base.send :include, MindpinUtilHelper
 
 Rails.application.class.config.assets.paths << File.expand_path("../app/assets/stylesheets",__FILE__)
+Rails.application.class.config.assets.paths << File.expand_path("../app/assets/javascripts",__FILE__)
 

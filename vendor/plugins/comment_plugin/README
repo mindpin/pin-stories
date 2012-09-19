@@ -33,4 +33,12 @@ rails generate comment_plugin:migration
 ```
   include Comment::CommentableMethods
 ```
+
+6 comment_plugin/lib/app/assets/javascripts 下边放置了一些JS,
+这个目录已经加入 Rails.application.class.config.assets.paths,
+默认情况下 RAILS.root/app/assets/javascripts/application.js
+的 "//= require_tree ." 会加载这些 js,
+如果想要调整加载顺序，就只能显视的声明比如  "//= require pie-lib/pie-base"
+就会加载 comment_plugin/lib/app/assets/javascripts/pie-lib/pie-base.js
+
 Copyright (c) 2012 [name of plugin creator], released under the MIT license
