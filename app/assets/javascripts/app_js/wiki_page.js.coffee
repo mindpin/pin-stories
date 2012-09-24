@@ -20,6 +20,33 @@ pie.load ->
   bind_preview(jQuery('.page-new-wiki-page form'))
   bind_preview(jQuery('.page-edit-wiki-page form'))
 
+  # 保存草稿
+  $form = jQuery('.page-new-wiki-page form')
+  if $form.exists()
+    $save_draft_button = $form.find('a.save-draft')
+
+    $save_draft_button.bind 'click', ->
+      save_as_draft()
+
+    save_as_draft = ->
+      params = $form.serialize()
+
+      jQuery.ajax {
+        type: 'POST',
+        url: "/wiki_save_draft",
+        data: params,
+        success: (res)->
+          console.log(res)
+          $form.find('input[name=draft_temp_id]').val(res)
+          now = new Date()
+          $form.find('.draft-status-notice')
+            .html("草稿保存于 #{now.getFormatValue('yyyy-MM-dd hh:mm:ss')}")
+            .hide().fadeIn(500)
+      }
+
+    # setInterval("save_as_draft()", 30000)
+  # 结束 保存草稿
+
 # 输入表单体验改进
 pie.load ->
   FOCUS = false
@@ -57,3 +84,4 @@ pie.load ->
 
     .live 'blur', ->
       FOCUS = false
+

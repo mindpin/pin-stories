@@ -116,7 +116,7 @@ class Oss
 
   private
   def get_head_hash(method,path,option={})
-    date = Time.now.gmtime.strftime('%a, %d %b %Y %H:%M:%S %Z')
+    date = Time.now.gmtime.strftime('%a, %d %b %Y %H:%M:%S GMT')
     oss_sign = ali_oss_sign(method, date, path,option)
     hash = {'Authorization'=>"OSS #{@access_key_id}:#{oss_sign}",'Date'=>date}
     unless option[:header].blank?

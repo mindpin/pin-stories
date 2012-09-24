@@ -79,6 +79,7 @@ class Issue < ActiveRecord::Base
 
   # 引用其它类
   include Comment::CommentableMethods
+  include ModelAttach::ModelAttachableMethods
   include Activity::ActivityableMethods
   include UserAssign::AssignableMethods
 end

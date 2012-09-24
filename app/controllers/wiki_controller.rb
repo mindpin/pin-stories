@@ -23,6 +23,11 @@ class WikiController < ApplicationController
   def new
     title = params[:title] || ''
     @wiki_page = WikiPage.new :title=>title
+
+    if !params[:draft_temp_id].blank?
+      draft = Draft.find_by_temp_id(params[:draft_temp_id])
+      @wiki_page.load_draft! draft
+    end
   end
   
   def create
@@ -56,6 +61,10 @@ class WikiController < ApplicationController
   end
 
   def edit
+    if !params[:draft_temp_id].blank?
+      draft = Draft.find_by_temp_id(params[:draft_temp_id])
+      @wiki_page.load_draft! draft
+    end
   end
   
   def update
@@ -136,31 +145,16 @@ class WikiController < ApplicationController
   end
 
 
-
-  def save_new_draft
-    drafted_hash = {:title => params[:title], :content => params[:content], :product_id => params[:product_id]}
-    temp_id = params[:temp_id] unless params[:temp_id].nil?
-
-    temp_id = WikiPage.save_new_draft(current_user, drafted_hash, temp_id)
-
-    render :text => temp_id
-  end
-
-
   def save_draft
-    wiki_id = params[:wiki_id]
-    @wiki_page = WikiPage.find(wiki_id)
+    wiki_page = current_user.wiki_pages.build(params[:wiki_page])
+    wiki_page.product = Product.find(params[:product_id]) if params[:product_id]
 
-    drafted_hash = {
-      :title => params[:title],
-      :content => params[:content], 
-      :product_id => @wiki_page.product_id
-    }
+    temp_id = wiki_page.save_draft(current_user, params[:draft_temp_id])
 
-    @wiki_page.save_draft(current_user, drafted_hash)
-
-    render :nothing => true
+    return render :text => temp_id if temp_id
+    return render :status => 403, :text => '草稿保存失败'
   end
+
 
 
 

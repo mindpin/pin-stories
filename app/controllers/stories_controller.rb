@@ -36,10 +36,17 @@ class StoriesController < ApplicationController
   end
   
   def edit
+    if !params[:draft_temp_id].blank?
+      draft = Draft.find_by_temp_id(params[:draft_temp_id])
+      @story.load_draft! draft
+    end
   end
 
   def update
     if @story.update_attributes(params[:story])
+
+      @story.model_attaches.create(params[:model_attach])
+
       redirect_to @story, :notice => '故事信息被修改了'
     else
       render :text=>@story.errors.to_json
@@ -143,12 +150,20 @@ class StoriesController < ApplicationController
 
   def save_draft
     story = current_user.created_stories.build(params[:story])
-    story.product = Product.find(params[:product_id])
+    story.product = Product.find(params[:product_id]) if params[:product_id]
 
     temp_id = story.save_draft(current_user, params[:draft_temp_id])
 
     return render :text => temp_id if temp_id
     return render :status => 403, :text => '草稿保存失败'
+  end
+
+
+  def remove_attach
+    return if params[:attach_id].nil?
+    ModelAttach.find(params[:attach_id]).destroy
+
+    redirect_to :back
   end
 
 end

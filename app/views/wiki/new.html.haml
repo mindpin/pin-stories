@@ -21,6 +21,12 @@
     .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 保存
       %a.form-preview.form-button{:href=>'javascript:;'} 预览
+      %a.form-button.save-draft{:href=>'javascript:;'} 保存草稿
       %a.form-cancel-button{:href=>"javascript:history.go(-1);"} 取消
+
+    .draft-status-notice
+    .field.draft.hide
+      %input{:name=>:draft_temp_id, :type=>'hidden', :value=>params[:draft_temp_id]}
+      %input{:name=>:product_id, :type=>'hidden', :value=>@product.id}
 
     .preview_result

@@ -17,6 +17,11 @@
       %span 提交于
       %span= jtime issue.created_at
 
+    .images
+      - if !issue.model_attaches.blank?
+        - issue.model_attaches.each do |attach|
+          = image_tag attach.image.url(:normal)
+
   - if issue.closed?
     .state-change.closed
       .state Closed

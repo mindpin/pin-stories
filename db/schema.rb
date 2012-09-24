@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917060251) do
+ActiveRecord::Schema.define(:version => 20120924022835) do
 
   create_table "activities", :force => true do |t|
     t.integer  "product_id"
@@ -216,6 +216,17 @@ ActiveRecord::Schema.define(:version => 20120917060251) do
     t.integer  "creator_id"
     t.string   "name"
     t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "model_attaches", :force => true do |t|
+    t.integer  "model_id"
+    t.string   "model_type"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -6,7 +6,7 @@
 
 .page-edit-story
   = flash_info
-  = form_for @story do |f|
+  = form_for @story, :html => { :multipart => true, :method => 'put' } do |f|
     .field.how-to-demo.need
       %label 如何演示？(HOW TO DEMO)
       =f.text_area :how_to_demo
@@ -22,9 +22,32 @@
       =f.select :github_project_id, options_for_select(@story.product.github_projects.collect {|github| [github.url, github.id]}, @story.github_project_id)
 
 
+    .field.images
+      - if !@story.model_attaches.blank?
+        - @story.model_attaches.each do |attach|
+          = image_tag attach.image.url(:normal)
+          = link_to "删除", "/stories/#{attach.id}/remove_attach", :method => :delete
+
+    .field.items
+      .item-head
+        .f.name 图片
+      .item-list
+        .item
+          .f.name
+            %input{:type=>'file', :name=>'story[model_attaches_attributes][][image]'}
+          
+          .f.ops
+            %a.delete-story-attach{:href=>'javascript:;'} 减少一项
+            
+      %a.add-story-attach{:href=>'javascript:;'} 增加一项
+
+
     .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 确定
+      %a.form-button.save-draft{:href=>'javascript:;'} 保存草稿
       %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消
+
+    .draft-status-notice
 
     /   %a.form-button.save-draft{:href=>'javascript:;'} 保存草稿
     /   .draft-status-notice

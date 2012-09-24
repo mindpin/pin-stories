@@ -11,7 +11,7 @@ pie.load ->
 
       jQuery.ajax {
         type: 'POST',
-        url: "/stories/save_new_draft",
+        url: "/stories/save_draft",
         data: params,
         success: (res)->
           console.log(res)

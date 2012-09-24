@@ -18,6 +18,11 @@ class DraftsController < ApplicationController
       # return redirect_to "/stories/#{story_id}/edit?temp_id=#{draft.temp_id}"
 
     when 'WikiPage'
+      product_id = hash[:product_id]
+      wiki_page_id = draft.model_id
+
+      return redirect_to "/products/#{product_id}/wiki_new?draft_temp_id=#{draft.temp_id}" if wiki_page_id.blank?
+
       # product_id = hash[:product_id]
       # title      = hash[:title]
       # wiki_page_id = draft.model_id
