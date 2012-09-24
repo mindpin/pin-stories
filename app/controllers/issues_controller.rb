@@ -55,6 +55,9 @@ class IssuesController < ApplicationController
 
   def update
     @issue.update_attributes(params[:issue])
+
+    @issue.model_attaches.create(params[:model_attach])
+ 
     redirect_to "/issues/#{@issue.id}"
   end
 
@@ -118,6 +121,14 @@ class IssuesController < ApplicationController
   def change_state
     @issue.update_attributes(:state => params[:state])
     render :partial => '/issues/aj/show_state', :locals => {:issue => @issue}
+  end
+
+
+  def remove_attach
+    return if params[:attach_id].nil?
+    ModelAttach.find(params[:attach_id]).destroy
+
+    redirect_to :back
   end
 
 

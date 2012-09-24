@@ -88,6 +88,8 @@ MindpinAgile::Application.routes.draw do
     end
   end
 
+  delete '/issues/:attach_id/remove_attach' => 'issues#remove_attach'
+
   resources :stories, :only => [:show, :edit, :update, :destroy] do
     collection do
       post  :save_draft

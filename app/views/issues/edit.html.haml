@@ -11,10 +11,31 @@
 
 .page-new-issue
   =flash_info
-  =form_for [@product, @issue] do |f|
+  =form_for [@product, @issue], :html => { :multipart => true, :method => 'put' } do |f|
     .field.content.need
       %label 请在下面填写你的问题或建议描述
       =f.text_area :content
+
+    .field.images
+      - if !@issue.model_attaches.blank?
+        - @issue.model_attaches.each do |attach|
+          = image_tag attach.image.url(:normal)
+          = link_to "删除", "/issues/#{attach.id}/remove_attach", :method => :delete
+
+    .field.items
+      .item-head
+        .f.name 图片
+      .item-list
+        .item
+          .f.name
+            %input{:type=>'file', :name=>'model_attach[][image]'}
+          
+          .f.ops
+            %a.delete-issue-attach{:href=>'javascript:;'} 减少一项
+            
+      %a.add-issue-attach{:href=>'javascript:;'} 增加一项
+
+
     .field.submit
       %a.form-submit-button{:href=>'javascript:;'} 确定
       %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消

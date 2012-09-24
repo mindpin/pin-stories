@@ -28,6 +28,7 @@ class Story < ActiveRecord::Base
   has_many :ideas, :foreign_key => :source_story_id
 
 
+
   # 记录历史版本
   # 暂时不使用 attr_accessible 保护，因此加上 :allow_mass_assignment => true 声明
   audited :only => [:how_to_demo, :tips, :time_estimate], :allow_mass_assignment => true
@@ -207,6 +208,7 @@ class Story < ActiveRecord::Base
 
   # 引用其它类
   include Comment::CommentableMethods
+  include ModelAttach::ModelAttachableMethods
   include Activity::ActivityableMethods
   include WikiPage::WikiPageableMethods
   include UserAssign::AssignableMethods

@@ -39,6 +39,20 @@
         =f.select :github_project_id, options_for_select(@product.github_projects.map {|github| [github.url, github.id]})
 
 
+      .field.items
+      .item-head
+        .f.name 图片
+      .item-list
+        .item
+          .f.name
+            %input{:type=>'file', :name=>'issue[model_attaches_attributes][][image]'}
+          
+          .f.ops
+            %a.delete-issue-attach{:href=>'javascript:;'} 减少一项
+            
+      %a.add-issue-attach{:href=>'javascript:;'} 增加一项
+
+
       .field.submit
         %a.form-submit-button{:href=>'javascript:;'} 确定
         %a.form-cancel-button{:href=>'javascript:history.go(-1);'} 取消
