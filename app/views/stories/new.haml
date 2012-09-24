@@ -15,7 +15,7 @@
     = link_to '返回', product_show_url
   -else
     = flash_info
-    = form_for @story, :url=>"/products/#{@product.id}/stories" do |f|
+    = form_for @story, :url=>"/products/#{@product.id}/stories", :html => { :multipart => true, :method => 'post' } do |f|
       = f.hidden_field :source_idea_id, :value => params[:source_idea_id]
 
       .field.how-to-demo.need
@@ -40,17 +40,17 @@
 
 
       .field.items
-      .item-head
-        .f.name 图片
-      .item-list
-        .item
-          .f.name
-            %input{:type=>'file', :name=>'issue[model_attaches_attributes][][image]'}
-          
-          .f.ops
-            %a.delete-issue-attach{:href=>'javascript:;'} 减少一项
+        .item-head
+          .f.name 图片
+        .item-list
+          .item
+            .f.name
+              %input{:type=>'file', :name=>'story[model_attaches_attributes][][image]'}
             
-      %a.add-issue-attach{:href=>'javascript:;'} 增加一项
+            .f.ops
+              %a.delete-story-attach{:href=>'javascript:;'} 减少一项
+              
+        %a.add-story-attach{:href=>'javascript:;'} 增加一项
 
 
       .field.submit

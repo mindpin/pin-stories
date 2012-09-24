@@ -39,6 +39,12 @@
       .t 提示和备注 - TIPs
       .ct=format_ct story, :tips
 
+
+  .images
+    - if !@story.model_attaches.blank?
+      - @story.model_attaches.each do |attach|
+        = image_tag attach.image.url(:normal)
+
   = render 'ideas/parts/story_ideas', :story => @story
   = render 'stories/aj/show_status', :story=>@story
 

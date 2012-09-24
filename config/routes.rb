@@ -109,6 +109,7 @@ MindpinAgile::Application.routes.draw do
       put 'rollback/:version', :action => :rollback
     end
   end
+  delete '/stories/:attach_id/remove_attach' => 'stories#remove_attach'
 
   resources :ideas do
     collection do

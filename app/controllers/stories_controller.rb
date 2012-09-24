@@ -44,6 +44,9 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update_attributes(params[:story])
+
+      @story.model_attaches.create(params[:model_attach])
+
       redirect_to @story, :notice => '故事信息被修改了'
     else
       render :text=>@story.errors.to_json
@@ -153,6 +156,14 @@ class StoriesController < ApplicationController
 
     return render :text => temp_id if temp_id
     return render :status => 403, :text => '草稿保存失败'
+  end
+
+
+  def remove_attach
+    return if params[:attach_id].nil?
+    ModelAttach.find(params[:attach_id]).destroy
+
+    redirect_to :back
   end
 
 end
