@@ -1,4 +1,4 @@
 //= require jquery
 //= require jquery_ujs
-//= require pie-lib/pie-base
+//= require comment_plugin.js
 //= require_tree .
