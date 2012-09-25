@@ -26,9 +26,10 @@
       = link_to "已经保存到wiki", "/products/#{@story.product.id}/wiki/#{referenced_title_by_wiki(@story)}"
     - else
       = link_to '保存到Wiki', "/stories/#{@story.id}/save_to_wiki", :confirm => "是否确定保存"
-
-  .github
-    .t= link_to "查看 Github", @story.github_project.url, :target => "_blank"
+  
+  - if !@story.github_project.blank?
+    .github
+      .t= link_to "查看 Github", @story.github_project.url, :target => "_blank"
 
   .how-to-demo
     .t 如何演示 - HOW TO DEMO
