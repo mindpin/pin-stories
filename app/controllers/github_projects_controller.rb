@@ -11,14 +11,15 @@ class GithubProjectsController < ApplicationController
     @github_projects = GithubProject.paginate(:page => params[:page], :per_page => 20)
   end
 
-
   def show
-    @last_sha, @first_sha = '', ''
-    @last_sha = "?last_sha=" + params['last_sha'] if params['last_sha']
-    @first_sha = "?first_sha=" + params['first_sha'] if params['first_sha']
+    @last_sha = params['last_sha']
+  end
 
+  def aj_show
+    @last_sha = ''
+    @last_sha = "?last_sha=" + params['last_sha'] if !params['last_sha'].blank?
 
-    @commits = GithubApiMethods.get_github_project(@github_project.url, @last_sha + @first_sha)
+    @commits = GithubApiMethods.get_github_project(@github_project.url, @last_sha)
     @commits_by_time = @commits.group_by {|commit| commit['commit']['author']['date'][0..9] }
 
 
@@ -26,6 +27,14 @@ class GithubProjectsController < ApplicationController
     api_uri = GithubApiMethods.get_api_uri(@github_project.url, 'commits')
     @next_sha = "?last_sha=#{@commits[@commits.length - 1]['sha']}"
     @next_commits = GithubApiMethods.http_connection(api_uri, @next_sha)
+    render :partial=>'/github_projects/aj/show',:locals=>{
+      :github_project => @github_project,
+      :last_sha => @last_sha,
+      :all_commits => @commits,
+      :next_sha => @next_sha,
+      :next_commits => @next_commits,
+      :commits_by_time => @commits_by_time
+    }
   end
 
   def next_page

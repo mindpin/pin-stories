@@ -69,6 +69,7 @@ MindpinAgile::Application.routes.draw do
     member do
       get :next_page
       get :prev_page
+      get :aj_show
     end
   end
 

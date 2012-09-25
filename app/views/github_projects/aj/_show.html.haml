@@ -1,0 +1,28 @@
+.page-github
+  - commits_by_time.each do |group_time, commits|
+    .head
+      = group_time
+
+    - commits.each do |commit|
+      :ruby
+        commit_url = commit['parents'][0]['url'].gsub(/api./, '').gsub(/repos\//, '').gsub(/commits/, 'commit')
+      .commit-items
+        .field
+          .avatar{:style => "width: 50px; height: 50px;"}
+            - if !commit['author'].nil?
+              = link_to(image_tag(commit['author']['avatar_url'], :style=>"width: 50px; height: 50px;"), "")
+          .title
+            = link_to commit['commit']['message'], commit_url, :target => '_blank'
+          .author
+            = commit['commit']['name']
+          .time
+            = jtime(Time.parse(commit['commit']['author']['date']))
+
+  .page-nav
+    - if !last_sha.blank?
+      .next
+        %a{:href => "/github_projects/#{github_project.id}?first_sha=#{all_commits[0]['sha']}"} 上一页
+
+    - if !next_commits.blank?
+      .next
+        %a{:href => "/github_projects/#{github_project.id}#{next_sha}"} 下一页
