@@ -20,7 +20,7 @@
       - if !@issue.model_attaches.blank?
         - @issue.model_attaches.each do |attach|
           = image_tag attach.image.url(:normal)
-          = link_to "删除", "/issues/#{attach.id}/remove_attach", :method => :delete
+          = link_to "删除", "/model_attaches/#{attach.id}", :method => :delete
 
     .field.items
       .item-head

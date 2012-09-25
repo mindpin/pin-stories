@@ -88,8 +88,6 @@ MindpinAgile::Application.routes.draw do
     end
   end
 
-  delete '/issues/:attach_id/remove_attach' => 'issues#remove_attach'
-
   resources :stories, :only => [:show, :edit, :update, :destroy] do
     collection do
       post  :save_draft
@@ -109,7 +107,6 @@ MindpinAgile::Application.routes.draw do
       put 'rollback/:version', :action => :rollback
     end
   end
-  delete '/stories/:attach_id/remove_attach' => 'stories#remove_attach'
 
   resources :ideas do
     collection do
@@ -197,4 +194,5 @@ MindpinAgile::Application.routes.draw do
   # 检查各种统计
   get '/check_tip_messages' => 'index#check_tip_messages'
   
+  resources :model_attaches
 end
