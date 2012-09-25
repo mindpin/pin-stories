@@ -5,6 +5,7 @@ pie.load ->
   return if !$load.exists()
 
   last_sha = $github_page.data('last_sha')
+  first_sha = $github_page.data('first_sha')
   github_project_id = $github_page.data('github_project_id')
 
   jQuery.ajax
@@ -12,6 +13,7 @@ pie.load ->
     url: "/github_projects/#{github_project_id}/aj_show"
     data:
       last_sha : last_sha
+      first_sha : first_sha
     success: (res)->
       $new = jQuery(res)
       $github_page.before($new).remove()      

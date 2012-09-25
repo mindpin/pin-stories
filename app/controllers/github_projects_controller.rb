@@ -13,13 +13,17 @@ class GithubProjectsController < ApplicationController
 
   def show
     @last_sha = params['last_sha']
+    @first_sha = params['first_sha']
   end
 
   def aj_show
     @last_sha = ''
-    @last_sha = "?last_sha=" + params['last_sha'] if !params['last_sha'].blank?
+    @last_sha = "?last_sha=" + params[:last_sha] if !params[:last_sha].blank?
 
-    @commits = GithubApiMethods.get_github_project(@github_project.url, @last_sha)
+    @first_sha = ''
+    @first_sha = "?first_sha=" + params[:first_sha] if !params[:first_sha].blank?
+
+    @commits = GithubApiMethods.get_github_project(@github_project.url, @last_sha + @first_sha)
     @commits_by_time = @commits.group_by {|commit| commit['commit']['author']['date'][0..9] }
 
 
@@ -30,6 +34,7 @@ class GithubProjectsController < ApplicationController
     render :partial=>'/github_projects/aj/show',:locals=>{
       :github_project => @github_project,
       :last_sha => @last_sha,
+      :first_sha => @first_sha,
       :all_commits => @commits,
       :next_sha => @next_sha,
       :next_commits => @next_commits,

@@ -4,5 +4,5 @@
 - hbreadcrumb 'Github', "/github_projects/#{@github_project.id}"
 
 
-.page-github{:data => {:github_project_id=>params[:id],:last_sha=>params[:last_sha]||''}}
+.page-github{:data => {:github_project_id=>params[:id],:last_sha=>params[:last_sha]||'',:first_sha=>params[:first_sha]||''}}
   .load 正在载入...
